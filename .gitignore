@@ -1,0 +1,6 @@
+*.synctex.*
+*.aux
+*.lof
+*.log
+*.toc
+help_*

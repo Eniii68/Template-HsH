@@ -6,6 +6,7 @@
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[T1]{fontenc}
 \RequirePackage{lmodern}
+\RequirePackage[a4paper,left=3cm,right=2.5cm,top=3cm,bottom=3cm]{geometry}
 \RequirePackage{graphicx}
 \RequirePackage{babel}
 
@@ -23,22 +24,25 @@
 \LoadClass[bibliography=totoc,listof=totoc]{scrreprt}
 
 
-\makeatletter
 \renewcommand\maketitle{
-    \newpage
-    \thispagestyle{empty}
-    \begin{center}
-        \vspace*{\fill}
-            \LARGE{
-                Projekt Bericht:\\
-                \textbf{\@title}
-            }\\
-            \vspace{1cm}
-            von \@author
+	\newpage
+	\null
+	\thispagestyle{empty}
+	\vspace{-1.5cm}
 
-        \vfill
-    \end{center}
-    \vspace{10cm}
-    \clearpage
+	\hfill\includegraphics[width=6cm]{img/HSH-Logo-Fak1}
+	\rule{\textwidth}{0.5pt}
+
+	\begin{center}
+		\Large
+		\vspace*{\fill}
+		{\Huge\textbf{\@title}}\\
+		\vspace{1cm}
+		von \@author\\
+
+		\vfill
+		\vspace{10cm}
+		\@date
+	\end{center}
+	\clearpage
 }
-\makeatother
