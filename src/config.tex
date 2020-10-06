@@ -1,0 +1,20 @@
+\@ifpackageloaded{siunitx}{
+	\sisetup{
+		free-standing-units,
+		tight-spacing=true,
+		per-mode=symbol,
+		output-decimal-marker={,},
+		scientific-notation=engineering,
+		round-mode = places,
+		round-precision = 3,
+	}
+}{}%
+\@ifpackageloaded{listings}{
+	\lstset{
+		commentstyle=\color{gray},
+		keywordstyle=\color{red},
+		stringstyle=\color{blue},
+		showstringspaces=false,
+		basicstyle=\footnotesize,
+	}
+}{}%
