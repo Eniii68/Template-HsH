@@ -10,6 +10,8 @@
 \RequirePackage[T1]{fontenc}
 \RequirePackage{lmodern}
 \RequirePackage{graphicx}
+\RequirePackage{hyperref}
+\RequirePackage{bookmark}
 
 \PassOptionsToPackage{left=3cm,right=2.5cm,top=3cm,bottom=3cm}{geometry}
 
@@ -96,6 +98,19 @@
 		{\footnotesize\makeatletter\@author}
 	\end{flushright}
 	\newpage
+}
+
+
+\renewenvironment{abstract}{%
+	\renewcommand\abstractname{Abstract}
+
+	%\addchap*{\centering\abstractname}
+	\chapter*{\centering\abstractname}
+	\addcontentsline{toc}{chapter}{\abstractname}
+    \small
+    \quotation
+}{%
+	\endquotation
 }
 
 \AtBeginDocument {
