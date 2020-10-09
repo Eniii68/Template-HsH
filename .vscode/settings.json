@@ -1,4 +1,5 @@
 {
+    "latex-workshop.latex.outDir": "%DIR%/build",
     "latex-workshop.latex.tools": [
         {
             "name": "pdflatex",
@@ -7,10 +8,11 @@
                 "-synctex=1",
                 "-interaction=nonstopmode",
                 "-file-line-error",
+                "--output-directory=build",
                 "%DOC%"
             ],
             "env": {
-                "TEXINPUTS": "%DIR%//src"
+                "TEXINPUTS": "%DIR%/src"
             }
         }
     ]
