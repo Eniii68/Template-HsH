@@ -99,26 +99,39 @@
 	\vspace*{\fill}
 	{\rule{\textwidth}{0.1pt}}
 	\vspace{0.5cm}
+
+	\newcommand{\tempA}{ich}
+	\newcommand{\tempB}{}
+	\foreach \x [count=\i] in \@author{
+		\ifnum\i>1
+			\gdef\tempA{wir}
+			\gdef\tempB{n}
+		\else\fi
+	}
 	\begin{center}
 		\huge \textbf{Versicherung}\\
 		\Large über selbstständiges Erarbeiten dieses  Berichtes\\
 	\end{center}
 	\vspace{1cm}\normalsize
-	Hiermit bestätige ich, dass ich die folgende Arbeit unter Berücksichtigung der zur Verfügung
+	Hiermit bestätige\tempB\space\tempA, dass \tempA\space die folgende Arbeit unter Berücksichtigung der zur Verfügung
 	gestellten Aufgabenstellung sowie dem Arbeitsmaterial unter Angabe aller verwendeten Quel-len
-	selbstständig erarbeitet habe.\\
+	selbstständig erarbeitet habe\tempB.\\
 	\vspace{1cm}
 	\begin{flushright}
-		\begin{tabular}[t]{r}
-			\rule{4cm}{0.4pt} \\
-			{\footnotesize\makeatletter\@author}
-		\end{tabular}
+		\foreach \x [count=\i] in \@author{
+			\begin{tabular}[t]{r}
+				\rule{4cm}{0.4pt} \\
+				{\footnotesize\x}
+			\end{tabular}
+		}
 	\end{flushright}
+
+
+
 }
 
 \renewenvironment{abstract}{%
 	\chapter*{\centering\abstractname}
-	\thispagestyle{plain}
 	\addcontentsline{toc}{chapter}{\abstractname}
 		\small
 		\quotation
