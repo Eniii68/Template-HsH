@@ -88,6 +88,7 @@
 \newcommand\normalsubscripts{\catcode`\_=8 } % the toggle for italic subscripts
 \upsubscripts % setting upright as default
 
+% do stuff
 \setlength\parindent{0pt} % indentation of new paragraphs
 \raggedbottom
 \renewcommand{\fps@figure}{h!t} % positioning of figures
@@ -114,20 +115,17 @@
 	\end{center}
 	\vspace{1cm}\normalsize
 	Hiermit bestätige\tempB\space\tempA, dass \tempA\space die folgende Arbeit unter Berücksichtigung der zur Verfügung
-	gestellten Aufgabenstellung sowie dem Arbeitsmaterial unter Angabe aller verwendeten Quel-len
+	gestellten Aufgabenstellung sowie dem Arbeitsmaterial unter Angabe aller verwendeten Quellen
 	selbstständig erarbeitet habe\tempB.\\
-	\vspace{1cm}
 	\begin{flushright}
 		\foreach \x [count=\i] in \@author{
+			\vspace{1cm}
 			\begin{tabular}[t]{r}
 				\rule{4cm}{0.4pt} \\
 				{\footnotesize\x}
 			\end{tabular}
 		}
 	\end{flushright}
-
-
-
 }
 
 \renewenvironment{abstract}{%
