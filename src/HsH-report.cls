@@ -65,6 +65,7 @@
 \RequirePackage{scrhack} % compatability with listings
 \RequirePackage{pgffor} % foreach loops
 
+% should these be in?
 \RequirePackage{subfigure}
 \RequirePackage{pdfpages}
 \RequirePackage{hyperref}
