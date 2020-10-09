@@ -72,7 +72,6 @@
 \RequirePackage{bookmark}
 \RequirePackage{csquotes}
 
-
  % config for header and footer
 \pagestyle{scrheadings}
 \renewcommand{\chapterpagestyle}{scrheadings} % Kapitelanfang standart Kopf/Fußzeile
