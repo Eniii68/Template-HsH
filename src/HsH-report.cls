@@ -74,11 +74,12 @@
 
  % config for header and footer
 \pagestyle{scrheadings}
+\clearpairofpagestyles
 \renewcommand{\chapterpagestyle}{scrheadings} % Kapitelanfang standart Kopf/Fußzeile
-\automark{chapter}
+\automark{section}
 \ohead{\headmark}
 \ihead{\@title}
-\ofoot{\pagemark}
+\ofoot*{\pagemark}
 
 % typesetting indexes upright or standart
 \def\subinrm#1{\sb{\textnormal{#1}}}
