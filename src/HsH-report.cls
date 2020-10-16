@@ -409,3 +409,54 @@
 	\fi
 	\global\let\and\relax
 }%
+
+\renewcommand*{\@maketitle}{%
+	\global\@topnum=\z@
+	\setparsizes{\z@}{\z@}{\z@\@plus 1fil}\par@updaterelative
+	% Customised: -----------------------------------------------------------
+	\IfFileExists{\HsHlogoPath}{}{
+		\ClassError{\myClassName}{HsH-Logo.pdf not found!}{
+			The HsH Logo is necasary for the titlepage! Try putting it next to your source file or use \HsHlogoPath to define the file location
+		}
+	}
+	\vspace*{1cm}
+	\begin{minipage}[t]{\textwidth}%
+		\ifx\@titlehead\@empty \else
+			\usekomafont{titlehead}{\@titlehead}%
+		\fi
+		\hfill
+		\includeHsHlogohere
+	\end{minipage}
+	\raisebox{10pt}{\rule{\textwidth}{0.5pt}}
+	% end Customised: --------------------------------------------------------
+	\null
+	\vskip 2em%
+	\begin{center}%
+		\ifx\@subject\@empty \else
+		{\usekomafont{subject}{\@subject \par}}%
+		\vskip 1.5em
+		\fi
+		{\usekomafont{title}{\huge \@title \par}}%
+		\vskip .5em
+		{\ifx\@subtitle\@empty\else\usekomafont{subtitle}\@subtitle\par\fi}%
+		\vskip 1em
+		{%
+		\usekomafont{author}{%
+			\lineskip .5em%
+			\begin{tabular}[t]{c}
+			\@author
+			\end{tabular}\par
+		}%
+		}%
+		\vskip 1em%
+		{\usekomafont{date}{\@date \par}}%
+		\vskip \z@ \@plus 1em
+		{\usekomafont{publishers}{\@publishers \par}}%
+		\ifx\@dedication\@empty \else
+		\vskip 2em
+		{\usekomafont{dedication}{\@dedication \par}}%
+		\fi
+	\end{center}%
+	\par
+	\vskip 2em
+}%
