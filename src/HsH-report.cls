@@ -49,7 +49,7 @@
 	\ClassInfo{\myClassName}{no personal.tex! Configre the titlepage yourselfe}
 }
 
-% recomendet options for packages
+% enforced options for packages
 \PassOptionsToPackage{utf8}{inputenc}
 \PassOptionsToPackage{T1}{fontenc}
 \PassOptionsToPackage{left=3cm,right=2.5cm,top=3cm,bottom=3cm}{geometry}
@@ -80,8 +80,8 @@
  % config for header and footer
 \pagestyle{scrheadings}
 \clearpairofpagestyles
-\renewcommand{\chapterpagestyle}{scrheadings} % Kapitelanfang standart Kopf/Fußzeile
-\automark{section}
+\renewcommand*{\chapterpagestyle}{scrheadings} % Kapitelanfang standart Kopf/Fußzeile
+\automark{chapter}
 \ohead{\headmark}
 \ihead{\@title}
 \ofoot*{\pagemark}
