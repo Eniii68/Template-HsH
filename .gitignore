@@ -1,0 +1,7 @@
+*.synctex.*
+*.aux
+*.lof
+*.log
+*.toc
+build/
+img/logos-fakultäten.svg

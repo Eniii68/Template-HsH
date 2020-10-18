@@ -1,0 +1,39 @@
+\documentclass[11pt,a4paper,twoside,f1,ngerman]{HsH-report}
+
+\usepackage{color}
+\usepackage{lipsum}
+\usepackage{siunitx}
+
+\begin{document}
+
+\pagenumbering{Roman}
+\maketitle
+\declarationAuthorship
+
+\begin{abstract}
+	\lipsum[5-8]
+\end{abstract}
+
+\tableofcontents
+
+\cleardoublepage % unbedingt erforderlich bei Doppelseitigem layout vor neuer Seitennummerreirung!
+\pagenumbering{arabic} % Seitennummerierung normale zahlen
+
+\chapter{one}
+	\label{chap: one}
+	{\color{red}test} und stuff
+	\begin{figure}
+		\centering
+		\includegraphics[width=.15\textwidth]{img/bild}
+		\caption{test}
+	\end{figure}
+
+	noch ein test \normalsubscripts$R_t$ \upsubscripts$R_t$
+
+	mit einheit: $R=200\,\milli\ohm+ \SI{0.34567453}{\volt\per\metre}$
+	\vspace{2cm}\\\pagebreak
+	eine zahl: $3,5+3.5$\\
+
+
+\listoffigures
+\end{document}
