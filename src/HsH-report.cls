@@ -7,7 +7,7 @@
 
 \newcommand{\HsHlogoPath}{HSH-Logo.pdf}
 \newcommand{\HsHlogoPage}{1}
-\newcommand{\includeHsHlogohere}{\raisebox{0pt}[\ht\strutbox][\dp\strutbox]{\includegraphics[width=5cm,page=\HsHlogoPage]{\HsHlogoPath}}}
+\newcommand{\includeHsHlogohere}{\includegraphics[width=5cm,page=\HsHlogoPage]{\HsHlogoPath}}
 \providecommand{\abs}[1]{\ensuremath{\left\vert#1\right\vert}} % Makro für Betragsstriche
 
 \newif\if@german%
@@ -230,7 +230,7 @@
 					\usekomafont{titlehead}{\@titlehead}%
 				\fi
 				\hfill
-				\includeHsHlogohere
+				\raisebox{0pt}[\ht\strutbox][\dp\strutbox]{\includeHsHlogohere}
 			\end{minipage}
 			\raisebox{10pt}{\rule{\textwidth}{0.5pt}}
 			% end Customised: --------------------------------------------------------
@@ -431,7 +431,7 @@
 			\usekomafont{titlehead}{\@titlehead}%
 		\fi
 		\hfill
-		\includeHsHlogohere
+		\raisebox{0pt}[\ht\strutbox][\dp\strutbox]{\includeHsHlogohere}
 	\end{minipage}
 	\raisebox{10pt}{\rule{\textwidth}{0.5pt}}
 	% end Customised: --------------------------------------------------------
