@@ -10,12 +10,14 @@ export TEXINPUTS:=.\src
 
 
 pdf: $(NAME).tex
-	$(PDF) -synctex=1 -interaction=nonstopmode -file-line-error --output-directory=$(OUTDIR) $(NAME).tex
+	$(PDF) -synctex=1 -interaction=nonstopmode -file-line-error -include-directory=.\src -output-directory=$(OUTDIR) $(NAME).tex
+	move $(OUTDIR)\$(NAME).pdf .\
 
 
 clean: tidy
 	if exist $(OUTDIR)\$(NAME).pdf del $(OUTDIR)\$(NAME).pdf
 	if exist $(OUTDIR) rmdir $(OUTDIR)
+	if exist $(NAME).pdf del $(NAME).pdf
 
 tidy:
 	if exist $(OUTDIR)\$(NAME).aux del $(OUTDIR)\$(NAME).aux
