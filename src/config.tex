@@ -1,4 +1,4 @@
-\renewcaptionname{ngerman}{\abstractname}{Abstract} %Abstract
+\renewcommand\abstractname{Abstract} %Abstract
 \@ifpackageloaded{biblatex}{
 	\ExecuteBibliographyOptions{
 		sorting=nyt,
@@ -30,5 +30,14 @@
 		basicstyle=\footnotesize,
 		literate={Ö}{{\"O}}1{Ä}{{\"A}}1{Ü}{{\"U}}1{ß}{{\ss}}1{ü}{{\"u}}1{ä}{{\"a}}1{ö}{{\"o}}1,
 		escapeinside={(*@}{@*)},
+	}
+}{}%
+\@ifpackageloaded{listings}{
+	\ctikzset{
+		font=\footnotesize,
+		resistors/scale=0.7,
+		transistors/scale=0.75,
+		default/scale=0.5,
+		bipole annotation style/.style={font=\tiny ,inner sep=1pt},
 	}
 }{}%

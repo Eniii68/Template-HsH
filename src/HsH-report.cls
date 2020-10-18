@@ -10,13 +10,16 @@
 \newcommand{\includeHsHlogohere}{\raisebox{0pt}[\ht\strutbox][\dp\strutbox]{\includegraphics[width=5cm,page=\HsHlogoPage]{\HsHlogoPath}}}
 \providecommand{\abs}[1]{\ensuremath{\left\vert#1\right\vert}} % Makro für Betragsstriche
 
+\newif\if@german%
+
 \DeclareOption{ngerman}{%
 	\PassOptionsToPackage{\CurrentOption}{babel}
 	\renewcaptionname{ngerman}{\figurename}{Abb.} %Figure
 	\renewcaptionname{ngerman}{\tablename}{Tab.} %Table
+	\@germantrue
 }
 \DeclareOption{english}{%
-	\PassOptionsToPackage{\CurrentOption,main=english}{babel}
+	\PassOptionsToPackage{\CurrentOption}{babel}
 	\renewcaptionname{english}{\figurename}{Fig.} %Figure
 	\renewcaptionname{english}{\tablename}{Tab.} %Table
 }
@@ -37,7 +40,7 @@
 }
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{scrreprt}}
 
-\ExecuteOptions{ngerman}
+\@ifclasswith{\myClassName}{english}{}{\@ifclasswith{\myClassName}{ngerman}{}{\ExecuteOptions{ngerman}}}
 \ProcessOptions\relax
 
 \InputIfFileExists{personal.tex}{
@@ -50,9 +53,9 @@
 \PassOptionsToPackage{utf8}{inputenc}
 \PassOptionsToPackage{T1}{fontenc}
 \PassOptionsToPackage{left=3cm,right=2.5cm,top=3cm,bottom=3cm}{geometry}
-\PassOptionsToPackage{free-standing-units}{siunitx}
 \PassOptionsToPackage{babel, german=quotes}{csquotes}
 \PassOptionsToPackage{headsepline}{scrlayer-scrpage}
+\PassOptionsToPackage{free-standing-units}{siunitx}
 
 %used packages:
 \RequirePackage{inputenc} % inputencoding, utf8 recomendet
@@ -64,6 +67,7 @@
 \RequirePackage{scrlayer-scrpage} % required for header and footer
 \RequirePackage{scrhack} % compatability with listings
 \RequirePackage{pgffor} % foreach loops
+\if@german\RequirePackage{ziffer}\fi % german dezimal numbers
 
 % should these be in?
 \RequirePackage{subfigure}
