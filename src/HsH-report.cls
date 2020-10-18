@@ -56,6 +56,7 @@
 \PassOptionsToPackage{babel, german=quotes}{csquotes}
 \PassOptionsToPackage{headsepline}{scrlayer-scrpage}
 \PassOptionsToPackage{free-standing-units}{siunitx}
+\PassOptionsToPackage{european,EFvoltages,straightvoltages}{circuitikz}
 
 %used packages:
 \RequirePackage{inputenc} % inputencoding, utf8 recomendet
