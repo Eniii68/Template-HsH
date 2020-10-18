@@ -6,9 +6,9 @@
 \LoadClass[bibliography=totoc,listof=totoc]{scrreprt}
 
 \newcommand{\HsHlogoPath}{HSH-Logo.pdf}
-\newcommand{\HsHlogoPage}{6}
+\newcommand{\HsHlogoPage}{1}
 \newcommand{\includeHsHlogohere}{\raisebox{0pt}[\ht\strutbox][\dp\strutbox]{\includegraphics[width=5cm,page=\HsHlogoPage]{\HsHlogoPath}}}
-\newcommand{\abs}[1]{\ensuremath{\left\vert#1\right\vert}} % Makro für Betragsstriche
+\providecommand{\abs}[1]{\ensuremath{\left\vert#1\right\vert}} % Makro für Betragsstriche
 
 \DeclareOption{ngerman}{%
 	\PassOptionsToPackage{\CurrentOption}{babel}
@@ -21,19 +21,19 @@
 	\renewcaptionname{english}{\tablename}{Tab.} %Table
 }
 \DeclareOption{f1}{%
-	\renewcommand{\HsHlogoPage}{1}
-}
-\DeclareOption{f2}{%
 	\renewcommand{\HsHlogoPage}{2}
 }
-\DeclareOption{f3}{%
+\DeclareOption{f2}{%
 	\renewcommand{\HsHlogoPage}{3}
 }
-\DeclareOption{f4}{%
+\DeclareOption{f3}{%
 	\renewcommand{\HsHlogoPage}{4}
 }
-\DeclareOption{f5}{%
+\DeclareOption{f4}{%
 	\renewcommand{\HsHlogoPage}{5}
+}
+\DeclareOption{f5}{%
+	\renewcommand{\HsHlogoPage}{6}
 }
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{scrreprt}}
 
@@ -96,12 +96,12 @@
 \renewcommand{\fps@table}{h!t} % Positonierung of tables
 
 \newcommand\declarationAuthorship{
-	\newpage
 	\thispagestyle{plain}
 	\vspace*{\fill}
 	{\rule{\textwidth}{0.1pt}}
 	\vspace{0.5cm}
 
+	\renewcommand{\thanks}{\empty}
 	\newcommand{\tempA}{ich}
 	\newcommand{\tempB}{}
 	\foreach \x [count=\i] in \@author{

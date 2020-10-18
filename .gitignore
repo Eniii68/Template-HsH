@@ -3,6 +3,5 @@
 *.lof
 *.log
 *.toc
-help_*
 build/
 img/logos-fakultäten.svg
