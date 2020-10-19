@@ -15,5 +15,9 @@
                 "TEXINPUTS": "%DIR%/src"
             }
         }
+    ],
+    "cSpell.enabled": true,
+    "cSpell.enableFiletypes": [
+        "markdown"
     ]
 }

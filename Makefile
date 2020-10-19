@@ -1,7 +1,7 @@
 # Makefile for Latex project
 
-NAME = test
-PDF = pdflatex
+NAME = project
+LATEX = pdflatex
 BIB = biber
 
 OUTDIR = .\build
@@ -10,7 +10,7 @@ export TEXINPUTS:=.\src
 
 
 pdf: $(NAME).tex
-	$(PDF) -synctex=1 -interaction=nonstopmode -file-line-error --output-directory=$(OUTDIR) $(NAME).tex
+	$(LATEX) -synctex=1 -interaction=nonstopmode -file-line-error -include-directory=.\src -output-directory=$(OUTDIR) $(NAME).tex
 
 
 clean: tidy
