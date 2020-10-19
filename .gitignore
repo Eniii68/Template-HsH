@@ -3,5 +3,6 @@
 *.lof
 *.log
 *.toc
+.vscode/
 build/
 img/logos-fakultäten.svg
