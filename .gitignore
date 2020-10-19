@@ -4,4 +4,5 @@
 *.log
 *.toc
 build/
+.vscode/
 img/logos-fakultäten.svg

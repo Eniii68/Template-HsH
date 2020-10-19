@@ -1,8 +1,10 @@
-# Der Images-Ordner (Bilder)
+# Images folder (pictures)
 
-Dieser Ordner ist für Bilder, sowohl Fotos als auch selbst erstellte Schaubilder und Skizzen. Grundsätzlich sollte mit .png oder .pdf gearbeitet
-werden, jedoch können hier auch die Dateine der jeweiligen Editoren abgelegt werden.
+This folder is for images, this can be pictures,created graphs, sketches or circuit diagramms. It is recommended to work with `.png` and `.pdf` filetypes for inclusion
+in the main document, but files needed by the respective editors may also be stored here.
 
-# Schaubilder erstellen mit Inkscape
+# Image creation with Inkscape
 
-soll hier ein Beispiel dafür rein oder ist das zu Komplex??
+Inkscape is a amazing vectorgraphics tool with an export to LaTex feature. I highly recommend it for creating complex images like sketches of
+experimental setup.  
+Check oute their website: [Inkscape.org](https://inkscape.org/)
