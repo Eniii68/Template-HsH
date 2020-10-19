@@ -257,7 +257,7 @@
 				\vskip 1.5em
 				{\usekomafont{date}{\@date \par}}%
 				\vskip \z@ \@plus3fill
-				{\usekomafont{publishers}{\@publishers \par}}%
+				%{\usekomafont{publishers}{\@publishers \par}}%
 				\vskip 3em
 			\end{center}\par
 			\@thanks\global\let\@thanks\@empty
@@ -459,7 +459,7 @@
 		\vskip 1em%
 		{\usekomafont{date}{\@date \par}}%
 		\vskip \z@ \@plus 1em
-		{\usekomafont{publishers}{\@publishers \par}}%
+		%{\usekomafont{publishers}{\@publishers \par}}%
 		\ifx\@dedication\@empty \else
 		\vskip 2em
 		{\usekomafont{dedication}{\@dedication \par}}%
