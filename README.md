@@ -6,10 +6,11 @@ The project provides custom document-classes caring the `HsH-` prefix as well as
 them with specifig configurations and presets as well as providing commonly needed features.  
 
 **Provides classes are:**  
-
-	HsH-article (planed)  
-	HsH-report  
-	HsH-book (planed)  
+```
+HsH-article (planed)  
+HsH-report  
+HsH-book (planed)  
+```
 
 **Version:** BETA 0.1, 19.10.2020
 
