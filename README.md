@@ -10,6 +10,7 @@ them with specifig configurations and presets as well as providing commonly need
 	HsH-article (planed)  
 	HsH-report  
 	HsH-book (planed)  
+	HsH-standalone (planed)
 
 **Version:** BETA 0.1, 19.10.2020
 
