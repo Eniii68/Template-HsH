@@ -11,6 +11,8 @@ them with specifig configurations and presets as well as providing commonly need
 	HsH-report  
 	HsH-book (planed)  
 
+**Version:** BETA 0.1
+
 # Quick start guide:
 
 ## Quick and dirty
