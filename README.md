@@ -11,7 +11,7 @@ them with specifig configurations and presets as well as providing commonly need
 	HsH-report  
 	HsH-book (planed)  
 
-**Version:** BETA 0.1
+**Version:** BETA 0.1, 19.10.2020
 
 # Quick start guide:
 
