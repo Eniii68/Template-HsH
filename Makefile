@@ -1,13 +1,12 @@
 # Makefile for Latex project
 
-NAME = project
-LATEX = pdflatex
-BIB = biber
+NAME = project 		# Name of your file
+LATEX = pdflatex	# command you use
 
-OUTDIR = .\build
+OUTDIR = .\build	# all latex-ggenerated files will be stored here
 
-export TEXINPUTS:=.\src
 
+export TEXINPUTS:=.\src # edit env-variable for sub processes (only neede if not miktex)
 
 pdf: $(NAME).tex
 	$(LATEX) -synctex=1 -interaction=nonstopmode -file-line-error -include-directory=.\src -output-directory=$(OUTDIR) $(NAME).tex
