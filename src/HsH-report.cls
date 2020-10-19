@@ -53,6 +53,7 @@
 \PassOptionsToPackage{utf8}{inputenc}
 \PassOptionsToPackage{T1}{fontenc}
 \PassOptionsToPackage{left=3cm,right=2.5cm,top=3cm,bottom=3cm}{geometry}
+\PassOptionsToPackage{backend=biber,style=alphabetic,sorting=nyt}{biblatex}
 \PassOptionsToPackage{babel, german=quotes}{csquotes}
 \PassOptionsToPackage{headsepline}{scrlayer-scrpage}
 \PassOptionsToPackage{free-standing-units}{siunitx}
@@ -86,6 +87,7 @@
 \ihead{\@title}
 \ofoot*{\pagemark}
 
+
 % typesetting indexes upright or standart
 \def\subinrm#1{\sb{\textnormal{#1}}}
 {\catcode`\_=13 \global\let_=\subinrm}
@@ -106,7 +108,7 @@
 	{\rule{\textwidth}{0.1pt}}
 	\vspace{0.5cm}
 
-	\renewcommand{\thanks}{\empty}
+	\renewcommand{\thanks}{\sbox0}
 	\newcommand{\tempA}{ich}
 	\newcommand{\tempB}{}
 	\foreach \x [count=\i] in \@author{

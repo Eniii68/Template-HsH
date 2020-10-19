@@ -1,18 +1,25 @@
 # Makefile for Latex project
 
 NAME = test
-PDF = pdflatex
-BIB = biber
+LATEX = pdflatex
+BIBTEX = biber
 
 OUTDIR = .\build
 
 export TEXINPUTS:=.\src
 
+all:
+	$(MAKE) pdf
+	$(MAKE) bib
+	$(MAKE) pdf
+	$(MAKE) pdf
 
 pdf: $(NAME).tex
-	$(PDF) -synctex=1 -interaction=nonstopmode -file-line-error -include-directory=.\src -output-directory=$(OUTDIR) $(NAME).tex
+	$(LATEX) -synctex=1 -interaction=nonstopmode -file-line-error -include-directory=.\src -output-directory=$(OUTDIR) $(NAME).tex
 	move $(OUTDIR)\$(NAME).pdf .\
 
+bib: $(OUTDIR)\$(NAME).bcf
+	$(BIBTEX) -output-directory $(OUTDIR) $(NAME)
 
 clean: tidy
 	if exist $(OUTDIR)\$(NAME).pdf del $(OUTDIR)\$(NAME).pdf
