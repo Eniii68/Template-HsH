@@ -1,4 +1,4 @@
-# Der Plots-Ordner
+# Plots-folder
 
 This folder is for plots and graphs. It exists mostly because it is recommended to use the `pgf-plots` package. This huge and powerful package also
 brings up the compiletime of a `.tex` file by a lot. Thats why it is recommended to create separate files for every plot an just import the resulting
