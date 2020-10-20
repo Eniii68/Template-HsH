@@ -11,7 +11,12 @@
 \providecommand{\abs}[1]{\ensuremath{\left\vert#1\right\vert}} % Makro für Betragsstriche
 
 \newif\if@german%
-
+\DeclareOption{german}{%
+	\PassOptionsToPackage{ngerman}{babel}
+	\renewcaptionname{ngerman}{\figurename}{Abb.} %Figure
+	\renewcaptionname{ngerman}{\tablename}{Tab.} %Table
+	\@germantrue
+}
 \DeclareOption{ngerman}{%
 	\PassOptionsToPackage{\CurrentOption}{babel}
 	\renewcaptionname{ngerman}{\figurename}{Abb.} %Figure
@@ -53,10 +58,11 @@
 \PassOptionsToPackage{utf8}{inputenc}
 \PassOptionsToPackage{T1}{fontenc}
 \PassOptionsToPackage{left=3cm,right=2.5cm,top=3cm,bottom=3cm}{geometry}
-\PassOptionsToPackage{backend=biber,style=alphabetic,sorting=nyt}{biblatex}
-\PassOptionsToPackage{babel, german=quotes}{csquotes}
 \PassOptionsToPackage{headsepline}{scrlayer-scrpage}
+
+\PassOptionsToPackage{backend=biber,style=alphabetic,sorting=nyt}{biblatex}
 \PassOptionsToPackage{free-standing-units}{siunitx}
+\PassOptionsToPackage{babel, german=quotes}{csquotes}
 \PassOptionsToPackage{european,EFvoltages,straightvoltages}{circuitikz}
 
 %used packages:

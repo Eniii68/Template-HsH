@@ -12,6 +12,10 @@
 
 
 \newif\if@german%
+\DeclareOption{german}{%
+	\PassOptionsToPackage{ngerman}{babel}
+	\@germantrue
+}
 \DeclareOption{ngerman}{%
 	\PassOptionsToPackage{\CurrentOption}{babel}
 	\@germantrue
