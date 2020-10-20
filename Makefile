@@ -32,7 +32,7 @@ $(SUB_PDF_FILES): $(SUB_TEX_FILES)
 
 
 clean: tidy
-	for %%a in ($(foreach D,. $(SUBDIRS), "$(D)\$(OUTDIR)")) do rd /s /q %%~a
+	for %%a in ($(foreach D,. $(SUBDIRS), "$(D)\$(OUTDIR)")) do if exist %%~a rmdir /s /q %%~a
 	if exist $(NAME).pdf del $(NAME).pdf
 
 tidy:
