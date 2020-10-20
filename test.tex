@@ -6,6 +6,7 @@
 \usepackage{biblatex}
 \addbibresource{src/localBibliography.bib}
 
+\usepackage{pgfplots,pgfplotstable} % plots und bilder, enthält tikz und graphix
 
 \begin{document}
 
@@ -38,6 +39,12 @@
 	\cite{laboranleitung:physik}
 	\vspace{2cm}\\\pagebreak
 	eine zahl: $3,5+3.5$\\
+
+	\begin{tikzpicture}
+		\begin{axis}[MyPlots]
+			\addplot[FM1,domain=-5:5]{x^2};
+		\end{axis}
+	\end{tikzpicture}
 
 \printbibliography
 \listoffigures

@@ -1,0 +1,33 @@
+\documentclass[11pt,ngerman]{HsH-standalone}
+
+%__________Formeln und Mathe________________
+\usepackage{siunitx} % kennt SI einheiten
+\usepackage{amsmath} % schöne Formeln
+
+%__________Daten Import_____________________
+\usepackage{pgfplots,pgfplotstable} % plots und bilder, enthält tikz und graphix
+\usepackage{circuitikz} % zeichnen von Schaltplänen
+
+\begin{document} %----------------------Inhalt---------------------------------------------------%
+
+\begin{tikzpicture}
+	\begin{axis}[MyPlots]
+		\addplot[FM1,domain=-1:1]{x^2};
+	\end{axis}
+\end{tikzpicture}
+
+\begin{tikzpicture}
+\pgfplotstableread{../csv/bsp.csv}\data
+	\begin{axis}[MyPlots,
+		xlabel=X Achse, ylabel=$\percent$,
+		]
+		\addplot[FM1,errBars] table [x=A,y=C,y error=D] {\data};
+			\addlegendentry{Messdaten}
+		\addplot[FM2,smooth] table [x=A,y=C] {\data};
+			\addlegendentry{theroretische Werte}
+		\addplot[FM4] table [x=A,y={create col/linear regression={y=C}}] {\data};
+			\addlegendentry{lineariesiert zu: $y=\num\pgfplotstableregressiona*x+\num\pgfplotstableregressionb$}
+	\end{axis}
+\end{tikzpicture}
+
+\end{document}
