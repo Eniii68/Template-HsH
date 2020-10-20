@@ -4,22 +4,27 @@ NAME = test
 LATEX = pdflatex
 BIBTEX = biber
 
-OUTDIR = .\build
+OUTDIR = build
+TEX_FLAGS = -file-line-error -interaction=nonstopmode -include-directory=.\src -quiet
+SUB_TEX_FILES = $(wildcard img/*.tex) $(wildcard plt/*.tex)
+SUB_PDF_FILES = $(join $(dir $(SUB_TEX_FILES)),$(addprefix $(OUTDIR)/,$(notdir $(SUB_TEX_FILES:tex=pdf))))
 
-export TEXINPUTS:=.\src
 
-all:
-	$(MAKE) pdf
-	$(MAKE) bib
-	$(MAKE) pdf
-	$(MAKE) pdf
+export TEXINPUTS:=$(CURDIR)\src
 
-pdf: $(NAME).tex
-	$(LATEX) -synctex=1 -interaction=nonstopmode -file-line-error -include-directory=.\src -output-directory=$(OUTDIR) $(NAME).tex
-	move $(OUTDIR)\$(NAME).pdf .\
+all: bib
+	$(LATEX) -output-directory=$(OUTDIR) $(TEX_FLAGS) $(NAME).tex
+	$(LATEX) -synctex=1 -output-directory=$(OUTDIR) $(TEX_FLAGS) $(NAME).tex
 
-bib: $(OUTDIR)\$(NAME).bcf
+pdf: $(SUB_PDF_FILES)
+	$(LATEX) -synctex=1 -output-directory=$(OUTDIR) $(TEX_FLAGS) $(NAME).tex
+	copy /Y $(OUTDIR)\$(NAME).pdf .\
+
+bib: pdf $(OUTDIR)\$(NAME).bcf
 	$(BIBTEX) -output-directory $(OUTDIR) $(NAME)
+
+$(SUB_PDF_FILES): $(SUB_TEX_FILES)
+	$(LATEX) -output-directory=$(dir $@) $(TEX_FLAGS) $(subst build/,$(notdir $(@:pdf=tex)),$(dir $@))
 
 clean: tidy
 	if exist $(OUTDIR)\$(NAME).pdf del $(OUTDIR)\$(NAME).pdf

@@ -6,8 +6,6 @@
 \usepackage{biblatex}
 \addbibresource{src/localBibliography.bib}
 
-\usepackage{pgfplots,pgfplotstable} % plots und bilder, enthält tikz und graphix
-
 \begin{document}
 
 
@@ -29,7 +27,7 @@
 	{\color{red}test} und stuff
 	\begin{figure}
 		\centering
-		\includegraphics[width=.15\textwidth]{img/bild}
+		\includegraphics[width=.6\textwidth]{img/lorem-ipsum.jpg}
 		\caption{test}
 	\end{figure}
 
@@ -40,11 +38,17 @@
 	\vspace{2cm}\\\pagebreak
 	eine zahl: $3,5+3.5$\\
 
-	\begin{tikzpicture}
-		\begin{axis}[MyPlots]
-			\addplot[FM1,domain=-5:5]{x^2};
-		\end{axis}
-	\end{tikzpicture}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.6\textwidth, page=2]{plt/build/examplePlot.pdf}
+		\caption{a nice plot}
+	\end{figure}
+
+	\begin{figure}
+		\centering
+		\includegraphics{img/build/exampleCircuit.pdf}
+		\caption{a circuit diagramm}
+	\end{figure}
 
 \printbibliography
 \listoffigures
