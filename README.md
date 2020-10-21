@@ -10,6 +10,7 @@ them with specifig configurations and presets as well as providing comonly neede
 	HsH-article (planed)  
 	HsH-report  
 	HsH-book (planed)  
+	HsH-standalone
 
 # TODO:
 
