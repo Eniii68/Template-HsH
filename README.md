@@ -14,6 +14,8 @@ them with specifig configurations and presets as well as providing comonly neede
 
 # TODO:
 
+SVG support Makefile
+
 custom commands for titalpage:
 - Profs
 - ImatNRs
