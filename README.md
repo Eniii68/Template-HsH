@@ -14,8 +14,6 @@ them with specifig configurations and presets as well as providing comonly neede
 
 # TODO:
 
-Makefile BREAKS when no output direcory given!!
-
 custom commands for titalpage:
 - Profs
 - ImatNRs
