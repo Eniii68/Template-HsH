@@ -1,10 +1,10 @@
 # Makefile for Latex project
-NAME = test
+NAME = project
 LATEX = pdflatex
 BIBTEX = biber
 
 SUBDIRS= img plt
-OUTDIR = test
+OUTDIR = build
 TEX_FLAGS = -file-line-error -interaction=nonstopmode
 COM_FLAGS = -output-directory=$(OUTDIR) -quiet
 GARBAGE_PATTERNS = *.aux *.bbl *.bcf *.blg *.idx *.ind *.lof *.lot *.log *.xml *.toc
