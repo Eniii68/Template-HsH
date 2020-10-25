@@ -11,7 +11,12 @@
 \providecommand{\abs}[1]{\ensuremath{\left\vert#1\right\vert}} % Makro für Betragsstriche
 
 \newif\if@german%
-
+\DeclareOption{german}{%
+	\PassOptionsToPackage{ngerman}{babel}
+	\renewcaptionname{ngerman}{\figurename}{Abb.} %Figure
+	\renewcaptionname{ngerman}{\tablename}{Tab.} %Table
+	\@germantrue
+}
 \DeclareOption{ngerman}{%
 	\PassOptionsToPackage{\CurrentOption}{babel}
 	\renewcaptionname{ngerman}{\figurename}{Abb.} %Figure
@@ -53,9 +58,11 @@
 \PassOptionsToPackage{utf8}{inputenc}
 \PassOptionsToPackage{T1}{fontenc}
 \PassOptionsToPackage{left=3cm,right=2.5cm,top=3cm,bottom=3cm}{geometry}
-\PassOptionsToPackage{babel, german=quotes}{csquotes}
 \PassOptionsToPackage{headsepline}{scrlayer-scrpage}
+
+\PassOptionsToPackage{backend=biber,style=alphabetic,sorting=nyt}{biblatex}
 \PassOptionsToPackage{free-standing-units}{siunitx}
+\PassOptionsToPackage{babel, german=quotes}{csquotes}
 \PassOptionsToPackage{european,EFvoltages,straightvoltages}{circuitikz}
 
 %used packages:
@@ -71,6 +78,8 @@
 \if@german\RequirePackage{ziffer}\fi % german dezimal numbers
 
 % should these be in?
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
 \RequirePackage{subfigure}
 \RequirePackage{pdfpages}
 \RequirePackage{hyperref}
@@ -85,6 +94,7 @@
 \ohead{\headmark}
 \ihead{\@title}
 \ofoot*{\pagemark}
+
 
 % typesetting indexes upright or standart
 \def\subinrm#1{\sb{\textnormal{#1}}}
@@ -106,7 +116,7 @@
 	{\rule{\textwidth}{0.1pt}}
 	\vspace{0.5cm}
 
-	\renewcommand{\thanks}{\empty}
+	\renewcommand{\thanks}{\sbox0}
 	\newcommand{\tempA}{ich}
 	\newcommand{\tempB}{}
 	\foreach \x [count=\i] in \@author{
@@ -255,7 +265,7 @@
 				\vskip 1.5em
 				{\usekomafont{date}{\@date \par}}%
 				\vskip \z@ \@plus3fill
-				{\usekomafont{publishers}{\@publishers \par}}%
+				%{\usekomafont{publishers}{\@publishers \par}}%
 				\vskip 3em
 			\end{center}\par
 			\@thanks\global\let\@thanks\@empty
@@ -457,7 +467,7 @@
 		\vskip 1em%
 		{\usekomafont{date}{\@date \par}}%
 		\vskip \z@ \@plus 1em
-		{\usekomafont{publishers}{\@publishers \par}}%
+		%{\usekomafont{publishers}{\@publishers \par}}%
 		\ifx\@dedication\@empty \else
 		\vskip 2em
 		{\usekomafont{dedication}{\@dedication \par}}%

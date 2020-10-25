@@ -1,44 +1,47 @@
 # Makefile for Latex project
+NAME = project
+LATEX = pdflatex
+BIBTEX = biber
 
-NAME = project 		# Name of your file
-LATEX = pdflatex	# command you use
+SUBDIRS = crc plt svg
+OUTDIR = build
+TEX_FLAGS = -file-line-error -interaction=nonstopmode
+COM_FLAGS = -output-directory=$(OUTDIR) -quiet
+GARBAGE_PATTERNS = *.aux *.bbl *.bcf *.blg *.idx *.ind *.lof *.lot *.log *.xml *.toc
 
-OUTDIR = .\build	# all latex-ggenerated files will be stored here
+SUB_TEX_FILES = $(foreach D,$(SUBDIRS),$(wildcard $(D)/*.tex))
+SUB_PDF_FILES = $(join $(dir $(SUB_TEX_FILES)),$(addprefix $(OUTDIR)/,$(notdir $(SUB_TEX_FILES:tex=pdf))))
+SUB_SVG_FILES = $(foreach D,$(SUBDIRS),$(wildcard $(D)/*.svg))
+SUB_PDF_TEX_FILES = $(join $(dir $(SUB_SVG_FILES)),$(addprefix $(OUTDIR)/,$(notdir $(SUB_SVG_FILES:svg=pdf))))
+GARBAGE = $(foreach D,. $(SUBDIRS), $(wildcard $(addprefix $(D)/$(OUTDIR)/,$(GARBAGE_PATTERNS))))
 
 
-export TEXINPUTS:=.\src # edit env-variable for sub processes (only neede if not miktex)
+export TEXINPUTS:=$(CURDIR)\src
 
-pdf: $(NAME).tex
-	$(LATEX) -synctex=1 -interaction=nonstopmode -file-line-error -include-directory=.\src -output-directory=$(OUTDIR) $(NAME).tex
+std: all tidy
+
+all: bib
+	$(LATEX) $(TEX_FLAGS) $(COM_FLAGS) $(NAME).tex
+	$(LATEX) -synctex=1 $(TEX_FLAGS) $(COM_FLAGS) $(NAME).tex
+	copy /Y $(OUTDIR)\$(NAME).pdf .\
+
+bib: pdf $(OUTDIR)\$(NAME).bcf
+	$(BIBTEX) $(COM_FLAGS) $(NAME)
+
+pdf: $(SUB_PDF_FILES) $(SUB_PDF_TEX_FILES)
+	$(LATEX) -synctex=1 $(TEX_FLAGS) $(COM_FLAGS) $(NAME).tex
+
+$(SUB_PDF_FILES): $(SUB_TEX_FILES)
+	cd $(subst $(OUTDIR)/,,$(dir $@)) && $(LATEX) $(TEX_FLAGS) $(COM_FLAGS) $(notdir $(@:pdf=tex))
+
+$(SUB_PDF_TEX_FILES): $(SUB_SVG_FILES)
+	cd $(subst $(OUTDIR)/,,$(dir $@)) && inkscape -C --export-latex $(notdir $(@:pdf=svg)) -o $(and $(OUTDIR),$(OUTDIR)\)$(notdir $@)
 
 
 clean: tidy
-	if exist $(OUTDIR)\$(NAME).pdf del $(OUTDIR)\$(NAME).pdf
-	if exist $(OUTDIR) rmdir $(OUTDIR)
+	for %%a in ($(foreach D,$(subst /,\,$(SUB_PDF_FILES) $(SUB_PDF_TEX_FILES)) $(subst pdf,synctex.gz,$(subst /,\,$(SUB_PDF_FILES))) $(subst pdf,pdf_tex,$(subst /,\,$(SUB_PDF_TEX_FILES))) $(OUTDIR)\$(NAME).pdf $(OUTDIR)\$(NAME).synctex.gz, "$(D)")) do if exist %%~a del /q %%~a
+	for %%a in ($(foreach D,. $(SUBDIRS),"$(D)\$(if $(subst .,,$(OUTDIR)),$(OUTDIR),build)")) do if exist %%~a rmdir /q %%~a
+#	if exist $(NAME).pdf del $(NAME).pdf
 
 tidy:
-	if exist $(OUTDIR)\$(NAME).aux del $(OUTDIR)\$(NAME).aux
-	if exist $(OUTDIR)\$(NAME).bbl del $(OUTDIR)\$(NAME).bbl
-	if exist $(OUTDIR)\$(NAME).bcf del $(OUTDIR)\$(NAME).bcf
-	if exist $(OUTDIR)\$(NAME).blg del $(OUTDIR)\$(NAME).blg
-	if exist $(OUTDIR)\$(NAME).idx del $(OUTDIR)\$(NAME).idx
-	if exist $(OUTDIR)\$(NAME).ind del $(OUTDIR)\$(NAME).ind
-	if exist $(OUTDIR)\$(NAME).lof del $(OUTDIR)\$(NAME).lof
-	if exist $(OUTDIR)\$(NAME).lot del $(OUTDIR)\$(NAME).lot
-	if exist $(OUTDIR)\$(NAME).out del $(OUTDIR)\$(NAME).out
-	if exist $(OUTDIR)\$(NAME).toc del $(OUTDIR)\$(NAME).toc
-	if exist $(OUTDIR)\$(NAME).acn del $(OUTDIR)\$(NAME).acn
-	if exist $(OUTDIR)\$(NAME).acr del $(OUTDIR)\$(NAME).acr
-	if exist $(OUTDIR)\$(NAME).alg del $(OUTDIR)\$(NAME).alg
-	if exist $(OUTDIR)\$(NAME).glg del $(OUTDIR)\$(NAME).glg
-	if exist $(OUTDIR)\$(NAME).glo del $(OUTDIR)\$(NAME).glo
-	if exist $(OUTDIR)\$(NAME).gls del $(OUTDIR)\$(NAME).gls
-	if exist $(OUTDIR)\$(NAME).ist del $(OUTDIR)\$(NAME).ist
-	if exist $(OUTDIR)\$(NAME).fls del $(OUTDIR)\$(NAME).fls
-	if exist $(OUTDIR)\$(NAME).log del $(OUTDIR)\$(NAME).log
-	if exist $(OUTDIR)\$(NAME).nav del $(OUTDIR)\$(NAME).nav
-	if exist $(OUTDIR)\$(NAME).snm del $(OUTDIR)\$(NAME).snm
-	if exist $(OUTDIR)\$(NAME).fdb_latexmk del $(OUTDIR)\$(NAME).fdb_latexmk
-	if exist $(OUTDIR)\$(NAME).synctex.gz del $(OUTDIR)\$(NAME).synctex.gz
-	if exist $(OUTDIR)\$(NAME).run.xml del $(OUTDIR)\$(NAME).run.xml
-	if exist $(OUTDIR)\$(NAME).bc del $(OUTDIR)\$(NAME).bc
+	if exist $(or $(word 1, $(subst /,\,$(GARBAGE))), false) del /q $(subst /,\,$(GARBAGE))
