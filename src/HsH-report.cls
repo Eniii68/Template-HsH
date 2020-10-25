@@ -85,6 +85,7 @@
 \RequirePackage{hyperref}
 \RequirePackage{bookmark}
 \RequirePackage{csquotes}
+\RequirePackage{soul}
 
  % config for header and footer
 \pagestyle{scrheadings}

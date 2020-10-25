@@ -1,4 +1,10 @@
 \renewcommand{\abstractname}{Abstract} %Abstract
+
+\ifx\KOMAScriptVersion\undefined\else % check if KOMA is used
+	\g@addto@macro\@floatboxreset\centering % center all floats
+	\setcapwidth[c]{0.8\textwidth} % center all captions
+	%\setcapwidth[c]{0.8\textwidth} % leftalign all captions
+\fi
 \@ifpackageloaded{biblatex}{
 	\ExecuteBibliographyOptions{
 		bibwarn=true,
@@ -29,9 +35,13 @@
 		stringstyle=\color{blue},
 		showstringspaces=false,
 		basicstyle=\footnotesize,
+		tabsize=4,
 		literate={Ö}{{\"O}}1{Ä}{{\"A}}1{Ü}{{\"U}}1{ß}{{\ss}}1{ü}{{\"u}}1{ä}{{\"a}}1{ö}{{\"o}}1,
 		escapeinside={(*@}{@*)},
 	}
+}{}%
+\@ifpackageloaded{csvsimple}{
+	\csvstyle{every csv}{separator=semicolon}
 }{}%
 \@ifpackageloaded{circuitikz}{
 	\ctikzset{
