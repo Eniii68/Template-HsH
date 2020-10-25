@@ -1,7 +1,14 @@
 *.synctex.*
 *.aux
+*.bbl
+*.bcf
+*.blg
+*.idx
+*.ind
 *.lof
+*.lot
 *.log
+*.xml
 *.toc
 .vscode/
 build/
