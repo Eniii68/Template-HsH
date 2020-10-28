@@ -96,7 +96,6 @@
 \ihead{\@title}
 \ofoot*{\pagemark}
 
-
 % typesetting indexes upright or standart
 \def\subinrm#1{\sb{\textnormal{#1}}}
 {\catcode`\_=13 \global\let_=\subinrm}
@@ -104,6 +103,12 @@
 \newcommand\upsubscripts{\catcode`\_=12 } % the toggle for upright subscripts
 \newcommand\normalsubscripts{\catcode`\_=8 } % the toggle for italic subscripts
 \upsubscripts % setting upright as default
+
+% styling for itemize
+\renewcommand{\labelitemi}{$\bullet$}
+\renewcommand{\labelitemii}{$\circ$}
+\renewcommand{\labelitemiii}{$-$}
+\renewcommand{\labelitemiv}{$\cdot$}
 
 % do stuff
 \setlength\parindent{0pt} % indentation of new paragraphs
