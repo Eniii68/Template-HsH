@@ -157,6 +157,9 @@
 		\end{tabular}
 	\end{table}
 
+\clearpage
+\KOMAoptions{paper=landscape,pagesize} % rotate page to landscape mode (because why not XD)
+\recalctypearea
 \chapter{attachment}
 % manually include a PDF as not numbered section
 \textbf{\Large{Messprotokoll oder so}} % just so it'S not empty
@@ -164,6 +167,12 @@
 \addcontentsline{toc}{section}{Messprotokoll} % add to table of content
 \chaptermark{Messprotokoll}	% change headmark
 %\includepdf[pages=-,pagecommand={},width=\paperwidth]{temp.pdf} % comment in to include pdf
+
+As you can see its also posible to have some pages sideways. Just keep in mind you might need to adapt the margins
+
+\newpage
+\KOMAoptions{paper=portrait,pagesize} % and back
+\recalctypearea
 
 \printbibliography
 \noindent\begin{minipage}{\textwidth} % prevent automatic pagebreaks
