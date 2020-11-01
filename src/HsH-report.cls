@@ -78,11 +78,14 @@
 \if@german\RequirePackage{ziffer}\fi % german dezimal numbers
 
 % should these be in?
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
 \RequirePackage{subfigure}
 \RequirePackage{pdfpages}
 \RequirePackage{hyperref}
 \RequirePackage{bookmark}
 \RequirePackage{csquotes}
+\RequirePackage{soul}
 
  % config for header and footer
 \pagestyle{scrheadings}
@@ -102,11 +105,18 @@
 \newcommand\normalsubscripts{\catcode`\_=8 } % the toggle for italic subscripts
 \upsubscripts % setting upright as default
 
+% styling for itemize
+\renewcommand{\labelitemi}{$\bullet$}
+\renewcommand{\labelitemii}{$\circ$}
+\renewcommand{\labelitemiii}{$-$}
+\renewcommand{\labelitemiv}{$\cdot$}
+
 % do stuff
 \setlength\parindent{0pt} % indentation of new paragraphs
 \raggedbottom
 \renewcommand{\fps@figure}{h!t} % positioning of figures
 \renewcommand{\fps@table}{h!t} % Positonierung of tables
+\renewcommand{\layercontentsmeasure}{\empty} % rulers when using draft disabled
 
 \newcommand\declarationAuthorship{
 	\thispagestyle{plain}
@@ -252,14 +262,9 @@
 				\vskip 1em
 				{\ifx\@subtitle\@empty\else\usekomafont{subtitle}{\@subtitle\par}\fi}%
 				\vskip 2em
-				{%
-					\usekomafont{author}{%
-						\lineskip 0.75em
-						\begin{tabular}[t]{c}
-							\parbox{\linewidth}{\centering\@author}
-						\end{tabular}\par
-					}%
-				}%
+				% Customised: -----------------------------------------------------------
+				{\if\@author\@empty\else\usekomafont{author}{\parbox{\dimexpr\linewidth}{\centering\@author}}\fi}%
+				% end Customised: --------------------------------------------------------
 				\vskip 1.5em
 				{\usekomafont{date}{\@date \par}}%
 				\vskip \z@ \@plus3fill
@@ -454,14 +459,9 @@
 		\vskip .5em
 		{\ifx\@subtitle\@empty\else\usekomafont{subtitle}\@subtitle\par\fi}%
 		\vskip 1em
-		{%
-		\usekomafont{author}{%
-			\lineskip .5em%
-			\begin{tabular}[t]{c}
-			\@author
-			\end{tabular}\par
-		}%
-		}%
+		% Customised: -----------------------------------------------------------
+		{\if\@author\@empty\else\usekomafont{author}{\parbox{\dimexpr\linewidth}{\centering\@author}}\fi}%
+		% end Customised: --------------------------------------------------------
 		\vskip 1em%
 		{\usekomafont{date}{\@date \par}}%
 		\vskip \z@ \@plus 1em

@@ -11,7 +11,9 @@
 
 \begin{tikzpicture}
 	\begin{axis}[MyPlots]
-		\addplot[FM1,domain=-1:1]{x^2};
+		\addplot[FM1,domain=-1:1, name path=A]{x^2};
+		\addplot[FM2,mark=none,domain=-1:1, name path=B]{0.5*x^2-1};
+		\addplot[pattern color=gray!40, pattern=dots] fill between[of=A and B];
 	\end{axis}
 \end{tikzpicture}
 
