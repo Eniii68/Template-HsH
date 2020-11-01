@@ -11,7 +11,12 @@
 \providecommand{\abs}[1]{\ensuremath{\left\vert#1\right\vert}} % Makro für Betragsstriche
 
 \newif\if@german%
-
+\DeclareOption{german}{%
+	\PassOptionsToPackage{ngerman}{babel}
+	\renewcaptionname{ngerman}{\figurename}{Abb.} %Figure
+	\renewcaptionname{ngerman}{\tablename}{Tab.} %Table
+	\@germantrue
+}
 \DeclareOption{ngerman}{%
 	\PassOptionsToPackage{\CurrentOption}{babel}
 	\renewcaptionname{ngerman}{\figurename}{Abb.} %Figure
@@ -53,9 +58,11 @@
 \PassOptionsToPackage{utf8}{inputenc}
 \PassOptionsToPackage{T1}{fontenc}
 \PassOptionsToPackage{left=3cm,right=2.5cm,top=3cm,bottom=3cm}{geometry}
-\PassOptionsToPackage{babel, german=quotes}{csquotes}
 \PassOptionsToPackage{headsepline}{scrlayer-scrpage}
+
+\PassOptionsToPackage{backend=biber,style=alphabetic,sorting=nyt}{biblatex}
 \PassOptionsToPackage{free-standing-units}{siunitx}
+\PassOptionsToPackage{babel, german=quotes}{csquotes}
 \PassOptionsToPackage{european,EFvoltages,straightvoltages}{circuitikz}
 
 %used packages:
@@ -71,11 +78,14 @@
 \if@german\RequirePackage{ziffer}\fi % german dezimal numbers
 
 % should these be in?
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
 \RequirePackage{subfigure}
 \RequirePackage{pdfpages}
 \RequirePackage{hyperref}
 \RequirePackage{bookmark}
 \RequirePackage{csquotes}
+\RequirePackage{soul}
 
  % config for header and footer
 \pagestyle{scrheadings}
@@ -94,11 +104,18 @@
 \newcommand\normalsubscripts{\catcode`\_=8 } % the toggle for italic subscripts
 \upsubscripts % setting upright as default
 
+% styling for itemize
+\renewcommand{\labelitemi}{$\bullet$}
+\renewcommand{\labelitemii}{$\circ$}
+\renewcommand{\labelitemiii}{$-$}
+\renewcommand{\labelitemiv}{$\cdot$}
+
 % do stuff
 \setlength\parindent{0pt} % indentation of new paragraphs
 \raggedbottom
 \renewcommand{\fps@figure}{h!t} % positioning of figures
 \renewcommand{\fps@table}{h!t} % Positonierung of tables
+\renewcommand{\layercontentsmeasure}{\empty} % rulers when using draft disabled
 
 \newcommand\declarationAuthorship{
 	\thispagestyle{plain}
@@ -106,7 +123,7 @@
 	{\rule{\textwidth}{0.1pt}}
 	\vspace{0.5cm}
 
-	\renewcommand{\thanks}{\empty}
+	\renewcommand{\thanks}{\sbox0}
 	\newcommand{\tempA}{ich}
 	\newcommand{\tempB}{}
 	\foreach \x [count=\i] in \@author{
@@ -244,18 +261,13 @@
 				\vskip 1em
 				{\ifx\@subtitle\@empty\else\usekomafont{subtitle}{\@subtitle\par}\fi}%
 				\vskip 2em
-				{%
-					\usekomafont{author}{%
-						\lineskip 0.75em
-						\begin{tabular}[t]{c}
-							\parbox{\linewidth}{\centering\@author}
-						\end{tabular}\par
-					}%
-				}%
+				% Customised: -----------------------------------------------------------
+				{\if\@author\@empty\else\usekomafont{author}{\parbox{\dimexpr\linewidth}{\centering\@author}}\fi}%
+				% end Customised: --------------------------------------------------------
 				\vskip 1.5em
 				{\usekomafont{date}{\@date \par}}%
 				\vskip \z@ \@plus3fill
-				{\usekomafont{publishers}{\@publishers \par}}%
+				%{\usekomafont{publishers}{\@publishers \par}}%
 				\vskip 3em
 			\end{center}\par
 			\@thanks\global\let\@thanks\@empty
@@ -446,18 +458,13 @@
 		\vskip .5em
 		{\ifx\@subtitle\@empty\else\usekomafont{subtitle}\@subtitle\par\fi}%
 		\vskip 1em
-		{%
-		\usekomafont{author}{%
-			\lineskip .5em%
-			\begin{tabular}[t]{c}
-			\@author
-			\end{tabular}\par
-		}%
-		}%
+		% Customised: -----------------------------------------------------------
+		{\if\@author\@empty\else\usekomafont{author}{\parbox{\dimexpr\linewidth}{\centering\@author}}\fi}%
+		% end Customised: --------------------------------------------------------
 		\vskip 1em%
 		{\usekomafont{date}{\@date \par}}%
 		\vskip \z@ \@plus 1em
-		{\usekomafont{publishers}{\@publishers \par}}%
+		%{\usekomafont{publishers}{\@publishers \par}}%
 		\ifx\@dedication\@empty \else
 		\vskip 2em
 		{\usekomafont{dedication}{\@dedication \par}}%
