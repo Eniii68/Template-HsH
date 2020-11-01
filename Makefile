@@ -3,7 +3,8 @@ NAME = project
 LATEX = pdflatex
 BIBTEX = biber
 
-SUBDIRS = crc plt svg
+SUBDIRS = img plt
+# use . for no OUTDIR
 OUTDIR = build
 TEX_FLAGS = -file-line-error -interaction=nonstopmode
 COM_FLAGS = -output-directory=$(OUTDIR) -quiet
@@ -18,12 +19,12 @@ GARBAGE = $(foreach D,. $(SUBDIRS), $(wildcard $(addprefix $(D)/$(OUTDIR)/,$(GAR
 
 export TEXINPUTS:=$(CURDIR)\src
 
+std: all tidy
+
 all: bib
 	$(LATEX) $(TEX_FLAGS) $(COM_FLAGS) $(NAME).tex
 	$(LATEX) -synctex=1 $(TEX_FLAGS) $(COM_FLAGS) $(NAME).tex
 	copy /Y $(OUTDIR)\$(NAME).pdf .\
-
-std: all tidy
 
 bib: pdf $(OUTDIR)\$(NAME).bcf
 	$(BIBTEX) $(COM_FLAGS) $(NAME)
