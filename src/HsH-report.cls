@@ -261,14 +261,9 @@
 				\vskip 1em
 				{\ifx\@subtitle\@empty\else\usekomafont{subtitle}{\@subtitle\par}\fi}%
 				\vskip 2em
-				{%
-					\usekomafont{author}{%
-						\lineskip 0.75em
-						\begin{tabular}[t]{c}
-							\parbox{\linewidth}{\centering\@author}
-						\end{tabular}\par
-					}%
-				}%
+				% Customised: -----------------------------------------------------------
+				{\if\@author\@empty\else\usekomafont{author}{\parbox{\dimexpr\linewidth}{\centering\@author}}\fi}%
+				% end Customised: --------------------------------------------------------
 				\vskip 1.5em
 				{\usekomafont{date}{\@date \par}}%
 				\vskip \z@ \@plus3fill
@@ -463,14 +458,9 @@
 		\vskip .5em
 		{\ifx\@subtitle\@empty\else\usekomafont{subtitle}\@subtitle\par\fi}%
 		\vskip 1em
-		{%
-		\usekomafont{author}{%
-			\lineskip .5em%
-			\begin{tabular}[t]{c}
-			\@author
-			\end{tabular}\par
-		}%
-		}%
+		% Customised: -----------------------------------------------------------
+		{\if\@author\@empty\else\usekomafont{author}{\parbox{\dimexpr\linewidth}{\centering\@author}}\fi}%
+		% end Customised: --------------------------------------------------------
 		\vskip 1em%
 		{\usekomafont{date}{\@date \par}}%
 		\vskip \z@ \@plus 1em
