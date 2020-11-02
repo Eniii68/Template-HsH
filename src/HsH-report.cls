@@ -96,6 +96,7 @@
 \ihead{\@title}
 \ofoot*{\pagemark}
 
+
 % typesetting indexes upright or standart
 \def\subinrm#1{\sb{\textnormal{#1}}}
 {\catcode`\_=13 \global\let_=\subinrm}
@@ -137,9 +138,8 @@
 		\Large über selbstständiges Erarbeiten dieses  Berichtes\\
 	\end{center}
 	\vspace{1cm}\normalsize
-	Hiermit bestätige\tempB\space\tempA, dass \tempA\space die folgende Arbeit unter Berücksichtigung der zur Verfügung
-	gestellten Aufgabenstellung sowie dem Arbeitsmaterial unter Angabe aller verwendeten Quellen
-	selbstständig erarbeitet habe\tempB.\\
+	Hiermit bestätige\tempB\space\tempA, dass \tempA\space die folgende Arbeit unter Berücksichtigung der zur Verfügung gestellten Aufgabenstellung
+	sowie dem Arbeitsmaterial unter Angabe aller verwendeten Quellen selbstständig erarbeitet habe\tempB.
 	\begin{flushright}
 		\foreach \x [count=\i] in \@author{
 			\vspace{1cm}
