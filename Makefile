@@ -3,8 +3,7 @@ NAME = project
 LATEX = pdflatex
 BIBTEX = biber
 
-SUBDIRS = img plt
-# use . for no OUTDIR
+SUBDIRS = svg plt crc
 OUTDIR = build
 TEX_FLAGS = -file-line-error -interaction=nonstopmode
 COM_FLAGS = -output-directory=$(OUTDIR) -quiet
