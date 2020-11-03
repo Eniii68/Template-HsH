@@ -2,7 +2,8 @@
 		11pt,a4paper,	% fontsize and papersize
 		twoside,		% double sided layout
 		english,		% document language (also numberingsystem)
-		f1				% HsH facultie
+		%ngerman,		% document language (also numberingsystem)
+		f1				% HsH facultie (f1-f5)
 	]{HsH-report}		% documentclass
 
 \usepackage{color}		% for coloring stuff
@@ -11,6 +12,7 @@
 \usepackage{csvsimple}
 \usepackage{biblatex}	% bibiography
 \addbibresource{src/localBibliography.bib}
+
 
 \usepackage{lipsum}		% dummy text
 \begin{document}
@@ -81,10 +83,11 @@
 		\end{itemize}
 	\end{itemize}
 
+
 \section{using Units}
 	For this the \lstinline{siunitx} package is used. It provides Macros for all units.
 	\begin{equation}
-		200\,\ohm
+		200\,\kg
 	\end{equation}
 	The space betwen a number and it's unit shoud be a protected half-space, which can be created in latex using \lstinline{\,} In the classfile
 	siunits is set up to use a seperate macro for each subunit, even for size-modifiers:
@@ -93,8 +96,11 @@
 	\end{equation}
 	Siunits also allows for reformating of numbers as well as units. Use the \lstinline{\SI} and \lstinline{\si} macros for that:
 	\begin{equation}
-		e = \SI{1.602176634E-19}{\coulomb} % formats number + units, autospacing, transform to gernam comma
+		e = \SI{1.602176634E-19}{\coulomb} % formats number + units, autospacing, transform to german comma
 		\;|\; \SI[exponent-to-prefix]{2e-9}{\farad} % you can also autocalculate prefixes
+	\end{equation}
+	\begin{equation}
+		\SI[exponent-to-prefix]{1e-6}{\metre}
 	\end{equation}
 	\begin{equation}
 		124\,\si[per-mode=fraction]{\kilo\metre\per\second\squared} % only units
@@ -158,7 +164,7 @@
 	\end{table}
 
 \clearpage
-\KOMAoptions{paper=landscape,pagesize} % rotate page to landscape mode (because why not XD)
+\KOMAoptions{paper=landscape,pagesize,DIV=9} % rotate page to landscape mode (because why not XD)
 \recalctypearea
 \chapter{attachment}
 % manually include a PDF as not numbered section
