@@ -117,6 +117,7 @@
 \renewcommand{\fps@figure}{h!t} % positioning of figures
 \renewcommand{\fps@table}{h!t} % Positonierung of tables
 \renewcommand{\layercontentsmeasure}{\empty} % rulers when using draft disabled
+	\MakeOuterQuote{"} % easy quotationmarks
 
 \newcommand\declarationAuthorship{
 	\thispagestyle{plain}
