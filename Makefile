@@ -41,7 +41,7 @@ $(SUB_PDF_TEX_FILES): $(SUB_SVG_FILES)
 
 clean: tidy
 	for %%a in ($(foreach D,$(subst /,\,$(SUB_PDF_FILES) $(SUB_PDF_TEX_FILES)) $(subst pdf,synctex.gz,$(subst /,\,$(SUB_PDF_FILES))) $(subst pdf,pdf_tex,$(subst /,\,$(SUB_PDF_TEX_FILES))) $(OUTDIR)\$(NAME).pdf $(OUTDIR)\$(NAME).synctex.gz, "$(D)")) do if exist %%~a del /q %%~a
-	for %%a in ($(foreach D,. $(SUBDIRS),"$(D)\$(if $(subst .,,$(OUTDIR)),$(OUTDIR),build)")) do if exist %%~a rmdir /q %%~a
+	for %%a in ($(foreach D,. $(SUBDIRS),"$(D)\$(if $(subst .,,$(OUTDIR)),$(OUTDIR),build)")) do if exist %%~a rmdir /s /q %%~a
 #	if exist $(NAME).pdf del $(NAME).pdf
 
 tidy:
