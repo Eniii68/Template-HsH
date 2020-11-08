@@ -142,9 +142,9 @@
 		\end{center}
 		\vspace{1cm}\normalsize
 		Hiermit bestätige\plutalendung\space\pronomen, dass die folgende Arbeit eigenständig von \genitiv\space allein erstellt und unter
-		Berücksichtigung der zur Verfügung gestellten Aufgabenstellung sowie dem Arbeitsmaterial unter Angabe aller verwendeten Quellen selbstständig
-		erarbeitet wurde. Die Regelungen und Konsequenzen eines Plagiats, inklusieve disziplinarischer Maßnahmen, sind \genitiv\space bewusst.
-		Insbesondere wurden alle Zitate und gedanklichen Übernahmen als solche kenntlich gemacht.
+		Berücksichtigung der zur Verfügung gestellten Aufgabenstellung sowie dem Arbeitsmaterial unter Angabe aller verwendeten Quellen erarbeitet
+		wurde. Die Regelungen und Konsequenzen eines Plagiats, inklusive disziplinarischer Maßnahmen, sind \genitiv\space bewusst. Insbesondere wurden
+		alle Zitate und gedanklichen Übernahmen als solche kenntlich gemacht.
 	}\else{
 		\newcommand{\pronomen}{I}
 		\newcommand{\pronomenf}{I}
@@ -159,13 +159,12 @@
 			\else\fi
 		}
 		\begin{center}
-			\huge \textbf{Declatiation of Authorship}\\
+			\huge \textbf{Declaration of Authorship}\\
 		\end{center}
 		\vspace{1cm}\normalsize
-		\pronomenf\space hereby certify that this work \pronomen\space\proniomeverb\space submitting is entirely \genitiv\space own original work except
-		where otherwise indicated. \pronomen\space\proniomeverb\space aware of regulations concerning plagiarism, including those regulations
-		concerning disciplinary actions that may result from plagiarism. Any use of the works of any other author, in any form, is properly
-		acknowledged at their point of use.
+		\pronomenf\space hereby certify that the work \pronomen\space\proniomeverb\space submitting is entirely of \genitiv\space own making except
+		where otherwise indicated. \pronomenf\space\proniomeverb\space aware of regulations concerning plagiarism, including disciplinary actions that
+		may result from it. Any use of the works of any other author, in any form, is properly acknowledged at their point of use.
 	}\fi
 	\begin{flushright}
 		\foreach \x [count=\i] in \@author{
