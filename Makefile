@@ -18,9 +18,6 @@ GARBAGE = $(foreach D,. $(SUBDIRS), $(wildcard $(addprefix $(D)/$(OUTDIR)/,$(GAR
 
 export TEXINPUTS:=$(CURDIR)\src
 
-std: all tidy
-pdf: $(NAME).pdf
-
 all: bib
 	$(LATEX) $(TEX_FLAGS) $(COM_FLAGS) $(NAME).tex
 	$(LATEX) -synctex=1 $(TEX_FLAGS) $(COM_FLAGS) $(NAME).tex
@@ -28,6 +25,11 @@ all: bib
 
 bib: $(NAME).pdf $(OUTDIR)\$(NAME).bcf
 	$(BIBTEX) $(COM_FLAGS) $(NAME)
+
+$(OUTDIR)\$(NAME).bcf:
+	$(LATEX) -synctex=1 $(TEX_FLAGS) $(COM_FLAGS) $(NAME).tex
+
+pdf: $(NAME).pdf
 
 $(NAME).pdf: $(NAME).tex $(SUB_PDF_FILES) $(SUB_PDF_TEX_FILES)
 	$(LATEX) -synctex=1 $(TEX_FLAGS) $(COM_FLAGS) $(NAME).tex
