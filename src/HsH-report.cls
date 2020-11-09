@@ -61,9 +61,11 @@
 \PassOptionsToPackage{headsepline}{scrlayer-scrpage}
 
 \PassOptionsToPackage{backend=biber,style=alphabetic,sorting=nyt}{biblatex}
-\PassOptionsToPackage{free-standing-units}{siunitx}
+\PassOptionsToPackage{free-standing-units,abbreviations}{siunitx}
 \PassOptionsToPackage{babel, german=quotes}{csquotes}
 \PassOptionsToPackage{european,EFvoltages,straightvoltages}{circuitikz}
+\PassOptionsToPackage{hidelinks}{hyperref}
+
 
 %used packages:
 \RequirePackage{inputenc} % inputencoding, utf8 recomendet
@@ -72,8 +74,11 @@
 \RequirePackage{geometry} % required for changing layout
 \RequirePackage{graphicx} % required for importing images
 \RequirePackage{babel} % required for german names
+\RequirePackage{hyperref} % references and lists are clikable
+\RequirePackage{bookmark} % generat bookmarkes
 \RequirePackage{scrlayer-scrpage} % required for header and footer
 \RequirePackage{scrhack} % compatability with listings
+\RequirePackage{csquotes} % quotations
 \RequirePackage{pgffor} % foreach loops
 \if@german\RequirePackage{ziffer}\fi % german dezimal numbers
 
@@ -82,9 +87,6 @@
 \RequirePackage{amssymb}
 \RequirePackage{subfigure}
 \RequirePackage{pdfpages}
-\RequirePackage{hyperref}
-\RequirePackage{bookmark}
-\RequirePackage{csquotes}
 \RequirePackage{soul}
 
  % config for header and footer
