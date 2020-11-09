@@ -1,5 +1,5 @@
 # Makefile for Latex project
-NAME = project
+NAME = example
 LATEX = pdflatex
 BIBTEX = biber
 
