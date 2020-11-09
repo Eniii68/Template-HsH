@@ -1,4 +1,4 @@
-\renewcommand{\abstractname}{Abstract} %Abstract
+\renewcommand{\abstractname}{Abstract} % Abstract
 
 \ifx\KOMAScriptVersion\undefined\else % check if KOMA is used
 	\g@addto@macro\@floatboxreset\centering % center all floats
@@ -8,24 +8,21 @@
 \@ifpackageloaded{biblatex}{
 	\ExecuteBibliographyOptions{
 		bibwarn=true,
+		url=true,
 		isbn=false,
-		url=false
 	}
 }{}%
-\@ifpackageloaded{csquotes}{
-	\MakeOuterQuote{"}
-}{}%
 \@ifpackageloaded{siunitx}{
-	\if@german
-		\sisetup{output-decimal-marker={,}}
+	\if@german % if german
+		\sisetup{output-decimal-marker={,}} % use comma as dezimal
 	\fi
 	\sisetup{
-		free-standing-units,
 		tight-spacing=true,
 		per-mode=symbol,
 		scientific-notation=engineering,
-		round-mode = places,
-		round-precision = 3,
+		% exponent-to-prefix, % use this instead of sci-notatio
+		round-mode = places, % round numbers
+		round-precision = 3, % to 3 places
 	}
 }{}%
 \@ifpackageloaded{listings}{

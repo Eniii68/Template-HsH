@@ -3,8 +3,7 @@ NAME = test
 LATEX = pdflatex
 BIBTEX = biber
 
-SUBDIRS = img plt
-# use . for no OUTDIR
+SUBDIRS = svg plt crc
 OUTDIR = build
 TEX_FLAGS = -file-line-error -interaction=nonstopmode
 COM_FLAGS = -output-directory=$(OUTDIR) -quiet
@@ -24,12 +23,15 @@ all: bib
 	$(LATEX) -synctex=1 $(TEX_FLAGS) $(COM_FLAGS) $(NAME).tex
 	copy /Y $(OUTDIR)\$(NAME).pdf .\
 
-std: all tidy
-
-bib: pdf $(OUTDIR)\$(NAME).bcf
+bib: $(NAME).pdf $(OUTDIR)\$(NAME).bcf
 	$(BIBTEX) $(COM_FLAGS) $(NAME)
 
-pdf: $(SUB_PDF_FILES) $(SUB_PDF_TEX_FILES)
+$(OUTDIR)\$(NAME).bcf:
+	$(LATEX) -synctex=1 $(TEX_FLAGS) $(COM_FLAGS) $(NAME).tex
+
+pdf: $(NAME).pdf
+
+$(NAME).pdf: $(NAME).tex $(SUB_PDF_FILES) $(SUB_PDF_TEX_FILES)
 	$(LATEX) -synctex=1 $(TEX_FLAGS) $(COM_FLAGS) $(NAME).tex
 
 $(SUB_PDF_FILES): $(SUB_TEX_FILES)

@@ -61,9 +61,11 @@
 \PassOptionsToPackage{headsepline}{scrlayer-scrpage}
 
 \PassOptionsToPackage{backend=biber,style=alphabetic,sorting=nyt}{biblatex}
-\PassOptionsToPackage{free-standing-units}{siunitx}
+\PassOptionsToPackage{free-standing-units,abbreviations}{siunitx}
 \PassOptionsToPackage{babel, german=quotes}{csquotes}
 \PassOptionsToPackage{european,EFvoltages,straightvoltages}{circuitikz}
+\PassOptionsToPackage{hidelinks}{hyperref}
+
 
 %used packages:
 \RequirePackage{inputenc} % inputencoding, utf8 recomendet
@@ -72,8 +74,11 @@
 \RequirePackage{geometry} % required for changing layout
 \RequirePackage{graphicx} % required for importing images
 \RequirePackage{babel} % required for german names
+\RequirePackage{hyperref} % references and lists are clikable
+\RequirePackage{bookmark} % generat bookmarkes
 \RequirePackage{scrlayer-scrpage} % required for header and footer
 \RequirePackage{scrhack} % compatability with listings
+\RequirePackage{csquotes} % quotations
 \RequirePackage{pgffor} % foreach loops
 \if@german\RequirePackage{ziffer}\fi % german dezimal numbers
 
@@ -82,9 +87,6 @@
 \RequirePackage{amssymb}
 \RequirePackage{subfigure}
 \RequirePackage{pdfpages}
-\RequirePackage{hyperref}
-\RequirePackage{bookmark}
-\RequirePackage{csquotes}
 \RequirePackage{soul}
 
  % config for header and footer
@@ -117,6 +119,7 @@
 \renewcommand{\fps@figure}{h!t} % positioning of figures
 \renewcommand{\fps@table}{h!t} % Positonierung of tables
 \renewcommand{\layercontentsmeasure}{\empty} % rulers when using draft disabled
+	\MakeOuterQuote{"} % easy quotationmarks
 
 \newcommand\declarationAuthorship{
 	\thispagestyle{plain}
@@ -141,9 +144,9 @@
 		\end{center}
 		\vspace{1cm}\normalsize
 		Hiermit bestätige\plutalendung\space\pronomen, dass die folgende Arbeit eigenständig von \genitiv\space allein erstellt und unter
-		Berücksichtigung der zur Verfügung gestellten Aufgabenstellung sowie dem Arbeitsmaterial unter Angabe aller verwendeten Quellen selbstständig
-		erarbeitet wurde. Die Regelungen und Konsequenzen eines Plagiats, inklusieve disziplinarischer Maßnahmen, sind \genitiv\space bewusst.
-		Insbesondere wurden alle Zitate und gedanklichen Übernahmen als solche kenntlich gemacht.
+		Berücksichtigung der zur Verfügung gestellten Aufgabenstellung sowie dem Arbeitsmaterial unter Angabe aller verwendeten Quellen erarbeitet
+		wurde. Die Regelungen und Konsequenzen eines Plagiats, inklusive disziplinarischer Maßnahmen, sind \genitiv\space bewusst. Insbesondere wurden
+		alle Zitate und gedanklichen Übernahmen als solche kenntlich gemacht.
 	}\else{
 		\newcommand{\pronomen}{I}
 		\newcommand{\pronomenf}{I}
@@ -158,13 +161,12 @@
 			\else\fi
 		}
 		\begin{center}
-			\huge \textbf{Declatiation of Authorship}\\
+			\huge \textbf{Declaration of Authorship}\\
 		\end{center}
 		\vspace{1cm}\normalsize
-		\pronomenf\space hereby certify that this work \pronomen\space\proniomeverb\space submitting is entirely \genitiv\space own original work except
-		where otherwise indicated. \pronomen\space\proniomeverb\space aware of regulations concerning plagiarism, including those regulations
-		concerning disciplinary actions that may result from plagiarism. Any use of the works of any other author, in any form, is properly
-		acknowledged at their point of use.
+		\pronomenf\space hereby certify that the work \pronomen\space\proniomeverb\space submitting is entirely of \genitiv\space own making except
+		where otherwise indicated. \pronomenf\space\proniomeverb\space aware of regulations concerning plagiarism, including disciplinary actions that
+		may result from it. Any use of the works of any other author, in any form, is properly acknowledged at their point of use.
 	}\fi
 	\begin{flushright}
 		\foreach \x [count=\i] in \@author{
