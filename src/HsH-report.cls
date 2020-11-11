@@ -58,16 +58,15 @@
 \PassOptionsToPackage{utf8}{inputenc}
 \PassOptionsToPackage{T1}{fontenc}
 \PassOptionsToPackage{left=3cm,right=2.5cm,top=3cm,bottom=3cm}{geometry}
+\PassOptionsToPackage{hidelinks}{hyperref}
 \PassOptionsToPackage{headsepline}{scrlayer-scrpage}
+\PassOptionsToPackage{babel, german=quotes}{csquotes}
 
 \PassOptionsToPackage{backend=biber,style=alphabetic,sorting=nyt}{biblatex}
 \PassOptionsToPackage{free-standing-units,abbreviations}{siunitx}
-\PassOptionsToPackage{babel, german=quotes}{csquotes}
 \PassOptionsToPackage{european,EFvoltages,straightvoltages}{circuitikz}
-\PassOptionsToPackage{hidelinks}{hyperref}
 
-
-%used packages:
+% used packages:
 \RequirePackage{inputenc} % inputencoding, utf8 recomendet
 \RequirePackage{fontenc} % outputencoding, T1 recomendet
 \RequirePackage{lmodern} % font
@@ -82,12 +81,6 @@
 \RequirePackage{pgffor} % foreach loops
 \if@german\RequirePackage{ziffer}\fi % german dezimal numbers
 
-% should these be in?
-\RequirePackage{amsmath}
-\RequirePackage{amssymb}
-\RequirePackage{subfigure}
-\RequirePackage{pdfpages}
-\RequirePackage{soul}
 
  % config for header and footer
 \pagestyle{scrheadings}
@@ -119,7 +112,7 @@
 \renewcommand{\fps@figure}{h!t} % positioning of figures
 \renewcommand{\fps@table}{h!t} % Positonierung of tables
 \renewcommand{\layercontentsmeasure}{\empty} % rulers when using draft disabled
-	\MakeOuterQuote{"} % easy quotationmarks
+\MakeOuterQuote{"} % easy quotationmarks
 
 \newcommand\declarationAuthorship{
 	\thispagestyle{plain}
