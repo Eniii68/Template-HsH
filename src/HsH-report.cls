@@ -58,16 +58,15 @@
 \PassOptionsToPackage{utf8}{inputenc}
 \PassOptionsToPackage{T1}{fontenc}
 \PassOptionsToPackage{left=3cm,right=2.5cm,top=3cm,bottom=3cm}{geometry}
+\PassOptionsToPackage{hidelinks}{hyperref}
 \PassOptionsToPackage{headsepline}{scrlayer-scrpage}
+\PassOptionsToPackage{babel, german=quotes}{csquotes}
 
 \PassOptionsToPackage{backend=biber,style=alphabetic,sorting=nyt}{biblatex}
 \PassOptionsToPackage{free-standing-units,abbreviations}{siunitx}
-\PassOptionsToPackage{babel, german=quotes}{csquotes}
 \PassOptionsToPackage{european,EFvoltages,straightvoltages}{circuitikz}
-\PassOptionsToPackage{hidelinks}{hyperref}
 
-
-%used packages:
+% used packages:
 \RequirePackage{inputenc} % inputencoding, utf8 recomendet
 \RequirePackage{fontenc} % outputencoding, T1 recomendet
 \RequirePackage{lmodern} % font
