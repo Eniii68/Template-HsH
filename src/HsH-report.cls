@@ -81,12 +81,6 @@
 \RequirePackage{pgffor} % foreach loops
 \if@german\RequirePackage{ziffer}\fi % german dezimal numbers
 
-% should these be in?
-\RequirePackage{amsmath}
-\RequirePackage{amssymb}
-\RequirePackage{subfigure}
-\RequirePackage{pdfpages}
-\RequirePackage{soul}
 
  % config for header and footer
 \pagestyle{scrheadings}
@@ -118,7 +112,7 @@
 \renewcommand{\fps@figure}{h!t} % positioning of figures
 \renewcommand{\fps@table}{h!t} % Positonierung of tables
 \renewcommand{\layercontentsmeasure}{\empty} % rulers when using draft disabled
-	\MakeOuterQuote{"} % easy quotationmarks
+\MakeOuterQuote{"} % easy quotationmarks
 
 \newcommand\declarationAuthorship{
 	\thispagestyle{plain}
