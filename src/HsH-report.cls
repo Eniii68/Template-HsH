@@ -170,8 +170,8 @@
 	}\fi
 	\begin{flushright}
 		\foreach \x [count=\i] in \@author{
-			\vspace{1cm}
 			\begin{tabular}[t]{r}
+				\\[3em]
 				\rule{4cm}{0.4pt} \\
 				{\footnotesize\x}
 			\end{tabular}
@@ -288,8 +288,8 @@
 				{\usekomafont{title}{\huge \@title\par}}%
 				\vskip 1em
 				{\ifx\@subtitle\@empty\else\usekomafont{subtitle}{\@subtitle\par}\fi}%
-				\vskip 2em
 				% Customised: -----------------------------------------------------------
+				\vskip 4em
 				{\if\@author\@empty\else\usekomafont{author}{\parbox{\dimexpr\linewidth}{\centering\@author}}\fi}%
 				% end Customised: --------------------------------------------------------
 				\vskip 1.5em
@@ -485,8 +485,8 @@
 		{\usekomafont{title}{\huge \@title \par}}%
 		\vskip .5em
 		{\ifx\@subtitle\@empty\else\usekomafont{subtitle}\@subtitle\par\fi}%
-		\vskip 1em
 		% Customised: -----------------------------------------------------------
+		\vskip 4em
 		{\if\@author\@empty\else\usekomafont{author}{\parbox{\dimexpr\linewidth}{\centering\@author}}\fi}%
 		% end Customised: --------------------------------------------------------
 		\vskip 1em%
