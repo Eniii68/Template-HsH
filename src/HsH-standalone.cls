@@ -52,7 +52,7 @@
 \InputIfFileExists{personal.tex}{
 	\ClassInfo{\myClassName}{personal.tex was found. Using it...}
 }{
-	\ClassInfo{\myClassName}{no personal.tex! Configre the titlepage yourselfe}
+	\ClassInfo{\myClassName}{no personal.tex! Configre the titlepage yourself}
 }
 
 % enforced options for packages
@@ -86,7 +86,7 @@
 	\InputIfFileExists{config.tex}{
 		\ClassInfo{\myClassName}{config.tex was found. Using it...}
 	}{
-		\ClassInfo{\myClassName}{no config.tex!! I hope you configered it yourself.}
+		\ClassInfo{\myClassName}{no config.tex!! I hope you configured it yourself.}
 	}
 	\makeatother
 }
