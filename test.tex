@@ -4,6 +4,7 @@
 \usepackage{lipsum}
 \usepackage{siunitx}
 \usepackage{biblatex}
+\usepackage{soul}
 \addbibresource{src/localBibliography.bib}
 
 \begin{document}
@@ -46,14 +47,17 @@
 
 	\begin{figure}
 		\centering
-		\includegraphics{img/build/exampleCircuit.pdf}
+		\includegraphics{crc/build/exampleCircuit.pdf}
 		\caption{a circuit diagramm}
 	\end{figure}
 
+	\makeatletter
+	\g@addto@macro\@floatboxreset\raggedright % center all floats
+	\setcapwidth[l]{0.8\textwidth} % center all captions
+
 	\begin{figure}
-		\centering
-		\graphicspath{{img/build/}} % double curly brackets needet for unknown reason
-		\input{img/build/exampleSVG.pdf_tex}
+		\graphicspath{{svg/build/}} % double curly brackets needet for unknown reason
+		\input{svg/build/exampleSVG.pdf_tex}
 		\caption{made via inkscape}
 	\end{figure}
 
