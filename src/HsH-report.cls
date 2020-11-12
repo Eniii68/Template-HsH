@@ -75,6 +75,7 @@
 \RequirePackage{babel} % required for german names
 \RequirePackage{hyperref} % references and lists are clikable
 \RequirePackage{bookmark} % generat bookmarkes
+\RequirePackage{amsmath} % a lot of nice Math
 \RequirePackage{scrlayer-scrpage} % required for header and footer
 \RequirePackage{scrhack} % compatability with listings
 \RequirePackage{csquotes} % quotations
