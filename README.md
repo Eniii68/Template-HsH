@@ -18,8 +18,7 @@ them with specific configurations and presets as well as providing commonly need
 
 [MikTex is recommended](https://miktex.org/), TexLive doesn't find some packages, if somebody get's it working, let me know.
 
-`biber`-Backend ist mandatory! You need to change your config to use it as a backend, otherwise you will get errors. See
-[here for most editors](https://texwelt.de/fragen/1909/wie-verwende-ich-biber-in-meinem-editor) and [here for VS Code](https://tex.stackexchange.com/questions/459640/implementing-biber-for-biblatex-in-microsoft-visual-studio-code/459933#459933)
+`biber`-Backend is standart! If you have Problems with that, check the [FAQ](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/wikis/faq). 
 
 The `Makefile` is only tested with mingw32-make.
 
