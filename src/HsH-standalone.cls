@@ -68,6 +68,7 @@
 \RequirePackage{lmodern} % font
 \RequirePackage{graphicx} % required for importing images
 \RequirePackage{babel} % required for german names
+\RequirePackage{amsmath} % a lot of nice Math
 \if@german\RequirePackage{ziffer}\fi % german dezimal numbers
 
 % typesetting indexes upright or standart
