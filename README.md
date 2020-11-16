@@ -48,5 +48,5 @@ Use the wiki [here](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/
 - [What are the personal.tex and config.tex?](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/wikis/What%20are%20the%20personal.tex%20and%20config.tex)  
 - [setting up a titlepage](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/wikis/setting%20up%20a%20titlepage)  
 - [Provided commands](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/wikis/Provided%20commands)  
-- [Recommended packages](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/wikis/Recommended%20packages)
+- [Provided and recommended packages](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/wikis/Provided%20and%20recommended%20packages)
 - [Frequently Asked Questions](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/wikis/faq)  

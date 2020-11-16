@@ -70,16 +70,16 @@
 \RequirePackage{inputenc} % inputencoding, utf8 recomendet
 \RequirePackage{fontenc} % outputencoding, T1 recomendet
 \RequirePackage{lmodern} % font
-\RequirePackage{geometry} % required for changing layout
-\RequirePackage{graphicx} % required for importing images
 \RequirePackage{babel} % required for german names
+\RequirePackage{geometry} % required for changing layout
+\RequirePackage{scrlayer-scrpage} % required for header and footer
+\RequirePackage{scrhack} % compatability with listings
+\RequirePackage{pgffor} % foreach loops
+\RequirePackage{graphicx} % required for importing images
 \RequirePackage{hyperref} % references and lists are clikable
 \RequirePackage{bookmark} % generat bookmarkes
 \RequirePackage{amsmath} % a lot of nice Math
-\RequirePackage{scrlayer-scrpage} % required for header and footer
-\RequirePackage{scrhack} % compatability with listings
 \RequirePackage{csquotes} % quotations
-\RequirePackage{pgffor} % foreach loops
 \if@german\RequirePackage{ziffer}\fi % german dezimal numbers
 
 
@@ -94,7 +94,7 @@
 
 
 % typesetting indexes upright or standart
-\def\subinrm#1{\sb{\textnormal{#1}}}
+\def\subinrm#1{\sb{\mathrm{#1}}}
 {\catcode`\_=13 \global\let_=\subinrm}
 \mathcode`_="8000
 \newcommand\upsubscripts{\catcode`\_=12 } % the toggle for upright subscripts
