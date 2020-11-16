@@ -72,7 +72,7 @@
 \if@german\RequirePackage{ziffer}\fi % german dezimal numbers
 
 % typesetting indexes upright or standart
-\def\subinrm#1{\sb{\textnormal{#1}}}
+\def\subinrm#1{\sb{\mathrm{#1}}}
 {\catcode`\_=13 \global\let_=\subinrm}
 \mathcode`_="8000
 \newcommand\upsubscripts{\catcode`\_=12 } % the toggle for upright subscripts
