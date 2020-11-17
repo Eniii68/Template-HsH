@@ -63,13 +63,13 @@
 	\end{figure}
 
 	Circuit diagramms can also be created using a package called \lstinline{circuitikz}. It is also recommended to get familiar with Inkscape which
-	has a very good export to latex feature.
+	has a very good export to latex feature, as you can see in \autoref{subfig: svg}.
 	\begin{figure}
 		\graphicspath{{svg/build/}} % double curly brackets needed for unknown reason
-		\subfigure[a circuit diagramm]{\includegraphics{crc/build/exampleCircuit.pdf}}
+		\subfigure[a circuit diagramm]{\label{subfig: circuit}\includegraphics{crc/build/exampleCircuit.pdf}}
 		\hspace{2cm}
 		\def\svgwidth{0.3\textwidth} % define desired width
-		\subfigure[made via Inkscape]{\input{svg/build/exampleSVG.pdf_tex}}
+		\subfigure[made via Inkscape]{\label{subfig: svg}\input{svg/build/exampleSVG.pdf_tex}}
 		\caption{using two figures}
 	\end{figure}
 
