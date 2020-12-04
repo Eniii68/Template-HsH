@@ -60,7 +60,8 @@
 \PassOptionsToPackage{left=3cm,right=2.5cm,top=3cm,bottom=3cm}{geometry}
 \PassOptionsToPackage{hidelinks}{hyperref}
 \PassOptionsToPackage{headsepline}{scrlayer-scrpage}
-\PassOptionsToPackage{babel, german=quotes}{csquotes}
+\PassOptionsToPackage{babel}{csquotes}
+\if@german\PassOptionsToPackage{german=quotes}{csquotes}\fi
 
 \PassOptionsToPackage{backend=biber,style=alphabetic,sorting=nyt}{biblatex}
 \PassOptionsToPackage{free-standing-units,abbreviations}{siunitx}
