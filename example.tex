@@ -52,12 +52,12 @@
 	compilertimes by a lot. You should not change the size of precompiled images to keep fontsizes consistent.
 	\pagebreak
 	\begin{figure}
-		\includegraphics[page=2]{plt/build/examplePlot.pdf}
+		\includegraphics[page=2]{plt/examplePlot.pdf}
 		\caption[centering]{a nice plot}
 		\label{fig: plot1}
 	\end{figure}
 	\begin{figure}
-		\includegraphics[page=1]{plt/build/examplePlot.pdf}
+		\includegraphics[page=1]{plt/examplePlot.pdf}
 		\caption{a area plot}
 		\label{fig: area}
 	\end{figure}
@@ -66,13 +66,20 @@
 	has a very good export to latex feature, as you can see in \autoref{subfig: svg}.
 	\begin{figure}
 		\graphicspath{{svg/build/}} % double curly brackets needed for unknown reason
-		\subfigure[a circuit diagramm]{\label{subfig: circuit}\includegraphics{crc/build/exampleCircuit.pdf}}
+		\subfigure[a circuit diagramm]{\label{subfig: circuit}\includegraphics{crc/exampleCircuit.pdf}}
 		\hspace{2cm}
-		\def\svgwidth{0.3\textwidth} % define desired width
-		\subfigure[made via Inkscape]{\label{subfig: svg}\input{svg/build/exampleSVG.pdf_tex}}
 		\caption{using two figures}
 	\end{figure}
 
+	Using Inkscape, you can create SVG-vector graphics and import them easily into Latex.
+	% \begin{figure}
+	% 	\def\svgwidth{0.3\textwidth} % define desired width
+	% 	\input{svg/build/exampleSVG.pdf_tex}
+	% 	\caption{A image created with Inkscape}
+	%	\label{subfig: svg}
+	% \end{figure}
+
+	\pagebreak
 \section{demo nested listing}
 	\begin{itemize}
 		\item hallo
