@@ -18,6 +18,10 @@ GARBAGE = $(foreach D,. $(SUBDIRS), $(wildcard $(addprefix $(D)/$(OUTDIR)/,$(GAR
 
 export TEXINPUTS:=$(CURDIR)\src
 
+simple:
+	pdflatex -include-directory=.\src example.tex
+	del $(GARBAGE_PATTERNS)
+
 all: bib
 	$(LATEX) $(TEX_FLAGS) $(COM_FLAGS) $(NAME).tex
 	$(LATEX) -synctex=1 $(TEX_FLAGS) $(COM_FLAGS) $(NAME).tex
