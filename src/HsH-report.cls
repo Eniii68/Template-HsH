@@ -1,14 +1,13 @@
-\typeout{Adapted from KOMA script for use in Hochschule Hannover <2020-08-21> Jan Wille}
+\typeout{Adapted from KOMA script for use in Hochschule Hannover <2022-01-22> Jan Wille}
 \NeedsTeXFormat{LaTeX2e}
 
 \newcommand{\myClassName}{HsH-report}
-\ProvidesClass{\myClassName}[2020/09/21 HsH Report based on KOMA]
+\ProvidesClass{\myClassName}[2021/01/22 HsH Report based on KOMA]
 \LoadClass[bibliography=totoc,listof=totoc]{scrreprt}
 
 \newcommand{\HsHlogoPath}{HSH-Logo.pdf}
 \newcommand{\HsHlogoPage}{1}
 \newcommand{\includeHsHlogohere}{\includegraphics[width=5cm,page=\HsHlogoPage]{\HsHlogoPath}}
-\providecommand{\abs}[1]{\ensuremath{\left\vert#1\right\vert}} % Makro für Betragsstriche
 
 \newif\if@german%
 \DeclareOption{german}{%
@@ -48,13 +47,7 @@
 \@ifclasswith{\myClassName}{english}{}{\@ifclasswith{\myClassName}{ngerman}{}{\ExecuteOptions{ngerman}}}
 \ProcessOptions\relax
 
-\InputIfFileExists{personal.tex}{
-	\ClassInfo{\myClassName}{personal.tex was found. Using it...}
-}{
-	\ClassInfo{\myClassName}{no personal.tex! Configre the titlepage yourselfe}
-}
-
-% enforced options for packages
+% standart options for packages
 \PassOptionsToPackage{utf8}{inputenc}
 \PassOptionsToPackage{T1}{fontenc}
 \PassOptionsToPackage{left=3cm,right=2.5cm,top=3cm,bottom=3cm}{geometry}
@@ -84,7 +77,12 @@
 \if@german\RequirePackage{ziffer}\fi % german dezimal numbers
 
 
- % config for header and footer
+ % config for title, header and footer
+\InputIfFileExists{personal.tex}{
+	\ClassInfo{\myClassName}{personal.tex was found. Using it...}
+}{
+	\ClassInfo{\myClassName}{no personal.tex! Configre the titlepage yourselfe}
+}
 \pagestyle{scrheadings}
 \clearpairofpagestyles
 \renewcommand*{\chapterpagestyle}{scrheadings} % Kapitelanfang standart Kopf/Fußzeile
@@ -116,6 +114,8 @@
 \renewcommand{\layercontentsmeasure}{\empty} % rulers when using draft disabled
 \MakeOuterQuote{"} % easy quotationmarks
 
+% custom commands
+\providecommand{\abs}[1]{\ensuremath{\left\vert#1\right\vert}} % Makro für Betragsstriche
 \newcommand\declarationAuthorship{
 	\thispagestyle{plain}
 	\vspace*{\fill}
@@ -183,6 +183,7 @@
 	\endquotation
 }
 
+% load config at beginning of document
 \AtBeginDocument {
 	\makeatletter
 	\InputIfFileExists{config.tex}{
@@ -193,6 +194,7 @@
 	\makeatother
 }
 
+% reconfig Titlepage
 \renewcommand\maketitle[1][1]{%
 	\expandafter\ifnum \csname scr@v@3.12\endcsname>\scr@compatibility\relax
 	\else
