@@ -6,19 +6,23 @@
 		f1				% HsH facultie (f1-f5)
 	]{HsH-report}		% documentclass
 
-\usepackage{color}		% for colouring stuff
-\usepackage{siunitx}	% units
-\usepackage{listings}
-\usepackage{csvsimple}	% for importing CSV files
-\usepackage{subfigure}	% for subfigures
-\usepackage{biblatex}	% bibliography
-\usepackage{soul}		% strikethrough text
-\usepackage{amssymb}	% spacial Math symbols
+% bibliography
+% include biblatex, if you want to use it:
+\usepackage[backend=bibtex]{biblatex}	% biber is recommended as a backend, but for simplicity it is changed here back to standart bibtex
 \addbibresource{src/localBibliography.bib}
 
-
+% a few more useful packages:
+\usepackage{color}		% for colouring stuff
+\usepackage{siunitx}	% units
+\usepackage{listings}	% including formated code snippets
+\usepackage{csvsimple}	% for importing CSV files
+\usepackage{subfigure}	% for subfigures
+\usepackage{soul}		% strikethrough text
 \usepackage{lipsum}		% dummy text
-\begin{document}
+\usepackage{amssymb}
+
+
+\begin{document} %----------- beginning of document -----------------------------------------------
 
 \pagenumbering{Roman}	% different numbering until first chapter
 \maketitle				% using personal.tex
@@ -177,7 +181,7 @@
 \input{chap/exampleChapter.tex}
 
 \clearpage
-\KOMAoptions{paper=landscape,pagesize,DIV=9} % rotate page to landscape mode (because why not XD)
+\KOMAoptions{paper=landscape,pagesize,DIV=9} % rotate page to landscape mode (because why not XD), this causes a warning, use with cation
 \recalctypearea
 \chapter{attachment}
 % manually include a PDF as not numbered section
