@@ -6,6 +6,12 @@
 		f1				% HsH facultie (f1-f5)
 	]{HsH-report}		% documentclass
 
+% INFO:
+% this file will produce a few warnings, even when working correctly:
+% - using fallback Bibtex backend, cased because of the older backend, which may not support all features
+% - Bad type area setting, caused by using a landscape page. The type area is malformed, but this is no problem if you only include external pages
+
+
 % bibliography
 % include biblatex, if you want to use it:
 \usepackage[backend=bibtex]{biblatex}	% biber is recommended as a backend, but for simplicity it is changed here back to standart bibtex
