@@ -1,14 +1,13 @@
 \typeout{Adapted from KOMA script for use in Hochschule Hannover <2022-01-22> Jan Wille}
 \NeedsTeXFormat{LaTeX2e}
 
-\newcommand{\myClassName}{HsH-report}
-\ProvidesClass{\myClassName}[2021/01/22 HsH Report based on KOMA]
-\LoadClass[bibliography=totoc,listof=totoc]{scrreprt}
+\newcommand{\myClassName}{HsH-article}
+\ProvidesClass{\myClassName}[2021/01/22 HsH Article based on KOMA]
+\LoadClass[bibliography=totoc,listof=totoc]{scrartcl}
 
 \newcommand{\HsHlogoPath}{HSH-Logo.pdf}
 \newcommand{\HsHlogoPage}{1}
 \newcommand{\includeHsHlogohere}{\includegraphics[width=5cm,page=\HsHlogoPage]{\HsHlogoPath}}
-
 
 \newif\if@german%
 \DeclareOption{german}{%
@@ -86,8 +85,7 @@
 }
 \pagestyle{scrheadings}
 \clearpairofpagestyles
-\renewcommand*{\chapterpagestyle}{scrheadings} % Chaptertitles get same header/footer as everything
-\automark{chapter}
+\automark{section}
 \ohead{\headmark}
 \ihead{\@title}
 \ofoot*{\pagemark}
@@ -173,15 +171,6 @@
 			\end{tabular}
 		}
 	\end{flushright}
-}
-
-\renewenvironment{abstract}{%
-	\chapter*{\centering\abstractname}
-	\addcontentsline{toc}{chapter}{\abstractname}
-		\small
-		\quotation
-}{%
-	\endquotation
 }
 
 % load config at beginning of document
@@ -273,7 +262,7 @@
 					\usekomafont{titlehead}{\@titlehead}%
 				\fi
 				\hfill
-				\raisebox{0pt}[\ht\strutbox][\dp\strutbox]{\includeHsHlogohere}
+				\includeHsHlogohere
 			\end{minipage}
 			\raisebox{10pt}{\rule{\textwidth}{0.5pt}}
 			% end Customised: --------------------------------------------------------
@@ -286,14 +275,19 @@
 				{\usekomafont{title}{\huge \@title\par}}%
 				\vskip 1em
 				{\ifx\@subtitle\@empty\else\usekomafont{subtitle}{\@subtitle\par}\fi}%
-				% Customised: -----------------------------------------------------------
-				\vskip 4em
-				{\if\@author\@empty\else\usekomafont{author}{\parbox{\dimexpr\linewidth}{\centering\@author}}\fi}%
-				% end Customised: --------------------------------------------------------
+				\vskip 2em
+				{%
+					\usekomafont{author}{%
+						\lineskip 0.75em
+						\begin{tabular}[t]{c}
+							\parbox{\linewidth}{\centering\@author}
+						\end{tabular}\par
+					}%
+				}%
 				\vskip 1.5em
 				{\usekomafont{date}{\@date \par}}%
 				\vskip \z@ \@plus3fill
-				%{\usekomafont{publishers}{\@publishers \par}}%
+				{\usekomafont{publishers}{\@publishers \par}}%
 				\vskip 3em
 			\end{center}\par
 			\@thanks\global\let\@thanks\@empty
@@ -454,6 +448,7 @@
 	\global\let\and\relax
 }%
 
+
 \renewcommand*{\@maketitle}{%
 	\global\@topnum=\z@
 	\setparsizes{\z@}{\z@}{\z@\@plus 1fil}\par@updaterelative
@@ -469,7 +464,7 @@
 			\usekomafont{titlehead}{\@titlehead}%
 		\fi
 		\hfill
-		\raisebox{0pt}[\ht\strutbox][\dp\strutbox]{\includeHsHlogohere}
+		\includeHsHlogohere
 	\end{minipage}
 	\raisebox{10pt}{\rule{\textwidth}{0.5pt}}
 	% end Customised: --------------------------------------------------------
@@ -483,14 +478,19 @@
 		{\usekomafont{title}{\huge \@title \par}}%
 		\vskip .5em
 		{\ifx\@subtitle\@empty\else\usekomafont{subtitle}\@subtitle\par\fi}%
-		% Customised: -----------------------------------------------------------
-		\vskip 4em
-		{\if\@author\@empty\else\usekomafont{author}{\parbox{\dimexpr\linewidth}{\centering\@author}}\fi}%
-		% end Customised: --------------------------------------------------------
+		\vskip 1em
+		{%
+		\usekomafont{author}{%
+			\lineskip .5em%
+			\begin{tabular}[t]{c}
+			\@author
+			\end{tabular}\par
+		}%
+		}%
 		\vskip 1em%
 		{\usekomafont{date}{\@date \par}}%
 		\vskip \z@ \@plus 1em
-		%{\usekomafont{publishers}{\@publishers \par}}%
+		{\usekomafont{publishers}{\@publishers \par}}%
 		\ifx\@dedication\@empty \else
 		\vskip 2em
 		{\usekomafont{dedication}{\@dedication \par}}%

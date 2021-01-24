@@ -1,14 +1,13 @@
-\typeout{Adapted from KOMA script for use in Hochschule Hannover <2020-08-21> Jan Wille}
+\typeout{Adapted from KOMA script for use in Hochschule Hannover <2020-01-22> Jan Wille}
 \NeedsTeXFormat{LaTeX2e}
 
 \newcommand{\myClassName}{HsH-standalone}
-\ProvidesClass{\myClassName}[2020/09/21 HsH Report based on KOMA]
+\ProvidesClass{\myClassName}[2020/01/22 HsH Report based on KOMA]
 \LoadClass[multi=tikzpicture,multi=circuitikz]{standalone}
 
 \newcommand{\HsHlogoPath}{HSH-Logo.pdf}
 \newcommand{\HsHlogoPage}{1}
 \newcommand{\includeHsHlogohere}{\includegraphics[width=5cm,page=\HsHlogoPage]{\HsHlogoPath}}
-\providecommand{\abs}[1]{\ensuremath{\left\vert#1\right\vert}} % Makro für Betragsstriche
 
 
 \newif\if@german%
@@ -62,7 +61,7 @@
 \PassOptionsToPackage{free-standing-units}{siunitx}
 \PassOptionsToPackage{european,EFvoltages,straightvoltages}{circuitikz}
 
-%used packages:
+% used packages:
 \RequirePackage{inputenc} % inputencoding, utf8 recomendet
 \RequirePackage{fontenc} % outputencoding, T1 recomendet
 \RequirePackage{lmodern} % font
@@ -82,6 +81,10 @@
 % keep compatible
 \providecommand{\renewcaptionname}[3]{}
 
+% custom commands
+\providecommand{\abs}[1]{\ensuremath{\left\vert#1\right\vert}} % Makro for vertical lines around absolute values
+
+% load config at beginning of document
 \AtBeginDocument {
 	\makeatletter
 	\InputIfFileExists{config.tex}{
