@@ -9,6 +9,7 @@
 \newcommand{\HsHlogoPage}{1}
 \newcommand{\includeHsHlogohere}{\includegraphics[width=5cm,page=\HsHlogoPage]{\HsHlogoPath}}
 
+
 \newif\if@german%
 \DeclareOption{german}{%
 	\PassOptionsToPackage{ngerman}{babel}
@@ -85,7 +86,7 @@
 }
 \pagestyle{scrheadings}
 \clearpairofpagestyles
-\renewcommand*{\chapterpagestyle}{scrheadings} % Kapitelanfang standart Kopf/Fußzeile
+\renewcommand*{\chapterpagestyle}{scrheadings} % Chaptertitles get same header/footer as everything
 \automark{chapter}
 \ohead{\headmark}
 \ihead{\@title}
@@ -115,7 +116,7 @@
 \MakeOuterQuote{"} % easy quotationmarks
 
 % custom commands
-\providecommand{\abs}[1]{\ensuremath{\left\vert#1\right\vert}} % Makro für Betragsstriche
+\providecommand{\abs}[1]{\ensuremath{\left\vert#1\right\vert}} % Makro for vertical lines around absolute values
 \newcommand\declarationAuthorship{
 	\thispagestyle{plain}
 	\vspace*{\fill}

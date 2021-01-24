@@ -114,7 +114,7 @@
 \MakeOuterQuote{"} % easy quotationmarks
 
 % custom commands
-\providecommand{\abs}[1]{\ensuremath{\left\vert#1\right\vert}} % Makro für Betragsstriche
+\providecommand{\abs}[1]{\ensuremath{\left\vert#1\right\vert}} % Makro for vertical lines around absolute values
 \newcommand\declarationAuthorship{
 	\thispagestyle{plain}
 	\vspace*{\fill}
