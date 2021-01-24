@@ -155,15 +155,15 @@
 \section{formating code}
 	\label{sec: code}
 	use the listings package:
-	% how to skip fist tab??
-	\begin{lstlisting}[language=c]
-	#include <stdlib.h>
-	#include <sdtio.h>
+	% gobble removes the whitespace that is only in the latex code to make it look organised
+	\begin{lstlisting}[language=c,gobble=8]
+		#include <stdlib.h>
+		#include <sdtio.h>
 
-	int main(void) {
-		printf("Hello World");
-		return 0;
-	}
+		int main(void) {
+			printf("Hello World");
+			return 0;
+		}
 	\end{lstlisting}
 	% or input from external file:
 	%\lstinputlisting[language=c]{main.c}
