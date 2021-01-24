@@ -7,12 +7,14 @@ them with specific configurations and presets as well as providing commonly need
 
 **Provides classes are:**  
 
-	HsH-article (planed)  
+	HsH-article 
 	HsH-report  
 	HsH-book (planed)  
 	HsH-standalone
 
-**Version:** BETA 0.2, 02.11.2020
+**Version:** BETA 0.3, 24.01.2021
+
+## Check out the **Example-Branche**
 
 # Requirements:
 
