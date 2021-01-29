@@ -7,7 +7,6 @@
 
 \newcommand{\HsHlogoPath}{HSH-Logo.pdf}
 \newcommand{\HsHlogoPage}{1}
-\newcommand{\includeHsHlogohere}{\includegraphics[width=5cm,page=\HsHlogoPage]{\HsHlogoPath}}
 
 
 \newif\if@german%
@@ -116,6 +115,7 @@
 \MakeOuterQuote{"} % easy quotationmarks
 
 % custom commands
+\newcommand{\includeHsHlogohere}{\includegraphics[width=5cm,page=\HsHlogoPage]{\HsHlogoPath}}
 \providecommand{\abs}[1]{\ensuremath{\left\vert#1\right\vert}} % Makro for vertical lines around absolute values
 \newcommand\declarationAuthorship{
 	\thispagestyle{plain}
