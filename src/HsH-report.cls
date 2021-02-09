@@ -12,20 +12,14 @@
 \newif\if@german%
 \DeclareOption{german}{%
 	\PassOptionsToPackage{ngerman}{babel}
-	\renewcaptionname{ngerman}{\figurename}{Abb.} %Figure
-	\renewcaptionname{ngerman}{\tablename}{Tab.} %Table
 	\@germantrue
 }
 \DeclareOption{ngerman}{%
 	\PassOptionsToPackage{\CurrentOption}{babel}
-	\renewcaptionname{ngerman}{\figurename}{Abb.} %Figure
-	\renewcaptionname{ngerman}{\tablename}{Tab.} %Table
 	\@germantrue
 }
 \DeclareOption{english}{%
 	\PassOptionsToPackage{\CurrentOption}{babel}
-	\renewcaptionname{english}{\figurename}{Fig.} %Figure
-	\renewcaptionname{english}{\tablename}{Tab.} %Table
 }
 \DeclareOption{f1}{%
 	\renewcommand{\HsHlogoPage}{2}
