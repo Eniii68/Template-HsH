@@ -1,4 +1,11 @@
-\renewcommand{\abstractname}{Abstract} % Abstract
+\if@german
+	\renewcommand{\abstractname}{Abstract} % Abstract
+	\renewcaptionname{ngerman}{\figurename}{Abb.} %Figure
+	\renewcaptionname{ngerman}{\tablename}{Tab.} %Table
+\else
+	\renewcaptionname{english}{\figurename}{Fig.} %Figure
+	\renewcaptionname{english}{\tablename}{Tab.} %Table
+\fi
 
 \ifx\KOMAScriptVersion\undefined\else % check if KOMA is used
 	\g@addto@macro\@floatboxreset\centering % center all floats
