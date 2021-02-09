@@ -3,13 +3,11 @@
 
 \newcommand{\myClassName}{HsH-report}
 \ProvidesClass{\myClassName}[2021/01/22 HsH Report based on KOMA]
-\LoadClass[bibliography=totoc,listof=totoc]{scrreprt}
 
 \newcommand{\HsHlogoPath}{HSH-Logo.pdf}
 \newcommand{\HsHlogoPage}{1}
-
-
 \newif\if@german%
+
 \DeclareOption{german}{%
 	\PassOptionsToPackage{ngerman}{babel}
 	\@germantrue
@@ -40,6 +38,10 @@
 
 \@ifclasswith{\myClassName}{english}{}{\@ifclasswith{\myClassName}{ngerman}{}{\ExecuteOptions{ngerman}}}
 \ProcessOptions\relax
+
+% Load KOMA class
+\LoadClass{scrreprt}
+\KOMAoption{toc}{bibliography,listof}
 
 % standart options for packages
 \PassOptionsToPackage{utf8}{inputenc}
