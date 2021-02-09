@@ -12,7 +12,7 @@ them with specific configurations and presets as well as providing commonly need
 	HsH-book (planed)  
 	HsH-standalone
 
-**Version:** BETA 0.3, 24.01.2021
+**Version:** BETA 0.4, 08.02.2021
 
 ## Check out the **Example-Branche**
 

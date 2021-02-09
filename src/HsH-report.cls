@@ -1,32 +1,23 @@
-\typeout{Adapted from KOMA script for use in Hochschule Hannover <2022-01-22> Jan Wille}
+\typeout{Adapted from KOMA script for use in Hochschule Hannover <2022-02-09> Jan Wille}
 \NeedsTeXFormat{LaTeX2e}
 
 \newcommand{\myClassName}{HsH-report}
-\ProvidesClass{\myClassName}[2021/01/22 HsH Report based on KOMA]
-\LoadClass[bibliography=totoc,listof=totoc]{scrreprt}
+\ProvidesClass{\myClassName}[2021/02/09 HsH Report based on KOMA]
 
 \newcommand{\HsHlogoPath}{HSH-Logo.pdf}
 \newcommand{\HsHlogoPage}{1}
-\newcommand{\includeHsHlogohere}{\includegraphics[width=5cm,page=\HsHlogoPage]{\HsHlogoPath}}
-
-
 \newif\if@german%
+
 \DeclareOption{german}{%
 	\PassOptionsToPackage{ngerman}{babel}
-	\renewcaptionname{ngerman}{\figurename}{Abb.} %Figure
-	\renewcaptionname{ngerman}{\tablename}{Tab.} %Table
 	\@germantrue
 }
 \DeclareOption{ngerman}{%
 	\PassOptionsToPackage{\CurrentOption}{babel}
-	\renewcaptionname{ngerman}{\figurename}{Abb.} %Figure
-	\renewcaptionname{ngerman}{\tablename}{Tab.} %Table
 	\@germantrue
 }
 \DeclareOption{english}{%
 	\PassOptionsToPackage{\CurrentOption}{babel}
-	\renewcaptionname{english}{\figurename}{Fig.} %Figure
-	\renewcaptionname{english}{\tablename}{Tab.} %Table
 }
 \DeclareOption{f1}{%
 	\renewcommand{\HsHlogoPage}{2}
@@ -47,6 +38,10 @@
 
 \@ifclasswith{\myClassName}{english}{}{\@ifclasswith{\myClassName}{ngerman}{}{\ExecuteOptions{ngerman}}}
 \ProcessOptions\relax
+
+% Load KOMA class
+\LoadClass{scrreprt}
+\KOMAoption{toc}{bibliography,listof}
 
 % standart options for packages
 \PassOptionsToPackage{utf8}{inputenc}
@@ -116,6 +111,7 @@
 \MakeOuterQuote{"} % easy quotationmarks
 
 % custom commands
+\newcommand{\includeHsHlogohere}{\includegraphics[width=5cm,page=\HsHlogoPage]{\HsHlogoPath}}
 \providecommand{\abs}[1]{\ensuremath{\left\vert#1\right\vert}} % Makro for vertical lines around absolute values
 \newcommand\declarationAuthorship{
 	\thispagestyle{plain}
