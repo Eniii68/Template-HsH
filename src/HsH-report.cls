@@ -137,7 +137,7 @@
 		\vspace{1cm}\normalsize
 		Hiermit bestätige\plutalendung\space\pronomen, dass die folgende Arbeit eigenständig von \genitiv\space allein erstellt und unter
 		Berücksichtigung der zur Verfügung gestellten Aufgabenstellung sowie dem Arbeitsmaterial unter Angabe aller verwendeten Quellen erarbeitet
-		wurde. Die Regelungen und Konsequenzen eines Plagiats, inklusieve disziplinarischer Maßnahmen, sind \genitiv\space bewusst. Insbesondere wurden
+		wurde. Die Regelungen und Konsequenzen eines Plagiats, inklusive disziplinarischer Maßnahmen, sind \genitiv\space bewusst. Insbesondere wurden
 		alle Zitate und gedanklichen Übernahmen als solche kenntlich gemacht.
 	}\else{
 		\newcommand{\pronomen}{I}
