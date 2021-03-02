@@ -108,6 +108,7 @@
 \renewcommand{\fps@figure}{h!t} % positioning of figures
 \renewcommand{\fps@table}{h!t} % Positonierung of tables
 \renewcommand{\layercontentsmeasure}{\empty} % rulers when using draft disabled
+\renewcommand{\familydefault}{\sfdefault} % Sans-Serif Font as standard
 \MakeOuterQuote{"} % easy quotationmarks
 
 % custom commands
