@@ -1,31 +1,23 @@
-\typeout{Adapted from KOMA script for use in Hochschule Hannover <2022-01-22> Jan Wille}
+\typeout{Adapted from KOMA script for use in Hochschule Hannover <2022-03-08> Jan Wille}
 \NeedsTeXFormat{LaTeX2e}
 
 \newcommand{\myClassName}{HsH-article}
-\ProvidesClass{\myClassName}[2021/01/22 HsH Article based on KOMA]
-\LoadClass[bibliography=totoc,listof=totoc]{scrartcl}
+\ProvidesClass{\myClassName}[2021-03-08 HsH Report based on KOMA]
 
 \newcommand{\HsHlogoPath}{HSH-Logo.pdf}
 \newcommand{\HsHlogoPage}{1}
-\newcommand{\includeHsHlogohere}{\includegraphics[width=5cm,page=\HsHlogoPage]{\HsHlogoPath}}
-
 \newif\if@german%
+
 \DeclareOption{german}{%
 	\PassOptionsToPackage{ngerman}{babel}
-	\renewcaptionname{ngerman}{\figurename}{Abb.} %Figure
-	\renewcaptionname{ngerman}{\tablename}{Tab.} %Table
 	\@germantrue
 }
 \DeclareOption{ngerman}{%
 	\PassOptionsToPackage{\CurrentOption}{babel}
-	\renewcaptionname{ngerman}{\figurename}{Abb.} %Figure
-	\renewcaptionname{ngerman}{\tablename}{Tab.} %Table
 	\@germantrue
 }
 \DeclareOption{english}{%
 	\PassOptionsToPackage{\CurrentOption}{babel}
-	\renewcaptionname{english}{\figurename}{Fig.} %Figure
-	\renewcaptionname{english}{\tablename}{Tab.} %Table
 }
 \DeclareOption{f1}{%
 	\renewcommand{\HsHlogoPage}{2}
@@ -42,10 +34,14 @@
 \DeclareOption{f5}{%
 	\renewcommand{\HsHlogoPage}{6}
 }
-\DeclareOption*{\PassOptionsToClass{\CurrentOption}{scrreprt}}
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{scrartcl}}
 
 \@ifclasswith{\myClassName}{english}{}{\@ifclasswith{\myClassName}{ngerman}{}{\ExecuteOptions{ngerman}}}
 \ProcessOptions\relax
+
+% Load KOMA class
+\LoadClass{scrartcl}
+\KOMAoption{toc}{bibliography,listof}
 
 % standart options for packages
 \PassOptionsToPackage{utf8}{inputenc}
@@ -111,9 +107,11 @@
 \renewcommand{\fps@figure}{h!t} % positioning of figures
 \renewcommand{\fps@table}{h!t} % Positonierung of tables
 \renewcommand{\layercontentsmeasure}{\empty} % rulers when using draft disabled
+\renewcommand{\familydefault}{\sfdefault} % Sans-Serif Font as standard
 \MakeOuterQuote{"} % easy quotationmarks
 
 % custom commands
+\newcommand{\includeHsHlogohere}{\includegraphics[width=5cm,page=\HsHlogoPage]{\HsHlogoPath}}
 \providecommand{\abs}[1]{\ensuremath{\left\vert#1\right\vert}} % Makro for vertical lines around absolute values
 \newcommand\declarationAuthorship{
 	\thispagestyle{plain}
@@ -139,7 +137,7 @@
 		\vspace{1cm}\normalsize
 		Hiermit bestätige\plutalendung\space\pronomen, dass die folgende Arbeit eigenständig von \genitiv\space allein erstellt und unter
 		Berücksichtigung der zur Verfügung gestellten Aufgabenstellung sowie dem Arbeitsmaterial unter Angabe aller verwendeten Quellen erarbeitet
-		wurde. Die Regelungen und Konsequenzen eines Plagiats, inklusieve disziplinarischer Maßnahmen, sind \genitiv\space bewusst. Insbesondere wurden
+		wurde. Die Regelungen und Konsequenzen eines Plagiats, inklusive disziplinarischer Maßnahmen, sind \genitiv\space bewusst. Insbesondere wurden
 		alle Zitate und gedanklichen Übernahmen als solche kenntlich gemacht.
 	}\else{
 		\newcommand{\pronomen}{I}
@@ -262,7 +260,7 @@
 					\usekomafont{titlehead}{\@titlehead}%
 				\fi
 				\hfill
-				\includeHsHlogohere
+				\raisebox{0pt}[\ht\strutbox][\dp\strutbox]{\includeHsHlogohere}
 			\end{minipage}
 			\raisebox{10pt}{\rule{\textwidth}{0.5pt}}
 			% end Customised: --------------------------------------------------------
@@ -275,19 +273,14 @@
 				{\usekomafont{title}{\huge \@title\par}}%
 				\vskip 1em
 				{\ifx\@subtitle\@empty\else\usekomafont{subtitle}{\@subtitle\par}\fi}%
-				\vskip 2em
-				{%
-					\usekomafont{author}{%
-						\lineskip 0.75em
-						\begin{tabular}[t]{c}
-							\parbox{\linewidth}{\centering\@author}
-						\end{tabular}\par
-					}%
-				}%
+				% Customised: -----------------------------------------------------------
+				\vskip 4em
+				{\if\@author\@empty\else\usekomafont{author}{\parbox{\dimexpr\linewidth}{\centering\@author}}\fi}%
+				% end Customised: --------------------------------------------------------
 				\vskip 1.5em
 				{\usekomafont{date}{\@date \par}}%
 				\vskip \z@ \@plus3fill
-				{\usekomafont{publishers}{\@publishers \par}}%
+				%{\usekomafont{publishers}{\@publishers \par}}%
 				\vskip 3em
 			\end{center}\par
 			\@thanks\global\let\@thanks\@empty
@@ -448,7 +441,6 @@
 	\global\let\and\relax
 }%
 
-
 \renewcommand*{\@maketitle}{%
 	\global\@topnum=\z@
 	\setparsizes{\z@}{\z@}{\z@\@plus 1fil}\par@updaterelative
@@ -464,7 +456,7 @@
 			\usekomafont{titlehead}{\@titlehead}%
 		\fi
 		\hfill
-		\includeHsHlogohere
+		\raisebox{0pt}[\ht\strutbox][\dp\strutbox]{\includeHsHlogohere}
 	\end{minipage}
 	\raisebox{10pt}{\rule{\textwidth}{0.5pt}}
 	% end Customised: --------------------------------------------------------
@@ -478,19 +470,14 @@
 		{\usekomafont{title}{\huge \@title \par}}%
 		\vskip .5em
 		{\ifx\@subtitle\@empty\else\usekomafont{subtitle}\@subtitle\par\fi}%
-		\vskip 1em
-		{%
-		\usekomafont{author}{%
-			\lineskip .5em%
-			\begin{tabular}[t]{c}
-			\@author
-			\end{tabular}\par
-		}%
-		}%
+		% Customised: -----------------------------------------------------------
+		\vskip 4em
+		{\if\@author\@empty\else\usekomafont{author}{\parbox{\dimexpr\linewidth}{\centering\@author}}\fi}%
+		% end Customised: --------------------------------------------------------
 		\vskip 1em%
 		{\usekomafont{date}{\@date \par}}%
 		\vskip \z@ \@plus 1em
-		{\usekomafont{publishers}{\@publishers \par}}%
+		%{\usekomafont{publishers}{\@publishers \par}}%
 		\ifx\@dedication\@empty \else
 		\vskip 2em
 		{\usekomafont{dedication}{\@dedication \par}}%
