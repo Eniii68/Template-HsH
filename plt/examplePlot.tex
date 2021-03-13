@@ -1,16 +1,16 @@
 \documentclass[11pt,ngerman]{HsH-standalone}
 
-%__________Formeln und Mathe________________
-\usepackage{siunitx} % kennt SI einheiten
-\usepackage{amsmath} % schöne Formeln
 
-%__________Daten Import_____________________
-\usepackage{pgfplots,pgfplotstable} % plots und bilder, enthält tikz und graphix
+\usepackage{siunitx} % SI units
+\usepackage{amsmath} % nice formulas
 
-\begin{document} %----------------------Inhalt---------------------------------------------------%
+\usepackage{pgfplots} % plots und bilder, includes tikz and graphix
+\usepackage{pgfplotstable} % fo ruse of tables, csv files are tables
+
+\begin{document} %----------------------Content---------------------------------------------------%
 
 \begin{tikzpicture}
-	\begin{axis}[MyPlots]
+	\begin{axis}[MyPlots] % use custom styling
 		\addplot[FM1,domain=-1:1, name path=A]{x^2};
 		\addplot[FM2,mark=none,domain=-1:1, name path=B]{0.5*x^2-1};
 		\addplot[pattern color=gray!40, pattern=dots] fill between[of=A and B];
@@ -18,9 +18,11 @@
 \end{tikzpicture}
 
 \begin{tikzpicture}
-\pgfplotstableread{../csv/bsp.csv}\data
-	\begin{axis}[MyPlots,
-		xlabel=X Achse, ylabel=$\percent$,
+	\pgfplotstableread{../csv/bsp.csv}\data % read file into macro
+	\begin{axis}[
+			MyPlots, % custom styling
+			xlabel=X Achse,
+			ylabel=$\percent$,
 		]
 		\addplot[FM1,errBars] table [x=A,y=C,y error=D] {\data};
 			\addlegendentry{Messdaten}
