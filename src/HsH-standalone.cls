@@ -2,8 +2,7 @@
 \NeedsTeXFormat{LaTeX2e}
 
 \newcommand{\myClassName}{HsH-standalone}
-\ProvidesClass{\myClassName}[2020/01/22 HsH Report based on KOMA]
-\LoadClass[multi=tikzpicture,multi=circuitikz]{standalone}
+\ProvidesClass{\myClassName}[2020/03/13 HsH Report based on KOMA]
 
 \newcommand{\HsHlogoPath}{HSH-Logo.pdf}
 \newcommand{\HsHlogoPage}{1}
@@ -21,24 +20,36 @@
 }
 \DeclareOption{english}{%
 	\PassOptionsToPackage{\CurrentOption}{babel}
+	\@germanfalse
 }
-\DeclareOption{f1}{%
+\DeclareOption{f1}{% use logo of fakulty 1
 	\renewcommand{\HsHlogoPage}{2}
 }
-\DeclareOption{f2}{%
+\DeclareOption{f2}{% use logo of fakulty 2
 	\renewcommand{\HsHlogoPage}{3}
 }
-\DeclareOption{f3}{%
+\DeclareOption{f3}{% use logo of fakulty 3
 	\renewcommand{\HsHlogoPage}{4}
 }
-\DeclareOption{f4}{%
+\DeclareOption{f4}{% use logo of fakulty 4
 	\renewcommand{\HsHlogoPage}{5}
 }
-\DeclareOption{f5}{%
+\DeclareOption{f5}{% use logo of fakulty 5
 	\renewcommand{\HsHlogoPage}{6}
 }
+\DeclareOption{sans}{% use san serif font
+	\renewcommand{\familydefault}{\sfdefault}
+}
+\DeclareOption{roman}{% use roman/serif font
+	\renewcommand{\familydefault}{\rmdefault}
+}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{standalone}}
+
+\ExecuteOptions{fontsize=11pt,a4paper,ngerman,sans} % standart options
 \ProcessOptions\relax
+
+\LoadClass[multi=tikzpicture,multi=circuitikz]{standalone}
+
 
 \newcommand*{\@titlehead}{}%
 \newcommand{\titlehead}[1]{\gdef\@titlehead{#1}}%
@@ -85,8 +96,11 @@
 \providecommand{\abs}[1]{\ensuremath{\left\vert#1\right\vert}} % Makro for vertical lines around absolute values
 
 % load config at beginning of document
-\AtBeginDocument {
+\AtBeginDocument{
 	\makeatletter
+	\@ifpackageloaded{subfigure}{
+		\newcommand{\subfigureautorefname}{\figureautorefname}
+	}{}%
 	\InputIfFileExists{config.tex}{
 		\ClassInfo{\myClassName}{config.tex was found. Using it...}
 	}{
