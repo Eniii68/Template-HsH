@@ -1,7 +1,8 @@
 # CSV folder (Comma Speeratet Values)
 
 This folder is for measurement readings and other kinds of data collection.  
-It is named *csv*, but you could also use different filetypes, even though the `.csv` type is the easiest to include in LaTex.
+It is named *csv*, but you could also use different filetypes, even though the `.csv` type is the easiest to include in LaTex.  
+Keep in mind, that the config selts the ';' as the seperator, which is the german standart
 
 # Export Excel to CSV
 
