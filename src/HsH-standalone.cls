@@ -98,6 +98,9 @@
 % load config at beginning of document
 \AtBeginDocument{
 	\makeatletter
+	\@ifpackageloaded{subfigure}{
+		\newcommand{\subfigureautorefname}{\figureautorefname}
+	}{}%
 	\InputIfFileExists{config.tex}{
 		\ClassInfo{\myClassName}{config.tex was found. Using it...}
 	}{

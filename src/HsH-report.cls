@@ -191,6 +191,9 @@
 \AtBeginDocument{
 	\makeatletter
 	\renewcommand*{\mkbibacro}[1]{\MakeUppercase{#1}} % solves fontype warning in San-Serif
+	\@ifpackageloaded{subfigure}{
+		\newcommand{\subfigureautorefname}{\figureautorefname}
+	}{}%
 	\InputIfFileExists{config.tex}{
 		\ClassInfo{\myClassName}{config.tex was found. Using it...}
 	}{
