@@ -1,8 +1,8 @@
-\typeout{Adapted from KOMA script for use in Hochschule Hannover <2022-03-08> Jan Wille}
+\typeout{Adapted from KOMA script for use in Hochschule Hannover <2022-03-13> Jan Wille}
 \NeedsTeXFormat{LaTeX2e}
 
 \newcommand{\myClassName}{HsH-article}
-\ProvidesClass{\myClassName}[2021-03-08 HsH Report based on KOMA]
+\ProvidesClass{\myClassName}[2021/03/13 HsH Report based on KOMA]
 
 \newcommand{\HsHlogoPath}{HSH-Logo.pdf}
 \newcommand{\HsHlogoPage}{1}
@@ -18,25 +18,32 @@
 }
 \DeclareOption{english}{%
 	\PassOptionsToPackage{\CurrentOption}{babel}
+	\@germanfalse
 }
-\DeclareOption{f1}{%
+\DeclareOption{f1}{% use logo of fakulty 1
 	\renewcommand{\HsHlogoPage}{2}
 }
-\DeclareOption{f2}{%
+\DeclareOption{f2}{% use logo of fakulty 2
 	\renewcommand{\HsHlogoPage}{3}
 }
-\DeclareOption{f3}{%
+\DeclareOption{f3}{% use logo of fakulty 3
 	\renewcommand{\HsHlogoPage}{4}
 }
-\DeclareOption{f4}{%
+\DeclareOption{f4}{% use logo of fakulty 4
 	\renewcommand{\HsHlogoPage}{5}
 }
-\DeclareOption{f5}{%
+\DeclareOption{f5}{% use logo of fakulty 5
 	\renewcommand{\HsHlogoPage}{6}
+}
+\DeclareOption{sans}{% use san serif font
+	\renewcommand{\familydefault}{\sfdefault}
+}
+\DeclareOption{roman}{% use roman/serif font
+	\renewcommand{\familydefault}{\rmdefault}
 }
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{scrartcl}}
 
-\@ifclasswith{\myClassName}{english}{}{\@ifclasswith{\myClassName}{ngerman}{}{\ExecuteOptions{ngerman}}}
+\ExecuteOptions{fontsize=11pt,a4paper,ngerman,sans} % standart options
 \ProcessOptions\relax
 
 % Load KOMA class
@@ -107,7 +114,6 @@
 \renewcommand{\fps@figure}{h!t} % positioning of figures
 \renewcommand{\fps@table}{h!t} % Positonierung of tables
 \renewcommand{\layercontentsmeasure}{\empty} % rulers when using draft disabled
-\renewcommand{\familydefault}{\sfdefault} % Sans-Serif Font as standard
 \MakeOuterQuote{"} % easy quotationmarks
 
 % custom commands
@@ -172,8 +178,12 @@
 }
 
 % load config at beginning of document
-\AtBeginDocument {
+\AtBeginDocument{
 	\makeatletter
+	\renewcommand*{\mkbibacro}[1]{\MakeUppercase{#1}} % solves fontype warning in San-Serif
+	\@ifpackageloaded{subfigure}{
+		\newcommand{\subfigureautorefname}{\figureautorefname}
+	}{}%
 	\InputIfFileExists{config.tex}{
 		\ClassInfo{\myClassName}{config.tex was found. Using it...}
 	}{
