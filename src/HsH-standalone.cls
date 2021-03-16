@@ -48,7 +48,7 @@
 \ExecuteOptions{fontsize=11pt,a4paper,ngerman,sans} % standart options
 \ProcessOptions\relax
 
-\LoadClass[multi=tikzpicture,multi=circuitikz]{standalone}
+\LoadClass[margin=0.25cm,multi=tikzpicture,multi=circuitikz]{standalone}
 
 
 \newcommand*{\@titlehead}{}%
