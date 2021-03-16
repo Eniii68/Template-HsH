@@ -70,7 +70,7 @@
 \PassOptionsToPackage{T1}{fontenc}
 \PassOptionsToPackage{babel, german=quotes}{csquotes}
 \PassOptionsToPackage{free-standing-units}{siunitx}
-\PassOptionsToPackage{european,EFvoltages,straightvoltages}{circuitikz}
+\PassOptionsToPackage{european,EFvoltages,straightvoltages,betterproportions}{circuitikz}
 
 % used packages:
 \RequirePackage{inputenc} % inputencoding, utf8 recomendet

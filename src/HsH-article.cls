@@ -61,7 +61,7 @@
 
 \PassOptionsToPackage{backend=biber,style=alphabetic,sorting=nyt}{biblatex}
 \PassOptionsToPackage{free-standing-units,abbreviations}{siunitx}
-\PassOptionsToPackage{european,EFvoltages,straightvoltages}{circuitikz}
+\PassOptionsToPackage{european,EFvoltages,straightvoltages,betterproportions}{circuitikz}
 
 % used packages:
 \RequirePackage{inputenc} % inputencoding, utf8 recomendet
