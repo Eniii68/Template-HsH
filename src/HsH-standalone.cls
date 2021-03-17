@@ -48,7 +48,7 @@
 \ExecuteOptions{fontsize=11pt,a4paper,ngerman,sans} % standart options
 \ProcessOptions\relax
 
-\LoadClass[multi=tikzpicture,multi=circuitikz]{standalone}
+\LoadClass[margin=0.25cm,multi=tikzpicture,multi=circuitikz]{standalone}
 
 
 \newcommand*{\@titlehead}{}%
@@ -70,7 +70,7 @@
 \PassOptionsToPackage{T1}{fontenc}
 \PassOptionsToPackage{babel, german=quotes}{csquotes}
 \PassOptionsToPackage{free-standing-units}{siunitx}
-\PassOptionsToPackage{european,EFvoltages,straightvoltages}{circuitikz}
+\PassOptionsToPackage{european,EFvoltages,straightvoltages,betterproportions}{circuitikz}
 
 % used packages:
 \RequirePackage{inputenc} % inputencoding, utf8 recomendet
