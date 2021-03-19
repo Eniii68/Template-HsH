@@ -81,6 +81,10 @@
 
 
  % config for title, header and footer
+\newcommand*{\@matrikelnr}{}%
+\newcommand{\matrikelnr}[1]{\gdef\@matrikelnr{#1}}%
+\newcommand*{\@prof}{}%
+\newcommand{\prof}[1]{\gdef\@prof{#1}}%
 \InputIfFileExists{personal.tex}{
 	\ClassInfo{\myClassName}{personal.tex was found. Using it...}
 }{
@@ -116,6 +120,14 @@
 \renewcommand{\fps@table}{h!t} % Positonierung of tables
 \renewcommand{\layercontentsmeasure}{\empty} % rulers when using draft disabled
 \MakeOuterQuote{"} % easy quotationmarks
+
+% internal stuff
+\newtoks\@tabtoks
+\newcommand\addtabtoks[1]{\global\@tabtoks\expandafter{\the\@tabtoks#1}}
+\newcommand\eaddtabtoks[1]{\edef\mytmp{#1}\expandafter\addtabtoks\expandafter{\mytmp}}
+%\newcommand*\resettabtoks{\global\@tabtoks{}}
+\newcommand*\printtabtoks{\the\@tabtoks}
+
 
 % custom commands
 \newcommand{\includeHsHlogohere}{\includegraphics[width=5cm,page=\HsHlogoPage]{\HsHlogoPath}}
@@ -297,12 +309,20 @@
 				{\ifx\@subtitle\@empty\else\usekomafont{subtitle}{\@subtitle\par}\fi}%
 				% Customised: -----------------------------------------------------------
 				\vskip 4em
-				{\if\@author\@empty\else\usekomafont{author}{\parbox{\dimexpr\linewidth}{\centering\@author}}\fi}%
-				% end Customised: --------------------------------------------------------
+				{\ifx\@matrikelnr\@empty
+					\if\@author\@empty\else\usekomafont{author}{\parbox{\dimexpr\linewidth}{\centering\@author}}\fi
+				\else
+					\if\@author\@empty\else
+						\foreach \x [count=\i,evaluate=\i as \y using {{\@matrikelnr}[\i-1]}] in \@author {\eaddtabtoks{\x & \y\protect\\}}
+						\usekomafont{author}{\begin{tabular}{l l}\printtabtoks\end{tabular}}
+					\fi
+				\fi}%
 				\vskip 1.5em
 				{\usekomafont{date}{\@date \par}}%
 				\vskip \z@ \@plus3fill
+				\if\@prof\@empty\else\usekomafont{author}{Professor(in)/Lehrbeauftragte(r): \@prof}\fi
 				%{\usekomafont{publishers}{\@publishers \par}}%
+				% end Customised: --------------------------------------------------------
 				\vskip 3em
 			\end{center}\par
 			\@thanks\global\let\@thanks\@empty
