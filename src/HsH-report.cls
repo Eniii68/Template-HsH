@@ -1,8 +1,8 @@
-\typeout{Adapted from KOMA script for use in Hochschule Hannover <2021-03-13> Jan Wille}
+\typeout{Adapted from KOMA script for use in Hochschule Hannover <2021-03-18> Jan Wille}
 \NeedsTeXFormat{LaTeX2e}
 
 \newcommand{\myClassName}{HsH-report}
-\ProvidesClass{\myClassName}[2021/03/13 HsH-Report based on KOMA]
+\ProvidesClass{\myClassName}[2021/03/18 HsH-Report based on KOMA]
 
 \newcommand{\HsHlogoPath}{HSH-Logo.pdf}
 \newcommand{\HsHlogoPage}{1}
@@ -190,10 +190,12 @@
 % load config at beginning of document
 \AtBeginDocument{
 	\makeatletter
-	\renewcommand*{\mkbibacro}[1]{\MakeUppercase{#1}} % solves fontype warning in San-Serif
+	\@ifpackageloaded{biblatex}{
+		\renewcommand*{\mkbibacro}[1]{\MakeUppercase{#1}} % solves fontype warning in San-Serif
+	}
 	\@ifpackageloaded{subfigure}{
 		\newcommand{\subfigureautorefname}{\figureautorefname}
-	}{}%
+	}
 	\InputIfFileExists{config.tex}{
 		\ClassInfo{\myClassName}{config.tex was found. Using it...}
 	}{

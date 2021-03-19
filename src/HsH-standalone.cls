@@ -1,8 +1,8 @@
-\typeout{Adapted from KOMA script for use in Hochschule Hannover <2020-01-22> Jan Wille}
+\typeout{Adapted from KOMA script for use in Hochschule Hannover <2021-03-18> Jan Wille}
 \NeedsTeXFormat{LaTeX2e}
 
 \newcommand{\myClassName}{HsH-standalone}
-\ProvidesClass{\myClassName}[2020/03/13 HsH Report based on KOMA]
+\ProvidesClass{\myClassName}[2021/03/18 HsH Report based on KOMA]
 
 \newcommand{\HsHlogoPath}{HSH-Logo.pdf}
 \newcommand{\HsHlogoPage}{1}
@@ -100,7 +100,7 @@
 	\makeatletter
 	\@ifpackageloaded{subfigure}{
 		\newcommand{\subfigureautorefname}{\figureautorefname}
-	}{}%
+	}
 	\InputIfFileExists{config.tex}{
 		\ClassInfo{\myClassName}{config.tex was found. Using it...}
 	}{
