@@ -321,7 +321,7 @@
 				\vskip 1.5em
 				{\usekomafont{date}{\@date \par}}%
 				\vskip \z@ \@plus3fill
-				\if\@prof\@empty\else\usekomafont{author}{Professor(in)/Lehrbeauftragte(r): \@prof}\fi
+				{\if\@prof\@empty\else\usekomafont{author}{Professor(in)/Lehrbeauftragte(r): \@prof}\fi}
 				%{\usekomafont{publishers}{\@publishers \par}}%
 				% end Customised: --------------------------------------------------------
 				\vskip 3em
