@@ -18,7 +18,7 @@
 		url=true,
 		isbn=false,
 	}
-}{}%
+}
 \@ifpackageloaded{siunitx}{
 	\if@german % if german
 		\sisetup{output-decimal-marker={,}} % use comma as dezimal
@@ -31,7 +31,7 @@
 		round-mode = places, % round numbers
 		round-precision = 3, % to 3 places
 	}
-}{}%
+}
 \@ifpackageloaded{listings}{
 	\lstset{
 		commentstyle=\color{gray},
@@ -43,16 +43,16 @@
 		literate={Ö}{{\"O}}1{Ä}{{\"A}}1{Ü}{{\"U}}1{ß}{{\ss}}1{ü}{{\"u}}1{ä}{{\"a}}1{ö}{{\"o}}1,
 		escapeinside={(*@}{@*)},
 	}
-}{}%
+}
 \@ifpackageloaded{csvsimple}{
 	\csvstyle{every csv}{separator=semicolon}
-}{}%
+}
 \@ifpackageloaded{circuitikz}{
 	\ctikzset{
 		font=\footnotesize,
 		bipole annotation style/.style={font=\tiny ,inner sep=1pt},
 	}
-}{}%
+}
 \@ifpackageloaded{pgfplots}{
 	\usepgfplotslibrary{fillbetween} % mark areas under or between graphs
 	\usetikzlibrary{patterns} % for using pattern in plots
@@ -78,9 +78,10 @@
 							error mark options={mark size=1pt,rotate=90}},
 		}
 	}
-}{}%
+}
 \@ifpackageloaded{pgfplotstable}{
 	\pgfplotstableset{
 		col sep=semicolon, % global seperator for csv files
 	}
-}{}%
+}
+\endinput % needed to end lats \@ifpackageloaded
