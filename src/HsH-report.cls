@@ -313,7 +313,8 @@
 					\if\@author\@empty\else\usekomafont{author}{\parbox{\dimexpr\linewidth}{\centering\@author}}\fi
 				\else
 					\if\@author\@empty\else
-						\foreach \x [count=\i,evaluate=\i as \y using {{\@matrikelnr}[\i-1]}] in \@author {\eaddtabtoks{\x & \y\protect\\}}
+						% sneeky comma needed after \@matrikelnr to deal with single item list
+						\foreach \x [count=\i,evaluate=\i as \y using {{\@matrikelnr,}[\i-1]}] in \@author {\eaddtabtoks{\x & \y\protect\\}}
 						\usekomafont{author}{\begin{tabular}{l l}\printtabtoks\end{tabular}}
 					\fi
 				\fi}%
