@@ -117,7 +117,7 @@
 \MakeOuterQuote{"} % easy quotationmarks
 
 % custom commands
-\newcommand{\includeHsHlogohere}{\includegraphics[width=5cm,page=\HsHlogoPage]{\HsHlogoPath}}
+\newcommand{\includeHsHlogohere}[1][5cm]{\includegraphics[width=#1,page=\HsHlogoPage]{\HsHlogoPath}}
 \providecommand{\abs}[1]{\ensuremath{\left\vert#1\right\vert}} % Makro for vertical lines around absolute values
 \newcommand\declarationAuthorship{
 	\thispagestyle{plain}
