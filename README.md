@@ -12,7 +12,8 @@ them with specific configurations and presets as well as providing commonly need
 	HsH-book (planed)  
 	HsH-standalone
 
-**Version:** 1.0, 20.03.2021
+**Version:** 1.0  
+**Date:** 20.03.2021
 
 ## Check out the **Example-Branche**
 
