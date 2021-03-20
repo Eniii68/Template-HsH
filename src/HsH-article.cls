@@ -43,7 +43,7 @@
 }
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{scrartcl}}
 
-\ExecuteOptions{fontsize=11pt,a4paper,ngerman,sans} % standart options
+\ExecuteOptions{fontsize=11pt,a4paper,sans} % standart options
 \ProcessOptions\relax
 
 % Load KOMA class
