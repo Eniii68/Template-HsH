@@ -80,7 +80,18 @@
 \if@german\RequirePackage{ziffer}\fi % german dezimal numbers
 
 
- % config for title, header and footer
+% internal commands
+\newtoks\@tabtoks
+\newcommand\addtabtoks[1]{\global\@tabtoks\expandafter{\the\@tabtoks#1}}
+\newcommand\eaddtabtoks[1]{\edef\mytmp{#1}\expandafter\addtabtoks\expandafter{\mytmp}}
+%\newcommand*\resettabtoks{\global\@tabtoks{}}
+\newcommand*\printtabtoks{\the\@tabtoks}
+
+% config for title, header and footer
+\newcommand*{\@matrikelnr}{}%
+\newcommand{\matrikelnr}[1]{\gdef\@matrikelnr{#1}}%
+\newcommand*{\@prof}{}%
+\newcommand{\professor}[1]{\gdef\@prof{#1}}%
 \InputIfFileExists{personal.tex}{
 	\ClassInfo{\myClassName}{personal.tex was found. Using it...}
 }{
@@ -93,7 +104,6 @@
 \ohead{\headmark}
 \ihead{\@title}
 \ofoot*{\pagemark}
-
 
 % typesetting indexes upright or standart
 \def\subinrm#1{\sb{\mathrm{#1}}}
@@ -118,7 +128,7 @@
 \MakeOuterQuote{"} % easy quotationmarks
 
 % custom commands
-\newcommand{\includeHsHlogohere}{\includegraphics[width=5cm,page=\HsHlogoPage]{\HsHlogoPath}}
+\newcommand{\includeHsHlogohere}[1][5cm]{\includegraphics[width=#1,page=\HsHlogoPage]{\HsHlogoPath}}
 \providecommand{\abs}[1]{\ensuremath{\left\vert#1\right\vert}} % Makro for vertical lines around absolute values
 \newcommand\declarationAuthorship{
 	\thispagestyle{plain}
@@ -153,8 +163,8 @@
 		\newcommand{\proniomeverb}{am}
 		\foreach \x [count=\i] in \@author{
 			\ifnum\i>1
-				\gdef\pronomenf{We}
 				\gdef\pronomen{we}
+				\gdef\pronomenf{We}
 				\gdef\genitiv{our}
 				\gdef\proniomeverb{are}
 			\else\fi
@@ -192,10 +202,10 @@
 	\makeatletter
 	\@ifpackageloaded{biblatex}{
 		\renewcommand*{\mkbibacro}[1]{\MakeUppercase{#1}} % solves fontype warning in San-Serif
-	}
+	}{}%
 	\@ifpackageloaded{subfigure}{
 		\newcommand{\subfigureautorefname}{\figureautorefname}
-	}
+	}{}%
 	\InputIfFileExists{config.tex}{
 		\ClassInfo{\myClassName}{config.tex was found. Using it...}
 	}{
@@ -205,7 +215,7 @@
 }
 
 % reconfig Titlepage
-\renewcommand\maketitle[1][1]{%
+\renewcommand\maketitle[1][l]{%
 	\expandafter\ifnum \csname scr@v@3.12\endcsname>\scr@compatibility\relax
 	\else
 		\def\and{%
@@ -214,223 +224,166 @@
 			\begin{tabular}[t]{c}%
 		}%
 	\fi
-	\if@titlepage
-		\begin{titlepage}
-			\setcounter{page}{%
-				#1%
-			}%
-			\if@titlepageiscoverpage
-				\edef\titlepage@restore{%
-					\noexpand\endgroup
-					\noexpand\global\noexpand\@colht\the\@colht
-					\noexpand\global\noexpand\@colroom\the\@colroom
-					\noexpand\global\vsize\the\vsize
-					\noexpand\global\noexpand\@titlepageiscoverpagefalse
-					\noexpand\let\noexpand\titlepage@restore\noexpand\relax
-				}%
-				\begingroup
-				\topmargin=\dimexpr \coverpagetopmargin-1in\relax
-				\oddsidemargin=\dimexpr \coverpageleftmargin-1in\relax
-				\evensidemargin=\dimexpr \coverpageleftmargin-1in\relax
-				\textwidth=\dimexpr
-				\paperwidth-\coverpageleftmargin-\coverpagerightmargin\relax
-				\textheight=\dimexpr
-				\paperheight-\coverpagetopmargin-\coverpagebottommargin\relax
-				\headheight=0pt
-				\headsep=0pt
-				\footskip=\baselineskip
-				\@colht=\textheight
-				\@colroom=\textheight
-				\vsize=\textheight
-				\columnwidth=\textwidth
-				\hsize=\columnwidth
-				\linewidth=\hsize
-			\else
-				\let\titlepage@restore\relax
-			\fi
-			\let\footnotesize\small
-			\let\footnoterule\relax
-			\let\footnote\thanks
-			\renewcommand*\thefootnote{\@fnsymbol\c@footnote}%
-			\let\@oldmakefnmark\@makefnmark
-			\renewcommand*{\@makefnmark}{\rlap\@oldmakefnmark}%
-			\ifx\@extratitle\@empty
-				\ifx\@frontispiece\@empty
-				\else
-					\if@twoside\mbox{}\next@tpage\fi
-					\noindent\@frontispiece\next@tdpage
-				\fi
-			\else
-				\noindent\@extratitle
-				\ifx\@frontispiece\@empty
-				\else
-					\next@tpage
-					\noindent\@frontispiece
-				\fi
-				\next@tdpage
-			\fi
-			\setparsizes{\z@}{\z@}{\z@\@plus 1fil}\par@updaterelative
-			% Customised: -----------------------------------------------------------
-			\IfFileExists{\HsHlogoPath}{}{
-				\ClassError{\myClassName}{HsH-Logo.pdf not found!}{
-					The HsH Logo is necasary for the titlepage! Try putting it next to your source file or use \HsHlogoPath to define the file location
-				}
+	\begin{titlepage}
+		% \setcounter{page}{%
+		% 	#1%
+		% }%
+		\def\@param{#1}
+		\ifx\@param\@empty\ClassError{\myClassName}{\maketitle\space with empty option}{
+				\maketitle[] has been called with an empty parameter, this doesn't work. Use \maketitle instead.
 			}
-			\vspace*{1cm}
-			\begin{minipage}[t]{\textwidth}%
-				\ifx\@titlehead\@empty \else
-					\usekomafont{titlehead}{\@titlehead}%
-				\fi
-				\hfill
-				\raisebox{0pt}[\ht\strutbox][\dp\strutbox]{\includeHsHlogohere}
-			\end{minipage}
-			\raisebox{10pt}{\rule{\textwidth}{0.5pt}}
-			% end Customised: --------------------------------------------------------
-			\null\vfill
-			\begin{center}
-				\ifx\@subject\@empty \else
-					{\usekomafont{subject}{\@subject\par}}%
-					\vskip 3em
-				\fi
-				{\usekomafont{title}{\huge \@title\par}}%
-				\vskip 1em
-				{\ifx\@subtitle\@empty\else\usekomafont{subtitle}{\@subtitle\par}\fi}%
-				% Customised: -----------------------------------------------------------
-				\vskip 4em
-				{\if\@author\@empty\else\usekomafont{author}{\parbox{\dimexpr\linewidth}{\centering\@author}}\fi}%
-				% end Customised: --------------------------------------------------------
-				\vskip 1.5em
-				{\usekomafont{date}{\@date \par}}%
-				\vskip \z@ \@plus3fill
-				%{\usekomafont{publishers}{\@publishers \par}}%
-				\vskip 3em
-			\end{center}\par
-			\@thanks\global\let\@thanks\@empty
-			\vfill\null
-			\if@twoside
-				\@tempswatrue
-				\expandafter\ifnum \@nameuse{scr@v@3.12}>\scr@compatibility\relax
-				\else
-					\ifx\@uppertitleback\@empty\ifx\@lowertitleback\@empty
-						\@tempswafalse
-					\fi\fi
-				\fi
-				\if@tempswa
-					\next@tpage
-					\begin{minipage}[t]{\textwidth}
-						\@uppertitleback
-					\end{minipage}\par
-					\vfill
-					\begin{minipage}[b]{\textwidth}
-						\@lowertitleback
-					\end{minipage}\par
-					\@thanks\global\let\@thanks\@empty
-				\fi
-			\else
-				\ifx\@uppertitleback\@empty\else
-					\ClassWarning{\KOMAClassName}{%
-						non empty \string\uppertitleback\space ignored
-						by \string\maketitle\MessageBreak
-						in `twoside=false' mode%
-					}%
-				\fi
-				\ifx\@lowertitleback\@empty\else
-					\ClassWarning{\KOMAClassName}{%
-						non empty \string\lowertitleback\space ignored
-						by \string\maketitle\MessageBreak
-						in `twoside=false' mode%
-					}%
-				\fi
-			\fi
-			\ifx\@dedication\@empty
-			\else
-				\next@tdpage\null\vfill
-				{\centering\usekomafont{dedication}{\@dedication \par}}%
-				\vskip \z@ \@plus3fill
-				\@thanks\global\let\@thanks\@empty
-				\cleardoubleemptypage
-			\fi
-			\ifx\titlepage@restore\relax\else\clearpage\titlepage@restore\fi
-		\end{titlepage}
-	\else
-		\par
-		\@tempcnta=%
-		#1%
-		\relax\ifnum\@tempcnta=1\else
-			\ClassWarning{\KOMAClassName}{%
-				Optional argument of \string\maketitle\space ignored\MessageBreak
-				in `titlepage=false' mode%
-			}%
 		\fi
-		\ifx\@uppertitleback\@empty\else
-			\ClassWarning{\KOMAClassName}{%
-				non empty \string\uppertitleback\space ignored
-				by \string\maketitle\MessageBreak
-				in `titlepage=false' mode%
+		\if@titlepageiscoverpage
+			\edef\titlepage@restore{%
+				\noexpand\endgroup
+				\noexpand\global\noexpand\@colht\the\@colht
+				\noexpand\global\noexpand\@colroom\the\@colroom
+				\noexpand\global\vsize\the\vsize
+				\noexpand\global\noexpand\@titlepageiscoverpagefalse
+				\noexpand\let\noexpand\titlepage@restore\noexpand\relax
 			}%
-		\fi
-		\ifx\@lowertitleback\@empty\else
-			\ClassWarning{\KOMAClassName}{%
-				non empty \string\lowertitleback\space ignored
-				by \string\maketitle\MessageBreak
-				in `titlepage=false' mode%
-			}%
-		\fi
-		\begingroup
+			\begingroup
+			\topmargin=\dimexpr \coverpagetopmargin-1in\relax
+			\oddsidemargin=\dimexpr \coverpageleftmargin-1in\relax
+			\evensidemargin=\dimexpr \coverpageleftmargin-1in\relax
+			\textwidth=\dimexpr
+			\paperwidth-\coverpageleftmargin-\coverpagerightmargin\relax
+			\textheight=\dimexpr
+			\paperheight-\coverpagetopmargin-\coverpagebottommargin\relax
+			\headheight=0pt
+			\headsep=0pt
+			\footskip=\baselineskip
+			\@colht=\textheight
+			\@colroom=\textheight
+			\vsize=\textheight
+			\columnwidth=\textwidth
+			\hsize=\columnwidth
+			\linewidth=\hsize
+		\else
 			\let\titlepage@restore\relax
-			\renewcommand*\thefootnote{\@fnsymbol\c@footnote}%
-			\let\@oldmakefnmark\@makefnmark
-			\renewcommand*{\@makefnmark}{\rlap\@oldmakefnmark}%
-			\next@tdpage
-			\if@twocolumn
-				\ifnum \col@number=\@ne
-					\ifx\@extratitle\@empty
-						\ifx\@frontispiece\@empty\else\if@twoside\mbox{}\fi\fi
-					\else
-						\@makeextratitle
-					\fi
-					\ifx\@frontispiece\@empty
-						\ifx\@extratitle\@empty\else\next@tdpage\fi
-					\else
-						\next@tpage
-						\@makefrontispiece
-						\next@tdpage
-					\fi
-					\@maketitle
-				\else
-					\ifx\@extratitle\@empty
-						\ifx\@frontispiece\@empty\else\if@twoside\mbox{}\fi\fi
-					\else
-						\twocolumn[\@makeextratitle]%
-					\fi
-					\ifx\@frontispiece\@empty
-						\ifx\@extratitle\@empty\else\next@tdpage\fi
-					\else
-						\next@tpage
-						\twocolumn[\@makefrontispiece]%
-						\next@tdpage
-					\fi
-					\twocolumn[\@maketitle]%
-				\fi
+		\fi
+		\let\footnotesize\small
+		\let\footnoterule\relax
+		\let\footnote\thanks
+		\renewcommand*\thefootnote{\@fnsymbol\c@footnote}%
+		\let\@oldmakefnmark\@makefnmark
+		\renewcommand*{\@makefnmark}{\rlap\@oldmakefnmark}%
+		\ifx\@extratitle\@empty
+			\ifx\@frontispiece\@empty
 			\else
-				\ifx\@extratitle\@empty
-					\ifx\@frontispiece\@empty\else \mbox{}\fi
-				\else
-					\@makeextratitle
-				\fi
-				\ifx\@frontispiece\@empty
-					\ifx\@extratitle\@empty\else\next@tdpage\fi
-				\else
-					\next@tpage
-					\@makefrontispiece
-					\next@tdpage
-				\fi
-				\@maketitle
+				\if@twoside\mbox{}\next@tpage\fi
+				\noindent\@frontispiece\next@tdpage
 			\fi
-			\ifx\titlepagestyle\@empty\else\thispagestyle{\titlepagestyle}\fi
+		\else
+			\noindent\@extratitle
+			\ifx\@frontispiece\@empty
+			\else
+				\next@tpage
+				\noindent\@frontispiece
+			\fi
+			\next@tdpage
+		\fi
+		\setparsizes{\z@}{\z@}{\z@\@plus 1fil}\par@updaterelative
+		\IfFileExists{\HsHlogoPath}{}{
+			\ClassError{\myClassName}{HsH-Logo.pdf not found!}{
+				The HsH Logo is necasary for the titlepage! Try putting it next to your source file or use \HsHlogoPath to define the file location
+			}
+		}
+		\vspace*{1cm}
+		\begin{minipage}[t]{\textwidth}%
+			\ifx\@titlehead\@empty \else
+				\usekomafont{titlehead}{\@titlehead}%
+			\fi
+			\hfill
+			\raisebox{0pt}[\ht\strutbox][\dp\strutbox]{\includeHsHlogohere} % image referrencepoint in lower left corner
+		\end{minipage}
+		\raisebox{10pt}{\rule{\textwidth}{0.5pt}}
+		\null\vfill
+		\if\@param c\begin{center}\fi
+		\if\@param r\begin{flushright}\fi
+			\ifx\@subject\@empty \else
+				{\usekomafont{subject}{\@subject\par}}%
+				\vskip 3em
+			\fi
+			{\usekomafont{title}{\huge\@title\par}}%
+			\vskip 1em
+			{\ifx\@subtitle\@empty\else\usekomafont{subtitle}{\@subtitle\par}\fi}%
+			\vskip 4em
+			{\ifx\@matrikelnr\@empty
+				\if\@author\@empty\else\usekomafont{author}{
+					\parbox{\dimexpr\linewidth}{
+						\if\@param c\centering\fi
+						\if\@param r\raggedleft\fi
+						\@author
+					}
+				}\fi
+			\else
+				\if\@author\@empty\else
+					% sneeky comma needed after \@matrikelnr to deal with single item list
+					\foreach \x [count=\i,evaluate=\i as \y using {{\@matrikelnr,}[\i-1]}] in \@author {\eaddtabtoks{\x & \y\protect\\}}
+					\usekomafont{author}{\def\arraystretch{1.2}
+						\if\@param l\hspace{-6pt}\begin{tabular}{l l}\printtabtoks\end{tabular}\fi
+						\if\@param c\begin{tabular}{l l}\printtabtoks\end{tabular}\fi
+						\if\@param r\begin{tabular}{r r}\printtabtoks\end{tabular}\hspace{-6pt}\fi
+					}
+				\fi
+			\fi}%
+			\vskip 1.5em
+			{\usekomafont{date}{\@date \par}}%
+			\vskip \z@ \@plus3fill
+			{\if\@prof\@empty\else\usekomafont{author}{Professor(in)/Lehrbeauftragte(r): \@prof}\fi}
+			%{\usekomafont{publishers}{\@publishers \par}}%
+			\vskip 3em
+		\if\@param c\end{center}\fi
+		\if\@param r\end{flushright}\fi
+		\par
+		\@thanks\global\let\@thanks\@empty
+		\vfill\null
+		\if@twoside
+			\@tempswatrue
+			\expandafter\ifnum \@nameuse{scr@v@3.12}>\scr@compatibility\relax
+			\else
+				\ifx\@uppertitleback\@empty\ifx\@lowertitleback\@empty
+					\@tempswafalse
+				\fi\fi
+			\fi
+			\if@tempswa
+				\next@tpage
+				\begin{minipage}[t]{\textwidth}
+					\@uppertitleback
+				\end{minipage}\par
+				\vfill
+				\begin{minipage}[b]{\textwidth}
+					\@lowertitleback
+				\end{minipage}\par
+				\@thanks\global\let\@thanks\@empty
+			\fi
+		\else
+			\ifx\@uppertitleback\@empty\else
+				\ClassWarning{\KOMAClassName}{%
+					non empty \string\uppertitleback\space ignored
+					by \string\maketitle\MessageBreak
+					in `twoside=false' mode%
+				}%
+			\fi
+			\ifx\@lowertitleback\@empty\else
+				\ClassWarning{\KOMAClassName}{%
+					non empty \string\lowertitleback\space ignored
+					by \string\maketitle\MessageBreak
+					in `twoside=false' mode%
+				}%
+			\fi
+		\fi
+		\ifx\@dedication\@empty
+		\else
+			\next@tdpage\null\vfill
+			{\centering\usekomafont{dedication}{\@dedication \par}}%
+			\vskip \z@ \@plus3fill
 			\@thanks\global\let\@thanks\@empty
-		\endgroup
-	\fi
+			\cleardoubleemptypage
+		\fi
+		\ifx\titlepage@restore\relax\else\clearpage\titlepage@restore\fi
+	\end{titlepage}
 	\setcounter{footnote}{0}%
 	\expandafter\ifnum \csname scr@v@3.12\endcsname>\scr@compatibility\relax
 		\let\thanks\relax
@@ -449,6 +402,8 @@
 		\global\let\@uppertitleback\@empty
 		\global\let\@lowertitleback\@empty
 		\global\let\@dedication\@empty
+		\global\let\@matrikelnr\@empty
+		\global\let\@prof\@empty
 		\global\let\author\relax
 		\global\let\title\relax
 		\global\let\extratitle\relax
@@ -459,52 +414,8 @@
 		\global\let\lowertitleback\relax
 		\global\let\dedication\relax
 		\global\let\date\relax
+		\global\let\matrikelnr\relax
+		\global\let\professor\relax
 	\fi
 	\global\let\and\relax
-}%
-
-\renewcommand*{\@maketitle}{%
-	\global\@topnum=\z@
-	\setparsizes{\z@}{\z@}{\z@\@plus 1fil}\par@updaterelative
-	% Customised: -----------------------------------------------------------
-	\IfFileExists{\HsHlogoPath}{}{
-		\ClassError{\myClassName}{HsH-Logo.pdf not found!}{
-			The HsH Logo is necasary for the titlepage! Try putting it next to your source file or use \HsHlogoPath to define the file location
-		}
-	}
-	\vspace*{1cm}
-	\begin{minipage}[t]{\textwidth}%
-		\ifx\@titlehead\@empty \else
-			\usekomafont{titlehead}{\@titlehead}%
-		\fi
-		\hfill
-		\raisebox{0pt}[\ht\strutbox][\dp\strutbox]{\includeHsHlogohere}
-	\end{minipage}
-	\raisebox{10pt}{\rule{\textwidth}{0.5pt}}
-	% end Customised: --------------------------------------------------------
-	\null
-	\vskip 2em%
-	\begin{center}%
-		\ifx\@subject\@empty \else
-		{\usekomafont{subject}{\@subject \par}}%
-		\vskip 1.5em
-		\fi
-		{\usekomafont{title}{\huge \@title \par}}%
-		\vskip .5em
-		{\ifx\@subtitle\@empty\else\usekomafont{subtitle}\@subtitle\par\fi}%
-		% Customised: -----------------------------------------------------------
-		\vskip 4em
-		{\if\@author\@empty\else\usekomafont{author}{\parbox{\dimexpr\linewidth}{\centering\@author}}\fi}%
-		% end Customised: --------------------------------------------------------
-		\vskip 1em%
-		{\usekomafont{date}{\@date \par}}%
-		\vskip \z@ \@plus 1em
-		%{\usekomafont{publishers}{\@publishers \par}}%
-		\ifx\@dedication\@empty \else
-		\vskip 2em
-		{\usekomafont{dedication}{\@dedication \par}}%
-		\fi
-	\end{center}%
-	\par
-	\vskip 2em
 }%
