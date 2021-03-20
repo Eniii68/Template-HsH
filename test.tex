@@ -40,6 +40,18 @@
 
 	Tiny: {\tiny hello} Small: {\small hello}
 
+	\makeatletter
+	\newcommand{\test}[1][l]{
+		{
+			\def\t{#1}
+			\if\t l left
+			\else
+				right
+			\fi
+		}
+	}
+	\test; \test[right]
+
 	\lipsum[5-6]
 
 	\pagebreak
@@ -56,14 +68,21 @@
 	\end{figure}
 
 	\makeatletter
-	\g@addto@macro\@floatboxreset\raggedright % center all floats
-	\setcapwidth[l]{0.8\textwidth} % center all captions
 
 	\begin{figure}
 		\graphicspath{{svg/build/}} % double curly brackets needet for unknown reason
 		\input{svg/build/exampleSVG.pdf_tex}
 		\caption{made via inkscape}
 	\end{figure}
+
+	\begin{table}
+		\caption{hello}
+		\begin{tabular}{c|c}
+			test & hello \\\hline\hline
+			1 & 2 \\
+			\multicolumn{2}{|c|}{temp}
+		\end{tabular}
+	\end{table}
 
 \printbibliography
 \listoffigures
