@@ -92,6 +92,7 @@
 \newcommand{\matrikelnr}[1]{\gdef\@matrikelnr{#1}}%
 \newcommand*{\@prof}{}%
 \newcommand{\professor}[1]{\gdef\@prof{#1}}%
+\let\@author\@empty
 \InputIfFileExists{personal.tex}{
 	\ClassInfo{\myClassName}{personal.tex was found. Using it...}
 }{
