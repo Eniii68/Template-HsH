@@ -92,9 +92,6 @@
 % keep compatible
 \providecommand{\renewcaptionname}[3]{}
 
-% custom commands
-\providecommand{\abs}[1]{\ensuremath{\left\vert#1\right\vert}} % Makro for vertical lines around absolute values
-
 % load config at beginning of document
 \AtBeginDocument{
 	\makeatletter
@@ -106,5 +103,7 @@
 	}{
 		\ClassInfo{\myClassName}{no config.tex!! I hope you configured it yourself.}
 	}
+	% provide some usefull commands:
+	\providecommand{\abs}[1]{\ensuremath{\left\vert#1\right\vert}} % Makro for vertical lines around absolute values
 	\makeatother
 }

@@ -120,6 +120,11 @@
 \renewcommand{\labelitemiii}{$-$}
 \renewcommand{\labelitemiv}{$\cdot$}
 
+% custom commands
+\newcommand{\includeHsHlogohere}[1][5cm]{\includegraphics[width=#1,page=\HsHlogoPage]{\HsHlogoPath}}
+\newcommand{\uproman}[1]{\uppercase\expandafter{\romannumeral#1}}
+\newcommand{\lowroman}[1]{\romannumeral#1\relax}
+
 % do stuff
 \setlength\parindent{0pt} % indentation of new paragraphs
 \raggedbottom
@@ -128,11 +133,39 @@
 \renewcommand{\layercontentsmeasure}{\empty} % rulers when using draft disabled
 \MakeOuterQuote{"} % easy quotationmarks
 
-% custom commands
-\newcommand{\includeHsHlogohere}[1][5cm]{\includegraphics[width=#1,page=\HsHlogoPage]{\HsHlogoPath}}
-\providecommand{\abs}[1]{\ensuremath{\left\vert#1\right\vert}} % Makro for vertical lines around absolute values
-\newcommand{\uproman}[1]{\uppercase\expandafter{\romannumeral#1}}
-\newcommand{\lowroman}[1]{\romannumeral#1\relax}
+
+% load config at beginning of document
+\AtBeginDocument{
+	\makeatletter
+	% solve some common errors:
+	\@ifpackageloaded{biblatex}{
+		\renewcommand*{\mkbibacro}[1]{\MakeUppercase{#1}} % solves fontype warning in San-Serif
+	}{}%
+	\@ifpackageloaded{subfigure}{
+		\newcommand{\subfigureautorefname}{\figureautorefname}
+	}{}%
+	% input config File:
+	\InputIfFileExists{config.tex}{
+		\ClassInfo{\myClassName}{config.tex was found. Using it...}
+	}{
+		\ClassInfo{\myClassName}{no config.tex!! I hope you configered it yourself.}
+	}
+	% provide some usefull commands:
+	\providecommand{\abs}[1]{\ensuremath{\left\vert#1\right\vert}} % Makro for vertical lines around absolute values
+	\makeatother
+}
+
+% nicer abstract:
+\renewenvironment{abstract}{%
+	\chapter*{\centering\abstractname}
+	\addcontentsline{toc}{chapter}{\abstractname}
+		\small
+		\quotation
+}{%
+	\endquotation
+}
+
+% decloration of Authorship
 \newcommand\declarationAuthorship{
 	\thispagestyle{plain}
 	\vspace*{\fill}
@@ -189,32 +222,6 @@
 			\end{tabular}
 		}
 	\end{flushright}
-}
-
-\renewenvironment{abstract}{%
-	\chapter*{\centering\abstractname}
-	\addcontentsline{toc}{chapter}{\abstractname}
-		\small
-		\quotation
-}{%
-	\endquotation
-}
-
-% load config at beginning of document
-\AtBeginDocument{
-	\makeatletter
-	\@ifpackageloaded{biblatex}{
-		\renewcommand*{\mkbibacro}[1]{\MakeUppercase{#1}} % solves fontype warning in San-Serif
-	}{}%
-	\@ifpackageloaded{subfigure}{
-		\newcommand{\subfigureautorefname}{\figureautorefname}
-	}{}%
-	\InputIfFileExists{config.tex}{
-		\ClassInfo{\myClassName}{config.tex was found. Using it...}
-	}{
-		\ClassInfo{\myClassName}{no config.tex!! I hope you configered it yourself.}
-	}
-	\makeatother
 }
 
 % reconfig Titlepage
