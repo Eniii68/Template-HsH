@@ -45,10 +45,10 @@
 }
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{standalone}}
 
-\ExecuteOptions{fontsize=11pt,a4paper,ngerman,sans} % standart options
+\ExecuteOptions{margin=0.25cm,fontsize=11pt,a4paper,ngerman,sans} % standart options
 \ProcessOptions\relax
 
-\LoadClass[margin=0.25cm,multi=tikzpicture,multi=circuitikz]{standalone}
+\LoadClass[multi=tikzpicture,multi=circuitikz]{standalone}
 
 
 \newcommand*{\@titlehead}{}%
