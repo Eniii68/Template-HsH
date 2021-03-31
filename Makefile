@@ -7,7 +7,7 @@ SUBDIRS = svg plt crc
 OUTDIR = build
 TEX_FLAGS = -file-line-error -interaction=nonstopmode
 COM_FLAGS = -output-directory=$(OUTDIR) -quiet
-GARBAGE_PATTERNS = *.aux *.bbl *.bcf *.blg *.idx *.ind *.lof *.lot *.log *.xml *.toc
+GARBAGE_PATTERNS = *.aux *.bbl *.bib *.bcf *.blg *.idx *.ind *.lof *.lot *.log *.xml *.toc
 
 SUB_TEX_FILES = $(foreach D,$(SUBDIRS),$(wildcard $(D)/*.tex))
 SUB_PDF_FILES = $(join $(dir $(SUB_TEX_FILES)),$(addprefix $(OUTDIR)/,$(notdir $(SUB_TEX_FILES:tex=pdf))))
