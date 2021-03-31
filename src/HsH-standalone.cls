@@ -57,8 +57,10 @@
 \newcommand*{\subject}[1]{\gdef\@subject{#1}}%
 \newcommand*{\@subtitle}{}%
 \newcommand*{\subtitle}[1]{\gdef\@subtitle{#1}}%
-\newcommand*{\@publishers}{}%
-\newcommand{\publishers}[1]{\gdef\@publishers{#1}}%
+\newcommand*{\@matrikelnr}{}%
+\newcommand{\matrikelnr}[1]{\gdef\@matrikelnr{#1}}%
+\newcommand*{\@professor}{}%
+\newcommand{\professor}[1]{\gdef\@professor{#1}}%
 \InputIfFileExists{personal.tex}{
 	\ClassInfo{\myClassName}{personal.tex was found. Using it...}
 }{
