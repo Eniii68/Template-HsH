@@ -90,8 +90,8 @@
 % config for title, header and footer
 \newcommand*{\@matrikelnr}{}%
 \newcommand{\matrikelnr}[1]{\gdef\@matrikelnr{#1}}%
-\newcommand*{\@prof}{}%
-\newcommand{\professor}[1]{\gdef\@prof{#1}}%
+\newcommand*{\@professor}{}%
+\newcommand{\professor}[1]{\gdef\@professor{#1}}%
 \let\@author\@empty
 \InputIfFileExists{personal.tex}{
 	\ClassInfo{\myClassName}{personal.tex was found. Using it...}
@@ -341,7 +341,7 @@
 			\vskip 1.5em
 			{\usekomafont{date}{\@date \par}}%
 			\vskip \z@ \@plus3fill
-			{\if\@prof\@empty\else\usekomafont{author}{Professor(in)/Lehrbeauftragte(r): \@prof}\fi}
+			{\if\@professor\@empty\else\usekomafont{author}{Professor(in)/Lehrbeauftragte(r): \@professor}\fi}
 			%{\usekomafont{publishers}{\@publishers \par}}%
 			\vskip 3em
 		\if\@param c\end{center}\fi
@@ -413,7 +413,7 @@
 		\global\let\@lowertitleback\@empty
 		\global\let\@dedication\@empty
 		\global\let\@matrikelnr\@empty
-		\global\let\@prof\@empty
+		\global\let\@professor\@empty
 		\global\let\author\relax
 		\global\let\title\relax
 		\global\let\extratitle\relax

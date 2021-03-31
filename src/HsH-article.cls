@@ -90,8 +90,8 @@
  % config for title, header and footer
 \newcommand*{\@matrikelnr}{}%
 \newcommand{\matrikelnr}[1]{\gdef\@matrikelnr{#1}}%
-\newcommand*{\@prof}{}%
-\newcommand{\professor}[1]{\gdef\@prof{#1}}%
+\newcommand*{\@professor}{}%
+\newcommand{\professor}[1]{\gdef\@professor{#1}}%
 \let\@author\@empty
 \InputIfFileExists{personal.tex}{
 	\ClassInfo{\myClassName}{personal.tex was found. Using it...}
