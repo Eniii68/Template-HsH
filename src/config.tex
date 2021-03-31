@@ -44,6 +44,10 @@
 		escapeinside={(*@}{@*)},
 	}
 }{}%
+\@ifpackageloaded{enumitem}{
+	\newlist{checklist}{itemize}{2}
+	\setlist[checklist]{label=$\square$}
+}{}%
 \@ifpackageloaded{csvsimple}{
 	\csvstyle{every csv}{separator=semicolon}
 }{}%
