@@ -27,8 +27,8 @@
 \usepackage{csvsimple}	% for importing CSV files
 \usepackage{subfigure}	% for subfigures
 \usepackage{soul}		% strikethrough text
+\usepackage{amssymb}	% for spectial Math symbols
 \usepackage{lipsum}		% dummy text
-\usepackage{amssymb}
 
 
 \begin{document} %----------- beginning of document -----------------------------------------------
@@ -56,15 +56,23 @@
 	german number: $3,5$ english number: $3.5$\\ % note changes when using ngerman document option
 
 	\section{using images}
-	Images can just be imported and used in a float environment with a caption and a lable to reference it.
+	Images can just be imported and used in a float environment with a caption and a lable to reference it. (see \autoref{fig: random image})
 	\begin{figure}
 		\includegraphics[width=.6\textwidth]{img/lorem-ipsum.jpg}
 		\caption{just a random image}
+		\label{fig: random image}
+	\end{figure}\\
+	You can also display two or more images together, using the \lstinline{subfigure} package. You can also resize or crop Images, as seen in
+	\autoref{fig: resize} and \autoref{fig: croped}
+	\begin{figure}
+		\subfigure[a smaller Version]{\label{fig: resize}\includegraphics[scale=0.1]{img/lorem-ipsum.jpg}}
+		\subfigure[a croped image]{\label{fig: croped}\includegraphics[width=.4\textwidth, trim=5cm 0 5cm 0,clip]{img/lorem-ipsum.jpg}}
+		\caption{some more images}
 	\end{figure}
 
+	\pagebreak
 	Plots can be created directly with latex. It is recommended to do this in subfiles and just import the finished PDF pages. This speed us
 	compilertimes by a lot. You should not change the size of precompiled images to keep fontsizes consistent.
-	\pagebreak
 	\begin{figure}
 		\includegraphics[page=2]{plt/examplePlot.pdf}
 		\caption[centering]{a nice plot}
@@ -79,11 +87,12 @@
 	Circuit diagramms can also be created using a package called \lstinline{circuitikz}. It is also recommended to get familiar with Inkscape which
 	has a very good export to latex feature, as you can see in \autoref{subfig: svg}.
 	\begin{figure}
-		\subfigure[a circuit diagramm]{\label{subfig: circuit}\includegraphics{crc/exampleCircuit.pdf}}
-		\hspace{2cm}
-		\caption{using two figures}
+		\includegraphics{crc/exampleCircuit.pdf}
+		\label{subfig: circuit}
+		\caption{a circuit diagramm}
 	\end{figure}
 
+	\pagebreak
 	Using Inkscape, you can create SVG-vector graphics and import them easily into Latex.
 	\begin{figure}
 		\def\svgwidth{0.3\textwidth} % define desired width
@@ -93,7 +102,6 @@
 		\label{subfig: svg}
 	\end{figure}
 
-	\pagebreak
 \section{demo nested listing}
 	\begin{itemize}
 		\item hallo
