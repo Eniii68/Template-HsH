@@ -28,6 +28,7 @@
 \usepackage{subfigure}	% for subfigures
 \usepackage{soul}		% strikethrough text
 \usepackage{amssymb}	% for spectial Math symbols
+\usepackage{enumitem}	% more list options
 \usepackage{lipsum}		% dummy text
 
 
@@ -102,7 +103,8 @@
 		\label{subfig: svg}
 	\end{figure}
 
-\section{demo nested listing}
+\section{lists and emumerations}
+	This is a nested List:
 	\begin{itemize}
 		\item hallo
 		\begin{itemize}
@@ -115,6 +117,17 @@
 			\end{itemize}
 		\end{itemize}
 	\end{itemize}
+
+	And this is a nice checklist:
+	\begin{checklist}
+		\item first
+		\item urgent
+		\begin{checklist}
+			\item sub item
+			\item and another
+		\end{checklist}
+		\item continue
+	\end{checklist}
 
 
 \section{using Units}
