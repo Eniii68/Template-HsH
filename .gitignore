@@ -1,3 +1,6 @@
 
-build/
 .vscode/
+.aux/
+build/
+*.synctex.gz
+*.synctex(busy)
