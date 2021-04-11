@@ -1,12 +1,12 @@
 # Makefile for Latex project
 NAME = example
 LATEX = pdflatex
-BIBTEX = biber
+BIBTEX = bibtex
 
 # OUTDIR needs to be at least this, can not be empty:
 OUTDIR = .
 AUXDIR = .aux
-IGNORE = src/%
+IGNORE = src/% chap/%
 GARBAGE_PATTERNS = *.aux *.bbl *.bib *.bcf *.blg *.idx *.ind *.lof *.lot *.log *.xml *.toc *.synctex(busy) *.synctex.gz(busy)
 
 # comment this out to get all outputs:
@@ -30,8 +30,8 @@ all: pdf bib
 
 pdf: $(SUB_FILES) $(NAME).pdf
 
-bib: $(OUTDIR)/$(AUXDIR)/$(NAME).bcf
-	$(BIBTEX) -output-directory=$(OUTDIR)/$(AUXDIR) $(QUIET) $(NAME)
+bib: $(OUTDIR)/$(AUXDIR)/$(NAME)-blx.bib
+	$(BIBTEX) $(QUIET) -include-directory=$(AUXDIR) $(OUTDIR)/$(AUXDIR)/$(NAME)
 
 # generel latex call
 %.pdf: %.tex
@@ -42,7 +42,7 @@ bib: $(OUTDIR)/$(AUXDIR)/$(NAME).bcf
 	inkscape -C --export-latex $*.svg -o $*.pdf
 
 # little hack if temp files are not present
-%.bcf: $(NAME).tex
+%-blx.bib: $(NAME).tex
 	if exist $(NAME).pdf del $(NAME).pdf
 	$(MAKE) pdf
 
