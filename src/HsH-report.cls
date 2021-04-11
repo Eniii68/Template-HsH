@@ -92,7 +92,10 @@
 \newcommand{\matrikelnr}[1]{\gdef\@matrikelnr{#1}}%
 \newcommand*{\@professor}{}%
 \newcommand{\professor}[1]{\gdef\@professor{#1}}%
+\newcommand*{\@keywords}{}%
+\newcommand{\keywords}[1]{\gdef\@keywords{#1}}%
 \let\@author\@empty
+\let\@keywords\@empty
 \InputIfFileExists{personal.tex}{
 	\ClassInfo{\myClassName}{personal.tex was found. Using it...}
 }{
@@ -162,6 +165,11 @@
 		\small
 		\quotation
 }{%
+	\ifx\@keywords\@empty\else
+		\vspace{1cm}
+		\paragraph{\if@german Schlüsselwörter:\else Keywords:\fi}
+		\@keywords
+	\fi
 	\endquotation
 }
 
@@ -214,7 +222,7 @@
 		may result from it. Any use of the works of any other author, in any form, is properly acknowledged at their point of use.
 	}\fi
 	\begin{flushright}
-		\foreach \x [count=\i] in \@author{
+		\foreach \x in \@author{
 			\begin{tabular}[t]{r}
 				\\[3em]
 				\rule{4cm}{0.4pt} \\

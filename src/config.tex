@@ -1,3 +1,4 @@
+% abbreviations for names:
 \if@german
 	\renewcommand{\abstractname}{Abstract} % Abstract
 	\renewcaptionname{ngerman}{\figurename}{Abb.} %Figure
@@ -7,11 +8,25 @@
 	\renewcaptionname{english}{\tablename}{Tab.} %Table
 \fi
 
+% center all floats:
 \ifx\KOMAScriptVersion\undefined\else % check if KOMA is used
 	\g@addto@macro\@floatboxreset\centering % center all floats
 	\setcapwidth[c]{0.8\textwidth} % center all captions
 	%\setcapwidth[l]{0.8\textwidth} % leftalign all captions
 \fi
+
+% Meta Data for the PDF file using values from personal.tex:
+\@ifpackageloaded{hyperref}{
+	\hypersetup{
+		pdfinfo={
+			Title={\@title},
+			Author={\@author},
+			Subject={\@subject},
+			Keywords={\@keywords}
+		}
+	}
+}{}%
+% configs for optional packages:
 \@ifpackageloaded{biblatex}{
 	\ExecuteBibliographyOptions{
 		bibwarn=true,
@@ -45,6 +60,7 @@
 	}
 }{}%
 \@ifpackageloaded{enumitem}{
+	\usepackage{amssymb}
 	\newlist{checklist}{itemize}{2}
 	\setlist[checklist]{label=$\square$}
 }{}%
