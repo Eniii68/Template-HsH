@@ -3,52 +3,56 @@ NAME = example
 LATEX = pdflatex
 BIBTEX = biber
 
-SUBDIRS = svg plt crc
-OUTDIR = build
-TEX_FLAGS = -file-line-error -interaction=nonstopmode
-COM_FLAGS = -output-directory=$(OUTDIR) -quiet
-GARBAGE_PATTERNS = *.aux *.bbl *.bib *.bcf *.blg *.idx *.ind *.lof *.lot *.log *.xml *.toc
+# OUTDIR needs to be at least this, can not be empty:
+OUTDIR = .
+AUXDIR = .aux
+IGNORE = src/%
+GARBAGE_PATTERNS = *.aux *.bbl *.bib *.bcf *.blg *.idx *.ind *.lof *.lot *.log *.xml *.toc *.synctex(busy) *.synctex.gz(busy)
 
-SUB_TEX_FILES = $(foreach D,$(SUBDIRS),$(wildcard $(D)/*.tex))
-SUB_PDF_FILES = $(join $(dir $(SUB_TEX_FILES)),$(addprefix $(OUTDIR)/,$(notdir $(SUB_TEX_FILES:tex=pdf))))
-SUB_SVG_FILES = $(foreach D,$(SUBDIRS),$(wildcard $(D)/*.svg))
-SUB_PDF_TEX_FILES = $(join $(dir $(SUB_SVG_FILES)),$(addprefix $(OUTDIR)/,$(notdir $(SUB_SVG_FILES:svg=pdf))))
-GARBAGE = $(foreach D,. $(SUBDIRS), $(wildcard $(addprefix $(D)/$(OUTDIR)/,$(GARBAGE_PATTERNS))))
+# comment this out to get all outputs:
+QUIET = -quiet
+TEX_FLAGS = -file-line-error -interaction=nonstopmode -aux-directory=$(dir $@)$(OUTDIR)/$(AUXDIR) -output-directory=$(dir $@)$(OUTDIR)
+
+# this grabs all subfiles it can find
+SUB_TEX_FILES = $(filter-out $(IGNORE),$(wildcard **/*.tex))
+SUB_SVG_FILES = $(filter-out $(IGNORE),$(wildcard **/*.svg))
+# and makes a big list of prerequisits
+SUB_FILES = $(SUB_TEX_FILES:tex=pdf) $(SUB_SVG_FILES:svg=pdf_tex)
 
 
+# get src folder on include path
 export TEXINPUTS:=$(CURDIR)\src
 
-simple:
-	pdflatex -include-directory=.\src example.tex
-	del $(GARBAGE_PATTERNS)
 
-all: bib
-	$(LATEX) $(TEX_FLAGS) $(COM_FLAGS) $(NAME).tex
-	$(LATEX) -synctex=1 $(TEX_FLAGS) $(COM_FLAGS) $(NAME).tex
-	copy /Y $(OUTDIR)\$(NAME).pdf .\
+all: pdf bib
+	$(LATEX) $(TEX_FLAGS) $(QUIET) $(NAME).tex
+	$(LATEX) -synctex=1 $(TEX_FLAGS) $(QUIET) $(NAME).tex
 
-bib: $(NAME).pdf $(OUTDIR)\$(NAME).bcf
-	$(BIBTEX) $(COM_FLAGS) $(NAME)
+pdf: $(SUB_FILES) $(NAME).pdf
 
-$(OUTDIR)\$(NAME).bcf:
-	$(LATEX) -synctex=1 $(TEX_FLAGS) $(COM_FLAGS) $(NAME).tex
+bib: $(OUTDIR)/$(AUXDIR)/$(NAME).bcf
+	$(BIBTEX) -output-directory=$(OUTDIR)/$(AUXDIR) $(QUIET) $(NAME)
 
-pdf: $(NAME).pdf
+# generel latex call
+%.pdf: %.tex
+	$(LATEX) $(TEX_FLAGS) $(QUIET) $*.tex
 
-$(NAME).pdf: $(NAME).tex $(SUB_PDF_FILES) $(SUB_PDF_TEX_FILES)
-	$(LATEX) -synctex=1 $(TEX_FLAGS) $(COM_FLAGS) $(NAME).tex
+# generell inkscape call
+%.pdf_tex: %.svg
+	inkscape -C --export-latex $*.svg -o $*.pdf
 
-$(SUB_PDF_FILES): $(SUB_TEX_FILES)
-	cd $(subst $(OUTDIR)/,,$(dir $@)) && $(LATEX) $(TEX_FLAGS) $(COM_FLAGS) $(notdir $(@:pdf=tex))
-
-$(SUB_PDF_TEX_FILES): $(SUB_SVG_FILES)
-	cd $(subst $(OUTDIR)/,,$(dir $@)) && inkscape -C --export-latex $(notdir $(@:pdf=svg)) -o $(and $(OUTDIR),$(OUTDIR)\)$(notdir $@)
+# little hack if temp files are not present
+%.bcf: $(NAME).tex
+	if exist $(NAME).pdf del $(NAME).pdf
+	$(MAKE) pdf
 
 
+# These are NOT portable!!
 clean: tidy
-	for %%a in ($(foreach D,$(subst /,\,$(SUB_PDF_FILES) $(SUB_PDF_TEX_FILES)) $(subst pdf,synctex.gz,$(subst /,\,$(SUB_PDF_FILES))) $(subst pdf,pdf_tex,$(subst /,\,$(SUB_PDF_TEX_FILES))) $(OUTDIR)\$(NAME).pdf $(OUTDIR)\$(NAME).synctex.gz, "$(D)")) do if exist %%~a del /q %%~a
-	for %%a in ($(foreach D,. $(SUBDIRS),"$(D)\$(if $(subst .,,$(OUTDIR)),$(OUTDIR),build)")) do if exist %%~a rmdir /s /q %%~a
-#	if exist $(NAME).pdf del $(NAME).pdf
+	for %%a in ($(subst /,\,$(SUB_FILES) $(SUB_SVG_FILES:svg=pdf))) do if exist %%~a del /s/q %%~a
+	if exist $(OUTDIR)\$(NAME).synctex.gz del $(OUTDIR)\$(NAME).synctex.gz
+	if exist $(OUTDIR)\$(NAME).pdf del $(OUTDIR)\$(NAME).pdf
 
 tidy:
-	if exist $(or $(word 1, $(subst /,\,$(GARBAGE))), false) del /q $(subst /,\,$(GARBAGE))
+	for %%a in ($(OUTDIR)\$(AUXDIR) $(subst /,\,$(wildcard **/$(AUXDIR)))) do if exist %%~a rmdir /s/q %%~a
+	for %%a in ("$(wildcard $(GARBAGE_PATTERNS))") do if exist %%~a del /s/q %%~a
