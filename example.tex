@@ -56,125 +56,176 @@
 	some information\cite{laboranleitung:physik}\\
 	german number: $3,5$ english number: $3.5$\\ % note changes when using ngerman document option
 
+
+	\section{Using formulas}
+		\label{sec: formula}
+		a numberd formula:
+		\begin{equation}
+			\label{eq: einhalb} % always lable your stuff
+			0,5=\frac{1}{3}
+		\end{equation}
+		\autoref{eq: einhalb} is nice, but how about multiple lines:
+		\begin{equation}
+		\begin{split} % you need do nest this
+			x &= x^2+3 \\
+			\Leftrightarrow 0 &= x^2-x+3 \\
+		\end{split}
+		\end{equation}
+		and how could you align formulas?
+		\begin{align}
+			x_1 &= 6 &&|\;\mbox{mit } x \in \mathbb{N} \\
+			x_2 &= 33+\abs{\frac{1}{4}} &&|\;x_1+3 \\
+				&= 33,25 &&\mbox{| don't number everything} \notag \\
+			x_3 &= 10^{22}
+		\end{align}
+
+
+	\section{using Units}
+		For this the \lstinline{siunitx} package is used. It provides Macros for all units.
+		\begin{equation}
+			200\,\kg
+		\end{equation}
+		The space between a number and it's unit should be a protected half-space, which can be created in latex using \lstinline{\,} In the classfile
+		siunits is set up to use a separate macro for each subunit, even for size-modifiers:
+		\begin{equation}
+			200\,\milli\metre \cdot 2\,\mega\volt
+		\end{equation}
+		Siunits also allows for reformatting of numbers as well as units. Use the \lstinline{\SI} and \lstinline{\si} macros for that:
+		\begin{equation}
+			e = \SI{1.602176634E-19}{\coulomb} % formats number + units, autospacing, transform to german comma
+		\end{equation}
+		\begin{equation}
+			\SI[exponent-to-prefix]{1e-6}{\metre}% you can also autocalculate prefixes
+		\end{equation}
+		\begin{equation}
+			124\,\si[per-mode=fraction]{\kilo\metre\per\second\squared} % only units
+		\end{equation}
+		\begin{equation}
+			\num{0.0004}\,\lumen % only numbers,  \per and \squared do not work
+		\end{equation}
+
+
 	\section{using images}
-	Images can just be imported and used in a float environment with a caption and a lable to reference it. (see \autoref{fig: random image})
-	\begin{figure}
-		\includegraphics[width=.6\textwidth]{img/lorem-ipsum.jpg}
-		\caption{just a random image}
-		\label{fig: random image}
-	\end{figure}\\
-	You can also display two or more images together, using the \lstinline{subfigure} package. You can also resize or crop Images, as seen in
-	\autoref{fig: resize} and \autoref{fig: croped}
-	\begin{figure}
-		\subfigure[a smaller Version]{\label{fig: resize}\includegraphics[scale=0.1]{img/lorem-ipsum.jpg}}
-		\subfigure[a croped image]{\label{fig: croped}\includegraphics[width=.4\textwidth, trim=5cm 0 5cm 0,clip]{img/lorem-ipsum.jpg}}
-		\caption{some more images}
-	\end{figure}
+		Images can just be imported and used in a float environment with a caption and a lable to reference it. (see \autoref{fig: random image})
+		\begin{figure}
+			\includegraphics[width=.6\textwidth]{img/lorem-ipsum.jpg}
+			\caption{just a random image}
+			\label{fig: random image}
+		\end{figure}\\
+		You can also display two or more images together, using the \lstinline{subfigure} package. You can also resize or crop Images, as seen in
+		\autoref{fig: resize} and \autoref{fig: croped}
+		\begin{figure}
+			\subfigure[a smaller Version]{\label{fig: resize}\includegraphics[scale=0.1]{img/lorem-ipsum.jpg}}
+			\subfigure[a croped image]{\label{fig: croped}\includegraphics[width=.4\textwidth, trim=5cm 0 5cm 0,clip]{img/lorem-ipsum.jpg}}
+			\caption{some more images}
+		\end{figure}
 
-	\pagebreak
-	Plots can be created directly with latex. It is recommended to do this in subfiles and just import the finished PDF pages. This speed us
-	compilertimes by a lot. You should not change the size of precompiled images to keep fontsizes consistent.
-	\begin{figure}
-		\includegraphics[page=2]{plt/examplePlot.pdf}
-		\caption[centering]{a nice plot}
-		\label{fig: plot1}
-	\end{figure}
-	\begin{figure}
-		\includegraphics[page=1]{plt/examplePlot.pdf}
-		\caption{a area plot}
-		\label{fig: area}
-	\end{figure}
+		Plots can be created directly with latex. It is recommended to do this in subfiles and just import the finished PDF pages. This speed us
+		compilertimes by a lot. You should not change the size of precompiled images to keep fontsizes consistent.
+		\begin{figure}
+			\includegraphics[page=2]{plt/examplePlot.pdf}
+			\caption[centering]{a nice plot}
+			\label{fig: plot1}
+		\end{figure}
+		\begin{figure}
+			\includegraphics[page=1]{plt/examplePlot.pdf}
+			\caption{a area plot}
+			\label{fig: area}
+		\end{figure}
 
-	Circuit diagramms can also be created using a package called \lstinline{circuitikz}. It is also recommended to get familiar with Inkscape which
-	has a very good export to latex feature, as you can see in \autoref{subfig: svg}.
-	\begin{figure}
-		\includegraphics{crc/exampleCircuit.pdf}
-		\label{subfig: circuit}
-		\caption{a circuit diagramm}
-	\end{figure}
+		\pagebreak
+		Circuit diagramms can also be created using a package called \lstinline{circuitikz}. It is also recommended to get familiar with Inkscape which
+		has a very good export to latex feature, as you can see in \autoref{subfig: svg}.
+		\begin{figure}
+			\includegraphics{crc/exampleCircuit.pdf}
+			\label{subfig: circuit}
+			\caption{a circuit diagramm}
+		\end{figure}
 
-	\pagebreak
-	Using Inkscape, you can create SVG-vector graphics and import them easily into Latex.
-	\begin{figure}
-		\def\svgwidth{0.3\textwidth} % define desired width
-		\graphicspath{{svg/}} % Inkludepath needet for the inputed file, double curly brackets needed for unknown reason
-		\input{svg/exampleSVG.pdf_tex} % input the Latexfile generated by inkscape
-		\caption{A image created with Inkscape}
-		\label{subfig: svg}
-	\end{figure}
+		\pagebreak
+		Using Inkscape, you can create SVG-vector graphics and import them easily into Latex.
+		\begin{figure}
+			\def\svgwidth{0.3\textwidth} % define desired width
+			\graphicspath{{svg/}} % Inkludepath needet for the inputed file, double curly brackets needed for unknown reason
+			\input{svg/exampleSVG.pdf_tex} % input the Latexfile generated by inkscape
+			\caption{A image created with Inkscape}
+			\label{subfig: svg}
+		\end{figure}
+		\enlargethispage{4\baselineskip}
 
-\section{lists and emumerations}
-	This is a nested List:
-	\begin{itemize}
-		\item hallo
+	\section{using tables}
+		Tables are a little bit complicated in LaTex, but don't worry, here are some examples:
+		\begin{table}
+			\caption{a simple table}
+			\label{tab: table 1}
+			\begin{tabular}{r|l}
+				A & B \\\hline\hline
+				1 & 2 \\\hline
+				3 & 4 \\\hline
+			\end{tabular}
+		\end{table}\\
+		As you can see, tables are build using two nested environments. The \lstinline{table} creates a floate just like a \lstinline{figure} would.
+		You can then just give it a caption and a lable.\\
+		The \lstinline{tabular} environment creates the actual table. You need to devine the alignment for every column and give delimiters between
+		lines. Each cell is ended by a \& and a newline is created as always. Using \lstinline{\hline} creates a vertical line after the row.\\
+		Here is a more complex example:
+		\begin{table}
+			\caption{a bigger table}
+			\begin{tabular}{r|c|r l|l}
+				ID & NAME & Price & Currency & Stock \\\hline
+				1 & Product A & 10 & EUR & 20 \\
+				2 & Stuff & 1 & USD & 200 \\
+				\multicolumn{2}{c|}{A cool Teddy} & 50 & EUR & 1\\\hline
+			\end{tabular}
+		\end{table}
+
+
+	\section{lists and enumerations}
+		This is a nested List:
 		\begin{itemize}
-			\item temp
+			\item hallo
 			\begin{itemize}
 				\item temp
 				\begin{itemize}
 					\item temp
+					\begin{itemize}
+						\item temp
+					\end{itemize}
 				\end{itemize}
 			\end{itemize}
 		\end{itemize}
-	\end{itemize}
 
-	And this is a nice checklist:
-	\begin{checklist}
-		\item first
-		\item urgent
+		\pagebreak
+		And this is a nice checklist:
 		\begin{checklist}
-			\item sub item
-			\item and another
+			\item first
+			\item urgent
+			\begin{checklist}
+				\item sub item
+				\item and another
+			\end{checklist}
+			\item continue
 		\end{checklist}
-		\item continue
-	\end{checklist}
 
 
-\section{using Units}
-	For this the \lstinline{siunitx} package is used. It provides Macros for all units.
-	\begin{equation}
-		200\,\kg
-	\end{equation}
-	The space between a number and it's unit should be a protected half-space, which can be created in latex using \lstinline{\,} In the classfile
-	siunits is set up to use a separate macro for each subunit, even for size-modifiers:
-	\begin{equation}
-		200\,\milli\metre \cdot 2\,\mega\volt
-	\end{equation}
-	Siunits also allows for reformatting of numbers as well as units. Use the \lstinline{\SI} and \lstinline{\si} macros for that:
-	\begin{equation}
-		e = \SI{1.602176634E-19}{\coulomb} % formats number + units, autospacing, transform to german comma
-	\end{equation}
-	\begin{equation}
-		\SI[exponent-to-prefix]{1e-6}{\metre}% you can also autocalculate prefixes
-	\end{equation}
-	\begin{equation}
-		124\,\si[per-mode=fraction]{\kilo\metre\per\second\squared} % only units
-	\end{equation}
-	\begin{equation}
-		\num{0.0004}\,\lumen % only numbers,  \per and \squared do not work
-	\end{equation}
 
-\section{Using formulas}
-	\label{sec: formula}
-	a numberd formula:
-	\begin{equation}
-		\label{eq: einhalb} % always lable your stuff
-		0,5=\frac{1}{3}
-	\end{equation}
-	\autoref{eq: einhalb} is nice, but how about multiple lines:
-	\begin{equation}
-	\begin{split} % you need do nest this
-		x &= x^2+3 \\
-		\Leftrightarrow 0 &= x^2-x+3 \\
-	\end{split}
-	\end{equation}
-	and how could you align formulas?
-	\begin{align}
-		x_1 &= 6 &&|\;\mbox{mit } x \in \mathbb{N} \\
-		x_2 &= 33+\abs{\frac{1}{4}} &&|\;x_1+3 \\
-			&= 33,25 &&\mbox{| don't number everything} \notag \\
-		x_3 &= 10^{22}
-	\end{align}
+	\section{CSV files}
+		\label{sec: messwerte}
+		import a csv as table:\\
+		\csvautotabular{csv/bsp.csv}\\
+
+		or do it manually to get more control:
+		\begin{table}
+			\caption{a nice list of numbers}
+			\begin{tabular}{c|c}
+				first row & second row \\\hline\hline
+				\csvreader[
+					late after line=\\\hline,
+					late after last line=\\\hline
+				]{csv/bsp.csv}{}{number: $\csvcoli\,\metre$ & is not \csvcoliii}
+			\end{tabular}
+		\end{table}
+
 
 \section{formating code}
 	\label{sec: code}
@@ -191,22 +242,6 @@
 	\end{lstlisting}
 	% or input from external file:
 	%\lstinputlisting[language=c]{main.c}
-
-\section{CSV files}
-	\label{sec: messwerte}
-	import a csv as table:\\
-	\csvautotabular{csv/bsp.csv}\\
-	or do it manually to get more control:
-	\begin{table}
-		\caption{a nice list of numbers}
-		\begin{tabular}{c|c}
-			first row & second row \\\hline\hline
-			\csvreader[
-				late after line=\\\hline,
-				late after last line=\\\hline
-			]{csv/bsp.csv}{}{number: $\csvcoli\,\metre$ & is not \csvcoliii}
-		\end{tabular}
-	\end{table}
 
 \include{chap/exampleChapter}
 
