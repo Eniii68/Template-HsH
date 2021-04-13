@@ -135,6 +135,7 @@
 \renewcommand{\fps@table}{h!t} % Positonierung of tables
 \renewcommand{\layercontentsmeasure}{\empty} % rulers when using draft disabled
 \MakeOuterQuote{"} % easy quotationmarks
+\addtokomafont{publishers}{\normalsize}
 
 
 % load config at beginning of document
@@ -243,9 +244,6 @@
 		}%
 	\fi
 	\begin{titlepage}
-		% \setcounter{page}{%
-		% 	#1%
-		% }%
 		\let\@param#1
 		\ifx\@param\@empty\ClassError{\myClassName}{\maketitle\space with empty option}{
 				\maketitle[] has been called with an empty parameter, this doesn't work. Use \maketitle instead.
@@ -347,10 +345,9 @@
 				\fi
 			\fi}%
 			\vskip 1.5em
-			{\usekomafont{date}{\@date \par}}%
+			{\usekomafont{date}{\@date \par}}
 			\vskip \z@ \@plus3fill
-			{\if\@professor\@empty\else\usekomafont{author}{Professor(in)/Lehrbeauftragte(r): \@professor}\fi}
-			%{\usekomafont{publishers}{\@publishers \par}}%
+			{\if\@professor\@empty\else\usekomafont{publishers}{Professor\if@german(in)/Lehrbeauftragte(r)\fi: \@professor}\fi}
 			\vskip 3em
 		\if\@param c\end{center}\fi
 		\if\@param r\end{flushright}\fi

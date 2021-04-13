@@ -86,6 +86,7 @@
 \newcommand\eaddtabtoks[1]{\edef\mytmp{#1}\expandafter\addtabtoks\expandafter{\mytmp}}
 %\newcommand*\resettabtoks{\global\@tabtoks{}}
 \newcommand*\printtabtoks{\the\@tabtoks}
+\addtokomafont{publishers}{\normalsize}
 
  % config for title, header and footer
 \newcommand*{\@matrikelnr}{}%
@@ -321,14 +322,13 @@
 					}
 				\fi
 			\fi}%
-			\vskip 1em%
-			{\usekomafont{date}{\@date \par}}%
 			\vskip 1em
-			{\if\@prof\@empty\else\usekomafont{author}{Professor(in)/Lehrbeauftragte(r): \@prof}\fi}
-			%{\usekomafont{publishers}{\@publishers \par}}%
+			{\usekomafont{date}{\@date \par}}
+			\vskip 1em
+			{\if\@professor\@empty\else\usekomafont{publishers}{Professor\if@german(in)/Lehrbeauftragte(r)\fi: \@professor}\fi}
 			\ifx\@dedication\@empty \else
 			\vskip 2em
-			{\usekomafont{dedication}{\@dedication \par}}%
+			{\usekomafont{dedication}{\@dedication \par}}
 			\fi
 		\if\@param c\end{center}\fi
 		\if\@param r\end{flushright}\fi
