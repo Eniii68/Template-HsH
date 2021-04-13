@@ -246,7 +246,7 @@
 		% \setcounter{page}{%
 		% 	#1%
 		% }%
-		\def\@param{#1}
+		\let\@param#1
 		\ifx\@param\@empty\ClassError{\myClassName}{\maketitle\space with empty option}{
 				\maketitle[] has been called with an empty parameter, this doesn't work. Use \maketitle instead.
 			}
