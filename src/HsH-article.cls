@@ -169,62 +169,51 @@
 }
 
 % decloration of Authorship
+\newif\if@oneAuthor \@oneAuthortrue
+\if@german
+	\setlocalecaption{ngerman}{dATitle}{Selbstständigkeitserklärung}
+	\setlocalecaption{ngerman}{dAPronomen}{\if@oneAuthor ich\else wir\fi}
+	\setlocalecaption{ngerman}{dAPluralendung}{\if@oneAuthor\else n\fi}
+	\setlocalecaption{ngerman}{dAGenitiv}{\if@oneAuthor mir\else uns\fi}
+	\setlocalecaption{ngerman}{dAText}{
+			Hiermit bestätige\dAPluralendungname\space\dAPronomenname, dass die folgende Arbeit eigenständig von \dAGenitivname\space allein erstellt
+			und unter Berücksichtigung der zur Verfügung gestellten Aufgabenstellung sowie dem Arbeitsmaterial unter Angabe aller verwendeten Quellen
+			erarbeitet wurde. Die Regelungen und Konsequenzen eines Plagiats, inklusive disziplinarischer Maßnahmen, sind \dAGenitivname\space
+			bewusst. Insbesondere wurden alle Zitate und gedanklichen Übernahmen als solche kenntlich gemacht.
+	}
+\else
+	\setlocalecaption{english}{dATitle}{Declaration of Authorship}
+	\setlocalecaption{english}{dAPronomen}{\if@oneAuthor I\else we\fi}
+	\setlocalecaption{english}{dAPronomenf}{\if@oneAuthor I\else We\fi}
+	\setlocalecaption{english}{dAPronomverb}{\if@oneAuthor am\else are\fi}
+	\setlocalecaption{english}{dAGenitiv}{\if@oneAuthor my\else our\fi}
+	\setlocalecaption{english}{dAText}{
+		\dAPronomenfname\space hereby certify that the work \dAPronomenname\space\dAPronomverbname\space submitting is entirely of
+		\dAGenitivname\space own making except where otherwise indicated. \dAPronomenfname\space\dAPronomverbname\space aware of regulations
+		concerning plagiarism, including disciplinary actions that may result from it. Any use of the works of any other author, in any form, is
+		properly acknowledged at their point of use.
+	}
+\fi
 \newcommand\declarationAuthorship{
+	\renewcommand{\thanks}{\sbox0}
+	\foreach \x [count=\i] in \@author{\ifnum\i>1\global\@oneAuthorfalse\fi}
+%
 	\thispagestyle{plain}
 	\vspace*{\fill}
 	{\rule{\textwidth}{0.1pt}}
-	\vspace{0.5cm}
-	\renewcommand{\thanks}{\sbox0}
-
-	\if@german{
-		\newcommand{\pronomen}{ich}
-		\newcommand{\plutalendung}{}
-		\newcommand{\genitiv}{mir}
-		\foreach \x [count=\i] in \@author{
-			\ifnum\i>1
-				\gdef\pronomen{wir}
-				\gdef\plutalendung{n}
-				\gdef\genitiv{uns}
-			\else\fi
-		}
-		\begin{center}
-			\huge \textbf{Selbstständigkeitserklärung}\\
-		\end{center}
-		\vspace{1cm}\normalsize
-		Hiermit bestätige\plutalendung\space\pronomen, dass die folgende Arbeit eigenständig von \genitiv\space allein erstellt und unter
-		Berücksichtigung der zur Verfügung gestellten Aufgabenstellung sowie dem Arbeitsmaterial unter Angabe aller verwendeten Quellen erarbeitet
-		wurde. Die Regelungen und Konsequenzen eines Plagiats, inklusive disziplinarischer Maßnahmen, sind \genitiv\space bewusst. Insbesondere wurden
-		alle Zitate und gedanklichen Übernahmen als solche kenntlich gemacht.
-	}\else{
-		\newcommand{\pronomen}{I}
-		\newcommand{\pronomenf}{I}
-		\newcommand{\genitiv}{my}
-		\newcommand{\proniomeverb}{am}
-		\foreach \x [count=\i] in \@author{
-			\ifnum\i>1
-				\gdef\pronomen{we}
-				\gdef\pronomenf{We}
-				\gdef\genitiv{our}
-				\gdef\proniomeverb{are}
-			\else\fi
-		}
-		\begin{center}
-			\huge \textbf{Declaration of Authorship}\\
-		\end{center}
-		\vspace{1cm}\normalsize
-		\pronomenf\space hereby certify that the work \pronomen\space\proniomeverb\space submitting is entirely of \genitiv\space own making except
-		where otherwise indicated. \pronomenf\space\proniomeverb\space aware of regulations concerning plagiarism, including disciplinary actions that
-		may result from it. Any use of the works of any other author, in any form, is properly acknowledged at their point of use.
-	}\fi
-	\begin{flushright}
-		\foreach \x [count=\i] in \@author{
+	\vskip 3em
+	{\centering\huge\textbf{\dATitlename}\par}
+	\vskip 3em
+	{\dATextname\par}
+	{\raggedleft
+		\foreach \x in \@author{
 			\begin{tabular}[t]{r}
 				\\[3em]
-				\rule{4cm}{0.4pt} \\
+				\rule{4cm}{0.4pt}\\
 				{\footnotesize\x}
 			\end{tabular}
 		}
-	\end{flushright}
+	\par}
 }
 
 % reconfig Titlepage
