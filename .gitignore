@@ -4,3 +4,4 @@
 build/
 *.synctex.gz
 *.synctex(busy)
+*.log
