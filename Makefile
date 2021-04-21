@@ -1,7 +1,7 @@
 # Makefile for Latex project
 NAME = example
 PDFLATEX = pdflatex
-BIBTEX = biber
+BIBTEX = bibtex
 
 # OUTDIR needs to be at least this, can not be empty:
 OUTDIR = .
