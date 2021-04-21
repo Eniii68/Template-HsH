@@ -108,11 +108,6 @@
 \newcommand{\keywords}[1]{\gdef\@keywords{#1}}%
 \let\@author\@empty
 \let\@keywords\@empty
-\InputIfFileExists{personal.tex}{
-  \ClassInfo{\myClassName}{personal.tex was found. Using it...}
-}{
-  \ClassInfo{\myClassName}{no personal.tex! Configre the titlepage yourself}
-}
 
 %% typesetting indexes upright or standart
 \def\subinrm#1{\sb{\mathrm{#1}}}

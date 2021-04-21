@@ -146,17 +146,9 @@
 
 %</article|report|standalone>
 %
-%<*article|report|standalone>
+%<*article|report>
 %% title matters ----------------------------------------------------------------------------------
 %
-%<*standalone>
-\newcommand*{\@titlehead}{}%
-\newcommand{\titlehead}[1]{\gdef\@titlehead{#1}}%
-\newcommand*{\@subject}{}%
-\newcommand*{\subject}[1]{\gdef\@subject{#1}}%
-\newcommand*{\@subtitle}{}%
-\newcommand*{\subtitle}[1]{\gdef\@subtitle{#1}}%
-%</standalone>
 \newcommand*{\@matrikelnr}{}%
 \newcommand{\matrikelnr}[1]{\gdef\@matrikelnr{#1}}%
 \newcommand*{\@professor}{}%
@@ -165,13 +157,8 @@
 \newcommand{\keywords}[1]{\gdef\@keywords{#1}}%
 \let\@author\@empty
 \let\@keywords\@empty
-\InputIfFileExists{personal.tex}{
-  \ClassInfo{\myClassName}{personal.tex was found. Using it...}
-}{
-  \ClassInfo{\myClassName}{no personal.tex! Configre the titlepage yourself}
-}
 
-%</article|report|standalone>
+%</article|report>
 %
 %<*article|report|standalone>
 %% typesetting indexes upright or standart
