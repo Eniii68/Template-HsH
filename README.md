@@ -55,10 +55,10 @@ are logged in!!
 
 Use the wiki [here](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/wikis/home):
 
-- [Adding the .\src folder to the path](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/wikis/Adding%20the%20.%5Csrc%20folder%20to%20the%20path)  
-- [Using a Build folder](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/wikis/Using%20a%20Build%20Folder)  
-- [What are the personal.tex and config.tex?](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/wikis/What%20are%20the%20personal.tex%20and%20config.tex)  
-- [setting up a titlepage](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/wikis/setting%20up%20a%20titlepage)  
-- [Provided commands](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/wikis/Provided%20commands)  
-- [Provided and recommended packages](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/wikis/Provided%20and%20recommended%20packages)
+- [Adding the src folder to the path](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/wikis/Adding-src-folder-to-the-path)  
+- [Using a Aux folder](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/wikis/Using-a-Aux-Folder)  
+- [What is the config.tex?](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/wikis/What-is-the-config.tex)  
+- [Document Options](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/wikis/Document-Options)  
+- [Provided commands](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/wikis/Provided-commands)  
+- [Provided and recommended packages](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/wikis/Provided-and-recommended-packages)
 - [Frequently Asked Questions](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/wikis/faq)  
