@@ -1,0 +1,693 @@
+% \iffalse meta-comment
+%
+% Copyright (C) 2020 by Jan Wille <mail@janwille.de>
+% -------------------------------------------------------
+%
+% This file may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in:
+%
+%    http://www.latex-project.org/lppl.txt
+%
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2021-01-01 or later.
+%
+% \fi
+%
+%<*article|report|standalone>
+\typeout{Adapted from KOMA script for use in Hochschule Hannover <2021-03-18> Jan Wille}
+\NeedsTeXFormat{LaTeX2e}
+%
+%<article>\newcommand{\myClassName}{HsH-article}
+%<report>\newcommand{\myClassName}{HsH-report}
+%<standalone>\newcommand{\myClassName}{HsH-standalone}
+\ProvidesClass{\myClassName}[2021/03/18 v1.0 HsH-Class based on KOMA]
+
+%</article|report|standalone>
+%
+%<*article|report|standalone>
+%% commands for HsH-logo
+\newcommand{\HsHlogoPath}{HSH-Logo.pdf}
+\newcommand{\HsHlogoPage}{1}
+\newcommand{\includeHsHlogohere}[1][5cm]{\includegraphics[width=#1,page=\HsHlogoPage]{\HsHlogoPath}}
+\newif\if@german%
+
+%% document options -------------------------------------------------------------------------------
+\DeclareOption{german}{%
+  \@germantrue
+}
+\DeclareOption{ngerman}{%
+  \@germantrue
+}
+\DeclareOption{english}{%
+  \@germanfalse
+}
+\DeclareOption{f1}{% use logo of fakulty 1
+  \renewcommand{\HsHlogoPage}{2}
+}
+\DeclareOption{f2}{% use logo of fakulty 2
+  \renewcommand{\HsHlogoPage}{3}
+}
+\DeclareOption{f3}{% use logo of fakulty 3
+  \renewcommand{\HsHlogoPage}{4}
+}
+\DeclareOption{f4}{% use logo of fakulty 4
+  \renewcommand{\HsHlogoPage}{5}
+}
+\DeclareOption{f5}{% use logo of fakulty 5
+  \renewcommand{\HsHlogoPage}{6}
+}
+\DeclareOption{sans}{% use san serif font
+  \renewcommand{\familydefault}{\sfdefault}
+}
+\DeclareOption{roman}{% use roman/serif font
+  \renewcommand{\familydefault}{\rmdefault}
+}
+%<article>\DeclareOption*{\PassOptionsToClass{\CurrentOption}{scrartcl}}
+%<report>\DeclareOption*{\PassOptionsToClass{\CurrentOption}{scrreprt}}
+%<standalone>\DeclareOption*{\PassOptionsToClass{\CurrentOption}{standalone}}
+%
+%<article|report>\ExecuteOptions{fontsize=11pt,a4paper,ngerman,sans} % standart options
+%<standalone>\ExecuteOptions{margin=0.25cm,fontsize=11pt,a4paper,ngerman,sans} % standart options
+\ProcessOptions\relax
+
+%% Load KOMA class
+%<article>\LoadClass{scrartcl}
+%<report>\LoadClass{scrreprt}
+%<standalone>\LoadClass[multi=tikzpicture,multi=circuitikz]{standalone}
+%<article|report>\KOMAoption{toc}{bibliography,listof}
+
+%</article|report|standalone>
+%
+%<*article|report|standalone>
+%% package loading and config ---------------------------------------------------------------------
+%
+% inputencoding, utf8 recomendet
+\PassOptionsToPackage{utf8}{inputenc}
+\RequirePackage{inputenc}
+%
+% outputencoding, T1 recomendet
+\PassOptionsToPackage{T1}{fontenc}
+\RequirePackage{fontenc}
+%
+\RequirePackage{lmodern} % font
+%
+% required for importing images
+\RequirePackage{graphicx}
+%
+% a lot of nice Math
+\RequirePackage{amsmath}
+%
+% german dezimal numbers
+\if@german\RequirePackage{ziffer}\fi
+%
+%</article|report|standalone>
+%<*article|report>
+%
+% required for changing layout
+\PassOptionsToPackage{left=3cm,right=2.5cm,top=3cm,bottom=3cm}{geometry}
+\RequirePackage{geometry}
+%
+% language specific localisation
+\if@german\PassOptionsToPackage{ngerman}{babel}\else\PassOptionsToPackage{english}{babel}\fi
+\RequirePackage{babel}
+%
+% required for header and footer
+\PassOptionsToPackage{headsepline}{scrlayer-scrpage}
+\RequirePackage{scrlayer-scrpage}
+% compatability with listings
+\RequirePackage{scrhack}
+%
+% references and lists are clikable
+\PassOptionsToPackage{hidelinks}{hyperref}
+\RequirePackage{hyperref}
+%
+% generat bookmarkes
+\RequirePackage{bookmark}
+%
+% quotations
+\PassOptionsToPackage{babel}{csquotes}
+\if@german\PassOptionsToPackage{german=quotes}{csquotes}\fi
+\RequirePackage{csquotes}
+% this makes quotationmarks usable in text:
+\MakeOuterQuote{"}
+%
+% foreach loops
+\RequirePackage{pgffor}
+%
+%</article|report>
+%<*article|report|standalone>
+%% options for not loaded packages ----------------------------------------------------------------
+%
+%<article|report>\PassOptionsToPackage{backend=biber,style=alphabetic,sorting=nyt}{biblatex}
+\PassOptionsToPackage{free-standing-units,abbreviations}{siunitx}
+\PassOptionsToPackage{european,EFvoltages,straightvoltages,betterproportions}{circuitikz}
+
+%</article|report|standalone>
+%
+%<*article|report|standalone>
+%% title matters ----------------------------------------------------------------------------------
+%
+%<*standalone>
+\newcommand*{\@titlehead}{}%
+\newcommand{\titlehead}[1]{\gdef\@titlehead{#1}}%
+\newcommand*{\@subject}{}%
+\newcommand*{\subject}[1]{\gdef\@subject{#1}}%
+\newcommand*{\@subtitle}{}%
+\newcommand*{\subtitle}[1]{\gdef\@subtitle{#1}}%
+%</standalone>
+\newcommand*{\@matrikelnr}{}%
+\newcommand{\matrikelnr}[1]{\gdef\@matrikelnr{#1}}%
+\newcommand*{\@professor}{}%
+\newcommand{\professor}[1]{\gdef\@professor{#1}}%
+\newcommand*{\@keywords}{}%
+\newcommand{\keywords}[1]{\gdef\@keywords{#1}}%
+\let\@author\@empty
+\let\@keywords\@empty
+\InputIfFileExists{personal.tex}{
+  \ClassInfo{\myClassName}{personal.tex was found. Using it...}
+}{
+  \ClassInfo{\myClassName}{no personal.tex! Configre the titlepage yourself}
+}
+
+%</article|report|standalone>
+%
+%<*article|report|standalone>
+%% typesetting indexes upright or standart
+\def\subinrm#1{\sb{\mathrm{#1}}}
+{\catcode`\_=13 \global\let_=\subinrm}
+\mathcode`_="8000
+% the toggle for upright subscripts
+\newcommand\upsubscripts{\catcode`\_=12 }
+% the toggle for italic subscripts
+\newcommand\normalsubscripts{\catcode`\_=8 }
+% setting upright as default
+\upsubscripts
+
+%</article|report|standalone>
+%
+%<*article|report>
+%% header and footer
+\pagestyle{scrheadings}
+\clearpairofpagestyles
+%<article>\automark{section}
+% Chaptertitles get same header/footer as everything:
+%<report>\renewcommand*{\chapterpagestyle}{scrheadings}
+%<report>\automark{chapter}
+\ohead{\headmark}
+\ihead{\@title}
+\ofoot*{\pagemark}
+
+%% floats
+% positioning of floats
+\renewcommand{\fps@figure}{h!t}
+\renewcommand{\fps@table}{h!t}
+%
+% check if KOMA is used
+\ifx\KOMAScriptVersion\undefined\else
+% center all floats
+  \g@addto@macro\@floatboxreset\centering
+% center all captions
+  \setcapwidth[c]{0.8\textwidth}
+\fi
+% abbreviations for names:
+\if@german
+  \renewcaptionname{ngerman}{\figurename}{Abb.}
+  \renewcaptionname{ngerman}{\tablename}{Tab.}
+  \renewcaptionname{ngerman}{\abstractname}{Abstract}
+\else
+  \renewcaptionname{english}{\figurename}{Fig.}
+  \renewcaptionname{english}{\tablename}{Tab.}
+\fi
+
+%% styling for itemize
+\renewcommand{\labelitemi}{$\bullet$}
+\renewcommand{\labelitemii}{$\circ$}
+\renewcommand{\labelitemiii}{$-$}
+\renewcommand{\labelitemiv}{$\cdot$}
+
+%% do stuff
+\setlength\parindent{0pt} % indentation of new paragraphs
+\raggedbottom
+\renewcommand{\layercontentsmeasure}{\empty} % rulers when using draft disabled
+
+%% custom commands
+\newcommand{\uproman}[1]{\uppercase\expandafter{\romannumeral#1}}
+\newcommand{\lowroman}[1]{\romannumeral#1\relax}
+%</article|report>
+%
+%<*article|report|standalone>
+%% load config at beginning of document
+\AtBeginDocument{
+  \makeatletter
+%<^*standalone>
+% solve some common errors:
+  \@ifpackageloaded{biblatex}{
+% solves fontype warning in San-Serif
+    \renewcommand*{\mkbibacro}[1]{\MakeUppercase{#1}}
+  }{}
+  \@ifpackageloaded{subfigure}{
+    \newcommand{\subfigureautorefname}{\figureautorefname}
+  }{}
+%<^*standalone>
+  \InputIfFileExists{config.tex}{
+    \ClassInfo{\myClassName}{config.tex was found. Using it...}
+  }{
+    \ClassInfo{\myClassName}{no config.tex!! I hope you configered it yourself.}
+  }
+  %% provide some usefull commands:
+% Makro for vertical lines around absolute values
+  \providecommand{\abs}[1]{\ensuremath{\left\vert#1\right\vert}}
+  \makeatother
+}
+%</article|report|standalone>
+%
+%<*article|report>
+%% nicer abstract ---------------------------------------------------------------------------------
+\renewenvironment{abstract}{%
+%<article>  \section*{\centering\abstractname}
+%<report>  \chapter*{\centering\abstractname}
+  \addcontentsline{toc}{chapter}{\abstractname}
+    \small
+    \quotation
+}{%
+  \ifx\@keywords\@empty\else
+    \vspace{1cm}
+    \paragraph{\if@german Schlüsselwörter:\else Keywords:\fi}
+    \@keywords
+  \fi
+  \endquotation
+}
+%% decloration of Authorship ----------------------------------------------------------------------
+\newif\if@oneAuthor \@oneAuthortrue
+\if@german
+  \setlocalecaption{ngerman}{dATitle}{Selbstständigkeitserklärung}
+  \setlocalecaption{ngerman}{dAPronomen}{\if@oneAuthor ich\else wir\fi}
+  \setlocalecaption{ngerman}{dAPluralendung}{\if@oneAuthor\else n\fi}
+  \setlocalecaption{ngerman}{dAGenitiv}{\if@oneAuthor mir\else uns\fi}
+  \setlocalecaption{ngerman}{dAText}{
+    Hiermit bestätige\dAPluralendungname\space\dAPronomenname, dass die folgende Arbeit eigenständig von \dAGenitivname\space allein erstellt
+    und unter Berücksichtigung der zur Verfügung gestellten Aufgabenstellung sowie dem Arbeitsmaterial unter Angabe aller verwendeten Quellen
+    erarbeitet wurde. Die Regelungen und Konsequenzen eines Plagiats, inklusive disziplinarischer Maßnahmen, sind \dAGenitivname\space
+    bewusst. Insbesondere wurden alle Zitate und gedanklichen Übernahmen als solche kenntlich gemacht.
+  }
+\else
+  \setlocalecaption{english}{dATitle}{Declaration of Authorship}
+  \setlocalecaption{english}{dAPronomen}{\if@oneAuthor I\else we\fi}
+  \setlocalecaption{english}{dAPronomenf}{\if@oneAuthor I\else We\fi}
+  \setlocalecaption{english}{dAPronomverb}{\if@oneAuthor am\else are\fi}
+  \setlocalecaption{english}{dAGenitiv}{\if@oneAuthor my\else our\fi}
+  \setlocalecaption{english}{dAText}{
+    \dAPronomenfname\space hereby certify that the work \dAPronomenname\space\dAPronomverbname\space submitting is entirely of
+    \dAGenitivname\space own making except where otherwise indicated. \dAPronomenfname\space\dAPronomverbname\space aware of regulations
+    concerning plagiarism, including disciplinary actions that may result from it. Any use of the works of any other author, in any form, is
+    properly acknowledged at their point of use.
+  }
+\fi
+\newcommand\declarationAuthorship{
+  \renewcommand{\thanks}{\sbox0}
+  \foreach \x [count=\i] in \@author{\ifnum\i>1\global\@oneAuthorfalse\fi}
+%
+  \thispagestyle{plain}
+  \vspace*{\fill}
+  {\rule{\textwidth}{0.1pt}}
+  \vskip 3em
+  {\centering\huge\textbf{\dATitlename}\par}
+  \vskip 3em
+  {\dATextname\par}
+% creating a line for every author
+  {\raggedleft
+    \foreach \x in \@author{
+      \begin{tabular}[t]{r}
+        \\[3em]
+        \rule{4cm}{0.4pt}\\
+        {\footnotesize\x}
+      \end{tabular}
+    }
+  \par}
+}
+%</article|report>
+%
+%<*article|report>
+%% reconfig Titlepage -----------------------------------------------------------------------------
+\newtoks\@tabtoks
+\newcommand\addtabtoks[1]{\global\@tabtoks\expandafter{\the\@tabtoks#1}}
+\newcommand\eaddtabtoks[1]{\edef\mytmp{#1}\expandafter\addtabtoks\expandafter{\mytmp}}
+%\newcommand*\resettabtoks{\global\@tabtoks{}}
+\newcommand*\printtabtoks{\the\@tabtoks}
+\addtokomafont{publishers}{\normalsize}
+%
+%<article>\renewcommand\maketitle[1][c]{
+%<report>\renewcommand\maketitle[1][l]{
+  \expandafter\ifnum \csname scr@v@3.12\endcsname>\scr@compatibility\relax
+  \else
+    \def\and{%
+      \end{tabular}
+      \hskip 1em \@plus.17fil
+      \begin{tabular}[t]{c}%
+    }
+  \fi
+%<*article>
+  \par
+  \ifx\@uppertitleback\@empty\else
+    \ClassWarning{\KOMAClassName}{%
+      non empty \string\uppertitleback\space ignored
+      by \string\maketitle\MessageBreak
+      in `titlepage=false' mode%
+    }
+  \fi
+  \ifx\@lowertitleback\@empty\else
+    \ClassWarning{\KOMAClassName}{%
+      non empty \string\lowertitleback\space ignored
+      by \string\maketitle\MessageBreak
+      in `titlepage=false' mode%
+    }
+  \fi
+%</article>
+%<report>  \begin{titlepage}
+%<article>  \begingroup
+    \let\@param#1
+    \ifx\@param\@empty
+      \ClassError{\myClassName}{\maketitle\space with empty option}{
+        \maketitle[] has been called with an empty parameter, this doesn't work. Use \maketitle instead.
+      }
+    \fi
+%<*report>
+    \if@titlepageiscoverpage
+      \edef\titlepage@restore{
+        \noexpand\endgroup
+        \noexpand\global\noexpand\@colht\the\@colht
+        \noexpand\global\noexpand\@colroom\the\@colroom
+        \noexpand\global\vsize\the\vsize
+        \noexpand\global\noexpand\@titlepageiscoverpagefalse
+        \noexpand\let\noexpand\titlepage@restore\noexpand\relax
+      }
+      \begingroup
+      \topmargin=\dimexpr \coverpagetopmargin-1in\relax
+      \oddsidemargin=\dimexpr \coverpageleftmargin-1in\relax
+      \evensidemargin=\dimexpr \coverpageleftmargin-1in\relax
+      \textwidth=\dimexpr
+      \paperwidth-\coverpageleftmargin-\coverpagerightmargin\relax
+      \textheight=\dimexpr
+      \paperheight-\coverpagetopmargin-\coverpagebottommargin\relax
+      \headheight=0pt
+      \headsep=0pt
+      \footskip=\baselineskip
+      \@colht=\textheight
+      \@colroom=\textheight
+      \vsize=\textheight
+      \columnwidth=\textwidth
+      \hsize=\columnwidth
+      \linewidth=\hsize
+    \else
+      \let\titlepage@restore\relax
+    \fi
+    \let\footnotesize\small
+    \let\footnoterule\relax
+    \let\footnote\thanks
+%</report>
+%<article>    \let\titlepage@restore\relax
+    \renewcommand*\thefootnote{\@fnsymbol\c@footnote}%
+    \let\@oldmakefnmark\@makefnmark
+    \renewcommand*{\@makefnmark}{\rlap\@oldmakefnmark}%
+%<article>    \next@tdpage
+    \ifx\@extratitle\@empty
+%<article>      \ifx\@frontispiece\@empty\else \mbox{}\fi
+%<*report>
+      \ifx\@frontispiece\@empty\else
+        \if@twoside\mbox{}\next@tpage\fi
+        \noindent\@frontispiece\next@tdpage
+      \fi
+%</report>
+    \else
+%<article>      \@makeextratitle
+%<*report>
+      \noindent\@extratitle
+      \ifx\@frontispiece\@empty
+      \else
+        \next@tpage
+        \noindent\@frontispiece
+      \fi
+      \next@tdpage
+%</report>
+    \fi
+%<*article>
+    \ifx\@frontispiece\@empty
+      \ifx\@extratitle\@empty\else\next@tdpage\fi
+    \else
+      \next@tpage
+      \@makefrontispiece
+      \next@tdpage
+    \fi
+    \global\@topnum=\z@
+%</article>
+    \setparsizes{\z@}{\z@}{\z@\@plus 1fil}\par@updaterelative
+    \IfFileExists{\HsHlogoPath}{}{
+      \ClassError{\myClassName}{HsH-Logo.pdf not found!}{
+        The HsH Logo is necasary for the titlepage! Try putting it next to your source file or use \HsHlogoPath to define the file location
+      }
+    }
+    \vspace*{1cm}
+    \begin{minipage}[t]{\textwidth}%
+      \ifx\@titlehead\@empty \else
+        \usekomafont{titlehead}{\@titlehead}%
+      \fi
+      \hfill
+% image with referrencepoint in lower left corner:
+      \raisebox{0pt}[\ht\strutbox][\dp\strutbox]{\includeHsHlogohere}
+    \end{minipage}
+    \raisebox{10pt}{\rule{\textwidth}{0.5pt}}
+    \null
+%<article>    \vskip 2em
+%<report>    \vfill
+    \begingroup
+      \if\@param c\centering\fi
+      \if\@param r\raggedleft\fi
+      \ifx\@subject\@empty\else
+        {\usekomafont{subject}{\@subject\par}}
+%<article>        \vskip 1.5em
+%<report>        \vskip 3em
+      \fi
+      {\usekomafont{title}{\huge\@title\par}}
+%<article>      \vskip .5em
+%<report>      \vskip 1em
+      {\ifx\@subtitle\@empty\else\usekomafont{subtitle}\@subtitle\par\fi}
+%<article|report>      \vskip 4em
+      {\ifx\@matrikelnr\@empty
+        \if\@author\@empty\else\usekomafont{author}{
+          \parbox{\dimexpr\linewidth}{
+            \if\@param c\centering\fi
+            \if\@param r\raggedleft\fi
+            \@author
+          }
+        }\fi
+      \else
+        \if\@author\@empty\else
+          % sneeky comma needed after \@matrikelnr to deal with single item lists
+          \foreach \x [count=\i,evaluate=\i as \y using {{\@matrikelnr,}[\i-1]}] in \@author {\eaddtabtoks{\x & \y\protect\\}}
+          \usekomafont{author}{\def\arraystretch{1.2}
+            \if\@param l\hspace{-6pt}\begin{tabular}{l l}\printtabtoks\end{tabular}\fi
+            \if\@param c\begin{tabular}{l l}\printtabtoks\end{tabular}\fi
+            \if\@param r\begin{tabular}{r r}\printtabtoks\end{tabular}\hspace{-6pt}\fi
+          }
+        \fi
+      \fi}
+%<article>      \vskip 1em
+%<report>      \vskip 1.5em
+      {\usekomafont{date}{\@date\par}}
+%<article>      \vskip 1em
+%<report>      \vskip \z@ \@plus3fill
+     {\if\@professor\@empty\else\usekomafont{publishers}{Professor\if@german(in)/Lehrbeauftragte(r)\fi: \@professor}\fi}
+%<*article>
+      \ifx\@dedication\@empty\else
+        \vskip 2em
+        {\usekomafont{dedication}{\@dedication \par}}%
+      \fi
+%</article>
+      \par
+    \endgroup
+%<article>    \vskip 2em
+%<report>    \vskip 3em
+%<article>    \ifx\titlepagestyle\@empty\else\thispagestyle{\titlepagestyle}\fi
+    \@thanks\global\let\@thanks\@empty
+%<*report>
+    \vfill\null
+    \if@twoside
+      \@tempswatrue
+      \expandafter\ifnum \@nameuse{scr@v@3.12}>\scr@compatibility\relax
+      \else
+        \ifx\@uppertitleback\@empty\ifx\@lowertitleback\@empty
+          \@tempswafalse
+        \fi\fi
+      \fi
+      \if@tempswa
+        \next@tpage
+        \begin{minipage}[t]{\textwidth}
+          \@uppertitleback
+        \end{minipage}\par
+        \vfill
+        \begin{minipage}[b]{\textwidth}
+          \@lowertitleback
+        \end{minipage}\par
+        \@thanks\global\let\@thanks\@empty
+      \fi
+    \else
+      \ifx\@uppertitleback\@empty\else
+        \ClassWarning{\KOMAClassName}{%
+          non empty \string\uppertitleback\space ignored
+          by \string\maketitle\MessageBreak
+          in `twoside=false' mode%
+        }
+      \fi
+      \ifx\@lowertitleback\@empty\else
+        \ClassWarning{\KOMAClassName}{%
+          non empty \string\lowertitleback\space ignored
+          by \string\maketitle\MessageBreak
+          in `twoside=false' mode%
+        }
+      \fi
+    \fi
+    \ifx\@dedication\@empty
+    \else
+      \next@tdpage\null\vfill
+      {\centering\usekomafont{dedication}{\@dedication \par}}%
+      \vskip \z@ \@plus3fill
+      \@thanks\global\let\@thanks\@empty
+      \cleardoubleemptypage
+    \fi
+    \ifx\titlepage@restore\relax\else\clearpage\titlepage@restore\fi
+%</report>
+%<article>  \endgroup
+%<report>  \end{titlepage}
+  \setcounter{footnote}{0}
+  \expandafter\ifnum \csname scr@v@3.12\endcsname>\scr@compatibility\relax
+    \let\thanks\relax
+    \let\maketitle\relax
+    \let\@maketitle\relax
+    \global\let\@thanks\@empty
+    \global\let\@author\@empty
+    \global\let\@date\@empty
+    \global\let\@title\@empty
+    \global\let\@subtitle\@empty
+    \global\let\@extratitle\@empty
+    \global\let\@frontispiece\@empty
+    \global\let\@titlehead\@empty
+    \global\let\@subject\@empty
+    \global\let\@publishers\@empty
+    \global\let\@uppertitleback\@empty
+    \global\let\@lowertitleback\@empty
+    \global\let\@dedication\@empty
+    \global\let\@matrikelnr\@empty
+    \global\let\@prof\@empty
+    \global\let\author\relax
+    \global\let\title\relax
+    \global\let\extratitle\relax
+    \global\let\titlehead\relax
+    \global\let\subject\relax
+    \global\let\publishers\relax
+    \global\let\uppertitleback\relax
+    \global\let\lowertitleback\relax
+    \global\let\dedication\relax
+    \global\let\date\relax
+    \global\let\matrikelnr\relax
+    \global\let\professor\relax
+  \fi
+  \global\let\and\relax
+}
+%</article|report>
+%
+% Config file -------------------------------------------------------------------------------------
+%<*config>
+%% Meta Data for the PDF file
+\@ifpackageloaded{hyperref}{
+  \hypersetup{
+    pdfinfo={
+      Title={\@title},
+      Author={\@author},
+      Subject={\@subject},
+      Keywords={\@keywords}
+    }
+  }
+}
+%% configs for optional packages:
+\@ifpackageloaded{biblatex}{
+  \ExecuteBibliographyOptions{
+    bibwarn=true,
+    url=true,
+    isbn=false,
+  }
+}{}
+\@ifpackageloaded{siunitx}{
+  \if@german
+    \sisetup{output-decimal-marker={,}} % use comma as dezimal
+  \fi
+  \sisetup{
+    tight-spacing=true,
+    per-mode=symbol,
+    scientific-notation=engineering,
+    %exponent-to-prefix, % use this instead of sci-notatio
+    round-mode = places, % round numbers
+    round-precision = 3, % to 3 places
+  }
+}{}
+\@ifpackageloaded{listings}{
+  \lstset{
+    commentstyle=\color{gray},
+    keywordstyle=\color{red},
+    stringstyle=\color{blue},
+    showstringspaces=false,
+    basicstyle=\ttfamily,
+    tabsize=4,
+    literate={Ö}{{\"O}}1{Ä}{{\"A}}1{Ü}{{\"U}}1{ß}{{\ss}}1{ü}{{\"u}}1{ä}{{\"a}}1{ö}{{\"o}}1,
+    escapeinside={(*@}{@*)},
+  }
+}{}
+\@ifpackageloaded{enumitem}{
+  \newlist{checklist}{itemize}{2}
+  \setlist[checklist]{label=$\square$}
+}{}
+\@ifpackageloaded{csvsimple}{
+  \csvstyle{every csv}{separator=semicolon} % global seperator for csv files
+}{}
+\@ifpackageloaded{circuitikz}{
+  \ctikzset{
+    font=\footnotesize,
+    bipole annotation style/.style={font=\tiny ,inner sep=1pt},
+  }
+}{}
+\@ifpackageloaded{pgfplots}{
+  \usepgfplotslibrary{fillbetween} % mark areas under or between graphs
+  \usetikzlibrary{patterns} % for using pattern in plots
+  \if@german
+    \pgfplotsset{/pgf/number format/use comma}
+  \fi
+  \pgfplotsset{
+    compat=1.16,
+    /pgf/number format/read comma as period,
+    every tick label/.append style={font=\tiny},
+    every axis legend/.append style={font=\footnotesize},
+    MyPlots/.style = {		% Style for all plots
+      width=.6\textwidth,
+      grid=major,
+      grid style={dashed,gray!50},
+      legend pos=outer north east,
+      FM1/.style = {blue, thick, mark=x, mark size=1.5,samples=100},  	% Format 1
+      FM2/.style = {orange, thick, mark=*, mark size=1,samples=100}, 		% Format 2
+      FM3/.style = {green, thick, mark=square*, mark size=1,samples=100}, % Format 3
+      FM4/.style = {red, thick, mark=diamond*, mark size=1,samples=100}, 	% Format 4
+      FM5/.style = {pink, thick, mark=triangel*, mark size=1,samples=100},% Format 5
+      errBars/.style = {error bars/.cd, y dir=both, y explicit, % ermöglicht Fehlerbalken
+              error mark options={mark size=1pt,rotate=90}},
+    }
+  }
+}{}
+\@ifpackageloaded{pgfplotstable}{
+  \pgfplotstableset{
+    col sep=semicolon, % global seperator for csv files
+  }
+}{}
+%</config>
+%
+% \Finale
+\endinput

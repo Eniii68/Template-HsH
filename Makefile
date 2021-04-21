@@ -1,13 +1,14 @@
 # Makefile for Latex project
 NAME = test
-LATEX = pdflatex
+LATEX = latex
+PDFLATEX = pdflatex
 BIBTEX = biber
 
 # OUTDIR needs to be at least this, can not be empty:
 OUTDIR = .
 AUXDIR = .aux
 IGNORE = src/%
-GARBAGE_PATTERNS = *.aux *.bbl *.bib *.bcf *.blg *.idx *.ind *.lof *.lot *.log *.xml *.toc *.synctex(busy) *.synctex.gz(busy)
+GARBAGE_PATTERNS = *.aux *.bbl *.bcf *.blg *.idx *.ind *.lof *.lot *.log *.xml *.toc *.synctex(busy) *.synctex.gz(busy)
 
 # comment this out to get all outputs:
 QUIET = -quiet
@@ -25,8 +26,11 @@ export TEXINPUTS:=$(CURDIR)\src
 
 
 all: pdf bib
-	$(LATEX) $(TEX_FLAGS) $(QUIET) $(NAME).tex
-	$(LATEX) -synctex=1 $(TEX_FLAGS) $(QUIET) $(NAME).tex
+	$(PDFLATEX) $(TEX_FLAGS) $(QUIET) $(NAME).tex
+	$(PDFLATEX) -synctex=1 $(TEX_FLAGS) $(QUIET) $(NAME).tex
+
+src: HsH-Classes.ins HsH-Classes.dtx
+	$(LATEX) -output-directory=src HsH-Classes.ins
 
 pdf: $(SUB_FILES) $(NAME).pdf
 
@@ -35,7 +39,7 @@ bib: $(OUTDIR)/$(AUXDIR)/$(NAME).bcf
 
 # generel latex call
 %.pdf: %.tex
-	$(LATEX) $(TEX_FLAGS) $(QUIET) $*.tex
+	$(PDFLATEX) $(TEX_FLAGS) $(QUIET) $*.tex
 
 # generell inkscape call
 %.pdf_tex: %.svg
