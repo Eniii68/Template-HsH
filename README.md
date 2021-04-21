@@ -13,9 +13,9 @@ classes and customize them them with specific configurations, presets and provid
 	HsH-standalone
 
 **Version:** 1.1  
-**Date:** 21.04.2021
+**Date:** 21.04.2021  
+Check out the [**Example-Branche**](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/tree/example)
 
-## Check out the **Example-Branche**
 # License
 
 This project is distributed under the LaTeX project public license (LPPL), version 1.3c.  
@@ -38,22 +38,27 @@ the `HsH-logo.pdf` from the src folder to your projectfolder. You can optionally
 configure everything  in your preamble. 
 
 ## using a proper subfolder structure
-
 The projects also provides a recommendation for a subfolder structure, to keep things organized. Cloning the complete projekt into your projectfolder
 will allow you to use it easily.  
 This has the downside of storing classfiles and other needed files in the *.\src* folder, which means it needs to be added to the path searched when
 running your latex command. [How to do that is explained in the wiki](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/wikis/Adding%20the%20.%5Csrc%20folder%20to%20the%20path).  
 The provided Makefile demonstrates how to run a successful build, you might want to check it out.
 
+# common addidtion and expantions (Snippets)
+
+Sadly most Profs have widly different expectaions when it comes to styling of written works. So you might find yourself having to change some
+settings. For some cases this has allready been done and, to help others, uploaded in 
+[the snippets section](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/snippets) of the project. Most of them are only visible when you
+are logged in!!
 
 # Use the Wiki:
 
 Use the wiki [here](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/wikis/home):
 
-- [Adding the .\src folder to the path](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/wikis/Adding%20the%20.%5Csrc%20folder%20to%20the%20path)  
-- [Using a Build folder](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/wikis/Using%20a%20Build%20Folder)  
-- [What are the personal.tex and config.tex?](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/wikis/What%20are%20the%20personal.tex%20and%20config.tex)  
-- [setting up a titlepage](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/wikis/setting%20up%20a%20titlepage)  
-- [Provided commands](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/wikis/Provided%20commands)  
-- [Provided and recommended packages](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/wikis/Provided%20and%20recommended%20packages)
+- [Adding the src folder to the path](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/wikis/Adding-src-folder-to-the-path)  
+- [Using a Aux folder](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/wikis/Using-a-Aux-Folder)  
+- [What is the config.tex?](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/wikis/What-is-the-config.tex)  
+- [Document Options](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/wikis/Document-Options)  
+- [Provided commands](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/wikis/Provided-commands)  
+- [Provided and recommended packages](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/wikis/Provided-and-recommended-packages)
 - [Frequently Asked Questions](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/wikis/faq)  
