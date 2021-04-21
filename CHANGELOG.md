@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 
 
-## [V 1.1] - 2021-04-22
+## [1.1] - 2021-04-22
 
 This version provides mostly minor fixed and upgrades.  
 **IMPORTANT:** the personal.tex has been removed
@@ -21,7 +21,7 @@ This version provides mostly minor fixed and upgrades.
  - personal.tex has been removed. It pretty much not used anyway. All contents have been moved to the project files preamble.
 
 
-## [V 1.0] - 2021-03-31
+## [1.0] - 2021-03-31
 Initial Version. Official first release
 
 ### Added
