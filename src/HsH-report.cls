@@ -32,40 +32,39 @@
 \newif\if@german%
 
 %% document options -------------------------------------------------------------------------------
-\DeclareOption{german}{%
+\DeclareOption{german}{
   \@germantrue
 }
-\DeclareOption{ngerman}{%
+\DeclareOption{ngerman}{
   \@germantrue
 }
-\DeclareOption{english}{%
+\DeclareOption{english}{
   \@germanfalse
 }
-\DeclareOption{f1}{% use logo of fakulty 1
+\DeclareOption{f1}{
   \renewcommand{\HsHlogoPage}{2}
 }
-\DeclareOption{f2}{% use logo of fakulty 2
+\DeclareOption{f2}{
   \renewcommand{\HsHlogoPage}{3}
 }
-\DeclareOption{f3}{% use logo of fakulty 3
+\DeclareOption{f3}{
   \renewcommand{\HsHlogoPage}{4}
 }
-\DeclareOption{f4}{% use logo of fakulty 4
+\DeclareOption{f4}{
   \renewcommand{\HsHlogoPage}{5}
 }
-\DeclareOption{f5}{% use logo of fakulty 5
+\DeclareOption{f5}{
   \renewcommand{\HsHlogoPage}{6}
 }
-\DeclareOption{sans}{% use san serif font
+\DeclareOption{sans}{
   \renewcommand{\familydefault}{\sfdefault}
 }
-\DeclareOption{roman}{% use roman/serif font
+\DeclareOption{roman}{
   \renewcommand{\familydefault}{\rmdefault}
 }
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{scrreprt}}
-\ExecuteOptions{fontsize=11pt,a4paper,ngerman,sans} % standart options
+\ExecuteOptions{fontsize=11pt,a4paper,ngerman,sans} % default options
 \ProcessOptions\relax
-
 %% Load KOMA class
 \LoadClass{scrreprt}
 \KOMAoption{toc}{bibliography,listof}
@@ -75,7 +74,7 @@
 \RequirePackage{inputenc}
 \PassOptionsToPackage{T1}{fontenc}
 \RequirePackage{fontenc}
-\RequirePackage{lmodern} % font
+\RequirePackage{lmodern}
 \RequirePackage{graphicx}
 \RequirePackage{amsmath}
 \if@german\RequirePackage{ziffer}\fi
@@ -100,12 +99,12 @@
 \PassOptionsToPackage{european,EFvoltages,straightvoltages,betterproportions}{circuitikz}
 
 %% title matters ----------------------------------------------------------------------------------
-\newcommand*{\@matrikelnr}{}%
-\newcommand{\matrikelnr}[1]{\gdef\@matrikelnr{#1}}%
-\newcommand*{\@professor}{}%
-\newcommand{\professor}[1]{\gdef\@professor{#1}}%
-\newcommand*{\@keywords}{}%
-\newcommand{\keywords}[1]{\gdef\@keywords{#1}}%
+\newcommand*{\@matrikelnr}{}
+\newcommand{\matrikelnr}[1]{\gdef\@matrikelnr{#1}}
+\newcommand*{\@professor}{}
+\newcommand{\professor}[1]{\gdef\@professor{#1}}
+\newcommand*{\@keywords}{}
+\newcommand{\keywords}[1]{\gdef\@keywords{#1}}
 \let\@author\@empty
 \let\@keywords\@empty
 
@@ -149,9 +148,9 @@
 \renewcommand{\labelitemiv}{$\cdot$}
 
 %% do stuff
-\setlength\parindent{0pt} % indentation of new paragraphs
+\setlength\parindent{0pt}
 \raggedbottom
-\renewcommand{\layercontentsmeasure}{\empty} % rulers when using draft disabled
+\renewcommand{\layercontentsmeasure}{\@empty}
 
 %% custom commands
 \newcommand{\uproman}[1]{\uppercase\expandafter{\romannumeral#1}}
@@ -175,14 +174,14 @@
   \makeatother
 }
 %% nicer abstract ---------------------------------------------------------------------------------
-\renewenvironment{abstract}{%
-  \chapter*{\centering\abstractname}
+\renewenvironment{abstract}{
+  \quotation
+  \setlength\parindent{0pt}
+  \chapter*{\abstractname}
   \addcontentsline{toc}{chapter}{\abstractname}
-    \small
-    \quotation
 }{%
   \ifx\@keywords\@empty\else
-    \vspace{1cm}
+    \vskip 2em
     \paragraph{\if@german Schlüsselwörter:\else Keywords:\fi}
     \@keywords
   \fi
