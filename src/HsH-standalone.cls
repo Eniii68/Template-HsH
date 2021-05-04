@@ -32,40 +32,39 @@
 \newif\if@german%
 
 %% document options -------------------------------------------------------------------------------
-\DeclareOption{german}{%
+\DeclareOption{german}{
   \@germantrue
 }
-\DeclareOption{ngerman}{%
+\DeclareOption{ngerman}{
   \@germantrue
 }
-\DeclareOption{english}{%
+\DeclareOption{english}{
   \@germanfalse
 }
-\DeclareOption{f1}{% use logo of fakulty 1
+\DeclareOption{f1}{
   \renewcommand{\HsHlogoPage}{2}
 }
-\DeclareOption{f2}{% use logo of fakulty 2
+\DeclareOption{f2}{
   \renewcommand{\HsHlogoPage}{3}
 }
-\DeclareOption{f3}{% use logo of fakulty 3
+\DeclareOption{f3}{
   \renewcommand{\HsHlogoPage}{4}
 }
-\DeclareOption{f4}{% use logo of fakulty 4
+\DeclareOption{f4}{
   \renewcommand{\HsHlogoPage}{5}
 }
-\DeclareOption{f5}{% use logo of fakulty 5
+\DeclareOption{f5}{
   \renewcommand{\HsHlogoPage}{6}
 }
-\DeclareOption{sans}{% use san serif font
+\DeclareOption{sans}{
   \renewcommand{\familydefault}{\sfdefault}
 }
-\DeclareOption{roman}{% use roman/serif font
+\DeclareOption{roman}{
   \renewcommand{\familydefault}{\rmdefault}
 }
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{standalone}}
-\ExecuteOptions{margin=0.25cm,fontsize=11pt,a4paper,ngerman,sans} % standart options
+\ExecuteOptions{margin=0.25cm,fontsize=11pt,a4paper,ngerman,sans} % default options
 \ProcessOptions\relax
-
 %% Load KOMA class
 \LoadClass[multi=tikzpicture,multi=circuitikz]{standalone}
 
@@ -74,7 +73,7 @@
 \RequirePackage{inputenc}
 \PassOptionsToPackage{T1}{fontenc}
 \RequirePackage{fontenc}
-\RequirePackage{lmodern} % font
+\RequirePackage{lmodern}
 \RequirePackage{graphicx}
 \RequirePackage{amsmath}
 \if@german\RequirePackage{ziffer}\fi

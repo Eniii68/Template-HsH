@@ -6,9 +6,9 @@ classes and customize them them with specific configurations, presets and provid
 
 **Provided classes are:**  
 
-	HsH-article 
-	HsH-report  
-	HsH-book (planed)  
+	HsH-article
+	HsH-report
+	HsH-book (planed)
 	HsH-standalone
 
 **Version:** 1.1  
