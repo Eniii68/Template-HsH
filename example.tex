@@ -5,7 +5,8 @@
 		english,		% document language (also numberingsystem)
 		%ngerman,		% document language (also numberingsystem)
 		sans,			% font type (sans/roman)
-		f1				% HsH facultie (f1-f5)
+		f1,				% HsH facultie (f1-f5)
+		%draft			% quicker compilations, images are not included
 	]{HsH-report}		% documentclass
 
 % INFO:
@@ -16,7 +17,7 @@
 
 % bibliography
 % include biblatex, if you want to use it:
-% \usepackage{biblatex}
+% \usepackage{biblatex} % coment this in to use biber
 \usepackage[backend=bibtex]{biblatex} % biber is recommended as a backend, but for simplicity it is changed here back to standart bibtex:
 \addbibresource{bib/localBibliography.bib}
 
@@ -53,7 +54,7 @@
 \begin{document} %----------- beginning of document -----------------------------------------------
 
 \pagenumbering{Roman}	% different numbering until first chapter
-\maketitle[c]			% using personal.tex
+\maketitle[c]
 % \maketitle[l] 		% try this
 \declarationAuthorship
 
