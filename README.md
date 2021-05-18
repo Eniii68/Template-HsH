@@ -20,16 +20,18 @@ Check out the [**Example-Branche**](https://lab.it.hs-hannover.de/qxx-tul-u1/lat
 This project is distributed under the LaTeX project public license (LPPL), version 1.3c.  
 
 
-# Requirements:
-
-[MikTex is recommended](https://miktex.org/), TexLive doesn't find some packages, if somebody get's it working, let me know.
-
-`biber`-Backend is standart! If you have Problems with that, check the [FAQ](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/wikis/faq). 
-
-The `Makefile` is only tested with mingw32-make.
-
-
 # Quick start guide:
+
+## recomendet Software
+As a Tex-Distribution, [MikTex is recommended](https://miktex.org/). This is only avalible on windows though.  
+To edit the `.tex` files, you could use any texteditor, but I personally like [Visual Studio Code](https://code.visualstudio.com/) the moste, which
+can also be used for pretty much all other programing languages. Use the [Latex Workshop extention](https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop)
+and you can steal my config file from [here](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/snippets/111).  
+If you preffer a Tex-only editor, I used [Texmaker](https://www.xm1math.net/texmaker/) in the past and it's also very good.  
+
+If you want to use citations in your work, you should get familiar with the `biblatex` package and include it in your project. The classes set it up 
+to use `biber` as the backend, which is more modern and has more features than the usual `bibtex`, but you will need to set you editor up to also use
+this.
 
 ## quick and dirty
 To get started, create a new folder for your project somewhere on your PC and create your `.tex` file. Copy the classfile (`.cls`) you want to use and
@@ -37,18 +39,11 @@ the `HsH-logo.pdf` from the src folder to your projectfolder. You can optionally
 preamble. 
 
 ## using a proper subfolder structure
-The projects also provides a recommendation for a subfolder structure, to keep things organized. Cloning the complete projekt into your projectfolder
-will allow you to use it easily.  
+The projects also provides a recommendation for a subfolder structure, to keep things organized. You can [download the .zip-Archive](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/archive/master/latex-template-hsh-master.zip)
+and unpack it or clone the repository via `git clone https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh.git`.
 This has the downside of storing classfiles and other needed files in the *.\src* folder, which means it needs to be added to the path searched when
 running your latex command. [How to do that is explained in the wiki](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/wikis/Adding-src-folder-to-the-path).  
 The provided Makefile demonstrates how to run a successful build, you might want to check it out.
-
-## recomendet Software
-As a Tex-Distribution, I recomend [MikTex is recommended](https://miktex.org/). This is only avalible on windows though.  
-To edit the `.tex` files, you could use any texteditor, but I personally like [Visual Studio Code](https://code.visualstudio.com/) the moste, which
-can also be used for pretty much all other programing languages. Use the [Latex Workshop extention](https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop)
-and you can steal my config file from [here](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/snippets/111).  
-If you preffer a Tex-only editor, I used [Texmaker](https://www.xm1math.net/texmaker/) in the past and it's also verry good.
 
 
 # Common additions and expantions (Snippets)
