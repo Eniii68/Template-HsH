@@ -232,7 +232,8 @@
 
 	\section{CSV files}
 		\label{sec: messwerte}
-		import a csv as table:\\
+		import a csv as table:
+		\par % a par is needed before the autotabulat since the kernel update from 01.06.21
 		\csvautotabular{csv/bsp.csv}\\
 
 		or do it manually to get more control:
@@ -276,7 +277,6 @@
 \addcontentsline{toc}{section}{Messprotokoll} % add to table of content
 \chaptermark{Messprotokoll}	% change headmark
 %\includepdf[pages=-,pagecommand={},width=\paperwidth]{temp.pdf} % comment in to include pdf
-
 As you can see its also possible to have some pages sideways. Just keep in mind you might need to adapt the margins
 
 \newpage
