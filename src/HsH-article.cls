@@ -5,21 +5,21 @@
 %% The original source files were:
 %%
 %% HsH-classes.dtx  (with options: `article')
-%% 
+%%
 %% This is a generated file.
-%% 
+%%
 %% Copyright (C) 2021 by Jan Wille <mail@janwille.de>
-%% 
+%%
 %% This file may be distributed and/or modified under the conditions of
 %% the LaTeX Project Public License, either version 1.3 of this license
 %% or (at your option) any later version.  The latest version of this
 %% license is in:
-%% 
+%%
 %%    http://www.latex-project.org/lppl.txt
-%% 
+%%
 %% and version 1.3 or later is part of all distributions of LaTeX version
 %% 2021/01/01 or later.
-%% 
+%%
 \typeout{Adapted from KOMA script for use in Hochschule Hannover <2021-04-21> Jan Wille}
 \NeedsTeXFormat{LaTeX2e}
 \newcommand{\myClassName}{HsH-article}
@@ -95,7 +95,7 @@
 \RequirePackage{pgffor}
 %% options for not loaded packages ----------------------------------------------------------------
 \PassOptionsToPackage{backend=biber,style=alphabetic,sorting=nyt}{biblatex}
-\PassOptionsToPackage{free-standing-units,abbreviations}{siunitx}
+\PassOptionsToPackage{free-standing-units}{siunitx}
 \PassOptionsToPackage{european,EFvoltages,straightvoltages,betterproportions}{circuitikz}
 
 %% title matters ----------------------------------------------------------------------------------
