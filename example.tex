@@ -71,7 +71,7 @@
 	\label{chap: one}
 	{\color{red}red text} and {\color{blue}blue text} \\
 	different subscripts: \normalsubscripts$R_t$ \upsubscripts$R_t$ \\
-	using Units: $R=200\,\milli\ohm + \SI{0.34567453}{\volt\per\metre} - 5\,\si{\second\per\metre\squared}$ \\
+	using Units: $R=200\,\mohm + \SI{0.34567453}{\volt\per\metre} - 5\,\si{\second\per\metre\squared}$ \\
 	some information\cite{laboranleitung:physik}\\
 	german number: $3,5$ english number: $3.5$\\ % note changes when using ngerman document option
 
@@ -107,7 +107,7 @@
 		The space between a number and it's unit should be a protected half-space, which can be created in latex using \lstinline{\,} In the classfile
 		siunits is set up to use a separate macro for each subunit, even for size-modifiers:
 		\begin{equation}
-			200\,\milli\metre \cdot 2\,\mega\volt
+			200\,\mm \cdot 2\,\volt
 		\end{equation}
 		Siunits also allows for reformatting of numbers as well as units. Use the \lstinline{\SI} and \lstinline{\si} macros for that:
 		\begin{equation}
