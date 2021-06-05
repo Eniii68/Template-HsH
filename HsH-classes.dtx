@@ -64,9 +64,9 @@
 \DeclareOption{roman}{
   \renewcommand{\familydefault}{\rmdefault}
 }
-%<article>\DeclareOption*{\PassOptionsToClass{\CurrentOption}{scrartcl}}
-%<report>\DeclareOption*{\PassOptionsToClass{\CurrentOption}{scrreprt}}
-%<standalone>\DeclareOption*{\PassOptionsToClass{\CurrentOption}{standalone}}
+%<article>\DeclareOption*{\expandafter\PassOptionsToClass\expandafter{\CurrentOption}{scrartcl}}
+%<report>\DeclareOption*{\expandafter\PassOptionsToClass\expandafter{\CurrentOption}{scrreprt}}
+%<standalone>\DeclareOption*{\expandafter\PassOptionsToClass\expandafter{\CurrentOption}{standalone}}
 %
 %<article|report>\ExecuteOptions{fontsize=11pt,a4paper,ngerman,sans} % default options
 %<standalone>\ExecuteOptions{margin=0.25cm,fontsize=11pt,a4paper,ngerman,sans} % default options

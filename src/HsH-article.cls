@@ -62,7 +62,7 @@
 \DeclareOption{roman}{
   \renewcommand{\familydefault}{\rmdefault}
 }
-\DeclareOption*{\PassOptionsToClass{\CurrentOption}{scrartcl}}
+\DeclareOption*{\expandafter\PassOptionsToClass\expandafter{\CurrentOption}{scrartcl}}
 \ExecuteOptions{fontsize=11pt,a4paper,ngerman,sans} % default options
 \ProcessOptions\relax
 %% Load KOMA class
