@@ -479,9 +479,9 @@
           % sneeky comma needed after \@matrikelnr to deal with single item lists
           \foreach \x [count=\i,evaluate=\i as \y using {{\@matrikelnr,}[\i-1]}] in \@author {\eaddtabtoks{\x & \y\protect\\}}
           \usekomafont{author}{\def\arraystretch{1.2}
-            \if\@param l\hspace{-6pt}\begin{tabular}{l l}\printtabtoks\end{tabular}\fi
+            \if\@param l\begin{tabular}{@{}l l}\printtabtoks\end{tabular}\fi
             \if\@param c\begin{tabular}{l l}\printtabtoks\end{tabular}\fi
-            \if\@param r\begin{tabular}{r r}\printtabtoks\end{tabular}\hspace{-6pt}\fi
+            \if\@param r\begin{tabular}{r r@{}}\printtabtoks\end{tabular}\fi
           }
         \fi
       \fi}
