@@ -24,9 +24,6 @@
 %<standalone>\newcommand{\myClassName}{HsH-standalone}
 \ProvidesClass{\myClassName}[2021/04/21 v1.1 HsH-Class based on KOMA]
 
-%</article|report|standalone>
-%
-%<*article|report|standalone>
 %% commands for HsH-logo
 \newcommand{\HsHlogoPath}{HSH-Logo.pdf}
 \newcommand{\HsHlogoPage}{1}
@@ -77,9 +74,6 @@
 %<standalone>\LoadClass[multi=tikzpicture,multi=circuitikz]{standalone}
 %<article|report>\KOMAoption{toc}{bibliography,listof}
 
-%</article|report|standalone>
-%
-%<*article|report|standalone>
 %% package loading and config ---------------------------------------------------------------------
 %
 % inputencoding, utf8 recomendet
@@ -102,9 +96,7 @@
 % german dezimal numbers
 \if@german\RequirePackage{ziffer}\fi
 %
-%</article|report|standalone>
 %<*article|report>
-%
 % required for changing layout
 \PassOptionsToPackage{left=3cm,right=2.5cm,top=3cm,bottom=3cm}{geometry}
 \RequirePackage{geometry}
@@ -137,14 +129,12 @@
 \RequirePackage{pgffor}
 %
 %</article|report>
-%<*article|report|standalone>
-%% options for not loaded packages ----------------------------------------------------------------
 %
+%% options for not loaded packages ----------------------------------------------------------------
 %<article|report>\PassOptionsToPackage{backend=biber,style=alphabetic,sorting=nyt}{biblatex}
 \PassOptionsToPackage{free-standing-units}{siunitx}
 \PassOptionsToPackage{european,EFvoltages,straightvoltages,betterproportions}{circuitikz}
 
-%</article|report|standalone>
 %
 %<*article|report>
 %% title matters ----------------------------------------------------------------------------------
@@ -160,7 +150,6 @@
 
 %</article|report>
 %
-%<*article|report|standalone>
 %% typesetting indexes upright or standart
 \def\subinrm#1{\sb{\mathrm{#1}}}
 {\catcode`\_=13 \global\let_=\subinrm}
@@ -172,16 +161,15 @@
 % setting upright as default
 \upsubscripts
 
-%</article|report|standalone>
 %
 %<*article|report>
 %% header and footer
 \pagestyle{scrheadings}
 \clearpairofpagestyles
 %<article>\automark{section}
+%<report>\automark{chapter}
 % Chaptertitles get same header/footer as everything:
 %<report>\renewcommand*{\chapterpagestyle}{scrheadings}
-%<report>\automark{chapter}
 \ohead{\headmark}
 \ihead{\@title}
 \ofoot*{\pagemark}
@@ -227,7 +215,6 @@
 \newcommand{\lowroman}[1]{\romannumeral#1\relax}
 %</article|report>
 %
-%<*article|report|standalone>
 %% load config at beginning of document
 \AtBeginDocument{
   \makeatletter
@@ -251,7 +238,6 @@
   \providecommand{\abs}[1]{\ensuremath{\left\vert#1\right\vert}}
   \makeatother
 }
-%</article|report|standalone>
 %
 %<*article|report>
 %% nicer abstract ---------------------------------------------------------------------------------
@@ -308,7 +294,7 @@
   {\centering\huge\textbf{\dATitlename}\par}
   \vskip 3em
   {\dATextname\par}
-% creating a line for every author
+% creating a signature line for every author
   {\raggedleft
     \foreach \x in \@author{
       \begin{tabular}[t]{r}
@@ -319,14 +305,12 @@
     }
   \par}
 }
-%</article|report>
 %
-%<*article|report>
 %% reconfig Titlepage -----------------------------------------------------------------------------
 \newtoks\@tabtoks
 \newcommand\addtabtoks[1]{\global\@tabtoks\expandafter{\the\@tabtoks#1}}
 \newcommand\eaddtabtoks[1]{\edef\mytmp{#1}\expandafter\addtabtoks\expandafter{\mytmp}}
-%\newcommand*\resettabtoks{\global\@tabtoks{}}
+% %%\newcommand*\resettabtoks{\global\@tabtoks{}}
 \newcommand*\printtabtoks{\the\@tabtoks}
 \addtokomafont{publishers}{\normalsize}
 %
@@ -588,6 +572,7 @@
   \global\let\and\relax
 }
 %</article|report>
+%</article|report|standalone>
 %
 % Config file -------------------------------------------------------------------------------------
 %<*config>
