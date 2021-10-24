@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Current]
 
+## [1.2] - 2021-10-24
+
 ### Fixed
 - Issues that came with the Kernel update from 01.06.2021 are fixed (#2, #3, #4)
 - typos

@@ -12,8 +12,8 @@ classes and customize them with specific configurations, presets and provide com
 	HsH-book (planed)
 	HsH-standalone
 
-**Version:** 1.1  
-**Date:** 21.04.2021
+**Version:** 1.2  
+**Date:** 24.10.2021
 
 # Licence
 
