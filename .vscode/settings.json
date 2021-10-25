@@ -1,0 +1,129 @@
+{
+	"files.autoSave": "onFocusChange",
+	"files.trimTrailingWhitespace": true,
+	"files.insertFinalNewline": true,
+    "editor.rulers": [150],
+	"ltex.language": "en-GB",
+    "ltex.additionalRules.motherTongue": "de-DE",
+	"rewrap.autoWrap.enabled": true,
+	"rewrap.wrappingColumn": 150,
+	"[markdown]": {
+		"files.trimTrailingWhitespace": false
+	},
+	"latex-workshop.chktex.run": "onType",
+	"latex-workshop.showContextMenu": true,
+	"latex-workshop.view.pdf.viewer": "browser",
+	"latex-workshop.latex.outDir": "%DIR%",
+	"latex-workshop.latex.autoBuild.run": "onSave",
+	"latex-workshop.latex.clean.subfolder.enabled": true,
+	"latex-workshop.latex.recipes": [
+		{
+			"name": "pdflatex",
+			"tools": [
+				"pdflatex"
+			]
+		},
+		{
+			"name": "biber",
+			"tools": [
+				"biber"
+			]
+		},
+		{
+			"name": "pdflatex ➞ biber ➞ 2× pdflatex",
+			"tools": [
+				"pdflatex",
+				"biber",
+				"pdflatex",
+				"pdflatex"
+			]
+		},
+		{
+			"name": "Optimize PDF",
+			"tools": [
+				"gs opt printer"
+			]
+		}
+	],
+	"latex-workshop.latex.tools": [
+		{
+			"name": "pdflatex",
+			"command": "pdflatex",
+			"args": [
+				"-synctex=1",
+				"-interaction=nonstopmode",
+				"-file-line-error",
+				"-aux-directory=%OUTDIR%/.aux",
+				"-output-directory=%OUTDIR%",
+				"%DOC%"
+			],
+			"env": {
+				"TEXINPUTS": "%DIR%/src;%DIR%/../src"
+			}
+		},
+		{
+			"name": "biber",
+			"command": "biber",
+			"args": [
+				"-output-directory=%OUTDIR%/.aux",
+				"%DOCFILE%"
+			]
+		},
+		{
+			"name": "bibtex",
+			"command": "bibtex",
+			"args": [
+				"-include-directory=.aux",
+				"%OUTDIR%/.aux/%DOCFILE%"
+			]
+		},
+		{
+			"name": "gs opt printer",
+			"command": "mgs",
+			"args": [
+				"-sDEVICE=pdfwrite",
+				"-dPDFSETTINGS=/printer",
+				"-o",
+				"%OUTDIR%/%DOCFILE%_optimized.pdf",
+				"%OUTDIR%/%DOCFILE%.pdf"
+			]
+		},
+		{
+			"name": "gs opt extrem",
+			"command": "mgs",
+			"args": [
+				"-sDEVICE=pdfwrite",
+				"-dPDFSETTINGS=/ebook",
+				"-o",
+				"%OUTDIR%/%DOCFILE%_optimized.pdf",
+				"%OUTDIR%/%DOCFILE%.pdf"
+			]
+		}
+	],
+	"latex-workshop.latex.clean.fileTypes": [
+		".aux/*",
+		"*.aux",
+		"*.bbl",
+		"*.blg",
+		"*.idx",
+		"*.ind",
+		"*.lof",
+		"*.lot",
+		"*.out",
+		"*.toc",
+		"*.acn",
+		"*.acr",
+		"*.alg",
+		"*.glg",
+		"*.glo",
+		"*.gls",
+		"*.fls",
+		"*.log",
+		"*.fdb_latexmk",
+		"*.snm",
+		"*.synctex(busy)",
+		"*.synctex.gz(busy)",
+		"*.synctex.gz",
+		"*.nav"
+	]
+}
