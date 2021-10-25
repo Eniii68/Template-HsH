@@ -13,7 +13,8 @@ classes and customize them with specific configurations, presets and provide com
 	HsH-standalone
 
 **Version:** 1.2  
-**Date:** 24.10.2021
+**Date:** 24.10.2021  
+Check out the [**Example-Branche**](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/tree/example)
 
 # Licence
 
