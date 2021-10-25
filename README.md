@@ -1,8 +1,8 @@
 # What this is
 This is a template designed to ease the workflow when writing documents for the Hochschule Hannover. It is intended to be used in all sophisticated
-works, from lab-reports to masters thesis's.  
-The project provides custom document-classes caring the `HsH-` prefix as well as support files. These classes extend the well known KOMA-script
-classes and customize them them with specific configurations, presets and provide commonly needed features.  
+works, from lab-reports to master’s thesis's.  
+The project provides custom document-classes caring the `HsH-` prefix as well as support files. These classes extend the well known KOMA-Script
+classes and customize them with specific configurations, presets and provide commonly needed features.  
 
 **Provided classes are:**  
 
@@ -11,13 +11,13 @@ classes and customize them them with specific configurations, presets and provid
 	HsH-book (planed)
 	HsH-standalone
 
-**Version:** 1.1  
-**Date:** 21.04.2021  
+**Version:** 1.2  
+**Date:** 24.10.2021  
 Check out the [**Example-Branche**](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/tree/example)
 
+# Licence
 
-# License
-This project is distributed under the LaTeX project public license (LPPL), version 1.3c.  
+This project is distributed under the LaTeX project public licence (LPPL), version 1.3c.  
 
 
 # Quick start guide:
