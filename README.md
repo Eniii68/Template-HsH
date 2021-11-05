@@ -1,4 +1,5 @@
 # What this is
+
 This is a template designed to ease the workflow when writing documents for the Hochschule Hannover. It is intended to be used in all sophisticated
 works, from lab-reports to master’s thesis's.  
 The project provides custom document-classes caring the `HsH-` prefix as well as support files. These classes extend the well known KOMA-Script
