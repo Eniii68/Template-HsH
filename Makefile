@@ -33,7 +33,7 @@ src: src/HsH-article.cls src/HsH-report.cls src/HsH-standalone.cls
 src/HsH-article.cls src/HsH-report.cls src/HsH-standalone.cls &: HsH-Classes.ins HsH-Classes.dtx
 	$(LATEX) -output-directory=src HsH-Classes.ins
 
-pdf: $(SUB_FILES) $(NAME).pdf
+pdf: $(SUB_FILES) $(OUTDIR)/$(NAME).pdf
 
 bib: $(OUTDIR)/$(AUXDIR)/$(NAME).bcf
 	$(BIBTEX) -output-directory=$(OUTDIR)/$(AUXDIR) $(QUIET) $(NAME)
