@@ -611,10 +611,12 @@
   }
 }{}
 \@ifpackageloaded{listings}{
+  \PassOptionsToPackage{svgnames}{xcolor}
+  \RequirePackage{xcolor}
   \lstset{
     commentstyle=\color{gray},
-    keywordstyle=\color{red},
-    stringstyle=\color{blue},
+    keywordstyle=\color{FireBrick}\bfseries,
+    stringstyle=\color{DodgerBlue},
     showstringspaces=false,
     basicstyle=\ttfamily,
     tabsize=4,
