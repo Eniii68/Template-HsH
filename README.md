@@ -1,5 +1,3 @@
-[![Version](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/badges/release.svg)](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/releases)
-
 # What this is
 
 This is a template designed to ease the workflow when writing documents for the Hochschule Hannover. It is intended to be used in all sophisticated
@@ -13,6 +11,8 @@ classes and customize them with specific configurations, presets and provide com
 	HsH-report
 	HsH-book (planed)
 	HsH-standalone
+
+[![Version](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/badges/release.svg)](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/releases)  
 
 
 
