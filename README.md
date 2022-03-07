@@ -261,6 +261,21 @@ In VS Code you can configure your launch to set environment variables. Just edit
 ]
 ```
 
+### On Overleaf
+
+The easysest way would be to just move the class file you need and the `HsH-logo.pdf` and `config.tex` to the project root (next to your
+`project.tex`).  
+Alternativly, overleaf uses `latexmk` in the background, so you can change its configuration. As explained
+[here](https://www.overleaf.com/learn/latex/Questions/I_have_a_lot_of_.cls%2C_.sty%2C_.bst_files%2C_and_I_want_to_put_them_in_a_folder_to_keep_my_project_uncluttered._But_my_project_is_not_finding_them_to_compile_correctly),
+add the `latexmkrc` file and put this line into it:
+
+```bash
+$ENV{'TEXINPUTS'}='./src/:';
+```
+
+Now your project should compile just fine.
+
+
 ## Using an _.aux_ directory
 
 It is very useful to define subdirectory for all the files produced during a latex run. Here is how you can keep your directory cleaner.
