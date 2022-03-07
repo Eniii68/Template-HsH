@@ -19,9 +19,9 @@ classes and customize them with specific configurations, presets and provide com
 # Quick start guide:
 
 
-## recommended Software
+## Recommended software
 
-As a Tex-Distribution, [MiKTeX is recommended](https://miktex.org/), TexLive should also work but I don't use it much.  
+As a Tex-Distribution, [MiKTeX is recommended](https://miktex.org/), TexLive should also work, but I don't use it much.  
 To edit the `.tex` files, you could use any text editor, but I personally like [Visual Studio Code](https://code.visualstudio.com/) the most, which
 can also be used for pretty much all other programming languages. Use the [Latex Workshop extension](https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop),
 and you can steal my config file from [here](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/snippets/111).  
@@ -38,18 +38,19 @@ To get you started, there is a working example Project on the example branch tha
 [Online](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/tree/example) or locally using `git checkout example`
 
 
-## quick and dirty
+## Quick and dirty
 
-To get started, create a new folder for your project somewhere on your PC and create your `.tex` file. Copy the class file (`.cls`) you want to use and
-the `HsH-logo.pdf` from the src folder to your project folder. You can optionally copy the `config.tex`, but you can also configure everything in your
-preamble. 
+To get started, create a new folder for your project somewhere on your PC and create your `.tex` file. Copy the class file (`.cls`) you want to use
+and the `HsH-logo.pdf` from the src folder to your project folder. You can optionally copy the `config.tex`, but you can also configure everything in
+your preamble. 
 
 
-## using a proper subfolder structure
+## Using a proper subfolder structure
 
-The projects also provides a recommendation for a subfolder structure, to keep things organized. You can [download the .zip-Archive](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/archive/master/latex-template-hsh-master.zip)
+The projects also provides a recommendation for a subfolder structure, to keep things organized. You can 
+[download the .zip-Archive](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/archive/master/latex-template-hsh-master.zip)
 and unpack it or clone the repository via `git clone https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh.git`.
-This has the downside of storing class files and other needed files in the _.\src_ folder, which means it needs to be added to the path searched when
+This has the downside of storing class files and other needed files in the _./src_ folder, which means it needs to be added to the path searched when
 running your latex command ([see below](#adding-src-to-path)).  
 The provided Makefile demonstrates how to run a successful build, you might want to check it out.
 
@@ -58,27 +59,23 @@ The provided Makefile demonstrates how to run a successful build, you might want
 # Documentation:
 
 
-## The different Classes
+## The different classes
 
-This project provides a set of additional classes designed for use in the Hochschule Hannover, Germany. They extend the well-known [KOMA-Script classes](https://ctan.org/pkg/koma-script)
-by adding styling and providing some additional commands. The provided classes are:
+This project provides a set of additional classes designed for use in the Hochschule Hannover, Germany. They extend the well-known [KOMA-Script
+classes](https://ctan.org/pkg/koma-script) by adding styling and providing some additional commands. The provided classes are:
 
 ### `HsH-article`
-
-Based on the `scrartcl` this class is designed for quick and compact documents. It does not have chapters and therefore never breaks to a new page on its
-own. This class is useful for writing lab-protocols and alike.
+Based on the `scrartcl` this class is designed for quick and compact documents. It does not have chapters and therefore never breaks to a new page on
+its own. This class is useful for writing lab-protocols and alike.
 
 ### `HsH-report`
-
 This is probably the most useful class. It is based on the `scrreprt` and can be used for a wide variety of documents, beginning with lab-reports and
 ending at complete thesis. The line between article and report is somewhat blurry, so use as you see fit.
 
 ### `HsH-book`
-
-// Todo
+// To-do
 
 ### `HsH-standalone`
-
 A helper class based on the normal standalone class. It is designed only for creating images as separate documents to keep things organized and
 compiler times low. It is useful for creating graphs, circuit diagrams or other kind of complex sub documents.
 
@@ -94,15 +91,14 @@ If you don't define something different, the classes set your project up to use 
  - `a4paper` the paper size
  - `ngerman` the document language
  - `sans` the font type (Sans Serif)
- - `margin=0.25cm` ONLY for `hsh-standalone`, adds a empty margin around all pages
+ - `margin=0.25cm` ONLY for `hsh-standalone`, adds an empty margin around all pages
 
 ### List of all options
-
  - `german`, `ngerman` These two options are aliases. They switch the document language to German, which affects autogenerated naming as well as the 
    formatting of numbers. This is implemented by using an internal if switch, called `\@german`, which is set to true.
  - `english` This option is the opposite of the previous ones. It sets the document language to English by setting `\@german` to false.
- - `f1` - `f5` To use the correct logo of a certain faculty, you can define your faculty with these options. If none of these are present, a generic grey 
-   logo is chosen.  
+ - `f1` - `f5` To use the correct logo of a certain faculty, you can define your faculty with these options. If none of these are present, a generic
+   grey logo is chosen.  
    The different logos correspond to different pages of the `HsH-Logo.pdf`, so you could change this file and therefore the used logo as long as you 
    keep the page numbering consistent with the original.
  - `sans` This option sets the font family to Sans Serif.
@@ -114,9 +110,8 @@ their respec­tive documentations.
 
 ## Packages
 
-### Provided Packages
-
-These Packages are automatically included by the classfile. These are either important for provided functions or so generally useful that they are
+### Provided packages
+These Packages are automatically included by the class file. These are either important for provided functions or so generally useful that they are
 used in pretty much every project anyway.
 
  - `inputenc` for input encoding, all input files (.tex files, etc.) are expected to be UTF8 encoded
@@ -134,8 +129,7 @@ used in pretty much every project anyway.
  - `csquotes` makes quotations easier
  - `ziffer` is only included when the German document option is provided, sets comma as decimal
 
-### Recommended Packages
-
+### Recommended packages
 These packages are recommended, but not included automatically to save compile time when they are not needed. If you want to use one of them, include
 it in your preamble.
 
@@ -159,10 +153,10 @@ There's more...
 The classes provide a few commands of their own. Here are some explanations:
 
 ### `\maketitle[align]`
-
 This command is not new, but changed. It creates a title-page fitting for most use cases. You can change its alignment via the optional parameter by
 using on of the three options `r`, `c` or `l` for right aligned, centred or left aligned.  
 You can use the following macros to define the different information presented on the title-page:
+
  - `\author` as usual, this is where you put your name. But you can also input a comma-seperated list, if more than one person has written in this file.
  - `\matrikelnr` a new macro for your matriculation number. This is optional, but will be put next to your name if present. You can input again a
    comma-seperated list, if more than one author is present.
@@ -175,22 +169,16 @@ You can use the following macros to define the different information presented o
  - `\keywords` will not be printed on the title-page, but rather on the end of the abstract, if you define some. They will also be but into the PDFs
    metadata.
 
-
 ### `\declarationAuthorship`
-
 This macro will typeset a declaration of authorship, which is needed for most academic works. It will be produced at the bottom of the current page,
 separated by a horizontal line.  
 The macro is defined in German and English and will automatically match your document language.
 
-
 ### `\abs`
-
 A helpful macro for absolute values. It can be used in maths mode and will put vertical lines around its content, that match the height of the content.  
 This macro is only provided, meaning if another package defines it, its definition will be used.
 
-
-## HsH-Logo macros
-
+### HsH-Logo macros
 These are more of a by-product, but they are defined, so you could use them:
  - `\HsHlogoPath` the path to an image, that is used as the logo. Given a default value by the class.
  - `\HsHlogoPage` the page of the previous file, which is used. This is changed with the `f1`-`f5` options.
@@ -231,24 +219,24 @@ You need to do this if you get errors like this:
 
 > ! LaTeX Error: File `HsH-report.cls' not found.
 
-This means LaTex can't find the additional files provided by this project and you need to tell it that they are inside the _./src_ directory.  
+This means LaTeX can't find the additional files provided by this project, and you need to tell it that they are inside the _./src_ directory.  
 Here is how to do that:
 
 ### Using MiKTeX
-
-MiKTeX makes this very easy by adding a option for that. Just add `-include-directory=.\src` to your call to `pdflatex`.  
-For building from sub folders, just add a second `-include-directory=..\src` to your call.
+MiKTeX makes this very easy by adding an option for that. Just add `-include-directory=./src` to your call to `pdflatex`.  
+For building from sub folders, just add a second `-include-directory=../src` to your call.
 
 
 ### Using Texmaker and MiKTeX
-
 As stated above, you just need to extend your Latex-call with the needed include path.  
-To do this, go to *Options->config Texmaker->Commands*  
-change the pdflatex command to: `pdflatex -synctex=1 -interaction=nonstopmode -include-directory=.\src -include-directory=..\src %.tex`
+To do this, go to *Options → config Texmaker → Commands*  
+change the pdflatex command to: 
 
+```bash
+pdflatex -synctex=1 -interaction=nonstopmode -include-directory=./src -include-directory=../src %.tex
+```
 
 ### Using VS Code with LaTeX Workshop
-
 In VS Code you can configure your launch to set environment variables. Just edit your `settings.json`, so that your pdflatex tool contains a `env:` (add it, if it isn't there yet). If you use the template below, you will also get some additional nice configurations. See also [here](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/snippets/111) for some additional configs.
 
 ```json
@@ -265,17 +253,16 @@ In VS Code you can configure your launch to set environment variables. Just edit
             "%DOC%"
         ],
         "env": {
-            "TEXINPUTS": "%DIR%/src;%DIR%/../src"
+            "TEXINPUTS": "%DIR%/src/;%DIR%/../src/"
         }
     }
 ]
 ```
 
 ### On Overleaf
-
-The easysest way would be to just move the class file you need and the `HsH-logo.pdf` and `config.tex` to the project root (next to your
+The easiest way would be to just move the class file you need and the `HsH-logo.pdf` and `config.tex` to the project root (next to your
 `project.tex`).  
-Alternativly, overleaf uses `latexmk` in the background, so you can change its configuration. As explained
+Alternatively, overleaf uses `latexmk` in the background, so you can change its configuration. As explained
 [here](https://www.overleaf.com/learn/latex/Questions/I_have_a_lot_of_.cls%2C_.sty%2C_.bst_files%2C_and_I_want_to_put_them_in_a_folder_to_keep_my_project_uncluttered._But_my_project_is_not_finding_them_to_compile_correctly),
 add the `latexmkrc` file and put this line into it:
 
@@ -291,8 +278,8 @@ Now your project should compile just fine.
 It is very useful to define subdirectory for all the files produced during a latex run. Here is how you can keep your directory cleaner.
 
 ### MiKTeX
-
-MiKTeX allows you to define a directory to put all the temporary files in via the option `-aux-directory`. So you can modify your pdflatex call like this:
+MiKTeX allows you to define a directory to put all the temporary files in via the option `-aux-directory`. So you can modify your pdflatex call like
+this:
 
 ```bash
 pdflatex -aux-directory=.aux project.tex
@@ -306,11 +293,10 @@ pdflatex -output-directory=. -aux-directory=.aux project.tex
 ```
 
 ### TexLive
+TexLive does not have this functionality built-in.
 
-TexLive does not have this functionallaty build-in.
 
-
-## Bibtex errors 
+## BibTeX errors 
 
 > Sorry, but BibTeX did not succeed
 
