@@ -28,7 +28,7 @@ all: pdf bib
 	$(PDFLATEX) $(TEX_FLAGS) $(QUIET) $(NAME).tex
 	$(PDFLATEX) -synctex=1 $(TEX_FLAGS) $(QUIET) $(NAME).tex
 
-pdf: $(SUB_FILES) $(NAME).pdf
+pdf: $(SUB_FILES) $(OUTDIR)/$(NAME).pdf
 
 bib: $(OUTDIR)/$(AUXDIR)/$(NAME).bcf
 	$(BIBTEX) -output-directory=$(OUTDIR)/$(AUXDIR) $(QUIET) $(NAME)
