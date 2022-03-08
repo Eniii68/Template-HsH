@@ -198,6 +198,16 @@ These are more of a by-product, but they are defined, so you could use them:
 
 
 
+# Common additions and expansions (Snippets)
+
+Sadly most Profs have widely different expectations when it comes to styling of written works. So you might find yourself having to change some
+settings. For some cases this has already been done and, to help others, uploaded in 
+[the snippets section](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/snippets) of the project. Most of them are only visible when you
+are logged in!!  
+Also, if you create your own set of additions that are usefull for other, feel free to contact me and I will give you acces right so you can upload it there.
+
+
+
 # Frequently Asked Questions:
 
 
