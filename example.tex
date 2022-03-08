@@ -67,8 +67,7 @@
 \cleardoublepage % important when using double sided layout
 \pagenumbering{arabic} % numbering in normal numbers
 
-\chapter{Examples}
-	\label{chap: one}
+\chapter{Examples} \label{chap: one}
 	{\color{red}red text} and {\color{blue}blue text} \\
 	different subscripts: \normalsubscripts$R_t$ \upsubscripts$R_t$ \\
 	using Units: $R=200\,\mohm + \SI{0.34567453}{\volt\per\metre} - 5\,\si{\second\per\metre\squared}$ \\
@@ -76,8 +75,7 @@
 	german number: $3,5$ english number: $3.5$\\ % note changes when using ngerman document option
 
 
-	\section{Using formulas}
-		\label{sec: formula}
+	\section{Using formulas} \label{sec: formula}
 		a numberd formula:
 		\begin{equation}
 			\label{eq: einhalb} % always lable your stuff
@@ -249,8 +247,7 @@
 		\end{table}
 
 
-\section{formating code}
-	\label{sec: code}
+\section{formating code} \label{sec: code}
 	use the listings package:
 	% gobble removes the whitespace that is only in the latex code to make it look organised
 	\begin{lstlisting}[language=c,gobble=8]
