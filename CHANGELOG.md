@@ -2,6 +2,19 @@
 All notable changes to this project will be documented in this file.
 
 
+## [1.3] - 2022-03-07
+
+### Changed
+
+- moved the documentation into the README file
+- added the outdir into the makefile rule prerequisite
+- improved the default settings for the listings package
+
+### Removed
+
+- WIKI has been removed. All its content is now inside the README file.
+
+
 ## [1.2] - 2021-10-24
 
 ### Fixed
@@ -19,7 +32,7 @@ This version provides mostly minor fixed and upgrades.
 **IMPORTANT:** the `personal.tex` has been removed
 
 ### Added
- - dtx installer file. All class files can be generated from this file. This removes code duplications and allows for more easy maintenance as well as
+ -  dtx installer file. All class files can be generated from this file. This removes code duplications and allows for more easy maintenance as well as
  	deployment. This file will only be available on a separate branch and not be part of the master branch.
 
 ### Changed

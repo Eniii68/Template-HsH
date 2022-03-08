@@ -20,10 +20,10 @@
 %% and version 1.3 or later is part of all distributions of LaTeX version
 %% 2021/01/01 or later.
 %%
-\typeout{Adapted from KOMA script for use in Hochschule Hannover <2021-04-21> Jan Wille}
+\typeout{Adapted from KOMA script for use in Hochschule Hannover <2022-03-07> Jan Wille}
 \NeedsTeXFormat{LaTeX2e}
 \newcommand{\myClassName}{HsH-report}
-\ProvidesClass{\myClassName}[2021/04/21 v1.1 HsH-Class based on KOMA]
+\ProvidesClass{\myClassName}[2022/03/07 v1.3 HsH-Class based on KOMA]
 
 %% commands for HsH-logo
 \newcommand{\HsHlogoPath}{HSH-Logo.pdf}
@@ -119,8 +119,8 @@
 %% header and footer
 \pagestyle{scrheadings}
 \clearpairofpagestyles
-\renewcommand*{\chapterpagestyle}{scrheadings}
 \automark{chapter}
+\renewcommand*{\chapterpagestyle}{scrheadings}
 \ohead{\headmark}
 \ihead{\@title}
 \ofoot*{\pagemark}
@@ -155,6 +155,7 @@
 %% custom commands
 \newcommand{\uproman}[1]{\uppercase\expandafter{\romannumeral#1}}
 \newcommand{\lowroman}[1]{\romannumeral#1\relax}
+
 %% load config at beginning of document
 \AtBeginDocument{
   \makeatletter
