@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Current]
 
+
+## [1.4] - 2022-03-28
+
 ### Added
 - defined `\fronmatter`, `\mainmatter` and `\backmatter` for HsH-report class
 - included the caption package to fix #6
