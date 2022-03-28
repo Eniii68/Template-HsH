@@ -83,21 +83,42 @@
 \keywords{some, informative, keywords}
 
 
-
+% Now that you are all set, let's begin with the actual content of the document.
+% Don't forget the corresponding `\end{document}'!
 \begin{document} %----------- beginning of document -----------------------------------------------
 
-\pagenumbering{Roman}	% different numbering until first chapter
+% for longer documents it is custom to have different numbering until the first page of actuall content.
+% For that use this command to switch to Roman pagenumbers and turn off chapternumbers:
+\frontmatter
+
+% While you can of course create your own title-page, either with latex or externally, the easiest way is to use the build in command.
+% These classes redefine it to include the HsH-logo (depending on the chosen faculty) and to use the additional data provided in the preamble.
+% You can also use the optional argument to change the title-pages alignment to l,c or r:
 \maketitle[c]
+
+% this command is provided by these documentclasses. It creates a standard Text at the bottom of the page and a line to sign on for every author.
+% You are not restricted to this exact position and can use it where ever you want in your document, if you prefer it at the back, but it there.
 \declarationAuthorship
 
+% # abstract
+% sometimes you are required to also create an abstract. Use this environment for that.
+% It will create a new page and a heading for you as well as indenting the whole text block a little.
+% if you have provided keywords, they will also be put at the end of the abstract.
 \begin{abstract}
 	\lipsum[5-6]
 \end{abstract}
 
+% This command will create the table of contents (TOC).
+% Keep in mind, that LaTeX can only now about things it has already read. For everything that follows, it relies on temporary files which are created
+% on the fly. So the complete TOC will only be rendered after at leas two LaTeX runs.
 \tableofcontents
 
-\pagenumbering{arabic} % numbering in normal numbers
+% the following command is the counterpiece of the `\frontmatter' command.
+% It resets pagenumbers so that the next chapter is the first with actuall content.
+\mainmatter
 
+
+% now we can begin with the actuall relevant content. So let'S beginn by creating the first chapter:
 \chapter{Examples} \label{chap: one}
 	{\color{red}red text} and {\color{blue}blue text} \\
 	different subscripts: \normalsubscripts$R_t$ \upsubscripts$R_t$ \\
