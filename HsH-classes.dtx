@@ -115,6 +115,10 @@
 \PassOptionsToPackage{hidelinks}{hyperref}
 \RequirePackage{hyperref}
 %
+% put anchors at the beginning of floats
+\PassOptionsToPackage{hypcap=true}{caption}
+\RequirePackage{caption}
+%
 % generat bookmarkes
 \RequirePackage{bookmark}
 %
@@ -184,7 +188,7 @@
 % center all floats
   \g@addto@macro\@floatboxreset\centering
 % center all captions
-  \setcapwidth[c]{0.8\textwidth}
+  \setcapwidth{0.8\textwidth}
 \fi
 % abbreviations for names:
 \if@german

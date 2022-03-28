@@ -124,6 +124,7 @@ used in pretty much every project anyway.
  - `pgffor` allows for the use of for-loops (internal)
  - `graphicx` for importing images
  - `hyperref` for references and links
+ - `caption` to customise captions and make references point to the begining of the floats
  - `bookmark` for bookmarking
  - `amsmath` for a lot of general purpose maths features
  - `csquotes` makes quotations easier

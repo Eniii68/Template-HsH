@@ -87,6 +87,8 @@
 \RequirePackage{scrhack}
 \PassOptionsToPackage{hidelinks}{hyperref}
 \RequirePackage{hyperref}
+\PassOptionsToPackage{hypcap=true}{caption}
+\RequirePackage{caption}
 \RequirePackage{bookmark}
 \PassOptionsToPackage{babel}{csquotes}
 \if@german\PassOptionsToPackage{german=quotes}{csquotes}\fi
@@ -130,7 +132,7 @@
 \renewcommand{\fps@table}{h!t}
 \ifx\KOMAScriptVersion\undefined\else
   \g@addto@macro\@floatboxreset\centering
-  \setcapwidth[c]{0.8\textwidth}
+  \setcapwidth{0.8\textwidth}
 \fi
 \if@german
   \renewcaptionname{ngerman}{\figurename}{Abb.}
