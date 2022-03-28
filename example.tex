@@ -45,10 +45,19 @@
 \usepackage{lipsum}		% dummy text
 
 
-% bibliography
-% include biblatex, if you want to use it:
-% \usepackage{biblatex} % coment this in to use biber
-\usepackage[backend=bibtex]{biblatex} % biber is recommended as a backend, but for simplicity it is changed here back to standart bibtex:
+% # bibliography
+% While you can just create a super simple bibliography directly in your documents and format it completely yourself (see <https://en.wikibooks.org/wiki/LaTeX/Bibliography_Management#Embedded_system>)
+% it is far more manageable and consistent to use a system called BibTeX, which allows you to maintain a file of all your sources and takes care of all
+% the formatting for you. It also figures out which sources you use in your documents and only prints these, allowing for a single bibliography file
+% you can use on multiple/all your projects. You can also create bibliographies on a chapter basis, if you prefer.
+% To use it, just load the according package in your preamble, as shown below.
+% Be aware that you need to run a separate program (`bibtex' or`biber') on your latex file for your citations to be rendered. But you usually don't
+% need to run that every time.
+% Also while this example is set up to use `bibtex' (because it is the default in loats of editors), the defaul for this project is the more modern
+% `biber' command, so you need to change your editor accordingly if you omit the `backend=bibtex' option below:
+\usepackage[backend=bibtex]{biblatex}
+
+% now we load our bibliography file. Open it to see what it looks like
 \addbibresource{bib/localBibliography.bib}
 
 
