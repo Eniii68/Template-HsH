@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Current]
 
+### Added
+- defined `\fronmatter`, `\mainmatter` and `\backmatter` for HsH-report class
+
 
 ## [1.3] - 2022-03-07
 

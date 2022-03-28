@@ -210,6 +210,23 @@
 % rulers when using draft disabled
 \renewcommand{\layercontentsmeasure}{\@empty}
 
+%<*report>
+% these commands are only defined for the book class, but they also make sens for the report class:
+%% define easy shorthands to switch pagenumbering
+\newif\if@mainmatter\@mainmattertrue
+\newcommand*\frontmatter{%
+  \if@twoside\cleardoubleoddpage\else\clearpage\fi
+  \@mainmatterfalse\pagenumbering{Roman}%
+}
+\newcommand*\mainmatter{%
+  \if@twoside\cleardoubleoddpage\else\clearpage\fi
+  \@mainmattertrue\pagenumbering{arabic}%
+}
+\newcommand*\backmatter{%
+  \if@openright\cleardoubleoddpage\else\clearpage\fi\@mainmatterfalse
+}
+
+%</report>
 %% custom commands
 % these two comand can convert decimal number into roman numerrals in etheir upper- or lowercase
 \newcommand{\uproman}[1]{\uppercase\expandafter{\romannumeral#1}}

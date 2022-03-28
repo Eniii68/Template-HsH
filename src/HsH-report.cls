@@ -152,6 +152,20 @@
 \raggedbottom
 \renewcommand{\layercontentsmeasure}{\@empty}
 
+%% define easy shorthands to switch pagenumbering
+\newif\if@mainmatter\@mainmattertrue
+\newcommand*\frontmatter{%
+  \if@twoside\cleardoubleoddpage\else\clearpage\fi
+  \@mainmatterfalse\pagenumbering{Roman}%
+}
+\newcommand*\mainmatter{%
+  \if@twoside\cleardoubleoddpage\else\clearpage\fi
+  \@mainmattertrue\pagenumbering{arabic}%
+}
+\newcommand*\backmatter{%
+  \if@openright\cleardoubleoddpage\else\clearpage\fi\@mainmatterfalse
+}
+
 %% custom commands
 \newcommand{\uproman}[1]{\uppercase\expandafter{\romannumeral#1}}
 \newcommand{\lowroman}[1]{\romannumeral#1\relax}
