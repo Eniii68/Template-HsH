@@ -26,13 +26,14 @@
 % The `\documentclass' command is actually part of that configuration. Lets see what you could do here:
 
 
-% bibliography
-% include biblatex, if you want to use it:
-% \usepackage{biblatex} % coment this in to use biber
-\usepackage[backend=bibtex]{biblatex} % biber is recommended as a backend, but for simplicity it is changed here back to standart bibtex:
-\addbibresource{bib/localBibliography.bib}
-
-% a few more useful packages:
+% # packages
+% To extend LaTeXes basic functionality, you can load additional packages. Some are already loaded, but others you load in as needed.
+% Check the README about what's already loaded and what's recommended.
+% Also, this classfiles automaticly check for a file called `config.tex', in which you can collect common configurations and reuse them across
+% files in this and/or multiple projects. If you use the full template from GitLab, it provied a `config.tex' which only applies the settings,
+% if the corresponding package is loaded, making it even more reusable.
+%
+% Here are some packages we are going to need with some explanations:
 \usepackage{color}		% for colouring stuff
 \usepackage{siunitx}	% units
 \usepackage{listings}	% including formated code snippets
@@ -42,6 +43,14 @@
 \usepackage{amssymb}	% for spectial Math symbols
 \usepackage{enumitem}	% more list options
 \usepackage{lipsum}		% dummy text
+
+
+% bibliography
+% include biblatex, if you want to use it:
+% \usepackage{biblatex} % coment this in to use biber
+\usepackage[backend=bibtex]{biblatex} % biber is recommended as a backend, but for simplicity it is changed here back to standart bibtex:
+\addbibresource{bib/localBibliography.bib}
+
 
 % configure your projec specific data:
 \author{
