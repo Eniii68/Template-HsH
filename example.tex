@@ -118,7 +118,76 @@
 \mainmatter
 
 
-% now we can begin with the actuall relevant content. So let'S beginn by creating the first chapter:
+% now we can begin with the actuall relevant content. So let's beginn by creating the first chapter:
+\chapter{What is LaTeX} \label{chap: latex}
+	So you decided to get stated with LaTeX. Great! So let's talk a bit about the basic concept and differences it comes with.
+
+	\medskip
+	Up to this point you probably used a Word Processor like MS Word. The kind of workflow you know from there is often referred to as \emph{What you
+	see is what you get}. You see the exact final layout as you type it, press some colourful buttons to insert stuff and if it doesn't want to do
+	something you need, you're screwed.
+
+	LaTeX on the other hand falls into the category of \emph{What you see is what you mean}, which describes all forms of markup languages. This means
+	you create your LaTeX document as a simple plain text file without any from of formatting and mix in a bunch of commands telling what you mean.
+	For example: "This is supposed to be a chapter heading", "make this bold" or "insert an image here". This source file will than be passed to a
+	document processor (the LaTeX program), which will, depending on its settings, create the document for you. The advantage is, that you can use the
+	same markup with all sorts of formattings and target file types.
+
+	This is why working with LaTeX will require some getting used to and you will find yourself wanting to compile every five seconds to see the
+	document update. Try to restrain yourself and concentrate on writing. You will find yourself working much faster.
+
+	\section{Following this document}
+		To see how the LaTeX source code and the resulting PDF correspond, I recommend you open this documents source code and PDF file next to each
+		other and scroll through them simultaneously.
+
+		If you already have a working LaTeX setup, most editors support \emph{SyncTex}, which allows you to jump between source code and PDF file and
+		vice versa. You have to compile yourself, which will create a file called \lstinline{example.synctex.gz} in your project directory. Now you
+		can \lstinline{<CTRL>+Click} in the PDF and the corresponding line of source code will be highlighted.
+
+		The shortcut to jump from the source code into the PDF will depend on your Editor, but for VS Code its
+		\lstinline{right Click}→\lstinline{SyncTex from cursor} or \lstinline{CTRL+ALT+J}.
+
+	\section{Requirements to use LaTeX}
+		As LaTeX files are just plain text file, you can edit them with any text editor (even windows notepad works, but that's just terrible).
+		However, I would strongly recommend a more suitable editor. I use \href{https://code.visualstudio.com/}{Visual Studio Code} (which is a multi
+		porpoise text editor that support all major programming languages) but you could also use something like
+		\href{https://www.xm1math.net/texmaker/}{Texmaker}, which is an editor specifically for LaTeX. There is also the online editor
+		\href{https://www.overleaf.com/}{Overfleaf}, which saves you the trouble of setting up your own LaTeX installation and provides everything you
+		need in the cloud.
+
+		\pagebreak\medskip
+		As I have already mention above, you also need the LaTeX program. It comes bundled with packages and other additional software inside a
+		Tex-distribution. There are two major ones, Texlive and MiKTeX. I recommend MiKTeX, but it essentially doesn't matter which one you choose.
+
+		Once you have the distribution installed, test it by running \lstinline{pdflatex --version} in any terminal windows and it should return you
+		some information about the installed version and setup.
+
+	\section{Running LaTeX}
+		To create a PDF file from your LaTeX source code, you can always navigate to the project folder in a terminal window and run
+		\lstinline{pdflatex filename.tex}. However, if you have a decent editor installed, it will provide you with a button and do this for you.
+
+		With these project files you also received a makefile, which demonstrates how to compile this example file successfully from the terminal. The
+		README file also has some tips and information for you.
+
+		If you use VS Code, this project also contains settings for LaTeX and recommended extensions. If you open the folder for the first time you
+		will be asked if you want to install them and should than be able to compile this file.
+
+	\section{LaTeX commands}
+		Now lets look at the LaTeX command. Every one will begin with a \textbackslash\space followed by a letters only command name, like this:
+		\lstinline|\command|. Most commands also accept input, which is put after it into curly brackets: \lstinline|\command{argument}|. They can
+		accept multiple arguments either in multiple sets of curly brackets or as a comma separated list, depending on the command.
+
+		Some commands also accept optional arguments. These are passed inside square brackets between the command name and the curly brackets, like
+		this: \lstinline|\command[optional]{argument}|.
+
+	\section{Getting more information}
+		So what can you do if you get stuck or just want more information. The simple answer is: Google is your friend. Most questions have already
+		been answered. For example on \href{https://tex.stackexchange.com/}{Tex Strackexchange}. Also, Overleaf has a great
+		\href{https://www.overleaf.com/learn}{section for learning LaTex}.
+
+		An of course you can always check the documentation, which you can find on \href{https://ctan.org/}{CTAN}.
+
+
 \chapter{Basic text formatting} \label{chap: formating}
 
 	To begin I want to show you the basics of how to get text onto the page and structure it. You can also see how I created this exact text as an
