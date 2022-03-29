@@ -2,6 +2,16 @@
 All notable changes to this project will be documented in this file.
 
 
+## [1.4] - 2022-03-28
+
+### Added
+- defined `\fronmatter`, `\mainmatter` and `\backmatter` for HsH-report class
+- included the caption package to fix #6
+
+### Fixes
+- references now get point to the to of floats, not to the captions position (#6)
+
+
 ## [1.3] - 2022-03-07
 
 ### Changed
