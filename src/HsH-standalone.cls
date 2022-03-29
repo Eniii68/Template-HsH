@@ -20,10 +20,10 @@
 %% and version 1.3 or later is part of all distributions of LaTeX version
 %% 2021/01/01 or later.
 %%
-\typeout{Adapted from KOMA script for use in Hochschule Hannover <2022-03-07> Jan Wille}
+\typeout{Adapted from KOMA script for use in Hochschule Hannover <2022-03-28> Jan Wille}
 \NeedsTeXFormat{LaTeX2e}
 \newcommand{\myClassName}{HsH-standalone}
-\ProvidesClass{\myClassName}[2022/03/07 v1.3 HsH-Class based on KOMA]
+\ProvidesClass{\myClassName}[2022/03/28 v1.4 HsH-Class based on KOMA]
 
 %% commands for HsH-logo
 \newcommand{\HsHlogoPath}{HSH-Logo.pdf}
