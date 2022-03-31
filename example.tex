@@ -248,6 +248,11 @@
 		should redesign your document. But if you absolutely want to print it that way, you can use \lstinline|\clearpage| to force all
 		figures/tables to be put onto the page and then start a new page.
 
+		\medskip
+		You might also need just a little more space only a page to just fit one more sentences. For that you can use the command
+		\lstinline|\enlargethispage{N\baselineskip}| with $N$ being the number of lines you need. Use this sparingly however, as the bottom margin is
+		there for a reason and you shouldn't intrude on the footer too much.
+
 	\section{Text styling} \label{sec: styling}
 		When writing text, you will need to \emph{emphasize} certain parts of the text. The easiest way is to use the \lstinline|\emph{}| command
 		around you text. You can also nest it \emph{to \emph{emphasize} even more}.
