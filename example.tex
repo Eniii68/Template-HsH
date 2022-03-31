@@ -302,6 +302,29 @@
 				normal space & \lstinline|\space| & in case some command eats up all your space \\
 			\end{tabular}
 
+	\section{Cross-referencing} \label{sec: referencing}
+		When writing you will often have to reference something else in your document. Of course, you don't want to manually type the number you are
+		referencing and have to redo it whenever you add/delete a chapter (and surely forgetting something). That's why LaTeX does this for you and
+		you don't have to worry about it!
+
+		For this to work, you have to give unique names to everything you might want to reference. This is done with the \lstinline|\label{name}|
+		command, which you just put after whatever you are labelling (it doesn't matter if it's on the same line ore the next). The name can be
+		everything you like, but choosing something you will easily remember later makes sense. I also recommend prefixing the label names with a
+		descriptor for what it's referring to, for example \lstinline|\label{chap: ...}| for chapters, \lstinline|\label{fig: ...}| for figures and so
+		on. That way you can have a chapter and a figure with the same name while still having unique identifiers.
+
+		\medskip
+		To later refer to a label, you use the \lstinline|\ref{name}| command, which will create the number of the labelled item, for example, this is
+		a reference to chapter \ref{chap: latex}. You can now click the "1" and be taken to the corresponding chapter.
+
+		To make this easier and create a bigger, better clickable link, this classes load the \lstinline{hyperref} package, which introduces the
+		\lstinline|\autoref{name}| command. This automatically adds the name of whatever you're referencing before the number, like this:
+		\autoref{chap: formating}.
+
+		\medskip
+		For easy use, I recommend you work with a decent editor, which automatically detects all labels and suggest them to you whenever you type a
+		reference.
+
 
 \chapter{Examples} \label{chap: one}
 	{\color{red}red text} and {\color{blue}blue text} \\
