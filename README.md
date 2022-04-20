@@ -299,6 +299,10 @@ TexLive does not have this functionality built-in.
 
 ## LaTeX errors
 
+> You have requested document class \`src/HsH-report', but the document class provides \`HsH-report'.
+
+This happens when you tried to use something like `\documentclass{src/HsH-report}`, which was a good idea, but doesn't quite work. You need to properly
+add the `src` directory to the path searched by LaTeX (as explained [here](#adding-src-to-path)). You can than simply use `\documentclass{HsH-report}`.
 
 ## BibTeX errors
 
