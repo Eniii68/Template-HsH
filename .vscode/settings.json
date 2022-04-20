@@ -58,7 +58,7 @@
 				"%DOC%"
 			],
 			"env": {
-				"TEXINPUTS": "%DIR%/src;%DIR%/../src"
+				"TEXINPUTS": "%DIR%/src/;%DIR/../src/:"
 			}
 		},
 		{
