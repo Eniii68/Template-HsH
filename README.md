@@ -297,7 +297,10 @@ pdflatex -output-directory=. -aux-directory=.aux project.tex
 TexLive does not have this functionality built-in.
 
 
-## BibTeX errors 
+## LaTeX errors
+
+
+## BibTeX errors
 
 > Sorry, but BibTeX did not succeed
 
