@@ -119,12 +119,22 @@
 \upsubscripts
 
 %% header and footer
-\pagestyle{scrheadings}
-\clearpairofpagestyles
+\newpagestyle{HsHheadings}{
+  {\parbox{\sls@headwidth}{\LaTeXraggedright\@title}}
+  {\parbox{\sls@headwidth}{\LaTeXraggedleft\leftmark}}
+  {
+    \parbox[b]{.45\sls@headwidth}{\LaTeXraggedright\@title}%
+    \hfill
+    \parbox[b]{.45\sls@headwidth}{\LaTeXraggedleft\headmark}%
+  }
+  (\textwidth,.1pt)
+}{
+  {\pagemark}
+  {\hfill\pagemark}
+  {\hfill\pagemark}
+}
+\pagestyle{HsHheadings}
 \automark{section}
-\ohead{\headmark}
-\ihead{\@title}
-\ofoot*{\pagemark}
 
 %% floats
 \renewcommand{\fps@figure}{h!t}
