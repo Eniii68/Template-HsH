@@ -164,7 +164,8 @@ You can use the following macros to define the different information presented o
   comma-seperated list, if more than one author is present.
 - `\titlehead` is for a small line left of the logo. This is usually the department or division. May be empty
 - `\subject` is for a broad description of what your file is. "Laborbericht" for example. Can be empty.
-- `\title` is quite obvious. The only one that must be present.
+- `\title` is quite obvious. The only one that must be present. I additionally accept an optional parameter which will be treated as a short form of
+  the title and used in the header (this makes sense if your title is very long and fills your header too much)
 - `\subtitle` is a smaller second line under the title. Can be empty
 - `\date` is the date of your project. You can use a custom one, but if you don't set it, the current date at compile time will be used.
 - `\professor` a new macro do define your professors name, if needed.

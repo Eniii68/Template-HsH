@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Current]
 
+### Changed
+
+- `\title` now accepts an optional argument. It will be used as a short version of the title and will be put into the header.
+
 ### Fixed
 
 - `\ihead` and `\ohead` now have a max width and will break into multiple lines (#7)

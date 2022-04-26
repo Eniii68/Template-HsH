@@ -18,7 +18,7 @@
 }
 \titlehead{titlehead}
 \subject{Subject}
-\title{long and elaborate title that just goes on and on witout stopping}
+\title[short title]{long and elaborate title that just goes on and on witout stopping}
 \subtitle{Subtitle}
 \date{\today}
 \professor{Professor}
@@ -48,6 +48,8 @@
 		\includegraphics[width=.6\textwidth]{img/lorem-ipsum.jpg}
 		\caption{test}
 	\end{figure}
+
+	title test: \ifx\@shorttitle\@empty\@title\else\@shorttitle\fi
 
 	noch ein test \normalsubscripts$R_t$ \upsubscripts$R_t$
 
