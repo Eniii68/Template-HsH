@@ -101,6 +101,11 @@
 \PassOptionsToPackage{european,EFvoltages,straightvoltages,betterproportions}{circuitikz}
 
 %% title matters ----------------------------------------------------------------------------------
+\newcommand*{\@shorttitle}{\@empty}
+\renewcommand{\title}[2][]{
+  \gdef\@title{#2}
+  \gdef\@shorttitle{#1}
+}
 \newcommand*{\@matrikelnr}{}
 \newcommand{\matrikelnr}[1]{\gdef\@matrikelnr{#1}}
 \newcommand*{\@professor}{}
@@ -119,12 +124,30 @@
 \upsubscripts
 
 %% header and footer
-\pagestyle{scrheadings}
-\clearpairofpagestyles
+\newpagestyle{HsHheadings}{
+  {
+    \parbox[b]{\sls@headwidth}{
+      \LaTeXraggedright
+      \ifx\@shorttitle\@empty\@title\else\@shorttitle\fi
+    }%
+  }
+  {\parbox[b]{\sls@headwidth}{\LaTeXraggedleft\leftmark}}
+  {
+    \parbox[b]{.45\sls@headwidth}{
+      \LaTeXraggedright
+      \ifx\@shorttitle\@empty\@title\else\@shorttitle\fi
+    }%
+    \hfill
+    \parbox[b]{.45\sls@headwidth}{\LaTeXraggedleft\headmark}%
+  }
+  (\textwidth,.1pt)
+}{
+  {\pagemark}
+  {\hfill\pagemark}
+  {\hfill\pagemark}
+}
+\pagestyle{HsHheadings}
 \automark{section}
-\ohead{\headmark}
-\ihead{\@title}
-\ofoot*{\pagemark}
 
 %% floats
 \renewcommand{\fps@figure}{h!t}
