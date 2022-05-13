@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 
 ## [Current]
 
+### Added
+
+- autobobble option for `listings`, which automaticly determins the indentation width and gooble it up, removing the need to put `gobble=n` manually
+  every time. (#8)
+
 ### Changed
 
 - `\title` now accepts an optional argument. It will be used as a short version of the title and will be put into the header.
