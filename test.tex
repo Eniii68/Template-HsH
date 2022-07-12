@@ -1,4 +1,4 @@
-\documentclass[twoside,f1]{HsH-report}
+\documentclass[todos,f1]{HsH-report}
 
 \usepackage{color}
 \usepackage{lipsum}
@@ -58,7 +58,7 @@
 	\vspace{2cm}\\
 	eine zahl: $3,5+3.5$\footnote[1]{hello}\\
 
-	Tiny: {\tiny hello} Small: {\small hello}
+	Tiny: {\tiny hello} \todo{test} Small: {\small hello}
 
 	\makeatletter
 	\newcommand{\test}[1][l]{
@@ -70,7 +70,7 @@
 			\fi
 		}
 	}
-	\test; \test[right]
+	\test; \test[right] \todo{super long todo that mus be going over multiple lines}
 
 	\lipsum[5-6]
 
@@ -78,8 +78,10 @@
 	\begin{figure}
 		\centering
 		\includegraphics[width=0.6\textwidth, page=2]{plt/examplePlot.pdf}
-		\caption{a nice plot}
+		\caption{a nice plot }
 	\end{figure}
+
+	test text\todo{why this?}
 
 	\begin{figure}
 		\centering

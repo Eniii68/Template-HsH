@@ -30,6 +30,7 @@
 \newcommand{\HsHlogoPage}{1}
 \newcommand{\includeHsHlogohere}[1][5cm]{\includegraphics[width=#1,page=\HsHlogoPage]{\HsHlogoPath}}
 \newif\if@german%
+\newif\if@todos\@todosfalse%
 
 %% document options -------------------------------------------------------------------------------
 \DeclareOption{german}{
@@ -62,6 +63,9 @@
 \DeclareOption{roman}{
   \renewcommand{\familydefault}{\rmdefault}
 }
+\DeclareOption{todos}{
+  \@todostrue
+}
 \DeclareOption*{\expandafter\PassOptionsToClass\expandafter{\CurrentOption}{scrartcl}}
 \ExecuteOptions{fontsize=11pt,a4paper,ngerman,sans} % default options
 \ProcessOptions\relax
@@ -78,7 +82,11 @@
 \RequirePackage{graphicx}
 \RequirePackage{amsmath}
 \if@german\RequirePackage{ziffer}\fi
-\PassOptionsToPackage{left=3cm,right=2.5cm,top=3cm,bottom=3cm}{geometry}
+\if@todos
+  \PassOptionsToPackage{left=1cm,right=5cm,top=3cm,bottom=3cm}{geometry}
+\else
+  \PassOptionsToPackage{left=3cm,right=2.5cm,top=3cm,bottom=3cm}{geometry}
+\fi
 \RequirePackage{geometry}
 \if@german\PassOptionsToPackage{ngerman}{babel}\else\PassOptionsToPackage{english}{babel}\fi
 \RequirePackage{babel}
@@ -94,6 +102,20 @@
 \if@german\PassOptionsToPackage{german=quotes}{csquotes}\fi
 \RequirePackage{csquotes}
 \MakeOuterQuote{"}
+\if@todos
+  \PassOptionsToPackage{svgnames}{xcolor}
+  \PassOptionsToPackage{
+    textwidth=4.5cm,
+    textsize=small,
+    figwidth=.6\textwidth
+  }{todonotes}
+  \RequirePackage{todonotes}
+  \setlength{\marginparwidth}{5.2cm}
+\else
+    \newcommand{\listoftodos}[1][]{}
+    \newcommand{\todo}[2][]{}
+    \newcommand{\missingfigure}[2][]{}
+\fi
 \RequirePackage{pgffor}
 %% options for not loaded packages ----------------------------------------------------------------
 \PassOptionsToPackage{backend=biber,style=alphabetic,sorting=nyt}{biblatex}

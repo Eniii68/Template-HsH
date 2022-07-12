@@ -104,6 +104,9 @@ If you don't define something different, the classes set your project up to use 
   keep the page numbering consistent with the original.
 - `sans` This option sets the font family to Sans Serif.
 - `roman` The opposite of `sans`, sets a roman/serif font.
+- `todos` This enables the [`todonotes`](http://tug.ctan.org/macros/latex/contrib/todonotes/todonotes.pdf) package and allows you to use the `\todo{}`
+  command. It is set up in a way that removing this option allows you to still leave `\todos`'s in your code without breaking. DO NOT combine this
+  with the `twoside` option!
 
 All remaining options are passed along to the respective subclasses and processed there. This means, that you can use all the options described in
 their respec­tive documentations.

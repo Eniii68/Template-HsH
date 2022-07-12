@@ -17,6 +17,13 @@
     isbn=false,
   }
 }{}
+\@ifpackageloaded{todonotes}{
+  \setuptodonotes{
+    backgroundcolor=orange!60!white,
+    linecolor=orange,
+    bordercolor=white
+  }
+}{}
 \@ifpackageloaded{siunitx}{
   \if@german
     \sisetup{output-decimal-marker={,}} % use comma as dezimal
