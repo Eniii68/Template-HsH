@@ -202,20 +202,31 @@
 %<*article|report>
 %% header and footer
 \newpagestyle{HsHheadings}{
+% twosided left page header
   {
     \parbox[b]{\sls@headwidth}{
       \LaTeXraggedright
       \ifx\@shorttitle\@empty\@title\else\@shorttitle\fi
     }%
   }
-  {\parbox[b]{\sls@headwidth}{\LaTeXraggedleft\leftmark}}
+% twosided right page header
+  {
+    \parbox[b]{\sls@headwidth}{
+      \LaTeXraggedleft
+      \leftmark
+    }%
+  }
+% onesided page header
   {
     \parbox[b]{.45\sls@headwidth}{
       \LaTeXraggedright
       \ifx\@shorttitle\@empty\@title\else\@shorttitle\fi
     }%
     \hfill
-    \parbox[b]{.45\sls@headwidth}{\LaTeXraggedleft\headmark}%
+    \parbox[b]{.45\sls@headwidth}{
+      \LaTeXraggedleft
+      \headmark
+    }%
   }
   (\textwidth,.1pt)
 }{
