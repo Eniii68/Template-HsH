@@ -145,6 +145,8 @@
 \upsubscripts
 
 %% header and footer
+\clearpairofpagestyles
+\ofoot*{\pagemark}
 \newpagestyle{HsHheadings}{
   {
     \parbox[b]{\sls@headwidth}{

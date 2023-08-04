@@ -200,6 +200,13 @@
 %
 %<*article|report>
 %% header and footer
+% first clear the default styles
+\clearpairofpagestyles
+% than we set the pagenumber for the plain and normal style
+%<article>\cfoot*{\pagemark}
+%<report>\ofoot*{\pagemark}
+%
+% now we define our custom header style
 \newpagestyle{HsHheadings}{
 % twosided left page header
   {
