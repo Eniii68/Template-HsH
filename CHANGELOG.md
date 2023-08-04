@@ -3,7 +3,14 @@
 All notable changes to this project will be documented in this file.
 
 
-## [Current]
+## [1.5]
+
+### Added
+
+- autogobble option for `listings`, which automaticly determins the indentation width and gooble it up, removing the need to put `gobble=n` manually
+  every time. (#8)
+- `todos` class-option. Loads the `todos` package if present but also redefines its commands to have no effect when this option is omitted. Also
+  changes the margins to make space for the todo-notes.
 
 ### Changed
 
@@ -12,6 +19,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 
 - `\ihead` and `\ohead` now have a max width and will break into multiple lines (#7)
+- `\maketitle[r]` now correctly allgines the author+matrikelnumber tabular (#10)
 
 
 ## [1.4] - 2022-03-28
@@ -54,7 +62,7 @@ All notable changes to this project will be documented in this file.
 
 ## [1.1] - 2021-04-22
 
-This version provides mostly minor fixed and upgrades.  
+This version provides mostly minor fixed and upgrades.
 **IMPORTANT:** the `personal.tex` has been removed
 
 ### Added

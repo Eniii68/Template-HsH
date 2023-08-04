@@ -1,11 +1,11 @@
 # What this is
 
 This is a template designed to ease the workflow when writing documents for the Hochschule Hannover. It is intended to be used in all sophisticated
-works, from lab-reports to master’s thesis's.  
+works, from lab-reports to master’s thesis's. <br>
 The project provides custom document-classes caring the `HsH-` prefix as well as support files. These classes extend the well known KOMA-Script
 classes and customize them with specific configurations, presets and provide commonly needed features.
 
-[![Version](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/badges/release.svg)](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/releases)  
+[![Version](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/badges/release.svg)](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/releases)
 
 **Provided classes are:**
 
@@ -21,10 +21,10 @@ classes and customize them with specific configurations, presets and provide com
 
 ## Recommended software
 
-As a Tex-Distribution, [MiKTeX is recommended](https://miktex.org/), TexLive should also work, but I don't use it much.  
+As a Tex-Distribution, [MiKTeX is recommended](https://miktex.org/), TexLive should also work, but I don't use it much. <br>
 To edit the `.tex` files, you could use any text editor, but I personally like [Visual Studio Code](https://code.visualstudio.com/) the most, which
 can also be used for pretty much all other programming languages. Use the [Latex Workshop extension](https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop),
-and you can steal my config file from [here](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/snippets/111).  
+and you can steal my config file from [here](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/snippets/111). <br>
 If you prefer a Tex-only editor, I used [Texmaker](https://www.xm1math.net/texmaker/) in the past, and it's also very good.
 
 If you want to use citations in your work, you should get familiar with the `biblatex` package and include it in your project. The classes set it up
@@ -51,7 +51,7 @@ The projects also provides a recommendation for a subfolder structure, to keep t
 [download the .zip-Archive](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/archive/master/latex-template-hsh-master.zip)
 and unpack it or clone the repository via `git clone https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh.git`.
 This has the downside of storing class files and other needed files in the _./src_ folder, which means it needs to be added to the path searched when
-running your latex command ([see below](#adding-src-to-path)).  
+running your latex command ([see below](#adding-src-to-path)). <br>
 The provided Makefile demonstrates how to run a successful build, you might want to check it out.
 
 
@@ -99,11 +99,14 @@ If you don't define something different, the classes set your project up to use 
   formatting of numbers. This is implemented by using an internal if switch, called `\@german`, which is set to true.
 - `english` This option is the opposite of the previous ones. It sets the document language to English by setting `\@german` to false.
 - `f1` - `f5` To use the correct logo of a certain faculty, you can define your faculty with these options. If none of these are present, a generic
-  grey logo is chosen.  
+  grey logo is chosen. <br>
   The different logos correspond to different pages of the `HsH-Logo.pdf`, so you could change this file and therefore the used logo as long as you
   keep the page numbering consistent with the original.
 - `sans` This option sets the font family to Sans Serif.
 - `roman` The opposite of `sans`, sets a roman/serif font.
+- `todos` This enables the [`todonotes`](http://tug.ctan.org/macros/latex/contrib/todonotes/todonotes.pdf) package and allows you to use the `\todo{}`
+  command. It is set up in a way that removing this option allows you to still leave `\todos`'s in your code without breaking. NOTE: using this
+  options will create pages that are wider than A4-format, making them non-printable!
 
 All remaining options are passed along to the respective subclasses and processed there. This means, that you can use all the options described in
 their respec­tive documentations.
@@ -156,7 +159,7 @@ The classes provide a few commands of their own. Here are some explanations:
 
 ### `\maketitle[align]`
 This command is not new, but changed. It creates a title-page fitting for most use cases. You can change its alignment via the optional parameter by
-using on of the three options `r`, `c` or `l` for right aligned, centred or left aligned.  
+using on of the three options `r`, `c` or `l` for right aligned, centred or left aligned. <br>
 You can use the following macros to define the different information presented on the title-page:
 
 - `\author` as usual, this is where you put your name. But you can also input a comma-seperated list, if more than one person has written in this file.
@@ -174,12 +177,12 @@ You can use the following macros to define the different information presented o
 
 ### `\declarationAuthorship`
 This macro will typeset a declaration of authorship, which is needed for most academic works. It will be produced at the bottom of the current page,
-separated by a horizontal line.  
+separated by a horizontal line. <br>
 The macro is defined in German and English and will automatically match your document language.
 
 ### `\abs`
 A helpful macro for absolute values. It can be used in maths mode and will put vertical lines around its content, that match the height of the
-content.  
+content. <br>
 This macro is only provided, meaning if another package defines it, its definition will be used.
 
 ### HsH-Logo macros
@@ -195,7 +198,7 @@ These are more of a by-product, but they are defined, so you could use them:
 Sadly most Profs have widely different expectations when it comes to styling of written works. So you might find yourself having to change some
 settings. For some cases this has already been done and, to help others, uploaded in
 [the snippets section](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/snippets) of the project. Most of them are only visible when you
-are logged in!!  
+are logged in!! <br>
 Also, if you create your own set of additions that are useful for other, feel free to contact me and I will give you access right, so you can upload
 it there.
 
@@ -224,17 +227,17 @@ You need to do this if you get errors like this:
 
 > ! LaTeX Error: File `HsH-report.cls' not found.
 
-This means LaTeX can't find the additional files provided by this project, and you need to tell it that they are inside the _./src_ directory.  
+This means LaTeX can't find the additional files provided by this project, and you need to tell it that they are inside the _./src_ directory. <br>
 Here is how to do that:
 
 ### Using MiKTeX
-MiKTeX makes this very easy by adding an option for that. Just add `-include-directory=./src` to your call to `pdflatex`.  
+MiKTeX makes this very easy by adding an option for that. Just add `-include-directory=./src` to your call to `pdflatex`. <br>
 For building from sub folders, just add a second `-include-directory=../src` to your call.
 
 
 ### Using Texmaker and MiKTeX
-As stated above, you just need to extend your Latex-call with the needed include path.  
-To do this, go to _Options → config Texmaker → Commands_  
+As stated above, you just need to extend your Latex-call with the needed include path. <br>
+To do this, go to _Options → config Texmaker → Commands_ <br>
 change the pdflatex command to:
 
 ```bash
@@ -268,7 +271,7 @@ In VS Code you can configure your launch to set environment variables. Just edit
 
 ### On Overleaf
 The easiest way would be to just move the class file you need and the `HsH-logo.pdf` and `config.tex` to the project root (next to your
-`project.tex`).  
+`project.tex`). <br>
 Alternatively, overleaf uses `latexmk` in the background, so you can change its configuration. As explained
 [here](https://www.overleaf.com/learn/latex/Questions/I_have_a_lot_of_.cls%2C_.sty%2C_.bst_files%2C_and_I_want_to_put_them_in_a_folder_to_keep_my_project_uncluttered._But_my_project_is_not_finding_them_to_compile_correctly),
 add the `latexmkrc` file and put this line into it:
@@ -321,7 +324,7 @@ or use `\usepackage[backend=bibtex]{biblatex}` in your preamble to keep using Bi
 
 ## Italic vs. upright Index? (changing subscript)
 
-The classes by default set all sub scripts upright ("steil" in German), because this is required in Germany in most cases.  
-You can deactivate this permanently with `\normalsubscripts` and reactivate it with `\upsubscripts`.  
-If you want to change it for a single use, you can use the original Tex Macro `\sb{}` instead of the `_` to get the original behaviour.  
+The classes by default set all sub scripts upright ("steil" in German), because this is required in Germany in most cases. <br>
+You can deactivate this permanently with `\normalsubscripts` and reactivate it with `\upsubscripts`. <br>
+If you want to change it for a single use, you can use the original Tex Macro `\sb{}` instead of the `_` to get the original behaviour. <br>
 DO NOT use `_\math..{}`! This would be a nested font change and lead to unexpected results. `\sb{\math..{}}` is possible.
