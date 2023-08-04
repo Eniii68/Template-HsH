@@ -5,21 +5,21 @@
 %% The original source files were:
 %%
 %% HsH-classes.dtx  (with options: `report')
-%%
+%% 
 %% This is a generated file.
-%%
+%% 
 %% Copyright (C) 2021 by Jan Wille <mail@janwille.de>
-%%
+%% 
 %% This file may be distributed and/or modified under the conditions of
 %% the LaTeX Project Public License, either version 1.3 of this license
 %% or (at your option) any later version.  The latest version of this
 %% license is in:
-%%
+%% 
 %%    http://www.latex-project.org/lppl.txt
-%%
+%% 
 %% and version 1.3 or later is part of all distributions of LaTeX version
 %% 2021/01/01 or later.
-%%
+%% 
 \typeout{Adapted from KOMA script for use in Hochschule Hannover <2022-03-28> Jan Wille}
 \NeedsTeXFormat{LaTeX2e}
 \newcommand{\myClassName}{HsH-report}
@@ -30,6 +30,7 @@
 \newcommand{\HsHlogoPage}{1}
 \newcommand{\includeHsHlogohere}[1][5cm]{\includegraphics[width=#1,page=\HsHlogoPage]{\HsHlogoPath}}
 \newif\if@german%
+\newif\if@todos\@todosfalse%
 
 %% document options -------------------------------------------------------------------------------
 \DeclareOption{german}{
@@ -62,6 +63,9 @@
 \DeclareOption{roman}{
   \renewcommand{\familydefault}{\rmdefault}
 }
+\DeclareOption{todos}{
+  \@todostrue
+}
 \DeclareOption*{\expandafter\PassOptionsToClass\expandafter{\CurrentOption}{scrreprt}}
 \ExecuteOptions{fontsize=11pt,a4paper,ngerman,sans} % default options
 \ProcessOptions\relax
@@ -78,7 +82,11 @@
 \RequirePackage{graphicx}
 \RequirePackage{amsmath}
 \if@german\RequirePackage{ziffer}\fi
-\PassOptionsToPackage{left=3cm,right=2.5cm,top=3cm,bottom=3cm}{geometry}
+\if@todos
+  \PassOptionsToPackage{left=1cm,right=5cm,top=3cm,bottom=3cm}{geometry}
+\else
+  \PassOptionsToPackage{left=3cm,right=2.5cm,top=3cm,bottom=3cm}{geometry}
+\fi
 \RequirePackage{geometry}
 \if@german\PassOptionsToPackage{ngerman}{babel}\else\PassOptionsToPackage{english}{babel}\fi
 \RequirePackage{babel}
@@ -94,6 +102,20 @@
 \if@german\PassOptionsToPackage{german=quotes}{csquotes}\fi
 \RequirePackage{csquotes}
 \MakeOuterQuote{"}
+\if@todos
+  \PassOptionsToPackage{svgnames}{xcolor}
+  \PassOptionsToPackage{
+    textwidth=4.5cm,
+    textsize=small,
+    figwidth=.6\textwidth
+  }{todonotes}
+  \RequirePackage{todonotes}
+  \setlength{\marginparwidth}{5.2cm}
+\else
+    \newcommand{\listoftodos}[1][]{}
+    \newcommand{\todo}[2][]{}
+    \newcommand{\missingfigure}[2][]{}
+\fi
 \RequirePackage{pgffor}
 %% options for not loaded packages ----------------------------------------------------------------
 \PassOptionsToPackage{backend=biber,style=alphabetic,sorting=nyt}{biblatex}
@@ -118,12 +140,13 @@
 %% typesetting indexes upright or standart
 \def\subinrm#1{\sb{\mathrm{#1}}}
 {\catcode`\_=13 \global\let_=\subinrm}
-\mathcode`_="8000
 \newcommand\upsubscripts{\catcode`\_=12 }
 \newcommand\normalsubscripts{\catcode`\_=8 }
 \upsubscripts
 
 %% header and footer
+\clearpairofpagestyles
+\ofoot*{\pagemark}
 \newpagestyle{HsHheadings}{
   {
     \parbox[b]{\sls@headwidth}{
@@ -131,14 +154,22 @@
       \ifx\@shorttitle\@empty\@title\else\@shorttitle\fi
     }%
   }
-  {\parbox[b]{\sls@headwidth}{\LaTeXraggedleft\leftmark}}
+  {
+    \parbox[b]{\sls@headwidth}{
+      \LaTeXraggedleft
+      \leftmark
+    }%
+  }
   {
     \parbox[b]{.45\sls@headwidth}{
       \LaTeXraggedright
       \ifx\@shorttitle\@empty\@title\else\@shorttitle\fi
     }%
     \hfill
-    \parbox[b]{.45\sls@headwidth}{\LaTeXraggedleft\headmark}%
+    \parbox[b]{.45\sls@headwidth}{
+      \LaTeXraggedleft
+      \headmark
+    }%
   }
   (\textwidth,.1pt)
 }{
