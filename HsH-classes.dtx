@@ -295,7 +295,8 @@
   \@mainmattertrue\pagenumbering{arabic}%
 }
 \newcommand*\backmatter{%
-  \if@openright\cleardoubleoddpage\else\clearpage\fi\@mainmatterfalse
+  \if@openright\cleardoubleoddpage\else\clearpage\fi
+  \@mainmatterfalse\pagenumbering{roman}%
 }
 
 %</report>
