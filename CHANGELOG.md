@@ -21,6 +21,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 
 - `\ihead` and `\ohead` now have a max width and will break into multiple lines (#7)
+- `\maketitle[r]` now correctly allgines the author+matrikelnumber tabular (#10)
 
 
 ## [1.4] - 2022-03-28
