@@ -150,7 +150,7 @@
 
 %% header and footer
 \clearpairofpagestyles
-\cfoot*{\pagemark}
+\ofoot*{\pagemark}
 \newpagestyle{HsHheadings}{
   {
     \parbox[b]{\sls@headwidth}{
