@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Current]
 
+## [1.5]
+
 ### Added
 
 - autogobble option for `listings`, which automaticly determins the indentation width and gooble it up, removing the need to put `gobble=n` manually
