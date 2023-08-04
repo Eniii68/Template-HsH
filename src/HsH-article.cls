@@ -82,13 +82,18 @@
 \RequirePackage{graphicx}
 \RequirePackage{amsmath}
 \if@german\RequirePackage{ziffer}\fi
+\PassOptionsToPackage{a4paper,vmargin=3cm,bindingoffset=1cm,textwidth=15.5cm}{geometry}
 \if@todos
-  \PassOptionsToPackage{left=1cm,right=5cm,top=3cm,bottom=3cm}{geometry}
+  \PassOptionsToPackage{paperwidth=1.2\paperwidth,left=2cm}{geometry}
 \else
-  \PassOptionsToPackage{left=3cm,right=2.5cm,top=3cm,bottom=3cm}{geometry}
+  \PassOptionsToPackage{nomarginpar}{geometry}
 \fi
 \RequirePackage{geometry}
-\if@german\PassOptionsToPackage{ngerman}{babel}\else\PassOptionsToPackage{english}{babel}\fi
+\if@german
+  \PassOptionsToPackage{ngerman}{babel}
+\else
+  \PassOptionsToPackage{english}{babel}
+\fi
 \RequirePackage{babel}
 \PassOptionsToPackage{headsepline}{scrlayer-scrpage}
 \RequirePackage{scrlayer-scrpage}
@@ -105,7 +110,6 @@
 \if@todos
   \PassOptionsToPackage{svgnames}{xcolor}
   \PassOptionsToPackage{
-    textwidth=4.5cm,
     textsize=small,
     figwidth=.6\textwidth
   }{todonotes}
