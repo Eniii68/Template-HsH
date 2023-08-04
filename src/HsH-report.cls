@@ -20,10 +20,10 @@
 %% and version 1.3 or later is part of all distributions of LaTeX version
 %% 2021/01/01 or later.
 %% 
-\typeout{Adapted from KOMA script for use in Hochschule Hannover <2022-03-28> Jan Wille}
+\typeout{Adapted from KOMA script for use in Hochschule Hannover <2023-08-03> Jan Wille}
 \NeedsTeXFormat{LaTeX2e}
 \newcommand{\myClassName}{HsH-report}
-\ProvidesClass{\myClassName}[2022/03/28 v1.4 HsH-Class based on KOMA]
+\ProvidesClass{\myClassName}[2023/08/03 v1.5 HsH-Class based on KOMA]
 
 %% commands for HsH-logo
 \newcommand{\HsHlogoPath}{HSH-Logo.pdf}
@@ -82,13 +82,18 @@
 \RequirePackage{graphicx}
 \RequirePackage{amsmath}
 \if@german\RequirePackage{ziffer}\fi
+\PassOptionsToPackage{a4paper,vmargin=3cm,bindingoffset=1cm,textwidth=15.5cm}{geometry}
 \if@todos
-  \PassOptionsToPackage{left=1cm,right=5cm,top=3cm,bottom=3cm}{geometry}
+  \PassOptionsToPackage{paperwidth=1.2\paperwidth,left=2cm}{geometry}
 \else
-  \PassOptionsToPackage{left=3cm,right=2.5cm,top=3cm,bottom=3cm}{geometry}
+  \PassOptionsToPackage{nomarginpar}{geometry}
 \fi
 \RequirePackage{geometry}
-\if@german\PassOptionsToPackage{ngerman}{babel}\else\PassOptionsToPackage{english}{babel}\fi
+\if@german
+  \PassOptionsToPackage{ngerman}{babel}
+\else
+  \PassOptionsToPackage{english}{babel}
+\fi
 \RequirePackage{babel}
 \PassOptionsToPackage{headsepline}{scrlayer-scrpage}
 \RequirePackage{scrlayer-scrpage}
@@ -105,7 +110,6 @@
 \if@todos
   \PassOptionsToPackage{svgnames}{xcolor}
   \PassOptionsToPackage{
-    textwidth=4.5cm,
     textsize=small,
     figwidth=.6\textwidth
   }{todonotes}
@@ -219,7 +223,8 @@
   \@mainmattertrue\pagenumbering{arabic}%
 }
 \newcommand*\backmatter{%
-  \if@openright\cleardoubleoddpage\else\clearpage\fi\@mainmatterfalse
+  \if@openright\cleardoubleoddpage\else\clearpage\fi
+  \@mainmatterfalse\pagenumbering{roman}%
 }
 
 %% custom commands
@@ -419,7 +424,7 @@
             \if\@param l\begin{tabular}{@{}l l}\printtabtoks\end{tabular}\fi
             \if\@param c\begin{tabular}{l l}\printtabtoks\end{tabular}\fi
             \if\@param r\begin{tabular}{r r@{}}\printtabtoks\end{tabular}\fi
-          }
+          }%
         \fi
       \fi}
       \vskip 1.5em
