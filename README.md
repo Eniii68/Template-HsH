@@ -9,10 +9,10 @@ classes and customize them with specific configurations, presets and provide com
 
 **Provided classes are:**
 
-- `HsH-article`
-- `HsH-report`
-- `HsH-book` (planed)
-- `HsH-standalone`
+- [`HsH-article`](#hsh-article)
+- [`HsH-report`](#hsh-report)
+- [`HsH-book`](#hsh-book) (planed)
+- [`HsH-standalone`](#hsh-standalone)
 
 
 
