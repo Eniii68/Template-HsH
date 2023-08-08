@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Current]
 
+### Changed
+
+- switched from normal `Makefile` to `latexmkrc`
+
 ## [1.5]
 
 ### Added
