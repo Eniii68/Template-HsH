@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0]
+
+### Changed
+
+- switched from normal `Makefile` to `latexmkrc`
+
 
 ## [1.5]
 
