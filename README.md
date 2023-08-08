@@ -31,7 +31,6 @@ If you want to use citations in your work, you should get familiar with the `bib
 to use `biber` as the backend, which is more modern and has more features than the usual `bibtex`, but you will need to set you editor up to also use
 this.
 
-
 ## I have now Idea how to start, show me!
 
 To get you started, there is a working example Project on the example branch that has loads of tips. Check it out
@@ -54,6 +53,9 @@ This has the downside of storing class files and other needed files in the _./sr
 running your latex command ([see below](#adding-src-to-path)). <br>
 The provided Makefile demonstrates how to run a successful build, you might want to check it out.
 
+## Compiling
+
+The Project comes with `latexmk` setting, so you should be able to instantly compile using it.
 
 
 # Documentation
@@ -206,7 +208,6 @@ it there.
 
 # Frequently Asked Questions
 
-
 ## What is the `config.tex`?
 
 These file is an easy way to configure your project in a single central location, so it can be used over multiple documents in the same project as
@@ -220,91 +221,18 @@ The `config.tex` is intended for configurations. For example new- or redefinitio
 loaded here. The `\@ifpackageloaded{pakagename}{true}{false}` macro allows to check for the existence of a package, so that you can reuse config files,
 even if you don't use all the same packages.
 
-
 ## Adding _./src_ to path
 
 You need to do this if you get errors like this:
 
 > ! LaTeX Error: File `HsH-report.cls' not found.
 
-This means LaTeX can't find the additional files provided by this project, and you need to tell it that they are inside the _./src_ directory. <br>
-Here is how to do that:
-
-### Using MiKTeX
-MiKTeX makes this very easy by adding an option for that. Just add `-include-directory=./src` to your call to `pdflatex`. <br>
-For building from sub folders, just add a second `-include-directory=../src` to your call.
-
-
-### Using Texmaker and MiKTeX
-As stated above, you just need to extend your Latex-call with the needed include path. <br>
-To do this, go to _Options → config Texmaker → Commands_ <br>
-change the pdflatex command to:
-
-```bash
-pdflatex -synctex=1 -interaction=nonstopmode -include-directory=./src -include-directory=../src %.tex
-```
-
-### Using VS Code with LaTeX Workshop
-In VS Code you can configure your launch to set environment variables. Just edit your `settings.json`, so that your pdflatex tool contains a `env:`
-(add it, if it isn't there yet). If you use the template below, you will also get some additional nice configurations. See also
-[here](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/snippets/111) for some additional configs.
-
-```json
-"latex-workshop.latex.tools": [
-    {
-        "name": "pdflatex",
-        "command": "pdflatex",
-        "args": [
-            "-synctex=1",
-            "-interaction=nonstopmode",
-            "-file-line-error",
-            "-aux-directory=%OUTDIR%/.aux",
-            "-output-directory=%OUTDIR%",
-            "%DOC%"
-        ],
-        "env": {
-            "TEXINPUTS": "%DIR%/src/;%DIR%/../src/"
-        }
-    }
-]
-```
-
-### On Overleaf
-The easiest way would be to just move the class file you need and the `HsH-logo.pdf` and `config.tex` to the project root (next to your
-`project.tex`). <br>
-Alternatively, overleaf uses `latexmk` in the background, so you can change its configuration. As explained
-[here](https://www.overleaf.com/learn/latex/Questions/I_have_a_lot_of_.cls%2C_.sty%2C_.bst_files%2C_and_I_want_to_put_them_in_a_folder_to_keep_my_project_uncluttered._But_my_project_is_not_finding_them_to_compile_correctly),
-add the `latexmkrc` file and put this line into it:
-
-```bash
-$ENV{'TEXINPUTS'}='./src/:';
-```
-
-Now your project should compile just fine.
-
+Usually the `latexmkrc` files handles setting this up, but if you have problem or just want more controll,
+[here](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/snippets/121) are more details.
 
 ## Using an _.aux_ directory
 
-It is very useful to define subdirectory for all the files produced during a latex run. Here is how you can keep your directory cleaner.
-
-### MiKTeX
-MiKTeX allows you to define a directory to put all the temporary files in via the option `-aux-directory`. So you can modify your pdflatex call like
-this:
-
-```bash
-pdflatex -aux-directory=.aux project.tex
-```
-
-This is different from where the produced PDF is placed. This can be modified using the `-output-directory` option. So calling latex like the
-following, will produce a `pdf` next to the `tex` file and all temporary files in the subdirectory `.aux`
-
-```bash
-pdflatex -output-directory=. -aux-directory=.aux project.tex
-```
-
-### TexLive
-TexLive does not have this functionality built-in.
-
+It is very useful to define subdirectory for all the files produced during a latex run. This is also set up via the `latexmkrc` file.
 
 ## LaTeX errors
 
@@ -320,7 +248,6 @@ add the `src` directory to the path searched by LaTeX (as explained [here](#addi
 You are probably using `bibtex` as your backend, but `biber` the standard configuration. You can change it, see
 [here for most editors](https://texwelt.de/fragen/1909/wie-verwende-ich-biber-in-meinem-editor) and [here for VS Code](https://tex.stackexchange.com/questions/459640/implementing-biber-for-biblatex-in-microsoft-visual-studio-code/459933#459933)
 or use `\usepackage[backend=bibtex]{biblatex}` in your preamble to keep using BibTeX.
-
 
 ## Italic vs. upright Index? (changing subscript)
 
