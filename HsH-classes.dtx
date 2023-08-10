@@ -104,13 +104,12 @@
 %
 %<*article|report>
 % required for changing layout
-\PassOptionsToPackage{a4paper,vmargin=3cm,bindingoffset=1cm,textwidth=15.5cm}{geometry}
+\PassOptionsToPackage{vmargin=5\baselineskip,bindingoffset=0.08\paperwidth,textwidth=0.75\paperwidth}{geometry}
 \if@todos
   \PassOptionsToPackage{paperwidth=1.2\paperwidth,left=2cm}{geometry}
 \else
   \PassOptionsToPackage{nomarginpar}{geometry}
 \fi
-\RequirePackage{geometry}
 %
 % language specific localisation
 \if@german
@@ -313,7 +312,8 @@
 %% load config at beginning of document
 \AtBeginDocument{
   \makeatletter
-%<^*standalone>
+%<!standalone>  \RequirePackage{geometry}
+%<*!standalone>
 % solve some common errors:
   \@ifpackageloaded{biblatex}{
 % solves fontype warning in San-Serif
@@ -322,7 +322,7 @@
   \@ifpackageloaded{subfigure}{
     \newcommand{\subfigureautorefname}{\figureautorefname}
   }{}
-%<^*standalone>
+%</!standalone>
   \InputIfFileExists{config.tex}{
     \ClassInfo{\myClassName}{config.tex was found. Using it...}
   }{

@@ -82,13 +82,12 @@
 \RequirePackage{graphicx}
 \RequirePackage{amsmath}
 \if@german\RequirePackage{ziffer}\fi
-\PassOptionsToPackage{a4paper,vmargin=3cm,bindingoffset=1cm,textwidth=15.5cm}{geometry}
+\PassOptionsToPackage{vmargin=5\baselineskip,bindingoffset=0.08\paperwidth,textwidth=0.75\paperwidth}{geometry}
 \if@todos
   \PassOptionsToPackage{paperwidth=1.2\paperwidth,left=2cm}{geometry}
 \else
   \PassOptionsToPackage{nomarginpar}{geometry}
 \fi
-\RequirePackage{geometry}
 \if@german
   \PassOptionsToPackage{ngerman}{babel}
 \else
@@ -218,6 +217,7 @@
 %% load config at beginning of document
 \AtBeginDocument{
   \makeatletter
+  \RequirePackage{geometry}
   \@ifpackageloaded{biblatex}{
     \renewcommand*{\mkbibacro}[1]{\MakeUppercase{#1}}
   }{}

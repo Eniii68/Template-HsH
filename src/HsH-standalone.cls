@@ -91,12 +91,6 @@
 %% load config at beginning of document
 \AtBeginDocument{
   \makeatletter
-  \@ifpackageloaded{biblatex}{
-    \renewcommand*{\mkbibacro}[1]{\MakeUppercase{#1}}
-  }{}
-  \@ifpackageloaded{subfigure}{
-    \newcommand{\subfigureautorefname}{\figureautorefname}
-  }{}
   \InputIfFileExists{config.tex}{
     \ClassInfo{\myClassName}{config.tex was found. Using it...}
   }{

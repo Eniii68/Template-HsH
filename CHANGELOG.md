@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 
 ## [Current]
 
+### Changed
+
+- the margins are now set using relative values, which makes them adapt to different paper sizes
+
+## Fixed
+
+- `geometry` is now deferred until `AtBeginDocument`, which allows the user to load and modify the package in his preamble
+
 ## [2.0]
 
 ### Changed
