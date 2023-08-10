@@ -28,7 +28,14 @@
 %% commands for HsH-logo
 \newcommand{\HsHlogoPath}{HSH-Logo.pdf}
 \newcommand{\HsHlogoPage}{1}
-\newcommand{\includeHsHlogohere}[1][5cm]{\includegraphics[width=#1,page=\HsHlogoPage]{\HsHlogoPath}}
+\newcommand{\includeHsHlogohere}[1][5cm]{
+  \IfFileExists{\HsHlogoPath}{}{
+    \ClassError{\myClassName}{HsH-Logo.pdf not found!}{
+The HsH Logo is necasary for the titlepage! Try putting it next to your source file or use \HsHlogoPath to define the file location
+}
+}
+  \includegraphics[width=#1,page=\HsHlogoPage]{\HsHlogoPath}
+}
 \newif\if@german%
 
 %% document options -------------------------------------------------------------------------------

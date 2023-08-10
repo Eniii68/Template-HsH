@@ -28,7 +28,14 @@
 %% commands for HsH-logo
 \newcommand{\HsHlogoPath}{HSH-Logo.pdf}
 \newcommand{\HsHlogoPage}{1}
-\newcommand{\includeHsHlogohere}[1][5cm]{\includegraphics[width=#1,page=\HsHlogoPage]{\HsHlogoPath}}
+\newcommand{\includeHsHlogohere}[1][5cm]{
+  \IfFileExists{\HsHlogoPath}{}{
+    \ClassError{\myClassName}{HsH-Logo.pdf not found!}{
+The HsH Logo is necasary for the titlepage! Try putting it next to your source file or use \HsHlogoPath to define the file location
+}
+}
+  \includegraphics[width=#1,page=\HsHlogoPage]{\HsHlogoPath}
+}
 \newif\if@german%
 \newif\if@todos\@todosfalse%
 
@@ -383,11 +390,6 @@
       \next@tdpage
     \fi
     \setparsizes{\z@}{\z@}{\z@\@plus 1fil}\par@updaterelative
-    \IfFileExists{\HsHlogoPath}{}{
-      \ClassError{\myClassName}{HsH-Logo.pdf not found!}{
-        The HsH Logo is necasary for the titlepage! Try putting it next to your source file or use \HsHlogoPath to define the file location
-      }
-    }
     \vspace*{1cm}
     \begin{minipage}[t]{\textwidth}%
       \ifx\@titlehead\@empty \else
