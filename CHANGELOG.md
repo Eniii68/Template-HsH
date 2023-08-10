@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 - the margins are now set using relative values, which makes them adapt to different paper sizes
+- add alignment parameter to `\declarationAuthorship`, it is still by default aligned to the bottom of the page, but can now be pushed to the top using `\declarationAuthorship[t]`
 
 ## Fixed
 

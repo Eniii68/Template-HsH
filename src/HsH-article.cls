@@ -273,11 +273,12 @@
     properly acknowledged at their point of use.
   }
 \fi
-\newcommand\declarationAuthorship{
+\newcommand{\declarationAuthorship}[1][b]{
+  \let\@param#1
   \renewcommand{\thanks}{\sbox0}
   \foreach \x [count=\i] in \@author{\ifnum\i>1\global\@oneAuthorfalse\fi}
   \thispagestyle{plain}
-  \vspace*{\fill}
+  \if\@param b\vspace*{\fill}\fi
   {\rule{\textwidth}{0.1pt}}
   \vskip 3em
   {\centering\huge\textbf{\dATitlename}\par}
@@ -292,6 +293,7 @@
       \end{tabular}
     }
   \par}
+  \if\@param t\vspace*{\fill}\fi
 }
 %% reconfig Titlepage -----------------------------------------------------------------------------
 \newtoks\@tabtoks
