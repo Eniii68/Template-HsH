@@ -20,10 +20,10 @@
 %% and version 1.3 or later is part of all distributions of LaTeX version
 %% 2021/01/01 or later.
 %% 
-\typeout{Adapted from KOMA script for use in Hochschule Hannover <2023-08-08> Jan Wille}
+\typeout{Adapted from KOMA script for use in Hochschule Hannover <2023-08-11> Jan Wille}
 \NeedsTeXFormat{LaTeX2e}
 \newcommand{\myClassName}{HsH-article}
-\ProvidesClass{\myClassName}[2023/08/08 v2.0 HsH-Class based on KOMA]
+\ProvidesClass{\myClassName}[2023/08/11 v2.0 HsH-Class based on KOMA]
 
 %% commands for HsH-logo
 \newcommand{\HsHlogoPath}{HSH-Logo.pdf}
@@ -92,7 +92,7 @@
 \if@german\RequirePackage{ziffer}\fi
 \PassOptionsToPackage{vmargin=5\baselineskip,bindingoffset=0.08\paperwidth,textwidth=0.75\paperwidth}{geometry}
 \if@todos
-  \PassOptionsToPackage{paperwidth=1.2\paperwidth,left=2cm}{geometry}
+  \PassOptionsToPackage{paperwidth=0.915\paperwidth+\marginparsep+\marginparwidth+0.25cm, right=\marginparsep+\marginparwidth+0.25cm}{geometry}
 \else
   \PassOptionsToPackage{nomarginpar}{geometry}
 \fi

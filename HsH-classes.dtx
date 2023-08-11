@@ -16,13 +16,13 @@
 % \fi
 %
 %<*article|report|standalone>
-\typeout{Adapted from KOMA script for use in Hochschule Hannover <2023-08-08> Jan Wille}
+\typeout{Adapted from KOMA script for use in Hochschule Hannover <2023-08-11> Jan Wille}
 \NeedsTeXFormat{LaTeX2e}
 %
 %<article>\newcommand{\myClassName}{HsH-article}
 %<report>\newcommand{\myClassName}{HsH-report}
 %<standalone>\newcommand{\myClassName}{HsH-standalone}
-\ProvidesClass{\myClassName}[2023/08/08 v2.0 HsH-Class based on KOMA]
+\ProvidesClass{\myClassName}[2023/08/11 v2.0 HsH-Class based on KOMA]
 
 %% commands for HsH-logo
 \newcommand{\HsHlogoPath}{HSH-Logo.pdf}
@@ -115,7 +115,9 @@
 % required for changing layout
 \PassOptionsToPackage{vmargin=5\baselineskip,bindingoffset=0.08\paperwidth,textwidth=0.75\paperwidth}{geometry}
 \if@todos
-  \PassOptionsToPackage{paperwidth=1.2\paperwidth,left=2cm}{geometry}
+% new paperwidth is everything without the right marging plus new stuff for marginpar
+% rightmargin = ((1-0,75<paperwidth>) - 0.08<bindingoffset>)/2 = 0.915
+  \PassOptionsToPackage{paperwidth=0.915\paperwidth+\marginparsep+\marginparwidth+0.25cm, right=\marginparsep+\marginparwidth+0.25cm}{geometry}
 \else
   \PassOptionsToPackage{nomarginpar}{geometry}
 \fi
