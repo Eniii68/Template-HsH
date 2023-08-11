@@ -20,15 +20,22 @@
 %% and version 1.3 or later is part of all distributions of LaTeX version
 %% 2021/01/01 or later.
 %% 
-\typeout{Adapted from KOMA script for use in Hochschule Hannover <2023-08-08> Jan Wille}
+\typeout{Adapted from KOMA script for use in Hochschule Hannover <2023-08-12> Jan Wille}
 \NeedsTeXFormat{LaTeX2e}
 \newcommand{\myClassName}{HsH-article}
-\ProvidesClass{\myClassName}[2023/08/08 v2.0 HsH-Class based on KOMA]
+\ProvidesClass{\myClassName}[2023/08/12 v2.1 HsH-Class based on KOMA]
 
 %% commands for HsH-logo
 \newcommand{\HsHlogoPath}{HSH-Logo.pdf}
 \newcommand{\HsHlogoPage}{1}
-\newcommand{\includeHsHlogohere}[1][5cm]{\includegraphics[width=#1,page=\HsHlogoPage]{\HsHlogoPath}}
+\newcommand{\includeHsHlogohere}[1][5cm]{
+  \IfFileExists{\HsHlogoPath}{}{
+    \ClassError{\myClassName}{HsH-Logo.pdf not found!}{
+      The HsH Logo is necasary for the titlepage! Try putting it next to your source file or use \HsHlogoPath to define the file location
+    }
+  }
+  \includegraphics[width=#1,page=\HsHlogoPage]{\HsHlogoPath}
+}
 \newif\if@german%
 \newif\if@todos\@todosfalse%
 
@@ -66,6 +73,7 @@
 \DeclareOption{todos}{
   \@todostrue
 }
+%% defere all other options to the base class
 \DeclareOption*{\expandafter\PassOptionsToClass\expandafter{\CurrentOption}{scrartcl}}
 \ExecuteOptions{fontsize=11pt,a4paper,ngerman,sans} % default options
 \ProcessOptions\relax
@@ -81,10 +89,10 @@
 \RequirePackage{lmodern}
 \RequirePackage{graphicx}
 \RequirePackage{amsmath}
-\if@german\RequirePackage{ziffer}\fi
-\PassOptionsToPackage{a4paper,vmargin=3cm,bindingoffset=1cm,textwidth=15.5cm}{geometry}
+\PassOptionsToPackage{vmargin=5\baselineskip,bindingoffset=0.08\paperwidth,textwidth=0.75\paperwidth}{geometry}
 \if@todos
-  \PassOptionsToPackage{paperwidth=1.2\paperwidth,left=2cm}{geometry}
+  \setlength{\marginparwidth}{6cm}
+  \PassOptionsToPackage{paperwidth=\dimexpr +0.915\paperwidth+\marginparsep+\marginparwidth+0.25cm, right=\dimexpr +\marginparsep+\marginparwidth+0.25cm}{geometry}
 \else
   \PassOptionsToPackage{nomarginpar}{geometry}
 \fi
@@ -95,6 +103,7 @@
   \PassOptionsToPackage{english}{babel}
 \fi
 \RequirePackage{babel}
+\iflanguage{ngerman}{\RequirePackage{ziffer}}{}%
 \PassOptionsToPackage{headsepline}{scrlayer-scrpage}
 \RequirePackage{scrlayer-scrpage}
 \RequirePackage{scrhack}
@@ -104,7 +113,7 @@
 \RequirePackage{caption}
 \RequirePackage{bookmark}
 \PassOptionsToPackage{babel}{csquotes}
-\if@german\PassOptionsToPackage{german=quotes}{csquotes}\fi
+\iflanguage{ngerman}{\PassOptionsToPackage{german=quotes}{csquotes}}{}%
 \RequirePackage{csquotes}
 \MakeOuterQuote{"}
 \if@todos
@@ -116,9 +125,9 @@
   \RequirePackage{todonotes}
   \setlength{\marginparwidth}{5.2cm}
 \else
-    \newcommand{\listoftodos}[1][]{}
-    \newcommand{\todo}[2][]{}
-    \newcommand{\missingfigure}[2][]{}
+    \newcommand{\listoftodos}[1]{}
+    \newcommand{\todo}[2]{}
+    \newcommand{\missingfigure}[2]{}
 \fi
 \RequirePackage{pgffor}
 %% options for not loaded packages ----------------------------------------------------------------
@@ -136,6 +145,10 @@
 \newcommand{\matrikelnr}[1]{\gdef\@matrikelnr{#1}}
 \newcommand*{\@professor}{}
 \newcommand{\professor}[1]{\gdef\@professor{#1}}
+\newcommand*{\@firstexaminer}{}
+\newcommand{\firstexaminer}[1]{\gdef\@firstexaminer{#1}}
+\newcommand*{\@secondexaminer}{}
+\newcommand{\secondexaminer}[1]{\gdef\@secondexaminer{#1}}
 \newcommand*{\@keywords}{}
 \newcommand{\keywords}[1]{\gdef\@keywords{#1}}
 \let\@author\@empty
@@ -191,14 +204,15 @@
   \g@addto@macro\@floatboxreset\centering
   \setcapwidth{0.8\textwidth}
 \fi
-\if@german
+\iflanguage{english}{
+  \renewcaptionname{english}{\figurename}{Fig.}
+  \renewcaptionname{english}{\tablename}{Tab.}
+}{}%
+\iflanguage{ngerman}{
   \renewcaptionname{ngerman}{\figurename}{Abb.}
   \renewcaptionname{ngerman}{\tablename}{Tab.}
   \renewcaptionname{ngerman}{\abstractname}{Abstract}
-\else
-  \renewcaptionname{english}{\figurename}{Fig.}
-  \renewcaptionname{english}{\tablename}{Tab.}
-\fi
+}{}%
 
 %% styling for itemize
 \renewcommand{\labelitemi}{$\bullet$}
@@ -209,7 +223,7 @@
 %% do stuff
 \setlength\parindent{0pt}
 \raggedbottom
-\renewcommand{\layercontentsmeasure}{\@empty}
+\let\layercontentsmeasure\relax
 
 %% custom commands
 \newcommand{\uproman}[1]{\uppercase\expandafter{\romannumeral#1}}
@@ -233,56 +247,37 @@
   \providecommand{\abs}[1]{\ensuremath{\left\vert#1\right\vert}}
   \makeatother
 }
-%% nicer abstract ---------------------------------------------------------------------------------
-\renewenvironment{abstract}{
-  \quotation
-  \setlength\parindent{0pt}
-  \section*{\abstractname}
-  \addcontentsline{toc}{section}{\abstractname}
-}{%
-  \ifx\@keywords\@empty\else
-    \vskip 0.5em
-    \paragraph{\if@german Schlüsselwörter:\else Keywords:\fi}
-    \@keywords
-  \fi
-  \endquotation
-}
-%% decloration of Authorship ----------------------------------------------------------------------
+%% declaration of Authorship ----------------------------------------------------------------------
+\iflanguage{english}{
+  \setlocalecaption{english}{authorshipdeclaration}{Declaration of Authorship}
+}{}%
+\iflanguage{ngerman}{
+  \setlocalecaption{ngerman}{authorshipdeclaration}{Selbstst\"andigkeitserkl\"arung}
+}{}%
 \newif\if@oneAuthor \@oneAuthortrue
-\if@german
-  \setlocalecaption{ngerman}{dATitle}{Selbstständigkeitserklärung}
-  \setlocalecaption{ngerman}{dAPronomen}{\if@oneAuthor ich\else wir\fi}
-  \setlocalecaption{ngerman}{dAPluralendung}{\if@oneAuthor\else n\fi}
-  \setlocalecaption{ngerman}{dAGenitiv}{\if@oneAuthor mir\else uns\fi}
-  \setlocalecaption{ngerman}{dAText}{
-    Hiermit bestätige\dAPluralendungname\space\dAPronomenname, dass die folgende Arbeit eigenständig von \dAGenitivname\space allein erstellt
-    und unter Berücksichtigung der zur Verfügung gestellten Aufgabenstellung sowie dem Arbeitsmaterial unter Angabe aller verwendeten Quellen
-    erarbeitet wurde. Die Regelungen und Konsequenzen eines Plagiats, inklusive disziplinarischer Maßnahmen, sind \dAGenitivname\space
-    bewusst. Insbesondere wurden alle Zitate und gedanklichen Übernahmen als solche kenntlich gemacht.
-  }
-\else
-  \setlocalecaption{english}{dATitle}{Declaration of Authorship}
-  \setlocalecaption{english}{dAPronomen}{\if@oneAuthor I\else we\fi}
-  \setlocalecaption{english}{dAPronomenf}{\if@oneAuthor I\else We\fi}
-  \setlocalecaption{english}{dAPronomverb}{\if@oneAuthor am\else are\fi}
-  \setlocalecaption{english}{dAGenitiv}{\if@oneAuthor my\else our\fi}
-  \setlocalecaption{english}{dAText}{
-    \dAPronomenfname\space hereby certify that the work \dAPronomenname\space\dAPronomverbname\space submitting is entirely of
-    \dAGenitivname\space own making except where otherwise indicated. \dAPronomenfname\space\dAPronomverbname\space aware of regulations
-    concerning plagiarism, including disciplinary actions that may result from it. Any use of the works of any other author, in any form, is
-    properly acknowledged at their point of use.
-  }
-\fi
-\newcommand\declarationAuthorship{
+\newcommand{\declarationofauthorship}[1][b]{
+  \let\@param#1
   \renewcommand{\thanks}{\sbox0}
   \foreach \x [count=\i] in \@author{\ifnum\i>1\global\@oneAuthorfalse\fi}
   \thispagestyle{plain}
-  \vspace*{\fill}
+  \if\@param b\vspace*{\fill}\fi
   {\rule{\textwidth}{0.1pt}}
   \vskip 3em
-  {\centering\huge\textbf{\dATitlename}\par}
+  {\centering\huge\bfseries\authorshipdeclarationname\par}
   \vskip 3em
-  {\dATextname\par}
+  \iflanguage{english}{
+    \if@oneAuthor I\else We\fi\space hereby certify that the work \if@oneAuthor I\else we\fi\space \if@oneAuthor am\else are\fi\space submitting
+    is entirely of \if@oneAuthor my\else our\fi own making except where otherwise indicated. \if@oneAuthor I\else We\fi\space
+    \if@oneAuthor am\else are\fi\space aware of regulations concerning plagiarism, including disciplinary actions that may result from it. Any use
+    of the works of any other author, in any form, is properly acknowledged at their point of use. \par
+  }{}%
+  \iflanguage{ngerman}{
+    Hiermit best{\"a}tige\if@oneAuthor\else n\fi\space \if@oneAuthor ich\else wir\fi, dass die folgende Arbeit eigenst{\"a}ndig von
+    \if@oneAuthor mir\else uns\fi\space allein erstellt und unter Ber{\"u}cksichtigung der zur Verf{\"u}gung gestellten Aufgabenstellung sowie dem
+    Arbeitsmaterial unter Angabe aller verwendeten Quellen erarbeitet wurde. Die Regelungen und Konsequenzen eines Plagiats, inklusive
+    disziplinarischer Ma{\ss}nahmen, sind \if@oneAuthor mir\else uns\fi\space bewusst. Insbesondere wurden alle Zitate und gedanklichen {\"U}bernahmen
+    als solche kenntlich gemacht. \par
+  }{}%
   {\raggedleft
     \foreach \x in \@author{
       \begin{tabular}[t]{r}
@@ -292,8 +287,21 @@
       \end{tabular}
     }
   \par}
+  \if\@param t\vspace*{\fill}\fi
 }
+\let\declarationAuthorship\declarationofauthorship
+
 %% reconfig Titlepage -----------------------------------------------------------------------------
+\iflanguage{english}{
+  \setlocalecaption{english}{professor}{Professor}
+  \setlocalecaption{english}{firstexaminer}{First examiner}
+  \setlocalecaption{english}{secondexaminer}{Second examiner}
+}{}%
+\iflanguage{ngerman}{
+  \setlocalecaption{ngerman}{professor}{Professor(in)/Lehrbeauftragte(r)}
+  \setlocalecaption{ngerman}{firstexaminer}{Erstpr{\"u}fer(in)}
+  \setlocalecaption{ngerman}{secondexaminer}{Zweitpr{\"u}fer(in)}
+}{}%
 \newtoks\@tabtoks
 \newcommand\addtabtoks[1]{\global\@tabtoks\expandafter{\the\@tabtoks#1}}
 \newcommand\eaddtabtoks[1]{\edef\mytmp{#1}\expandafter\addtabtoks\expandafter{\mytmp}}
@@ -349,11 +357,6 @@
     \fi
     \global\@topnum=\z@
     \setparsizes{\z@}{\z@}{\z@\@plus 1fil}\par@updaterelative
-    \IfFileExists{\HsHlogoPath}{}{
-      \ClassError{\myClassName}{HsH-Logo.pdf not found!}{
-        The HsH Logo is necasary for the titlepage! Try putting it next to your source file or use \HsHlogoPath to define the file location
-      }
-    }
     \vspace*{1cm}
     \begin{minipage}[t]{\textwidth}%
       \ifx\@titlehead\@empty \else
@@ -388,7 +391,8 @@
         \if\@author\@empty\else
           % sneeky comma needed after \@matrikelnr to deal with single item lists
           \foreach \x [count=\i,evaluate=\i as \y using {{\@matrikelnr,}[\i-1]}] in \@author {\eaddtabtoks{\x & \y\protect\\}}
-          \usekomafont{author}{\def\arraystretch{1.2}
+          \usekomafont{author}{
+            \def\arraystretch{1.2}
             \if\@param l\begin{tabular}{@{}l l}\printtabtoks\end{tabular}\fi
             \if\@param c\begin{tabular}{l l}\printtabtoks\end{tabular}\fi
             \if\@param r\begin{tabular}{r r@{}}\printtabtoks\end{tabular}\fi
@@ -398,7 +402,16 @@
       \vskip 1em
       {\usekomafont{date}{\@date\par}}
       \vskip 1em
-     {\if\@professor\@empty\else\usekomafont{publishers}{Professor\if@german(in)/Lehrbeauftragte(r)\fi: \@professor}\fi}
+      \usekomafont{publishers}{
+        \def\arraystretch{1.2}
+        \if\@param l\begin{tabular}{@{}l l}\fi
+        \if\@param c\begin{tabular}{l l}\fi
+        \if\@param r\begin{tabular}{r r@{}}\fi
+          \if\@professor\@empty\else\textbf{\professorname:}&\@professor\\\fi
+          \if\@firstexaminer\@empty\else\textbf{\firstexaminername:}&\@firstexaminer\\\fi
+          \if\@secondexaminer\@empty\else\textbf{\secondexaminername:}&\@secondexaminer\\\fi
+        \end{tabular}
+      }
       \ifx\@dedication\@empty\else
         \vskip 2em
         {\usekomafont{dedication}{\@dedication \par}}%

@@ -20,15 +20,22 @@
 %% and version 1.3 or later is part of all distributions of LaTeX version
 %% 2021/01/01 or later.
 %% 
-\typeout{Adapted from KOMA script for use in Hochschule Hannover <2023-08-08> Jan Wille}
+\typeout{Adapted from KOMA script for use in Hochschule Hannover <2023-08-12> Jan Wille}
 \NeedsTeXFormat{LaTeX2e}
 \newcommand{\myClassName}{HsH-standalone}
-\ProvidesClass{\myClassName}[2023/08/08 v2.0 HsH-Class based on KOMA]
+\ProvidesClass{\myClassName}[2023/08/12 v2.1 HsH-Class based on KOMA]
 
 %% commands for HsH-logo
 \newcommand{\HsHlogoPath}{HSH-Logo.pdf}
 \newcommand{\HsHlogoPage}{1}
-\newcommand{\includeHsHlogohere}[1][5cm]{\includegraphics[width=#1,page=\HsHlogoPage]{\HsHlogoPath}}
+\newcommand{\includeHsHlogohere}[1][5cm]{
+  \IfFileExists{\HsHlogoPath}{}{
+    \ClassError{\myClassName}{HsH-Logo.pdf not found!}{
+      The HsH Logo is necasary for the titlepage! Try putting it next to your source file or use \HsHlogoPath to define the file location
+    }
+  }
+  \includegraphics[width=#1,page=\HsHlogoPage]{\HsHlogoPath}
+}
 \newif\if@german%
 
 %% document options -------------------------------------------------------------------------------
@@ -62,6 +69,7 @@
 \DeclareOption{roman}{
   \renewcommand{\familydefault}{\rmdefault}
 }
+%% defere all other options to the base class
 \DeclareOption*{\expandafter\PassOptionsToClass\expandafter{\CurrentOption}{standalone}}
 \ExecuteOptions{margin=0.25cm,fontsize=11pt,a4paper,ngerman,sans} % default options
 \ProcessOptions\relax
@@ -76,7 +84,6 @@
 \RequirePackage{lmodern}
 \RequirePackage{graphicx}
 \RequirePackage{amsmath}
-\if@german\RequirePackage{ziffer}\fi
 %% options for not loaded packages ----------------------------------------------------------------
 \PassOptionsToPackage{free-standing-units}{siunitx}
 \PassOptionsToPackage{european,EFvoltages,straightvoltages,betterproportions}{circuitikz}
@@ -91,12 +98,6 @@
 %% load config at beginning of document
 \AtBeginDocument{
   \makeatletter
-  \@ifpackageloaded{biblatex}{
-    \renewcommand*{\mkbibacro}[1]{\MakeUppercase{#1}}
-  }{}
-  \@ifpackageloaded{subfigure}{
-    \newcommand{\subfigureautorefname}{\figureautorefname}
-  }{}
   \InputIfFileExists{config.tex}{
     \ClassInfo{\myClassName}{config.tex was found. Using it...}
   }{
