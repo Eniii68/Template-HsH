@@ -84,7 +84,6 @@
 \RequirePackage{lmodern}
 \RequirePackage{graphicx}
 \RequirePackage{amsmath}
-\if@german\RequirePackage{ziffer}\fi
 %% options for not loaded packages ----------------------------------------------------------------
 \PassOptionsToPackage{free-standing-units}{siunitx}
 \PassOptionsToPackage{european,EFvoltages,straightvoltages,betterproportions}{circuitikz}

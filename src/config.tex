@@ -25,9 +25,9 @@
   }
 }{}
 \@ifpackageloaded{siunitx}{
-  \if@german
+  \iflanguage{ngerman}{
     \sisetup{output-decimal-marker={,}} % use comma as dezimal
-  \fi
+  }{}%
   \sisetup{
     tight-spacing=true,
     per-mode=symbol,
@@ -70,9 +70,9 @@
 \@ifpackageloaded{pgfplots}{
   \usepgfplotslibrary{fillbetween} % mark areas under or between graphs
   \usetikzlibrary{patterns} % for using pattern in plots
-  \if@german
+  \iflanguage{ngerman}{
     \pgfplotsset{/pgf/number format/use comma}
-  \fi
+  }{}%
   \pgfplotsset{
     compat=1.16,
     /pgf/number format/read comma as period,

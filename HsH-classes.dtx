@@ -114,10 +114,12 @@
 \if@todos
 % new paperwidth is everything without the right marging plus new stuff for marginpar
 % rightmargin = ((1-0,75<paperwidth>) - 0.08<bindingoffset>)/2 = 0.915
-  \PassOptionsToPackage{paperwidth=0.915\paperwidth+\marginparsep+\marginparwidth+0.25cm, right=\marginparsep+\marginparwidth+0.25cm}{geometry}
+  \setlength{\marginparwidth}{6cm}
+  \PassOptionsToPackage{paperwidth=\dimexpr +0.915\paperwidth+\marginparsep+\marginparwidth+0.25cm, right=\dimexpr +\marginparsep+\marginparwidth+0.25cm}{geometry}
 \else
   \PassOptionsToPackage{nomarginpar}{geometry}
 \fi
+\RequirePackage{geometry}
 %
 % language specific localisation
 \if@german
@@ -324,7 +326,6 @@
 %% load config at beginning of document
 \AtBeginDocument{
   \makeatletter
-%<!standalone>  \RequirePackage{geometry}
 %<*!standalone>
 % solve some common errors:
   \@ifpackageloaded{biblatex}{

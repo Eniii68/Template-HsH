@@ -89,19 +89,21 @@
 \RequirePackage{lmodern}
 \RequirePackage{graphicx}
 \RequirePackage{amsmath}
-\if@german\RequirePackage{ziffer}\fi
 \PassOptionsToPackage{vmargin=5\baselineskip,bindingoffset=0.08\paperwidth,textwidth=0.75\paperwidth}{geometry}
 \if@todos
-  \PassOptionsToPackage{paperwidth=0.915\paperwidth+\marginparsep+\marginparwidth+0.25cm, right=\marginparsep+\marginparwidth+0.25cm}{geometry}
+  \setlength{\marginparwidth}{6cm}
+  \PassOptionsToPackage{paperwidth=\dimexpr +0.915\paperwidth+\marginparsep+\marginparwidth+0.25cm, right=\dimexpr +\marginparsep+\marginparwidth+0.25cm}{geometry}
 \else
   \PassOptionsToPackage{nomarginpar}{geometry}
 \fi
+\RequirePackage{geometry}
 \if@german
   \PassOptionsToPackage{ngerman}{babel}
 \else
   \PassOptionsToPackage{english}{babel}
 \fi
 \RequirePackage{babel}
+\iflanguage{ngerman}{\RequirePackage{ziffer}}{}%
 \PassOptionsToPackage{headsepline}{scrlayer-scrpage}
 \RequirePackage{scrlayer-scrpage}
 \RequirePackage{scrhack}
@@ -111,7 +113,7 @@
 \RequirePackage{caption}
 \RequirePackage{bookmark}
 \PassOptionsToPackage{babel}{csquotes}
-\if@german\PassOptionsToPackage{german=quotes}{csquotes}\fi
+\iflanguage{ngerman}{\PassOptionsToPackage{german=quotes}{csquotes}}{}%
 \RequirePackage{csquotes}
 \MakeOuterQuote{"}
 \if@todos
@@ -123,9 +125,9 @@
   \RequirePackage{todonotes}
   \setlength{\marginparwidth}{5.2cm}
 \else
-    \newcommand{\listoftodos}[1][]{}
-    \newcommand{\todo}[2][]{}
-    \newcommand{\missingfigure}[2][]{}
+    \newcommand{\listoftodos}[1]{}
+    \newcommand{\todo}[2]{}
+    \newcommand{\missingfigure}[2]{}
 \fi
 \RequirePackage{pgffor}
 %% options for not loaded packages ----------------------------------------------------------------
@@ -199,14 +201,15 @@
   \g@addto@macro\@floatboxreset\centering
   \setcapwidth{0.8\textwidth}
 \fi
-\if@german
+\iflanguage{english}{
+  \renewcaptionname{english}{\figurename}{Fig.}
+  \renewcaptionname{english}{\tablename}{Tab.}
+}{}%
+\iflanguage{ngerman}{
   \renewcaptionname{ngerman}{\figurename}{Abb.}
   \renewcaptionname{ngerman}{\tablename}{Tab.}
   \renewcaptionname{ngerman}{\abstractname}{Abstract}
-\else
-  \renewcaptionname{english}{\figurename}{Fig.}
-  \renewcaptionname{english}{\tablename}{Tab.}
-\fi
+}{}%
 
 %% styling for itemize
 \renewcommand{\labelitemi}{$\bullet$}
@@ -217,7 +220,7 @@
 %% do stuff
 \setlength\parindent{0pt}
 \raggedbottom
-\renewcommand{\layercontentsmeasure}{\@empty}
+\let\layercontentsmeasure\relax
 
 %% define easy shorthands to switch pagenumbering
 \newif\if@mainmatter\@mainmattertrue
@@ -241,7 +244,6 @@
 %% load config at beginning of document
 \AtBeginDocument{
   \makeatletter
-  \RequirePackage{geometry}
   \@ifpackageloaded{biblatex}{
     \renewcommand*{\mkbibacro}[1]{\MakeUppercase{#1}}
   }{}
@@ -265,38 +267,23 @@
 }{%
   \ifx\@keywords\@empty\else
     \vskip 2em
-    \paragraph{\if@german Schlüsselwörter:\else Keywords:\fi}
+    \paragraph{%
+      \iflanguage{english}{Keywords}{}%
+      \iflanguage{ngerman}{Schlüsselwörter}{}%
+    }
     \@keywords
   \fi
   \endquotation
 }
-%% decloration of Authorship ----------------------------------------------------------------------
+%% declaration of Authorship ----------------------------------------------------------------------
+\iflanguage{english}{
+  \setlocalecaption{english}{authorshipdeclaration}{Declaration of Authorship}
+}{}%
+\iflanguage{ngerman}{
+  \setlocalecaption{ngerman}{authorshipdeclaration}{Selbstst\"andigkeitserkl\"arung}
+}{}%
 \newif\if@oneAuthor \@oneAuthortrue
-\if@german
-  \setlocalecaption{ngerman}{dATitle}{Selbstständigkeitserklärung}
-  \setlocalecaption{ngerman}{dAPronomen}{\if@oneAuthor ich\else wir\fi}
-  \setlocalecaption{ngerman}{dAPluralendung}{\if@oneAuthor\else n\fi}
-  \setlocalecaption{ngerman}{dAGenitiv}{\if@oneAuthor mir\else uns\fi}
-  \setlocalecaption{ngerman}{dAText}{
-    Hiermit bestätige\dAPluralendungname\space\dAPronomenname, dass die folgende Arbeit eigenständig von \dAGenitivname\space allein erstellt
-    und unter Berücksichtigung der zur Verfügung gestellten Aufgabenstellung sowie dem Arbeitsmaterial unter Angabe aller verwendeten Quellen
-    erarbeitet wurde. Die Regelungen und Konsequenzen eines Plagiats, inklusive disziplinarischer Maßnahmen, sind \dAGenitivname\space
-    bewusst. Insbesondere wurden alle Zitate und gedanklichen Übernahmen als solche kenntlich gemacht.
-  }
-\else
-  \setlocalecaption{english}{dATitle}{Declaration of Authorship}
-  \setlocalecaption{english}{dAPronomen}{\if@oneAuthor I\else we\fi}
-  \setlocalecaption{english}{dAPronomenf}{\if@oneAuthor I\else We\fi}
-  \setlocalecaption{english}{dAPronomverb}{\if@oneAuthor am\else are\fi}
-  \setlocalecaption{english}{dAGenitiv}{\if@oneAuthor my\else our\fi}
-  \setlocalecaption{english}{dAText}{
-    \dAPronomenfname\space hereby certify that the work \dAPronomenname\space\dAPronomverbname\space submitting is entirely of
-    \dAGenitivname\space own making except where otherwise indicated. \dAPronomenfname\space\dAPronomverbname\space aware of regulations
-    concerning plagiarism, including disciplinary actions that may result from it. Any use of the works of any other author, in any form, is
-    properly acknowledged at their point of use.
-  }
-\fi
-\newcommand{\declarationAuthorship}[1][b]{
+\newcommand{\declarationofauthorship}[1][b]{
   \let\@param#1
   \renewcommand{\thanks}{\sbox0}
   \foreach \x [count=\i] in \@author{\ifnum\i>1\global\@oneAuthorfalse\fi}
@@ -304,9 +291,21 @@
   \if\@param b\vspace*{\fill}\fi
   {\rule{\textwidth}{0.1pt}}
   \vskip 3em
-  {\centering\huge\textbf{\dATitlename}\par}
+  {\centering\huge\bfseries\authorshipdeclarationname\par}
   \vskip 3em
-  {\dATextname\par}
+  \iflanguage{english}{
+    \if@oneAuthor I\else We\fi\space hereby certify that the work \if@oneAuthor I\else we\fi\space \if@oneAuthor am\else are\fi\space submitting
+    is entirely of \if@oneAuthor my\else our\fi own making except where otherwise indicated. \if@oneAuthor I\else We\fi\space
+    \if@oneAuthor am\else are\fi\space aware of regulations concerning plagiarism, including disciplinary actions that may result from it. Any use
+    of the works of any other author, in any form, is properly acknowledged at their point of use. \par
+  }{}%
+  \iflanguage{ngerman}{
+    Hiermit best{\"a}tige\if@oneAuthor\else n\fi\space \if@oneAuthor ich\else wir\fi, dass die folgende Arbeit eigenst{\"a}ndig von
+    \if@oneAuthor mir\else uns\fi\space allein erstellt und unter Ber{\"u}cksichtigung der zur Verf{\"u}gung gestellten Aufgabenstellung sowie dem
+    Arbeitsmaterial unter Angabe aller verwendeten Quellen erarbeitet wurde. Die Regelungen und Konsequenzen eines Plagiats, inklusive
+    disziplinarischer Ma{\ss}nahmen, sind \if@oneAuthor mir\else uns\fi\space bewusst. Insbesondere wurden alle Zitate und gedanklichen {\"U}bernahmen
+    als solche kenntlich gemacht. \par
+  }{}%
   {\raggedleft
     \foreach \x in \@author{
       \begin{tabular}[t]{r}
@@ -318,6 +317,8 @@
   \par}
   \if\@param t\vspace*{\fill}\fi
 }
+\let\declarationAuthorship\declarationofauthorship
+
 %% reconfig Titlepage -----------------------------------------------------------------------------
 \newtoks\@tabtoks
 \newcommand\addtabtoks[1]{\global\@tabtoks\expandafter{\the\@tabtoks#1}}
@@ -434,7 +435,7 @@
       \vskip 1.5em
       {\usekomafont{date}{\@date\par}}
       \vskip \z@ \@plus3fill
-     {\if\@professor\@empty\else\usekomafont{publishers}{Professor\if@german(in)/Lehrbeauftragte(r)\fi: \@professor}\fi}
+     {\if\@professor\@empty\else\usekomafont{publishers}{Professor\iflanguage{ngerman}{(in)/Lehrbeauftragte(r)}{}: \@professor}\fi}
       \par
     \endgroup
     \vskip 3em
