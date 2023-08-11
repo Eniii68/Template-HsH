@@ -108,9 +108,6 @@
 % a lot of nice Math
 \RequirePackage{amsmath}
 %
-% german dezimal numbers
-\if@german\RequirePackage{ziffer}\fi
-%
 %<*article|report>
 % required for changing layout
 \PassOptionsToPackage{vmargin=5\baselineskip,bindingoffset=0.08\paperwidth,textwidth=0.75\paperwidth}{geometry}
@@ -129,6 +126,9 @@
   \PassOptionsToPackage{english}{babel}
 \fi
 \RequirePackage{babel}
+%
+% german dezimal numbers
+\iflanguage{ngerman}{\RequirePackage{ziffer}}{}%
 %
 % required for header and footer
 \PassOptionsToPackage{headsepline}{scrlayer-scrpage}
@@ -149,7 +149,7 @@
 %
 % quotations
 \PassOptionsToPackage{babel}{csquotes}
-\if@german\PassOptionsToPackage{german=quotes}{csquotes}\fi
+\iflanguage{ngerman}{\PassOptionsToPackage{german=quotes}{csquotes}}{}%
 \RequirePackage{csquotes}
 % this makes quotationmarks usable in text:
 \MakeOuterQuote{"}
@@ -272,14 +272,15 @@
   \setcapwidth{0.8\textwidth}
 \fi
 % abbreviations for names:
-\if@german
+\iflanguage{english}{
+  \renewcaptionname{english}{\figurename}{Fig.}
+  \renewcaptionname{english}{\tablename}{Tab.}
+}{}%
+\iflanguage{ngerman}{
   \renewcaptionname{ngerman}{\figurename}{Abb.}
   \renewcaptionname{ngerman}{\tablename}{Tab.}
   \renewcaptionname{ngerman}{\abstractname}{Abstract}
-\else
-  \renewcaptionname{english}{\figurename}{Fig.}
-  \renewcaptionname{english}{\tablename}{Tab.}
-\fi
+}{}%
 
 %% styling for itemize
 \renewcommand{\labelitemi}{$\bullet$}
@@ -354,7 +355,10 @@
 }{%
   \ifx\@keywords\@empty\else
     \vskip 2em
-    \paragraph{\if@german Schlüsselwörter:\else Keywords:\fi}
+    \paragraph{%
+      \iflanguage{english}{Keywords}{}%
+      \iflanguage{ngerman}{Schlüsselwörter}{}%
+    }
     \@keywords
   \fi
   \endquotation
@@ -575,7 +579,7 @@
       {\usekomafont{date}{\@date\par}}
 %<article>      \vskip 1em
 %<report>      \vskip \z@ \@plus3fill
-     {\if\@professor\@empty\else\usekomafont{publishers}{Professor\if@german(in)/Lehrbeauftragte(r)\fi: \@professor}\fi}
+     {\if\@professor\@empty\else\usekomafont{publishers}{Professor\iflanguage{ngerman}{(in)/Lehrbeauftragte(r)}{}: \@professor}\fi}
 %<*article>
       \ifx\@dedication\@empty\else
         \vskip 2em
@@ -704,9 +708,9 @@
   }
 }{}
 \@ifpackageloaded{siunitx}{
-  \if@german
+  \iflanguage{ngerman}{
     \sisetup{output-decimal-marker={,}} % use comma as dezimal
-  \fi
+  }{}%
   \sisetup{
     tight-spacing=true,
     per-mode=symbol,
@@ -749,9 +753,9 @@
 \@ifpackageloaded{pgfplots}{
   \usepgfplotslibrary{fillbetween} % mark areas under or between graphs
   \usetikzlibrary{patterns} % for using pattern in plots
-  \if@german
+  \iflanguage{ngerman}{
     \pgfplotsset{/pgf/number format/use comma}
-  \fi
+  }{}%
   \pgfplotsset{
     compat=1.16,
     /pgf/number format/read comma as period,
