@@ -374,7 +374,7 @@
 \newif\if@oneAuthor \@oneAuthortrue
 %
 % this is the actuall command:
-\newcommand{\declarationAuthorship}[1][b]{
+\newcommand{\declarationofauthorship}[1][b]{
   \let\@param#1
   \renewcommand{\thanks}{\sbox0}
   \foreach \x [count=\i] in \@author{\ifnum\i>1\global\@oneAuthorfalse\fi}
@@ -408,6 +408,9 @@
   \par}
   \if\@param t\vspace*{\fill}\fi
 }
+% for backwards compatability:
+\let\declarationAuthorship\declarationofauthorship
+
 %
 %% reconfig Titlepage -----------------------------------------------------------------------------
 \newtoks\@tabtoks

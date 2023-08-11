@@ -177,7 +177,7 @@ You can use the following macros to define the different information presented o
 - `\keywords` will not be printed on the title-page, but rather on the end of the abstract, if you define some. They will also be but into the PDFs
   metadata.
 
-### `\declarationAuthorship[align]`
+### `\declarationofauthorship[align]`
 This macro will typeset a declaration of authorship, which is needed for most academic works. You can choose to have it on the bottom (`b`) or top (`t`) of the page, with bottom beeing the default. <br>
 The macro is defined in German and English and will automatically match your document language.
 
