@@ -73,6 +73,7 @@
 \DeclareOption{todos}{
   \@todostrue
 }
+%% defere all other options to the base class
 \DeclareOption*{\expandafter\PassOptionsToClass\expandafter{\CurrentOption}{scrartcl}}
 \ExecuteOptions{fontsize=11pt,a4paper,ngerman,sans} % default options
 \ProcessOptions\relax
@@ -239,20 +240,6 @@
   %% provide some usefull commands:
   \providecommand{\abs}[1]{\ensuremath{\left\vert#1\right\vert}}
   \makeatother
-}
-%% nicer abstract ---------------------------------------------------------------------------------
-\renewenvironment{abstract}{
-  \quotation
-  \setlength\parindent{0pt}
-  \section*{\abstractname}
-  \addcontentsline{toc}{section}{\abstractname}
-}{%
-  \ifx\@keywords\@empty\else
-    \vskip 0.5em
-    \paragraph{\if@german Schlüsselwörter:\else Keywords:\fi}
-    \@keywords
-  \fi
-  \endquotation
 }
 %% decloration of Authorship ----------------------------------------------------------------------
 \newif\if@oneAuthor \@oneAuthortrue

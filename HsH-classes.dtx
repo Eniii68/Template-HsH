@@ -74,6 +74,8 @@
   \@todostrue
 }
 %</article|report>
+%
+%% defere all other options to the base class
 %<article>\DeclareOption*{\expandafter\PassOptionsToClass\expandafter{\CurrentOption}{scrartcl}}
 %<report>\DeclareOption*{\expandafter\PassOptionsToClass\expandafter{\CurrentOption}{scrreprt}}
 %<standalone>\DeclareOption*{\expandafter\PassOptionsToClass\expandafter{\CurrentOption}{standalone}}
@@ -341,24 +343,22 @@
   \makeatother
 }
 %
-%<*article|report>
+%<*report>
 %% nicer abstract ---------------------------------------------------------------------------------
 \renewenvironment{abstract}{
   \quotation
   \setlength\parindent{0pt}
-%<article>  \section*{\abstractname}
-%<article>  \addcontentsline{toc}{section}{\abstractname}
-%<report>  \chapter*{\abstractname}
-%<report>  \addcontentsline{toc}{chapter}{\abstractname}
+  \addchap{\abstractname}
 }{%
   \ifx\@keywords\@empty\else
-%<article>    \vskip 0.5em
-%<report>    \vskip 2em
+    \vskip 2em
     \paragraph{\if@german Schlüsselwörter:\else Keywords:\fi}
     \@keywords
   \fi
   \endquotation
 }
+%</report>
+%<*article|report>
 %% decloration of Authorship ----------------------------------------------------------------------
 \newif\if@oneAuthor \@oneAuthortrue
 \if@german

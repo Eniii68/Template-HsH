@@ -73,6 +73,7 @@
 \DeclareOption{todos}{
   \@todostrue
 }
+%% defere all other options to the base class
 \DeclareOption*{\expandafter\PassOptionsToClass\expandafter{\CurrentOption}{scrreprt}}
 \ExecuteOptions{fontsize=11pt,a4paper,ngerman,sans} % default options
 \ProcessOptions\relax
@@ -260,8 +261,7 @@
 \renewenvironment{abstract}{
   \quotation
   \setlength\parindent{0pt}
-  \chapter*{\abstractname}
-  \addcontentsline{toc}{chapter}{\abstractname}
+  \addchap{\abstractname}
 }{%
   \ifx\@keywords\@empty\else
     \vskip 2em
