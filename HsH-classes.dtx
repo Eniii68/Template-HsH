@@ -361,45 +361,42 @@
 }
 %</report>
 %<*article|report>
-%% decloration of Authorship ----------------------------------------------------------------------
+%% declaration of Authorship ----------------------------------------------------------------------
+%
+\iflanguage{english}{
+  \setlocalecaption{english}{authorshipdeclaration}{Declaration of Authorship}
+}{}%
+\iflanguage{ngerman}{
+  \setlocalecaption{ngerman}{authorshipdeclaration}{Selbstst\"andigkeitserkl\"arung}
+}{}%
+%
+% this boolean stores if this document is written by more than one author
 \newif\if@oneAuthor \@oneAuthortrue
-\if@german
-  \setlocalecaption{ngerman}{dATitle}{Selbstständigkeitserklärung}
-  \setlocalecaption{ngerman}{dAPronomen}{\if@oneAuthor ich\else wir\fi}
-  \setlocalecaption{ngerman}{dAPluralendung}{\if@oneAuthor\else n\fi}
-  \setlocalecaption{ngerman}{dAGenitiv}{\if@oneAuthor mir\else uns\fi}
-  \setlocalecaption{ngerman}{dAText}{
-    Hiermit bestätige\dAPluralendungname\space\dAPronomenname, dass die folgende Arbeit eigenständig von \dAGenitivname\space allein erstellt
-    und unter Berücksichtigung der zur Verfügung gestellten Aufgabenstellung sowie dem Arbeitsmaterial unter Angabe aller verwendeten Quellen
-    erarbeitet wurde. Die Regelungen und Konsequenzen eines Plagiats, inklusive disziplinarischer Maßnahmen, sind \dAGenitivname\space
-    bewusst. Insbesondere wurden alle Zitate und gedanklichen Übernahmen als solche kenntlich gemacht.
-  }
-\else
-  \setlocalecaption{english}{dATitle}{Declaration of Authorship}
-  \setlocalecaption{english}{dAPronomen}{\if@oneAuthor I\else we\fi}
-  \setlocalecaption{english}{dAPronomenf}{\if@oneAuthor I\else We\fi}
-  \setlocalecaption{english}{dAPronomverb}{\if@oneAuthor am\else are\fi}
-  \setlocalecaption{english}{dAGenitiv}{\if@oneAuthor my\else our\fi}
-  \setlocalecaption{english}{dAText}{
-    \dAPronomenfname\space hereby certify that the work \dAPronomenname\space\dAPronomverbname\space submitting is entirely of
-    \dAGenitivname\space own making except where otherwise indicated. \dAPronomenfname\space\dAPronomverbname\space aware of regulations
-    concerning plagiarism, including disciplinary actions that may result from it. Any use of the works of any other author, in any form, is
-    properly acknowledged at their point of use.
-  }
-\fi
+%
+% this is the actuall command:
 \newcommand{\declarationAuthorship}[1][b]{
   \let\@param#1
   \renewcommand{\thanks}{\sbox0}
   \foreach \x [count=\i] in \@author{\ifnum\i>1\global\@oneAuthorfalse\fi}
-%
   \thispagestyle{plain}
   \if\@param b\vspace*{\fill}\fi
   {\rule{\textwidth}{0.1pt}}
   \vskip 3em
-  {\centering\huge\textbf{\dATitlename}\par}
+  {\centering\huge\bfseries\authorshipdeclarationname\par}
   \vskip 3em
-  {\dATextname\par}
-% creating a signature line for every author
+  \iflanguage{english}{
+    \if@oneAuthor I\else We\fi\space hereby certify that the work \if@oneAuthor I\else we\fi\space \if@oneAuthor am\else are\fi\space submitting
+    is entirely of \if@oneAuthor my\else our\fi own making except where otherwise indicated. \if@oneAuthor I\else We\fi\space
+    \if@oneAuthor am\else are\fi\space aware of regulations concerning plagiarism, including disciplinary actions that may result from it. Any use
+    of the works of any other author, in any form, is properly acknowledged at their point of use. \par
+  }{}%
+  \iflanguage{ngerman}{
+    Hiermit best{\"a}tige\if@oneAuthor\else n\fi\space \if@oneAuthor ich\else wir\fi, dass die folgende Arbeit eigenst{\"a}ndig von
+    \if@oneAuthor mir\else uns\fi\space allein erstellt und unter Ber{\"u}cksichtigung der zur Verf{\"u}gung gestellten Aufgabenstellung sowie dem
+    Arbeitsmaterial unter Angabe aller verwendeten Quellen erarbeitet wurde. Die Regelungen und Konsequenzen eines Plagiats, inklusive
+    disziplinarischer Ma{\ss}nahmen, sind \if@oneAuthor mir\else uns\fi\space bewusst. Insbesondere wurden alle Zitate und gedanklichen {\"U}bernahmen
+    als solche kenntlich gemacht. \par
+  }{}%
   {\raggedleft
     \foreach \x in \@author{
       \begin{tabular}[t]{r}
