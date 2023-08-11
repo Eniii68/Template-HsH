@@ -293,7 +293,7 @@
 % all stuff is pushed to the top of the page ingenerall
 \raggedbottom
 % rulers when using draft disabled
-\renewcommand{\layercontentsmeasure}{\@empty}
+\let\layercontentsmeasure\relax
 
 %<*report>
 % these commands are only defined for the book class, but they also make sens for the report class:
