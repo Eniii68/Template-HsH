@@ -145,6 +145,10 @@
 \newcommand{\matrikelnr}[1]{\gdef\@matrikelnr{#1}}
 \newcommand*{\@professor}{}
 \newcommand{\professor}[1]{\gdef\@professor{#1}}
+\newcommand*{\@firstexaminer}{}
+\newcommand{\firstexaminer}[1]{\gdef\@firstexaminer{#1}}
+\newcommand*{\@secondexaminer}{}
+\newcommand{\secondexaminer}[1]{\gdef\@secondexaminer{#1}}
 \newcommand*{\@keywords}{}
 \newcommand{\keywords}[1]{\gdef\@keywords{#1}}
 \let\@author\@empty
@@ -288,6 +292,16 @@
 \let\declarationAuthorship\declarationofauthorship
 
 %% reconfig Titlepage -----------------------------------------------------------------------------
+\iflanguage{english}{
+  \setlocalecaption{english}{professor}{Professor}
+  \setlocalecaption{english}{firstexaminer}{First examiner}
+  \setlocalecaption{english}{secondexaminer}{Second examiner}
+}{}%
+\iflanguage{ngerman}{
+  \setlocalecaption{ngerman}{professor}{Professor(in)/Lehrbeauftragte(r)}
+  \setlocalecaption{ngerman}{firstexaminer}{Erstpr{\"u}fer(in)}
+  \setlocalecaption{ngerman}{secondexaminer}{Zweitpr{\"u}fer(in)}
+}{}%
 \newtoks\@tabtoks
 \newcommand\addtabtoks[1]{\global\@tabtoks\expandafter{\the\@tabtoks#1}}
 \newcommand\eaddtabtoks[1]{\edef\mytmp{#1}\expandafter\addtabtoks\expandafter{\mytmp}}
@@ -377,7 +391,8 @@
         \if\@author\@empty\else
           % sneeky comma needed after \@matrikelnr to deal with single item lists
           \foreach \x [count=\i,evaluate=\i as \y using {{\@matrikelnr,}[\i-1]}] in \@author {\eaddtabtoks{\x & \y\protect\\}}
-          \usekomafont{author}{\def\arraystretch{1.2}
+          \usekomafont{author}{
+            \def\arraystretch{1.2}
             \if\@param l\begin{tabular}{@{}l l}\printtabtoks\end{tabular}\fi
             \if\@param c\begin{tabular}{l l}\printtabtoks\end{tabular}\fi
             \if\@param r\begin{tabular}{r r@{}}\printtabtoks\end{tabular}\fi
@@ -387,7 +402,16 @@
       \vskip 1em
       {\usekomafont{date}{\@date\par}}
       \vskip 1em
-     {\if\@professor\@empty\else\usekomafont{publishers}{Professor\iflanguage{ngerman}{(in)/Lehrbeauftragte(r)}{}: \@professor}\fi}
+      \usekomafont{publishers}{
+        \def\arraystretch{1.2}
+        \if\@param l\begin{tabular}{@{}l l}\fi
+        \if\@param c\begin{tabular}{l l}\fi
+        \if\@param r\begin{tabular}{r r@{}}\fi
+          \if\@professor\@empty\else\textbf{\professorname:}&\@professor\\\fi
+          \if\@firstexaminer\@empty\else\textbf{\firstexaminername:}&\@firstexaminer\\\fi
+          \if\@secondexaminer\@empty\else\textbf{\secondexaminername:}&\@secondexaminer\\\fi
+        \end{tabular}
+      }
       \ifx\@dedication\@empty\else
         \vskip 2em
         {\usekomafont{dedication}{\@dedication \par}}%

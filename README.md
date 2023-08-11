@@ -174,6 +174,8 @@ You can use the following macros to define the different information presented o
 - `\subtitle` is a smaller second line under the title. Can be empty
 - `\date` is the date of your project. You can use a custom one, but if you don't set it, the current date at compile time will be used.
 - `\professor` a new macro do define your professors name, if needed.
+- `\firstexaminer` a new macro do define your first examiners name, if needed.
+- `\secondexaminer` a new macro do define your second examiners name, if needed.
 - `\keywords` will not be printed on the title-page, but rather on the end of the abstract, if you define some. They will also be but into the PDFs
   metadata.
 

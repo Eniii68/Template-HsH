@@ -14,6 +14,10 @@ All notable changes to this project will be documented in this file.
 - the margins are now set using relative values, which makes them adapt to different paper sizes
 - add alignment parameter to `\declarationofauthorship`, it is still by default aligned to the bottom of the page, but can now be pushed to the top using `\declarationofauthorship[t]`
 
+### Added
+
+- macros for titlepage: `\firstexaminer` and `\secondexaminer`
+
 ## [2.0]
 
 ### Changed
