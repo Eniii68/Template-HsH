@@ -89,7 +89,7 @@
 \RequirePackage{lmodern}
 \RequirePackage{graphicx}
 \RequirePackage{amsmath}
-\PassOptionsToPackage{vmargin=5\baselineskip,bindingoffset=0.08\paperwidth,textwidth=0.75\paperwidth}{geometry}
+\PassOptionsToPackage{vmargin=6\baselineskip,bindingoffset=0.08\paperwidth,textwidth=0.75\paperwidth}{geometry}
 \if@todos
   \setlength{\marginparwidth}{6cm}
   \PassOptionsToPackage{paperwidth=\dimexpr +0.915\paperwidth+\marginparsep+\marginparwidth+0.25cm, right=\dimexpr +\marginparsep+\marginparwidth+0.25cm}{geometry}
