@@ -31,8 +31,6 @@ $clean_ext .= " lol";  # clean tempfile for List of Listings
 # simple svg dependencies via InkScape
 add_cus_dep( 'svg', 'pdf', 0, 'runInkscape' );
 sub runInkscape {
-	my ($base_name, $path) = fileparse( $_[0] );
-	$svg = "$path$base_name.svg";
-	$pdf = "$path$base_name.pdf";
-	return system "inkscape", "-C", $svg, "-o", $pdf;
+	my @args = ( "--export-type=pdf", "--export-area-page" );
+	return system "inkscape", @args, "$_[0].svg";
 }
