@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Current]
 
+## [2.2]
+
+### Fixed
+
+- make first argument of `\todo` and `\missingfigure` optional (#11)
+
 ## [2.1]
 
 ### Breaking
