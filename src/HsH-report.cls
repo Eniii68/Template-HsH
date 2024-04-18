@@ -20,10 +20,10 @@
 %% and version 1.3 or later is part of all distributions of LaTeX version
 %% 2021/01/01 or later.
 %% 
-\typeout{Adapted from KOMA script for use in Hochschule Hannover <2023-08-12> Jan Wille}
+\typeout{Adapted from KOMA script for use in Hochschule Hannover <2024-04-18> Jan Wille}
 \NeedsTeXFormat{LaTeX2e}
 \newcommand{\myClassName}{HsH-report}
-\ProvidesClass{\myClassName}[2023/08/12 v2.1 HsH-Class based on KOMA]
+\ProvidesClass{\myClassName}[2024/04/18 v2.2 HsH-Class based on KOMA]
 
 %% commands for HsH-logo
 \newcommand{\HsHlogoPath}{HSH-Logo.pdf}
@@ -89,7 +89,7 @@
 \RequirePackage{lmodern}
 \RequirePackage{graphicx}
 \RequirePackage{amsmath}
-\PassOptionsToPackage{vmargin=5\baselineskip,bindingoffset=0.08\paperwidth,textwidth=0.75\paperwidth}{geometry}
+\PassOptionsToPackage{vmargin=6\baselineskip,bindingoffset=0.08\paperwidth,textwidth=0.75\paperwidth}{geometry}
 \if@todos
   \setlength{\marginparwidth}{6cm}
   \PassOptionsToPackage{paperwidth=\dimexpr +0.915\paperwidth+\marginparsep+\marginparwidth+0.25cm, right=\dimexpr +\marginparsep+\marginparwidth+0.25cm}{geometry}
@@ -126,8 +126,8 @@
   \setlength{\marginparwidth}{5.2cm}
 \else
     \newcommand{\listoftodos}[1]{}
-    \newcommand{\todo}[2]{}
-    \newcommand{\missingfigure}[2]{}
+    \newcommand{\todo}[2][]{}
+    \newcommand{\missingfigure}[2][]{}
 \fi
 \RequirePackage{pgffor}
 %% options for not loaded packages ----------------------------------------------------------------

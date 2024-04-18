@@ -56,6 +56,10 @@ The provided Makefile demonstrates how to run a successful build, you might want
 
 The Project comes with `latexmk` setting, so you should be able to instantly compile using it.
 
+```shell
+latexmk project.tex
+```
+
 
 # Documentation
 
@@ -123,7 +127,7 @@ used in pretty much every project anyway.
 - `fontenc` for output encoding, set to T1, if you use non-Latin characters (like Cyrillic, etc.) you need to add that
 - `lmodern` is a font
 - `babel` for German typesetting
-- `geometry` for margins and stuff, (will probably be removed at some point)
+- `geometry` for pagelayout and margins
 - `scrlayer-scrpage` KOMA package for headers and footers
 - `scrhack` KOMA package for compatibility with listings
 - `pgffor` allows for the use of for-loops (internal)
@@ -227,7 +231,7 @@ You need to do this if you get errors like this:
 
 > ! LaTeX Error: File `HsH-report.cls' not found.
 
-Usually the `latexmkrc` files handles setting this up, but if you have problem or just want more controll,
+Usually the `latexmkrc` files handles setting this up, but if you have problems or just want more controll,
 [here](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/snippets/121) are more details.
 
 ## Using an _.aux_ directory
