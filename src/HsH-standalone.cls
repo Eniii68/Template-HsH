@@ -5,16 +5,16 @@
 %% The original source files were:
 %%
 %% HsH-classes.dtx  (with options: `standalone')
-%%
+%% 
 %% Copyright (C) 2024 by Jan Wille <mail@janiwlle.de>
-%%
+%% 
 %% This work may be distributed and/or modified under the
 %% conditions of the LaTeX Project Public License (LPPL), either
 %% version 1.3c of this license or (at your option) any later
 %% version.  The latest version of this license is in the file:
-%%
+%% 
 %% http://www.latex-project.org/lppl.txt
-%%
+%% 
 \NeedsTeXFormat{LaTeX2e}[2022-06-01]
 \ProvidesClass{HsH-standalone}
     [2024-04-23 3.00 HsH-class based on KOMA]
@@ -104,7 +104,7 @@
 \RequirePackage[main=\HsH@opt@language]{babel}
 \RequirePackage[autostyle=true]{csquotes}
 \MakeOuterQuote{"}
-\iflanguage{ngerman}{\RequirePackage{ziffer}}{}%
+\iflanguage{ngerman}{\RequirePackage{ziffer}}{}
 \RequirePackage[hidelinks]{hyperref} % must load before `bookmarks'
 \RequirePackage{bookmark}
 \AtBeginDocument{
@@ -132,8 +132,27 @@
 \RequirePackage{graphicx}
 \RequirePackage{amsmath,amssymb,amsfonts}
 \RequirePackage[svgnames]{xcolor}
-\RequirePackage{scrhack}
 \PassOptionsToPackage{free-standing-units}{siunitx}
+\AtBeginDocument{
+  \makeatletter
+  \@ifpackageloaded{siunitx}{
+    \iflanguage{ngerman}{
+      \sisetup{output-decimal-marker={,}}
+    }{}
+  }{}
+  \makeatother
+}
+\RequirePackage{scrhack}
+\AtBeginDocument{
+  \makeatletter
+  \@ifpackageloaded{biblatex}{
+    \RequirePackage{lstautogobble}\lstset{autogobble=true}
+    \iflanguage{ngerman}{
+      \lstset{literate={Ö}{{\"O}}1{Ä}{{\"A}}1{Ü}{{\"U}}1{ß}{{\ss}}1{ü}{{\"u}}1{ä}{{\"a}}1{ö}{{\"o}}1}
+    }{}
+  }{}
+  \makeatother
+}
 \PassOptionsToPackage{european,EFvoltages,straightvoltages,betterproportions}{circuitikz}
 \AtBeginDocument{
   \makeatletter

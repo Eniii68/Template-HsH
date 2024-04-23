@@ -861,7 +861,7 @@ http://www.latex-project.org/lppl.txt
 %      replacing it with some whitespace on printed version. Luckily loading the
 %      \pkg{ziffer} package sets this up to match the german standart.
 %    \begin{macrocode}
-\iflanguage{ngerman}{\RequirePackage{ziffer}}{}%
+\iflanguage{ngerman}{\RequirePackage{ziffer}}{}
 %    \end{macrocode}
 %
 %
@@ -908,12 +908,6 @@ http://www.latex-project.org/lppl.txt
 \RequirePackage[svgnames]{xcolor}
 %    \end{macrocode}
 %
-%      For better compatibility with the \pkg{listings} package we load the
-%      \pkg{scrhack} package.
-%    \begin{macrocode}
-\RequirePackage{scrhack}
-%    \end{macrocode}
-%
 %    \subsubsection{Options for packages that could be loaded by the user}
 %      Some package are not always needed and potentially heavy to load in by default.
 %      But its still usefull to set default options for these packagese.
@@ -921,6 +915,9 @@ http://www.latex-project.org/lppl.txt
 %      These differ from the settings provided in |HsH-classes.cfg| in that they are
 %      defaults that apply allway and not user-configurable preferences which are user
 %      or even project specific.
+%
+%      For the \pkg{bibtex} we ensure the \emph{biber} backend is selcted, which matches
+%      the settings in |.latexmkrc|.
 %    \begin{macrocode}
 %<*article|report>
 \PassOptionsToPackage{backend=biber}{biblatex}
@@ -932,7 +929,41 @@ http://www.latex-project.org/lppl.txt
   \makeatother
 }
 %</article|report>
+%    \end{macrocode}
+%
+%      For \pkg{bibtex} we load the free-stadnding units, mostly for backwards compatibility.
+%      We also ensure german language specific settings are applyed.
+%    \begin{macrocode}
 \PassOptionsToPackage{free-standing-units}{siunitx}
+\AtBeginDocument{
+  \makeatletter
+  \@ifpackageloaded{siunitx}{
+    \iflanguage{ngerman}{
+      \sisetup{output-decimal-marker={,}}
+    }{}
+  }{}
+  \makeatother
+}
+%    \end{macrocode}
+%
+%      For better compatibility with the \pkg{listings} package we load the
+%      \pkg{scrhack} package. We also pass some configurations to if if it gets loaded.
+%    \begin{macrocode}
+\RequirePackage{scrhack}
+\AtBeginDocument{
+  \makeatletter
+  \@ifpackageloaded{biblatex}{
+    \RequirePackage{lstautogobble}\lstset{autogobble=true}
+    \iflanguage{ngerman}{
+      \lstset{literate={Ö}{{\"O}}1{Ä}{{\"A}}1{Ü}{{\"U}}1{ß}{{\ss}}1{ü}{{\"u}}1{ä}{{\"a}}1{ö}{{\"o}}1}
+    }{}
+  }{}
+  \makeatother
+}
+%    \end{macrocode}
+%
+%      The \pkg{circuitikz} needs bo be configure so it matches typical european styles.
+%    \begin{macrocode}
 \PassOptionsToPackage{european,EFvoltages,straightvoltages,betterproportions}{circuitikz}
 %    \end{macrocode}
 %
