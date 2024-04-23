@@ -31,6 +31,26 @@ sub makeglossaries {
 # simple svg dependencies via InkScape
 add_cus_dep( 'svg', 'pdf', 0, 'runInkscape' );
 sub runInkscape {
-	my @args = ( "--export-type=pdf", "--export-area-page" );
-	return system "inkscape", @args, "$_[0].svg";
+	my @args = ( "$_[0].svg", "--export-area-page", "--export-filename", "$_[0].pdf" );
+	print @args;
+	return system "inkscape", @args;
+}
+
+add_cus_dep( 'tex', 'pdf', 0, 'runPDFLaTeX' );
+sub runPDFLaTeX {
+	my ($base_name, $path) = fileparse( $_[0] );
+	path_fudge( 'TEXINPUTS' );
+	pushd($path);
+	if (!$silent) {
+        print "$My_name: Change directory to '$path'.\n"
+	}
+	my $ret = Run_subst( $pdflatex, 1, undef, "$base_name.tex", "$base_name.pdf");
+	if ( $ret == 0 ) {
+		move( "$aux_dir/$base_name.pdf", "$base_name.pdf" );
+	}
+	popd();
+	if (!$silent) {
+		print "$My_name: Change directory back to '", cwd(), "'\n";
+	}
+	return $ret;
 }

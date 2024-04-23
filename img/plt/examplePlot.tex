@@ -2,8 +2,6 @@
 
 
 \usepackage{siunitx} % SI units
-\usepackage{amsmath} % nice formulas
-
 \usepackage{pgfplots} % plots und bilder, includes tikz and graphix
 \usepackage{pgfplotstable} % fo ruse of tables, csv files are tables
 
@@ -18,7 +16,7 @@
 \end{tikzpicture}
 
 \begin{tikzpicture}
-	\pgfplotstableread{../csv/bsp.csv}\data % read file into macro
+	\pgfplotstableread{../../data/csv/bsp.csv}\data % read file into macro
 	\begin{axis}[
 			MyPlots, % custom styling
 			xlabel=X Achse,

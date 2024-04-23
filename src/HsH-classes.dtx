@@ -872,6 +872,7 @@ http://www.latex-project.org/lppl.txt
 %    \begin{macrocode}
 \RequirePackage[hidelinks]{hyperref} % must load before `bookmarks'
 \RequirePackage{bookmark}
+%<*!standalone>
 \AtBeginDocument{
   \hypersetup{
     pdfinfo={
@@ -882,6 +883,7 @@ http://www.latex-project.org/lppl.txt
     }
   }
 }
+%</!standalone>
 %    \end{macrocode}
 %
 %    The \pkg{todonotes} package is greate for anotation, but extremly expensive on

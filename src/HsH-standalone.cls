@@ -107,16 +107,6 @@
 \iflanguage{ngerman}{\RequirePackage{ziffer}}{}
 \RequirePackage[hidelinks]{hyperref} % must load before `bookmarks'
 \RequirePackage{bookmark}
-\AtBeginDocument{
-  \hypersetup{
-    pdfinfo={
-      Title={\@title},
-      Author={\@author},
-      Subject={\@subject},
-      Keywords={\@keywords}
-    }
-  }
-}
 \if@todos
   \PassOptionsToPackage{
     textsize=small,
