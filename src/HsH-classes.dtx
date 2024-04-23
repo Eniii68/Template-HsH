@@ -1,0 +1,1719 @@
+%^^A !TeX root = ./HsH-classes.dtx
+% \iffalse meta-comment
+%<*internal>
+\iffalse
+%</internal>
+%<*readme> ^^A ---------- README -------------------------------------------------------
+ HsH-classes | LaTeX for the Hochschule Hannover
+ -----------:| ------------------------------------------------------------
+ Author      | Jan Wille
+ E-mail      | <mail@janiwlle.de>
+ License     | Released under the LaTeX Project Public License v1.3c or later
+ See         | <http://www.latex-project.org/lppl.txt>
+
+This Project containes classes to create documents for the Hochschule Hannover.
+
+To use them in you projects bring this folder on you `TEXINPUTS`.
+%</readme>
+%<*internal>
+\fi
+\def\nameofplainTeX{plain}
+\ifx\fmtname\nameofplainTeX\else
+  \expandafter\begingroup
+\fi
+%</internal>
+%<*install> ^^A ---------- HsH-Classes.ins ---------------------------------------------
+\input docstrip.tex
+\keepsilent
+\askforoverwritefalse
+\preamble
+
+Copyright (C) 2024 by Jan Wille <mail@janiwlle.de>
+
+This work may be distributed and/or modified under the
+conditions of the LaTeX Project Public License (LPPL), either
+version 1.3c of this license or (at your option) any later
+version.  The latest version of this license is in the file:
+
+http://www.latex-project.org/lppl.txt
+
+\endpreamble
+
+\usedir{tex/latex/HsH-classes}
+\generate{
+  \file{HsH-article.cls}{\from{\jobname.dtx}{article}}
+  \file{HsH-report.cls}{\from{\jobname.dtx}{report}}
+  \file{HsH-standalone.cls}{\from{\jobname.dtx}{standalone}}
+}
+%</install>
+%<install>\endbatchfile
+%<*internal> ^^A ---------- self-extract -----------------------------------------------
+\usedir{source/latex/HsH-classes}
+\generate{
+  \file{\jobname.ins}{\from{\jobname.dtx}{install}}
+}
+\nopreamble\nopostamble
+\usedir{doc/latex/HsH-classes}
+\generate{
+  \file{README.md}{\from{\jobname.dtx}{readme}}
+}
+\ifx\fmtname\nameofplainTeX
+  \expandafter\endbatchfile
+\else
+  \expandafter\endgroup
+\fi
+%</internal>
+% \fi
+%
+% \iffalse
+%<*driver> ^^A ---------- file headers -------------------------------------------------
+\ProvidesFile{HsH-classes.dtx}
+%</driver>
+%<article|report|standalone>\NeedsTeXFormat{LaTeX2e}[2022-06-01]
+%<article>\ProvidesClass{HsH-article}
+%<report>\ProvidesClass{HsH-report}
+%<standalone>\ProvidesClass{HsH-standalone}
+%<*article|report|standalone>
+    [2024-04-23 3.00 HsH-class based on KOMA]
+%</article|report|standalone>
+%<*driver> ^^A ---------- documentation driver -----------------------------------------
+  \documentclass{ltxdoc}
+  \usepackage{doc}[2022-06-01]
+  \usepackage[a4paper,margin=25mm,left=50mm,nohead]{geometry}
+  \usepackage[numbered]{hypdoc}
+  \usepackage[style=ddmmyyyy,datesep={.}]{datetime2}
+  \usepackage{scrlogo}
+  %
+  \NewDocElement[idxgroup=classes]{Class}{class}
+  \NewDocElement{Option}{option}
+  \providecommand\opt{\texttt}
+  \newenvironment{options}%
+    {\begin{list}{}{%
+      \renewcommand{\makelabel}[1]{\opt{##1}\hfil}%
+      \setlength{\itemsep}{-.5\parsep}
+      \settowidth{\labelwidth}{\texttt{xxxxxxxxx\space}}%
+      \setlength{\leftmargin}{\labelwidth}%
+      \addtolength{\leftmargin}{\labelsep}}%
+      \raggedright}
+    {\end{list}}
+  \newenvironment{packages}%
+    {\begin{list}{}{%
+      \renewcommand{\makelabel}[1]{\pkg{##1}\hfil}%
+      \setlength{\itemsep}{-.5\parsep}
+      \settowidth{\labelwidth}{\texttt{xxxxxxx\space}}%
+      \setlength{\leftmargin}{\labelwidth}%
+      \addtolength{\leftmargin}{\labelsep}}%
+      \raggedright}
+    {\end{list}}
+  \newenvironment{note}[1]{\begin{quote}\textbf{Note:}\;#1}{\end{quote}}
+  \def\paragraph#1{\bigskip\textbf{#1}\\}
+  \newcommand\OR{\kern1pt{|}\kern1pt}
+  %
+  \renewcommand{\familydefault}{\sfdefault}
+  \setlength\parindent{0pt}
+  \setcounter{IndexColumns}{2}
+  \setlength\marginparsep{2\labelsep}
+  %
+  \EnableCrossrefs
+  \RecordChanges
+  %
+  \GetFileInfo{\jobname.dtx}
+  \title{
+    \textsf{HsH-Classes} --- A set of \LaTeX{} classes for use in Hochschule Hannover
+    \thanks{This file describes version \fileversion, last revised \filedate.}
+  }
+  \author{Jan Wille\thanks{E-mail: mail@janiwlle.de}}
+  \MaintainedBy{Maintained on \url{https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh}}
+  \date{Printed \today}
+  \begin{document}
+    \maketitle
+    \begin{multicols}{2}
+      \tableofcontents
+    \end{multicols}
+    \DocInput{\jobname.dtx}
+  \end{document}
+%</driver>
+% \fi
+%
+%^^A ---------- change log -------------------------------------------------------------
+%\changes{v1.00}{2021-11-09}{Initial Version. Official first release}
+%\changes{v2.00}{2023-08-08}{This version changes the default build-system to \texttt{latexmk}}
+%
+%
+%^^A ---------- document body ----------------------------------------------------------
+%
+% \vspace{2\baselineskip}
+% \begin{abstract}
+% The following documents a set of \LaTeX{} classes created for the Hochschule Hannover.
+% They are intended to ease the workflow when writing documents by providing a common
+% formating basis that should work for pretty much everything a studend will be expected
+% to write. This can be simple one-paged documents, excercises, lab-reports, papers or
+% bachelors and masters thesises.
+%
+% The classes provide interfaces to modify commend requriements, provide commands to get
+% specifics like the logo and provide and pre-configure comonly needed packages. This
+% should get you going imidealty and reduce the setuptime significantly.
+% \end{abstract}
+%
+%
+% \clearpage
+% \section{The different classes}
+%
+%   The project classes provided by the Project all carry the |HsH-| prefix. Here is a
+%   list of the available classes and some expleantion on when to use which class.
+%   \begin{description}
+%     \item\DescribeClass{HsH-article}
+%          A article-class based on \KOMAScript{}s \cls{scrartcl}.
+%          It is designed for quick and compact documents and is useful for writing
+%          lab-protocols and alike. It does not have chapters and therefore never
+%          breaks to a new page on its own.
+%     \item\DescribeClass{HsH-report}
+%          A report-class based on \KOMAScript{}s \cls{scrreprt}.
+%          This is probably the most useful class, as it can be used for a wide
+%          variety of documents (beginning with lab-reports and ending at complete
+%          thesis). The line between article and report is somewhat blurry, so use
+%          as you see fit.
+%    \item\DescribeClass{HsH-standalone}
+%          A helper class based based on the \cls{standalone}
+%          class. It is designed only for creating images as separate documents to
+%          keep things organized and compiler times low. It is useful for creating
+%          graphs, circuit diagrams or other kind of complex sub documents.
+%   \end{description}
+%
+% \section{Document options}
+%  To configure the behavior and style of documents using this class, options can be
+%  passed via the |\documentclass|\oarg{options}\marg{document-class} command.
+%
+%  It should be noted that all unknown keys will pe passed to the parrent class and a
+%  log-message issued.
+%
+%  \subsection{Generic options share by all classes}
+%    These Options are avalable regardless of documentclass and modify common things.
+%
+%    \DescribeOption{fontfamily} \DescribeOption{sans}\DescribeOption{roman}
+%    The \opt{fontfamily=\meta{opt}} option configures which font-style is used.
+%    For convenience there are also short-forms providet.
+%    The avalable options are:
+%    \begin{options}
+%        \item[sans\OR sans-serif] A sans-serif font is used (similar to Arial)
+%        \item[roman\OR serif] A serif font is udes (similar to Times-new-Roman)
+%    \end{options}
+%
+%    \DescribeOption{language} \DescribeOption{english}\DescribeOption{german}
+%    The \opt{language=\meta{opt}} option set the main language you write in. It ensures
+%    texts like auto-generated headings are localised properly.
+%    You can pass in any language-name understood by the \pkg{babel} package. German is
+%    the default.
+%    For convenience there are also short-forms providet.
+%
+%    \medskip
+%    \DescribeOption{todos}
+%    The \opt{todos} option is a simple switch that activates support for the
+%    \pkg{todonotes} package. It enables/\-disables the package as well as increasing
+%    the pagewidth to make space for the notes.
+%
+%    You can use the commands from the package to make notes and other anotations
+%    (similar to how MS-Words comments work). When you pass \opt{off\OR false} all the
+%    anotation will disaper from the PDF while still beeing in the source.
+%    \begin{note}
+%      setting \opt{todos=off} after having used the option will mostlikly produce
+%      compilation errors. These will go away after you remove the temporary files.
+%    \end{note}
+%
+%  \subsection{Options for modifying the document}
+%    The following options are only avalable for documents (so not utility classes).
+%
+%    \DescribeOption{linespacing}
+%    \DescribeOption{singlespacing}\DescribeOption{onehalfspacing}\DescribeOption{doublespacing}
+%    The \opt{linespacing=\meta{opt}} option configures the spacing in beween lines.
+%    For convenience there are also short-forms providet.
+%    The avalable options are:
+%    \begin{options}
+%        \item[single] No additional space is added in between lines.
+%        \item[onehalf] Aproximalty half a line of empty space is added inbetween lines.
+%        \item[double] About a full linehight is left in between lines.
+%    \end{options}
+%
+%    \DescribeOption{parskip}
+%    The \opt{parskip=\meta{opt}} option configures the spacing in beween paragraphs.
+%    This is a option originally implemented by \KOMAScript{} (see \href{http://mirrors.ctan.org/macros/latex/contrib/koma-script/doc/scrguide-en.pdf?page=239#table.3.7}{its manual})
+%    so all its options apply. The class only adds additional options. \par
+%    For you convinience the relevant options are also listed here:
+%
+%    \begin{options}
+%      \item[false\OR off] Paragraphs are identified by indentation of the first line by
+%            1\,em. There is no spacing requirement at the end of the last line of a
+%            paragraph.
+%      \item[full\OR true\OR on] Paragraphs are identified by a vertical space of one line
+%            between paragraphs. There must be at least 1\,em of free space at the end of
+%            the last line of the paragraph.
+%      \item[full-] Paragraphs are identified by a vertical space of one line between
+%            paragraphs. There is no spacing requirement at the end of the last line of a
+%            paragraph.
+%      \item[full+] Paragraphs are identified by a vertical space of one line between
+%            paragraphs. There must be at least a third of a line of free space at the end
+%            of a paragraph.
+%      \item[full*] Paragraphs are identified by a vertical space of one line between
+%            paragraphs. There must be at least a quarter of a line of free space at the
+%            end of a paragraph.
+%      \item[half] Paragraphs are identified by a vertical space of half a line between
+%            paragraphs. There must be at least 1\,em free space at the end of the last
+%            line of a paragraph.
+%      \item[half-] Paragraphs are identified by a vertical space of half a line between
+%            paragraphs. There is no spacing requirement at the end of the last line of a
+%            paragraph.
+%      \item[half+] Paragraphs are identified by a vertical space of half a line between
+%            paragraphs. There must be at least a third of a line of free space at the end
+%            of a paragraph.
+%      \item[half*] Paragraphs are identified by a vertical space of half a line between
+%            paragraphs. There must be at least a quarter of a line of free space at the
+%            end of a paragraph.
+%      \item[never] No inter-paragraph spacing will be inserted even if additional
+%            vertical spacing is needed for vertical adjustment with |\flushbottom|.
+%      \item[never+] No inter-paragraph spacing will be inserted. There must be at least a
+%            third of a line of free space at the end of a paragraph.
+%      \item[never*] No inter-paragraph spacing will be inserted. There must be at least a
+%            quarter of a line of free space at the end of a paragraph.
+%    \end{options}
+%
+%
+%    \DescribeOption{headheight}
+%    The \opt{headheight=\meta{dim}} option allows you to set the required size of the
+%    header. You may need to modify this if you get a |\headheight|\emph{ to low} error
+%    message. The emssage should tell you what value you need, but you can pass any
+%    valid length.
+%
+%    \paragraph{Often relevant \KOMAScript\ options}
+%      The following options are implemented by the parrent classes and only listed here
+%      for completness. For more detils, see \href{http://mirrors.ctan.org/macros/latex/contrib/koma-script/doc/scrguide-en.pdf?page=239#chapter.3}{its manual}.
+%      \smallskip
+%
+%      \DescribeOption{fontsize}
+%      The \opt{fontsize=\meta{size}} options takes a size in \opt{pt}. It is usually in therange of
+%      10-12, but other sizes can work as well.
+%
+%      \DescribeOption{paper}
+%      The \opt{paper=\meta{size}} options accepts a number of options, most ISO formats
+%      are supported, but also others like \opt{letter} or \opt{legal}.
+%
+%      \DescribeOption{twoside}
+%      The \opt{twoside} option sets your document up for doublesided printing. The header
+%      and footer will take this into account and binding-correction will be applide along
+%      the inner edge.
+%
+%      \DescribeOption{BCOR}
+%      The \opt{BCOR=}\meta{dim} option allows you to define a custom binding-correction.
+%      Any valid length can be put here, but to large of a value will shrink the outer
+%      margin to a not-desirable level.
+%
+%
+%  \subsection{Standalone specific options}
+%    The \cls{standalone} utillity class has some special options which are documented
+%    here.
+%    \smallskip
+%
+%    \DescribeOption{margin}
+%    The \opt{margin=}\meta{dim} option controlls how much whicspace is added arround
+%    you standalone document. This usually looks better which is why the default is
+%    0.25\,cm, but you can supress it by passing 0\,cm.
+%
+%    \DescribeOption{multi}
+%    The \opt{multi=}\meta{opt} option defines which enviroment make up a page. It can
+%    be passe more than once.
+%
+%
+% \section{Provided commands}
+%    The clases define a set of commands which are explained in the following section.
+%
+%    \DescribeMacro{\HsHClassName}
+%    Each class defines the macro |\HsHClassName| to contain its classname. This is
+%    mostly usefull so internals can reuse the classname, but you could also check
+%    against it if you needed to.
+%
+%    \subsection{Title matters}
+%      \LaTeX{} has a set of default commands which are used to define data for the
+%      titlepage, like |\title| or |\author|. The classes define a few additional
+%      commands, which are documented her.
+%      \smallskip
+%
+%      \DescribeMacro{\matrikelnr}
+%      The |\matrikelnr|\marg{nr[, ..]} macro sets the matrikelnumber of the author(s).
+%      It can be a single number or a comma seperated list of numbers. The numbers will
+%      be matched to the authors passed into |\author|.
+%
+%      \DescribeMacro{\professor}
+%      You can pass any text to |\professor|\marg{text}, it will be printed on the
+%      bottom of the titelpage.
+%
+%      \DescribeMacro{\keywords}
+%      This macro can be used to define keywords which are relevant to your document.
+%      They will be printed as part of the abstract and be put into the PDF's meta-data.
+%
+%      \paragraph{Modifying the Logo}
+%      \DescribeMacro{\HsHlogoPath}
+%      The logo is loaded from a file whos name is read from \cmd{\HsHlogoPath}. Change
+%      it to use a different logo-file.
+%
+%      \DescribeMacro{\HsHlogoPage}
+%      As the PDF file can hae multiple pages, the \cmd{\HsHlogoPage} command stores
+%      which page to load.
+%
+%      \DescribeMacro{\includeHsHlogohere}
+%      The macro \cmd{\includeHsHlogohere\oarg{width}} is used by |\maketitle| to produce
+%      the logo. But if you want it elsewhere, you cann call this macro yourself.
+%
+%
+%    \subsection{Commands for document writing}
+%      The following commands will be usefull to you when writing a document.
+%      \smallskip
+%
+%      \DescribeMacro{\declarationofauthorship}
+%      The command |\declarationofauthorship|\oarg{align} can be used to print a
+%      "declatation of authorship" in the current location, similar to how
+%      |tableofcontens| and  friends work.
+%
+%      It will produce a horizontal line, a text block containing the regulatory text and
+%      a signature block for every author. The command is localised for both english and
+%      german. Using the optional argument, you can define the positioning. Pass \opt{t}
+%      for alignment at the top of the page and \opt{b} for bottom alignment
+%      (\emph{default}).
+%
+%      \smallskip
+%      The three commands \cmd{\frontmatter},\cmd{\mainmatter} and \cmd{\backmatter} are
+%      provided for \cls{report} classes. They seperate document section and
+%      automatically set up pagenumer styles. \par
+%      \DescribeMacro{\frontmatter}
+%      \cmd{\frontmatter} set the pagenumers to capital roman numerals. This is usually
+%      required for everything before the first chapter. \par
+%      \DescribeMacro{\mainmatter}
+%      \cmd{\mainmatter} sets the pagenumbering to "normal" arabic numbers. This is
+%      usually the style for the document content. \par
+%      \DescribeMacro{\backmatter}
+%      \cmd{\backmatter} can be used for apendixes and alike. It sets the pagenumbering
+%      to small roman numerals.
+%
+%
+%    \subsection{Default \LaTeX{} Commands that are modified}
+%      Additionaly, some of \LaTeX{}s default commands are moddified to better fit this
+%      class. This is documented here.
+%
+%      \DescribeMacro{\title}
+%      The \cmd{\title\oarg{short-title}\marg{title}} command now takes an additional,
+%      optional argument. You can use it for a shorter version of your title, that will
+%      be used in the header to save on space.
+%
+%      \DescribeMacro{\maketitle}
+%      The |\maketilte| command if \LaTeX{} default way to create a titlepage. We
+%      redefine it to produce a titlepage that matches the sytel typically used on the
+%      Hochschle Hannover. This incudes the logo beeing printed, depending on the
+%      \opt{f1} to \opt{f5} documentoptions. \par
+%      The command now also takes an options alignment-parameter:
+%      |\maketitle|\oarg{align}. You can pass \opt{l\OR c\OR r} to get \emph{left},
+%      \emph{center} or \emph{right} alignment.
+%
+%
+% \section{Package laoding}
+%    The classes load some packges for internal use as well as loading and configuring
+%    common use packages. The details are documented in the following section.
+%
+%    \subsection{Allways loaded packages}
+%      \begin{packages}
+%        \item[fontenc] for output encoding, set to the european characterset
+%        \item[babel] for langauge-specific typesetting
+%        \item[bookmark] creates bookmoarks in the PDF
+%        \item[hyperref] for easy referencing and linking
+%        \item[caption] to customize captions and make references point to the beginning
+%              of the floats
+%        \item[graphicx] for importing and manipultating images
+%        \item[amsmath,amssymb,amsfonts] more options when typesetting math
+%        \item[lmodern] sets up the Latin-Modern font
+%        \item[setspace] used for configuring linespacing
+%      \end{packages}
+%
+%      There are also some packages for internal functionalaty that shouln't conserne the
+%      user, but they are listed here for completness.
+%      \begin{packages}
+%        \item[scrbase]
+%        \item[pgffor]
+%      \end{packages}
+%
+%    \subsection{Conditionally loaded Packages}
+%      A subset of packages is only loaded (or loaded with specifig options) depending
+%      on options passed to the package
+%      \begin{packages}
+%        \item[babel] gets configured depending on \opt{language}
+%        \item[csquotes] for language-specific quotations marks
+%        \item[ziffer] only loaded for german documents, sets comma as decimal seperatior
+%        \item[todonotes] loaded depending on \opt{todos}
+%      \end{packages}
+%
+%    \subsection{Pre-configured Packages}
+%      These packages are coonfigured by the class to work in a cooperative way. The
+%      user must load them in this preable via |\usepackage|\marg{pkg-name} however, as
+%      loading them allways bears additional, unnecicary overhead.
+%
+%
+%\StopEventually{^^A
+%  \PrintChanges
+%  \PrintIndex
+%}
+%
+% \section{Implementation}
+%
+%\iffalse docstrip-guard
+%<*article|report|standalone>
+%\fi
+%
+%  \subsection{Internal commands}
+%    \begin{macro}{\HsHClassName}
+%    The classname of specific class is stored in the |\HsHClassName| which gets used
+%    throuout the code.
+%    \begin{macrocode}
+\let\HsHClassName\@currname
+%    \end{macrocode}
+%    \end{macro}
+%
+%    There is also a second macro |\HsHClassName@ParrentClass| which stores the parrent
+%    classes name.
+%    \begin{macrocode}
+\def\HsHClassName@ParrentClass{%
+%<article>  scrartcl%
+%<report>  scrreprt%
+%<standalone>  standalone%
+}
+%    \end{macrocode}
+%
+%
+%  \subsection{Option handeling}
+%    The options are handled using featues provieded by the |KOMA|-Script ecosystem.
+%    To get access to this the \pkg{srcbase} package is loaded.
+%    \begin{macrocode}
+\RequirePackage{scrbase}
+%    \end{macrocode}
+%
+%    We also require some packages for some of the option, these are loaded next.
+%    \begin{macrocode}
+\RequirePackage{setspace}
+%    \end{macrocode}
+%
+%    A new familiy of keys is created and shared by all elelments of this project.
+%    For that the |\DefineFamily| macro is used. The familiy name is \emph{HsH},
+%    matching the usual prefixes.
+%    \begin{macrocode}
+\DefineFamily{HsH}
+%    \end{macrocode}
+%    Additionally each class-file represents a member in the family. This is defined
+%    using the |\DefineFamilyMember| macro. It's optional argument is set to the current
+%    filename by default, so we do not need to specify it, just the family name to
+%    attatch it to.
+%    \begin{macrocode}
+\DefineFamilyMember{HsH}
+%    \end{macrocode}
+%
+%    \begin{macro}{\HsH@Options@PassToParrent}
+%    To be able to pass options to the parrent class wehre needed easiely, a command is
+%    defined. It also issues a log-message.
+%    \begin{macrocode}
+\newcommand{\HsH@Options@PassToParrent}[1]{%
+  \ClassInfoNoLine{\HsHClassName}{passing option to parrent class: #1}%
+  \PassOptionsToClass{#1}{\HsHClassName@ParrentClass}%
+}
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \begin{macro}{\HsH@Options@DeclareAlias}
+%    It is also usefull to have shot-versions of options. The following commands makes
+%    it easy to decalare these.
+%    \begin{macrocode}
+\newcommand{\HsH@Options@DeclareAlias}[3][HsH]{%
+  \DeclareOption{#2}{\FamilyExecuteOptions{#1}{#3}}%
+}
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \begin{option}{fontfamily}
+%    The first option to be defined is \opt{fontpamily}. It's defined as a
+%    \emph{Numerical} key so that it can accept multiple options and map them to a
+%    switch case.
+%    \begin{macrocode}
+\DefineFamilyKey{HsH}{fontfamily}{
+  \begingroup
+    \FamilySetNumerical{HsH}{parskip}{@tmp}{%
+      {sans}{0}, {sans-serif}{0},%
+      {roman}{1}, {serif}{1},%
+    }{#1}
+    \ifx\FamilyKeyState\FamilyKeyStateProcessed
+      \aftergroup\FamilyKeyStateProcessed
+      \ifcase\@tmp% 0
+        \endgroup
+        \renewcommand{\familydefault}{\sfdefault}
+        \if@atdocument\AfterKOMAoptions{\selectfont}\fi
+      \or% 1
+        \endgroup
+        \renewcommand{\familydefault}{\rmdefault}
+        \if@atdocument\AfterKOMAoptions{\selectfont}\fi
+      \else% should never be
+        \endgroup
+      \fi
+    \else
+      \endgroup
+      \FamilyKeyStateUnknownValue
+    \fi
+}
+%    \end{macrocode}
+%    \end{option}
+%
+%    \begin{option}{sans,roman}
+%    For convinience, there are also two short-versions defined.
+%    \begin{macrocode}
+\HsH@Options@DeclareAlias{sans}{fontfamily=sans}
+\HsH@Options@DeclareAlias{roman}{fontfamily=roman}
+%    \end{macrocode}
+%    \end{option}
+%
+%    \begin{macrocode}
+%<*!standalone>
+%    \end{macrocode}
+%
+%
+%    \begin{option}{linespacing}
+%    The \opt{linespacing} options is also a \emph{Numerical} option, mapping to three
+%    cases. They execute the apropriate commands of the \pkg{setspace} package.
+%    \begin{macrocode}
+\DefineFamilyKey{HsH}{linespacing}{
+  \begingroup
+    \FamilySetNumerical{HsH}{linespacing}{@tempa}{%
+      {single}{0},%
+      {onehalf}{1},%
+      {double}{2},%
+    }{#1}
+    \ifx\FamilyKeyState\FamilyKeyStateProcessed
+      \aftergroup\FamilyKeyStateProcessed
+      \ifcase\@tempa% 0
+        \endgroup
+        \if@atdocument\singlespacing\else\AtEndOfClass{\singlespacing}\fi
+      \or% 1
+        \endgroup
+        \if@atdocument\onehalfspacing\else\AtEndOfClass{\onehalfspacing\AfterTOCHead{\singlespacing}}\fi
+      \or% 2
+        \endgroup
+        \if@atdocument\doublespacing\else\AtEndOfClass{\doublespacing\AfterTOCHead{\singlespacing}}\fi
+
+      \else% should never be
+        \endgroup
+      \fi
+    \else
+      \endgroup
+      \FamilyKeyStateUnknownValue
+    \fi
+}
+%    \end{macrocode}
+%    \end{option}
+%
+%    \begin{option}{singlespacing,onehalfspacing,doublespacing}
+%    For convinience, there are also these short-versions defined.
+%    \begin{macrocode}
+\HsH@Options@DeclareAlias{singlespacing}{linespacing=single}
+\HsH@Options@DeclareAlias{onehalfspacing}{linespacing=onehalf}
+\HsH@Options@DeclareAlias{doublespacing}{linespacing=double}
+%    \end{macrocode}
+%    \end{option}
+%
+%
+%    \begin{option}{parskip}
+%    The \opt{parskip} option is special in that ist originally a \KOMAScript{} option
+%    that get expanded by this class. Only two new cases are defined here and everything
+%    unknown gets passed to the parrent class. \par
+%    It should also be noted that this option can't execute its code imidealtly, as the
+%    commands needed are only defined later when the parrent class loads in. So the
+%    |\setparsizes| command is pushed into a hook.
+%    \begin{macrocode}
+\DefineFamilyKey{HsH}{parskip}{%
+  \begingroup
+  \FamilySetNumerical{HsH}{parskip}{@tempa}{%
+    {never+}{0},%
+    {never*}{1},%
+  }{#1}
+  \if@atdocument
+    \ClassError{\HsHClassName}{
+      option `parskip' can only be configured in preamble!
+    }
+  \fi
+  \ifx\FamilyKeyState\FamilyKeyStateProcessed
+    \aftergroup\FamilyKeyStateProcessed
+    \ifcase\@tempa% 0
+      \endgroup
+      \AtEndOfClass{\setparsizes{\z@}{\z@}{.3333\linewidth \@plus 1fil}}
+    \or% 1
+      \endgroup
+      \AtEndOfClass{\setparsizes{\z@}{\z@}{.25\linewidth \@plus 1fil}}
+    \else% should never be
+      \endgroup
+    \fi
+  \else
+    \endgroup
+    \HsH@Options@PassToParrent{parskip=#1}
+    \FamilyKeyStateProcessed
+  \fi
+}
+%    \end{macrocode}
+%    \end{option}
+%
+%    \begin{option}{headheight}
+%    The \opt{headheight} option just stet the |\headheight| to the given value.
+%    \begin{macrocode}
+\def\HsH@opt@headheight{}
+\FamilyStringKey{HsH}{headheight}{\HsH@opt@headheight}
+\AtEndOfClass{%
+  \headheight=\HsH@opt@headheight%
+}
+%    \end{macrocode}
+%    \end{option}
+%
+%    For the \opt{twoside} option we only redefine the default, everyting else is
+%    handled by the parrent class.
+%    \begin{macrocode}
+\DefineFamilyKey{HsH}{twoside}[semi]{%
+  \HsH@Options@PassToParrent{twoside=#1,BCOR=1cm}
+  \FamilyKeyStateProcessed
+}
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+%</!standalone>
+%    \end{macrocode}
+%
+%
+%    \begin{macro}{\HsH@opt@language}
+%    First, the macro to store the languages name in is created. The default is |nil|,
+%    as \pkg{babel} will see this as no-language.
+%    \begin{macrocode}
+\def\HsH@opt@language{nil}
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \begin{option}{language}
+%    The key is than defined to store its value inside the command. This allowes the
+%    option to be called multiple time, but only the last set value will be passed on to
+%    \pkg{bable}.
+%    \begin{macrocode}
+\FamilyStringKey{HsH}{language}{\HsH@opt@language}
+%    \end{macrocode}
+%    \end{option}
+%
+%    \begin{option}{english,german, ngerman}
+%    For convinience, there are also these short-versions defined.
+%    \begin{macrocode}
+\HsH@Options@DeclareAlias{english}{language=english}
+\HsH@Options@DeclareAlias{german}{language=ngerman}
+\HsH@Options@DeclareAlias{ngerman}{language=ngerman}
+%    \end{macrocode}
+%    \end{option}
+%
+%
+%    \begin{macro}{\HsH@opt@faculty}
+%    As we need a default value that is not zero, the macro needs to be defined an
+%    initalised manually.
+%    \begin{macrocode}
+\def\HsH@opt@faculty{1}
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \begin{option}{faculty}
+%    The \opt{faculty} options is once again a \emph{Numerical} option, mapping the five
+%    faculties and storeing the selected one in |\HsH@opt@faculty|.
+%    \begin{macrocode}
+\FamilyNumericalKey{HsH}{faculty}{HsH@opt@faculty}{%
+  {none}{1}, {false}{1},%
+  {f1}{2}, {1}{2},%
+  {f2}{3}, {2}{3},%
+  {f3}{4}, {3}{4},%
+  {f4}{5}, {4}{5},%
+  {f5}{6}, {5}{6},%
+}
+%    \end{macrocode}
+%    \end{option}
+%
+%    \begin{option}{f1,f2,f3,f4,f5}
+%    For convinience, there are also these short-versions defined.
+%    \begin{macrocode}
+\HsH@Options@DeclareAlias{f1}{faculty=f1}
+\HsH@Options@DeclareAlias{f2}{faculty=f2}
+\HsH@Options@DeclareAlias{f3}{faculty=f3}
+\HsH@Options@DeclareAlias{f4}{faculty=f4}
+\HsH@Options@DeclareAlias{f5}{faculty=f5}
+%    \end{macrocode}
+%    \end{option}
+%
+%    \begin{option}{todos}
+%    The boolean option \opt{todos} is simply created using the commands from \pkg{scrbase}.
+%    Boolean options allready default to \meta{true} if called without and argument, so
+%    no need to define an explicit alias.
+%    \begin{macrocode}
+\FamilyBoolKey{HsH}{todos}{@todos}
+%    \end{macrocode}
+%    \end{option}
+%
+%    For the \cls{standalone} class the \opt{fontsize} option is mocked to present a
+%    standardised interface. A user might expect this option to be passable to this
+%    class and we shoulnd crete an anoying error just for this.
+%    \begin{macrocode}
+%<*standalone>
+\DefineFamilyKey{HsH}{fontsize}{%
+  \ClassInfoNoLine{\HsHClassName}{The `fontsize' option is only a mock, its has not effect}
+  \FamilyKeyStateProcessed
+}
+%</standalone>
+%    \end{macrocode}
+%
+%    \subsubsection{Unknown options}
+%    Unknown options will be passed to the parent class. For that a |@else@| key is
+%    defined on the |HsH| family, which will be execute for every unknown key-value
+%    option. Unknown bare options are handled by the |\DeclareOption*| command and will
+%    be passed there.
+%    \begin{macrocode}
+\DefineFamilyKey{HsH}{@else@}{
+  \HsH@Options@PassToParrent{#1}
+  \FamilyKeyStateProcessed
+}
+\DeclareOption*{
+  \HsH@Options@PassToParrent{\CurrentOption}
+}
+%    \end{macrocode}
+%
+%
+%    \subsubsection{Default options}
+%    The different classes all execute a set of default options, which is handled by the
+%    following code.
+%    \begin{macrocode}
+\FamilyExecuteOptions{HsH}{%
+  fontfamily=sans-serif,
+%<*!standalone>
+  fontsize=11pt,
+  language=ngerman,
+%<article>  parskip=never+,
+%<report>  parskip=half+,
+  linespacing=single,
+  headheight=2.15\baselineskip,
+%</!standalone>
+%<*article|report>
+  toc=listof,
+  toc=bibliography,
+%</article|report>
+  faculty=none,
+%<*standalone>
+  margin=0.25cm,
+  multi=tikzpicture,
+  multi=circuitikz,
+%</standalone>
+}
+%    \end{macrocode}
+%
+%    Now we cann process the options for the |HsH| familiy.
+%    \begin{macrocode}
+\FamilyProcessOptions{HsH}\relax
+%    \end{macrocode}
+%
+%    \subsubsection{Loading the parrent class}
+%    \begin{macrocode}
+\LoadClass{\HsHClassName@ParrentClass}
+%    \end{macrocode}
+%
+%
+%  \subsection{Package loading}
+%    The clases load and configure some common packages to reduce the needed amount of
+%    boilderplate code in your preamble.
+%
+%    Additionally there are settings provided for packages that are used more rarly, but
+%    will be set up correctly if you decide to load them via |\usepackage{}|.
+%
+%    \subsubsection{Ensuring German works}
+%      With modern LaTeX systems the encoding of inputfiles is UTF-8 by default, so the
+%      \pkg{inputenc} package is no longer requried. Should the user still use a old
+%      setup or use a different encoding, he is responsible for loading \pkg{inputenc}
+%      himself.
+%      \changes{v3.00}{2024-02-03}{removed the \pkg{inputenc} package, as utf8 is now default}
+%
+%      The font-encoding for the pdf file is also set up to allow for the full european
+%      characterset.
+%      \changes{v3.00}{2024-02-03}{added \pkg{type1ec} package to get better font-scaling} ^^A see https://tex.stackexchange.com/questions/208304
+%    \begin{macrocode}
+\RequirePackage[T1]{fontenc}
+\RequirePackage{type1ec}
+%    \end{macrocode}
+%
+%      To ensure localised translations of all displayed text automatically dependign on
+%      the user-selected \opt{language}, the \pkg{babel} package is loaded. This also
+%      allowes for the use of the |\iflanguage| command, which is relevant later.
+%    \begin{macrocode}
+\RequirePackage[main=\HsH@opt@language]{babel}
+%    \end{macrocode}
+%
+%      Quotationsmarks are also very different between languages, so the following
+%      ensures the correct style for the correct language.
+%    \begin{macrocode}
+\RequirePackage[autostyle=true]{csquotes}
+\MakeOuterQuote{"}
+%    \end{macrocode}
+%
+%      German uses a comma as the decimal separator, which collides with \LaTeX{}s
+%      default english setting of using the comma as a thousands separator and therefore
+%      replacing it with some whitespace on printed version. Luckily loading the
+%      \pkg{ziffer} package sets this up to match the german standart.
+%    \begin{macrocode}
+\iflanguage{ngerman}{\RequirePackage{ziffer}}{}%
+%    \end{macrocode}
+%
+%
+%    \subsubsection{Generally usefull packages}
+%
+%    We load \pkg{hyperref} for clikable links and configure it to write meta-date to
+%    the PDF.
+%    \begin{macrocode}
+\RequirePackage[hidelinks]{hyperref} % must load before `bookmarks'
+\RequirePackage{bookmark}
+\AtBeginDocument{
+  \hypersetup{
+    pdfinfo={
+      Title={\@title},
+      Author={\@author},
+      Subject={\@subject},
+      Keywords={\@keywords}
+    }
+  }
+}
+%    \end{macrocode}
+%
+%    The \pkg{todonotes} package is greate for anotation, but extremly expensive on
+%    compiletime. So we load it only if the user requests it. Also its commands are
+%    stubed, so that they can be left in the sourcecode and jut not output anything.
+%    \begin{macrocode}
+\if@todos
+  \PassOptionsToPackage{
+    textsize=small,
+    figwidth=.6\textwidth
+  }{todonotes}
+  \RequirePackage{todonotes}
+\else
+  \newcommand{\listoftodos}[1]{}
+  \newcommand{\todo}[2][]{}
+  \newcommand{\missingfigure}[2][]{}
+\fi
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\RequirePackage[hypcap=true]{caption}
+\RequirePackage{graphicx}
+\RequirePackage{amsmath,amssymb,amsfonts}
+\RequirePackage[svgnames]{xcolor}
+%    \end{macrocode}
+%
+%      For better compatibility with the \pkg{listings} package we load the
+%      \pkg{scrhack} package.
+%    \begin{macrocode}
+\RequirePackage{scrhack}
+%    \end{macrocode}
+%
+%    \subsubsection{Options for packages that could be loaded by the user}
+%      Some package are not always needed and potentially heavy to load in by default.
+%      But its still usefull to set default options for these packagese.
+%
+%      These differ from the settings provided in |HsH-classes.cfg| in that they are
+%      defaults that apply allway and not user-configurable preferences which are user
+%      or even project specific.
+%    \begin{macrocode}
+%<*article|report>
+\PassOptionsToPackage{backend=biber}{biblatex}
+\AtBeginDocument{
+  \makeatletter
+  \@ifpackageloaded{biblatex}{
+    \renewcommand*{\mkbibacro}[1]{\MakeUppercase{#1}}
+  }{}%
+  \makeatother
+}
+%</article|report>
+\PassOptionsToPackage{free-standing-units}{siunitx}
+\PassOptionsToPackage{european,EFvoltages,straightvoltages,betterproportions}{circuitikz}
+%    \end{macrocode}
+%
+%      For other packages we provide the settings more as a recomendation of what is
+%      usefull. As the user might want to change these, we outsource this to a seperat file
+%      and input it |\AtBeginDocument|. That way the user can just replace the file with his
+%      custom version.
+%    \begin{macrocode}
+\AtBeginDocument{
+  \makeatletter
+  \InputIfFileExists{HsH-classes.cfg}{
+    \ClassInfo{\HsHClassName}{Local config file HsH-classes.cfg used.}
+  }{
+    \ClassInfo{\HsHClassName}{No HsH-classes.cfg!! I hope you configered it yourself.}
+  }
+  \makeatother
+}
+%    \end{macrocode}
+%
+%    \subsection{Custom commands}
+%
+%    \subsubsection{Document seperation commands}
+%      The following commands are only defnied for \cls{book} type classes by default.
+%      But they are also usefull for the \cls{report} class, so we define them in that case.
+%    \begin{macrocode}
+%<*report>
+%    \end{macrocode}
+%
+%      \begin{macro}{\if@mainmatter}
+%        We define a switch which stores if the document is currently at a mainmatter
+%        section. Ir defaults to |true| as the user needs to explicitly set the state to
+%        something differnt.
+%    \begin{macrocode}
+\newif\if@mainmatter\@mainmattertrue
+%    \end{macrocode}
+%      \end{macro}
+%
+%        As a pagenumber change requires a fresh page, this is ensured first. We also
+%        need to make sure that on twosided document, the first page is alwasy on the
+%        left.
+%
+%      \begin{macro}{\frontmatter}
+%        The pagenumbering is set to capital roman numerals.
+%    \begin{macrocode}
+\newcommand{\frontmatter}{
+  \if@twoside\cleardoubleoddpage\else\clearpage\fi
+  \@mainmatterfalse\pagenumbering{Roman}
+}
+%    \end{macrocode}
+%      \end{macro}
+%
+%      \begin{macro}{\mainmatter}
+%        The pagenumbering is set to arabic numerals.
+%    \begin{macrocode}
+\newcommand{\mainmatter}{
+  \if@twoside\cleardoubleoddpage\else\clearpage\fi
+  \@mainmattertrue\pagenumbering{arabic}
+}
+%    \end{macrocode}
+%      \end{macro}
+%
+%      \begin{macro}{\backmatter}
+%        The pagenumbering is set to arabic numerals.
+%    \begin{macrocode}
+\newcommand{\backmatter}{
+  \if@openright\cleardoubleoddpage\else\clearpage\fi
+  \@mainmatterfalse\pagenumbering{roman}
+}
+%    \end{macrocode}
+%      \end{macro}
+%
+%    \begin{macrocode}
+%</report>
+%    \end{macrocode}
+%
+%
+%     \subsubsection{The Logo for Hochschule Hannover}
+%       The following macros are responsible for creating the logo. They load a specific
+%       page of a PDF file and siplay it.
+%
+%       \begin{macro}{\HsHlogoPath}
+%         This macro contains the path to load the PDF from. It defaults to
+%         |HSH-Logo.pdf|, which is provieded by this project inside the |scr/| folder.
+%    \begin{macrocode}
+\newcommand{\HsHlogoPath}{HSH-Logo.pdf}
+%    \end{macrocode}
+%      \end{macro}
+%
+%       \begin{macro}{\HsHlogoPage}
+%         This macro stores the page to use from the PDF. It will be set via the
+%         documentoption \opt{faculty}.
+%    \begin{macrocode}
+\newcommand{\HsHlogoPage}{\HsH@opt@faculty}
+%    \end{macrocode}
+%      \end{macro}
+%
+%       \begin{macro}{\includeHsHlogohere}
+%         Calling this macro produces the logo in-place. You can specify the width as an
+%         optional argument. The default is $5\,\mathrm{cm}$. \par
+%         If the file provided via \cmd{\HsHlogoPath} doesn't exist, the command will
+%         produce an error.
+%    \begin{macrocode}
+\newcommand{\includeHsHlogohere}[1][5cm]{
+  \IfFileExists{\HsHlogoPath}{
+    \includegraphics[width=#1,page=\HsHlogoPage]{\HsHlogoPath}
+  }{
+    \ClassError{\HsHClassName}{\HsHlogoPath\space not found!}{
+      The HsH Logo is necasary for the titlepage! Try putting it next to your source file or use \HsHlogoPath to define the file location
+    }
+  }
+}
+%    \end{macrocode}
+%      \end{macro}
+%
+%      \subsubsection{Title matters}
+%    \begin{macrocode}
+%<*article|report>
+%    \end{macrocode}
+%
+%        The following commands relave to the creation of the titlepage. They Implement
+%      how the user can define the differnt datafields.
+%        \smallskip
+%
+%        First the |\@author| macro is set to |\@empty|, this makes it easyer to handle it
+%        later.
+%    \begin{macrocode}
+\let\@author\@empty
+%    \end{macrocode}
+%
+%        \begin{macro}{\title}
+%        We redefine the |\title| command to take a optional argument. This is stored in
+%        the additional |\@shorttitle| macro.
+%    \begin{macrocode}
+\renewcommand{\title}[2][]{
+  \gdef\@title{#2}
+  \gdef\@shorttitle{#1}
+}
+%    \end{macrocode}
+%        \end{macro}
+%
+%        \begin{macro}{\@shorttitle}
+%        This new macro stores a short version of the title. This will be used in places
+%        where the fill title might overflow the availabel space.
+%    \begin{macrocode}
+\def\@shorttitle{\@empty}
+%    \end{macrocode}
+%        \end{macro}
+%
+%        \begin{macro}{\matrikelnr,\@matrikelnr}
+%        These macros set and store the matrikel-number (or set of numbers), which will
+%        be printed on the titlepage.
+%    \begin{macrocode}
+\newcommand{\matrikelnr}[1]{\gdef\@matrikelnr{#1}}
+\def\@matrikelnr{\@empty}
+%    \end{macrocode}
+%        \end{macro}
+%
+%        \begin{macro}{\professor,\firstexaminer,\secondexaminer,\@professor,\@firstexaminer,\@secondexaminer}
+%        These three macros-groups give options to the user to print peoples names on
+%        the titlepage, who are relevant to the document, but not the author.
+%    \begin{macrocode}
+\newcommand{\professor}[1]{\gdef\@professor{#1}}
+\def\@professor{\@empty}
+\newcommand{\firstexaminer}[1]{\gdef\@firstexaminer{#1}}
+\def\@firstexaminer{\@empty}
+\newcommand{\secondexaminer}[1]{\gdef\@secondexaminer{#1}}
+\def\@secondexaminer{\@empty}
+%    \end{macrocode}
+%        \end{macro}
+%
+%        \begin{macro}{\keywords,\@keywords}
+%        The macro-group defines and holds keywords which describe the document. They
+%        are used when printing the abstract as well as in the PDF's meta-data.
+%    \begin{macrocode}
+\newcommand{\keywords}[1]{\gdef\@keywords{#1}}
+\def\@keywords{\@empty}
+%    \end{macrocode}
+%        \end{macro}
+%
+%    \begin{macrocode}
+%</article|report>
+%    \end{macrocode}
+%
+%      \subsubsection{Commands for document writing}
+%
+%        \begin{macro}{\declarationofauthorship}
+%        The declatation of authorship is not relevant for the \cls{standalone} varaiant.
+%    \begin{macrocode}
+%<*!stadnalone>
+%    \end{macrocode}
+%        The \pkg{pgffor} package is requried to handle the loope over the list of authors.
+%    \begin{macrocode}
+\RequirePackage{pgffor}
+%    \end{macrocode}
+%        Now the command is defined. It takes a optional argument which defaults to \opt{b}.
+%    \begin{macrocode}
+\newcommand{\declarationofauthorship}[1][b]{
+%    \end{macrocode}
+%      First the argument is passed and an error raised for invalid arguments. Passing
+%      in \opt{b} will push the declatarion to the bottom of the page and add a
+%      horizontal line. PAssing \opt{t} simply adds some space.
+%    \begin{macrocode}
+  \if#1b
+    \vspace*{\fill}
+    \hrule
+  \else\if#1t
+    \vspace*{2em}
+  \else
+    \ClassError{\HsHClassName}{Wrong Parameter for `\declarationofauthorship'}{
+      `\string\declarationofauthorship' only accepts `t' and `b' as parameters.
+    }
+  \fi\fi
+%    \end{macrocode}
+%      Now the actuall declatarion can be constructed. It uses the text from |\decofauthname|
+%      and |\decofauthtext|.
+%    \begin{macrocode}
+  \vskip 3em
+  {\centering\bfseries\usekomafont{section}{\decofauthname}\par}
+  \vskip 3em
+  \decofauthtext\par
+%    \end{macrocode}
+%      The last step is to loop over all authors by reading |\@author| and creating a
+%      signature box for each one. |\thanks| also needs to be cleared, as a footnote
+%      wouldn't make sense here.
+%    \begin{macrocode}
+  \begingroup
+    \renewcommand{\thanks}{\sbox0}
+    \raggedleft
+    \foreach \tmp@ in \@author {
+      \if\tmp@\empty\else
+        \hskip 1em \parbox{4cm}{
+          \vskip 4em
+          \hrule\vskip 4pt
+          \raggedleft\footnotesize\tmp@
+        }%
+      \fi
+    }\par
+  \endgroup
+}
+%    \end{macrocode}
+%        \end{macro}
+%
+%        \begin{macro}{\ifsingleauthor}
+%        To ensure |\decofauthtext| is preperly spelled for one or multiple authors, we
+%        define a conditional that holds this information. Additionally we check the
+%        number of authors |\AtBeginDocument| and store it.
+%    \begin{macrocode}
+\newif\ifsingleauthor
+\AtBeginDocument{
+  \begingroup
+    \newcount\count@
+    \count@=\z@
+    \@for\tmp@:=\@author\do{\advance\count@\@ne}
+    \ifnum\count@>\@ne\global\singleauthorfalse\else\global\singleauthortrue\fi
+  \endgroup
+}
+%    \end{macrocode}
+%        \end{macro}
+%
+% define the localised texts
+%    \begin{macrocode}
+\newcommand{\decofauthname}{Declaration of Authorship}
+\newcaptionname{english}\decofauthname{Declaration of Authorship}
+\newcaptionname{german,ngerman}\decofauthname{Selbstst\"andigkeitserkl\"arung}
+%
+\newcommand{\decofauthtext}{Language not supported!}
+\newcaptionname{english}\decofauthtext{%
+  \ifsingleauthor{I}\else{We}\fi\space hereby certify that the work \ifsingleauthor{I}\else{we}\fi\space
+  \ifsingleauthor am\else are\fi\space submitting is entirely of \ifsingleauthor{my}\else{our}\fi own
+  making except where otherwise indicated. \ifsingleauthor{I}\else{We}\fi\space
+  \ifsingleauthor{am}\else{are}\fi\space aware of regulations concerning plagiarism, including
+  disciplinary actions that may result from it. Any use of the works of any other author, in any form,
+  is properly acknowledged at their point of use.
+}
+\newcaptionname{german,ngerman}\decofauthtext{%
+  Hiermit best{\"a}tige\ifsingleauthor\else{n}\fi\space \ifsingleauthor ich\else wir\fi, dass die
+  folgende Arbeit eigenst{\"a}ndig von \ifsingleauthor{mir}\else{uns}\fi\space allein erstellt und
+  unter Ber{\"u}cksichtigung der zur Verf{\"u}gung gestellten Aufgabenstellung sowie dem Arbeitsmaterial
+  unter Angabe aller verwendeten Quellen erarbeitet wurde. Die Regelungen und Konsequenzen eines
+  Plagiats, inklusive disziplinarischer Ma{\ss}nahmen, sind \ifsingleauthor{mir}\else{uns}\fi\space
+  bewusst. Insbesondere wurden alle Zitate und gedanklichen {\"U}bernahmenals solche kenntlich gemacht.
+}
+%    \end{macrocode}
+%
+%    \begin{macro}{\declarationAuthorship}
+%    \changes{v2.01}{2023-08-11}{Deprecate \cmd{\declarationAuthorship}, as it got replaced by \cmd{\declarationofauthorship}}
+%    \begin{macrocode}
+\def\declarationAuthorship{%
+  \ClassWarning{\HsHClassName}{%
+    Command \string\declarationAuthorship\space is deprecate.\MessageBreak
+    Replace it with \string\declarationofauthorship.
+  }%
+  \declarationofauthorship%
+}
+%</!stadnalone>
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \subsubsection{Micalanious commands}
+%      \vspace{-1\baselineskip}
+%      \paragraph{Utillity commands}
+%        For writing absolout values, we provide the \cmd{\abs\marg{equ}} command, which
+%        puts groable, vertical bars on both sides of the equation inside.
+%    \begin{macrocode}
+\newcommand{\abs}[1]{\ensuremath{\left\vert#1\right\vert}}
+%    \end{macrocode}
+%
+%      \paragraph{Configuring mathmode-indices}
+%        The only hard requirements for documents writing on Hochschule Hannover is, that
+%        the indices in mathematic formulas must be typset in an upright ("steil") font,
+%        not the default kursive font. We configure this by first defining a macro to
+%        replace the default \cmd{\sb} macro. We can than assign this to |_|. For that to
+%        work we need to change its catcode to make it modifyable.
+%        \begin{note}
+%          You can allways use \cmd{\sb} to use the original behaviour for special cases.
+%        \end{note}
+%    \begin{macrocode}
+\def\@subinrm#1{\sb{\mathrm{#1}}}
+{\catcode`\_=13 \global\let_=\@subinrm}
+%    \end{macrocode}
+%
+%        \begin{macro}{\upsubscripts}
+%        Now we can define a command to activate this new behavior by changing the catcode
+%        of |_| to 13, which makes it a normal macro.
+%    \begin{macrocode}
+\newcommand\upsubscripts{\catcode`\_=12}
+%    \end{macrocode}
+%        \end{macro}
+%
+%        \begin{macro}{\normalsubscripts}
+%        To switch back we simply need to reset the catcode of |_| back to the original,
+%        which makes it a buildin operator with the default behavior.
+%    \begin{macrocode}
+\newcommand\normalsubscripts{\catcode`\_=8}
+%    \end{macrocode}
+%    \end{macro}
+%
+%  \subsection{Document setup}
+%    The following sets up the look and feel of the documents using this classe. All
+%    configuration and stylin is done here.
+%
+%    \subsubsection{Fonts and text styling}
+%    \begin{macrocode}
+\RequirePackage{lmodern}
+%    \end{macrocode}
+%
+%    \subsubsection{Page layout}
+%
+%    \begin{macrocode}
+%<*!standalone>
+\areaset[current]{0.75\paperwidth}{0.8\paperheight}
+\if@todos
+  \addtolength\paperwidth{5cm}
+  \addtolength\marginparwidth{5cm}
+\fi
+%</!standalone>
+%    \end{macrocode}
+%
+%    \subsubsection{Styling \LaTeX{} default constucts}
+%
+%      \paragraph{Floats}\vspace*{-1\baselineskip}
+%    \begin{macrocode}
+%<*!standalone>
+%    \end{macrocode}
+%      Floats should alwasy prefere the \emph{here} placement, than the \emph{top} of
+%      the following page.
+%    \begin{macrocode}
+\renewcommand{\fps@figure}{h!t}
+\renewcommand{\fps@table}{h!t}
+%    \end{macrocode}
+%
+%      Floats should be centered by default and the width of the caption box is limited.
+%    \begin{macrocode}
+\g@addto@macro\@floatboxreset\centering
+\setcapwidth{0.8\textwidth}
+%    \end{macrocode}
+%
+%      The names of floating enviroments are redefined to show abreviations only.
+%    \begin{macrocode}
+\defcaptionname{english}\figurename{Fig.}
+\defcaptionname{german,ngerman}\figurename{Abb.}
+\defcaptionname{english}\tablename{Tab.}
+\defcaptionname{german,ngerman}\tablename{Tab.}
+%    \end{macrocode}
+%
+%      For subfigures we need to define a name used in autoreferences.
+%    \begin{macrocode}
+\AtBeginDocument{
+  \makeatletter
+  \@ifpackageloaded{subfigure}{
+    \let\subfigureautorefname\figureautorefname
+  }{}%
+  \makeatother
+}
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+%</!standalone>
+%    \end{macrocode}
+%
+%      \paragraph{Lists}
+%      For unordert liste the markers are redefined to look a littel nicer.
+%    \begin{macrocode}
+\renewcommand{\labelitemi}{\raisebox{.3ex}{\scalebox{0.7}{$\bullet$}}}
+\renewcommand{\labelitemii}{\raisebox{.3ex}{\scalebox{0.7}{$\circ$}}}
+\renewcommand{\labelitemiii}{\raisebox{.1ex}{-}}
+\renewcommand{\labelitemiv}{\raisebox{-.1ex}{\scalebox{1.3}{$\cdot$}}}
+%    \end{macrocode}
+%
+%      \paragraph{Misc}
+%        We activae one of the commands defined above to make math-indices upright by
+%        default.
+%    \begin{macrocode}
+\upsubscripts
+%    \end{macrocode}
+%
+%        We want a ragged botton instead of spreading the paragraphs over the page.
+%    \begin{macrocode}
+\raggedbottom
+%    \end{macrocode}
+%
+%        The ruler shown in the top and left margin with the \opt{draft} option is
+%        removed.
+%    \begin{macrocode}
+\let\layercontentsmeasure\relax
+%    \end{macrocode}
+%
+%    \subsubsection{Header and footer}
+%
+%    \begin{macrocode}
+%<*article|report>
+%    \end{macrocode}
+%
+%      The header and footer are styled using the low-level commands provided by the
+%      \KOMAScript{} package \pkg{scrlayer-scrpage}.
+%    \begin{macrocode}
+\RequirePackage{scrlayer-scrpage}
+\FamilyOptions{KOMA}{headsepline,singlespacing=true}
+%    \end{macrocode}
+%
+%      First we define the new pagestyle |HsHheadings|.
+%    \begin{macrocode}
+\newpagestyle{HsHheadings}{
+  {
+    \parbox[b]{\sls@headwidth}{
+      \LaTeXraggedright
+      \ifx\@shorttitle\@empty\@title\else\@shorttitle\fi
+    }%
+  }
+  {
+    \parbox[b]{\sls@headwidth}{
+      \LaTeXraggedleft
+      \leftmark
+    }%
+  }
+  {
+    \parbox[b]{.45\sls@headwidth}{
+      \LaTeXraggedright
+      \ifx\@shorttitle\@empty\@title\else\@shorttitle\fi
+    }%
+    \hfill
+    \parbox[b]{.45\sls@headwidth}{
+      \LaTeXraggedleft
+      \headmark
+    }%
+  }
+  (\textwidth,.1pt)
+}{
+  {\pagemark}
+  {\hfill\pagemark}
+  {\hfill\pagemark}
+}
+%    \end{macrocode}
+%      Than all generic settings are applyed:
+%    \begin{macrocode}
+\clearpairofpagestyles
+\ofoot*{\pagemark}
+\pagestyle{HsHheadings}
+%<article>\automark{section}
+%<report>\automark{chapter}
+%<report>\renewcommand*{\chapterpagestyle}{HsHheadings}
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+%</article|report>
+%    \end{macrocode}
+%
+%    \subsubsection{Titlepage}
+%
+%      \begin{macro}{\maketitle}
+%        The definiton of |\maketitle| is mostly taken from the source-code of the
+%        \KOMAScript{} parrentclass, but was modified to create the desired style.
+%    \begin{macrocode}
+%<*article|report>
+\newcommand{\professortext}{Professor}
+\newcommand{\firstexaminertext}{First examiner}
+\newcommand{\secondexaminertext}{Second examiner}
+\newcaptionname{english}\professortext{Professor}
+\newcaptionname{english}\firstexaminertext{First examiner}
+\newcaptionname{english}\secondexaminertext{Second examiner}
+\newcaptionname{german,ngerman}\professortext{Professor(in)/Lehrbeauftragte(r)}
+\newcaptionname{german,ngerman}\firstexaminertext{Erstpr{\"u}fer(in)}
+\newcaptionname{german,ngerman}\secondexaminertext{Zweitpr{\"u}fer(in)}
+\newtoks\@tabtoks
+\newcommand\addtabtoks[1]{\global\@tabtoks\expandafter{\the\@tabtoks#1}}
+\newcommand\eaddtabtoks[1]{\edef\mytmp{#1}\expandafter\addtabtoks\expandafter{\mytmp}}
+% %%\newcommand*\resettabtoks{\global\@tabtoks{}}
+\newcommand*\printtabtoks{\the\@tabtoks}
+\addtokomafont{publishers}{\normalsize}
+\g@addto@macro\titlepage{\singlespacing}
+%
+%<article>\renewcommand\maketitle[1][c]{
+%<report>\renewcommand\maketitle[1][l]{
+  \expandafter\ifnum \csname scr@v@3.12\endcsname>\scr@compatibility\relax
+  \else
+    \def\and{%
+      \end{tabular}
+      \hskip 1em \@plus.17fil
+      \begin{tabular}[t]{c}%
+    }
+  \fi
+%<*article>
+  \par
+  \ifx\@uppertitleback\@empty\else
+    \ClassWarning{\KOMAClassName}{%
+      non empty \string\uppertitleback\space ignored
+      by \string\maketitle\MessageBreak
+      in `titlepage=false' mode%
+    }
+  \fi
+  \ifx\@lowertitleback\@empty\else
+    \ClassWarning{\KOMAClassName}{%
+      non empty \string\lowertitleback\space ignored
+      by \string\maketitle\MessageBreak
+      in `titlepage=false' mode%
+    }
+  \fi
+%</article>
+%<report>  \begin{titlepage}
+%<article>  \begingroup
+    \let\@param#1
+    \ifx\@param\@empty
+      \ClassError{\myClassName}{\maketitle\space with empty option}{
+        \maketitle[] has been called (with an empty parameter), this doesn't work.
+        Use \maketitle instead.
+      }
+    \fi
+%<*report>
+    \if@titlepageiscoverpage
+      \edef\titlepage@restore{
+        \noexpand\endgroup
+        \noexpand\global\noexpand\@colht\the\@colht
+        \noexpand\global\noexpand\@colroom\the\@colroom
+        \noexpand\global\vsize\the\vsize
+        \noexpand\global\noexpand\@titlepageiscoverpagefalse
+        \noexpand\let\noexpand\titlepage@restore\noexpand\relax
+      }
+      \begingroup
+      \topmargin=\dimexpr \coverpagetopmargin-1in\relax
+      \oddsidemargin=\dimexpr \coverpageleftmargin-1in\relax
+      \evensidemargin=\dimexpr \coverpageleftmargin-1in\relax
+      \textwidth=\dimexpr
+      \paperwidth-\coverpageleftmargin-\coverpagerightmargin\relax
+      \textheight=\dimexpr
+      \paperheight-\coverpagetopmargin-\coverpagebottommargin\relax
+      \headheight=0pt
+      \headsep=0pt
+      \footskip=\baselineskip
+      \@colht=\textheight
+      \@colroom=\textheight
+      \vsize=\textheight
+      \columnwidth=\textwidth
+      \hsize=\columnwidth
+      \linewidth=\hsize
+    \else
+      \let\titlepage@restore\relax
+    \fi
+    \let\footnotesize\small
+    \let\footnoterule\relax
+    \let\footnote\thanks
+%</report>
+%<article>    \let\titlepage@restore\relax
+    \renewcommand*\thefootnote{\@fnsymbol\c@footnote}%
+    \let\@oldmakefnmark\@makefnmark
+    \renewcommand*{\@makefnmark}{\rlap\@oldmakefnmark}%
+%<article>    \next@tdpage
+    \ifx\@extratitle\@empty
+%<article>      \ifx\@frontispiece\@empty\else \mbox{}\fi
+%<*report>
+      \ifx\@frontispiece\@empty\else
+        \if@twoside\mbox{}\next@tpage\fi
+        \noindent\@frontispiece\next@tdpage
+      \fi
+%</report>
+    \else
+%<article>      \@makeextratitle
+%<*report>
+      \noindent\@extratitle
+      \ifx\@frontispiece\@empty
+      \else
+        \next@tpage
+        \noindent\@frontispiece
+      \fi
+      \next@tdpage
+%</report>
+    \fi
+%<*article>
+    \ifx\@frontispiece\@empty
+      \ifx\@extratitle\@empty\else\next@tdpage\fi
+    \else
+      \next@tpage
+      \@makefrontispiece
+      \next@tdpage
+    \fi
+    \global\@topnum=\z@
+%</article>
+    \setparsizes{\z@}{\z@}{\z@\@plus 1fil}\par@updaterelative
+    \vspace*{1cm}
+    \begin{minipage}[t]{\textwidth}%
+      \ifx\@titlehead\@empty \else
+        \usekomafont{titlehead}{\@titlehead}%
+      \fi
+      \hfill
+% image with referrencepoint in lower left corner:
+      \raisebox{0pt}[\ht\strutbox][\dp\strutbox]{\includeHsHlogohere}
+    \end{minipage}
+    \raisebox{10pt}{\rule{\textwidth}{0.5pt}}
+    \null
+%<article>    \vskip 2em
+%<report>    \vfill
+    \begingroup
+      \if\@param c\centering\fi
+      \if\@param r\raggedleft\fi
+      \ifx\@subject\@empty\else
+        {\usekomafont{subject}{\@subject\par}}
+%<article>        \vskip 1.5em
+%<report>        \vskip 3em
+      \fi
+      {\usekomafont{title}{\huge\@title\par}}
+%<article>      \vskip .5em
+%<report>      \vskip 1em
+      {\ifx\@subtitle\@empty\else\usekomafont{subtitle}\@subtitle\par\fi}
+%<article|report>      \vskip 4em
+      {\ifx\@matrikelnr\@empty
+        \if\@author\@empty\else\usekomafont{author}{
+          \parbox{\dimexpr\linewidth}{
+            \if\@param c\centering\fi
+            \if\@param r\raggedleft\fi
+            \@author
+          }
+        }\fi
+      \else
+        \if\@author\@empty\else
+          % sneeky comma needed after \@matrikelnr to deal with single item lists
+          \foreach \x [count=\i,evaluate=\i as \y using {{\@matrikelnr,}[\i-1]}] in \@author {\eaddtabtoks{\x & \y\protect\\}}
+          \usekomafont{author}{
+            \def\arraystretch{1.2}
+            \if\@param l\begin{tabular}{@{}l l}\printtabtoks\end{tabular}\fi
+            \if\@param c\begin{tabular}{l l}\printtabtoks\end{tabular}\fi
+            \if\@param r\begin{tabular}{r r@{}}\printtabtoks\end{tabular}\fi
+          }%
+        \fi
+      \fi}
+%<article>      \vskip 1em
+%<report>      \vskip 1.5em
+      {\usekomafont{date}{\@date\par}}
+%<article>      \vskip 1em
+%<report>      \vskip \z@ \@plus3fill
+      \usekomafont{publishers}{
+        \def\arraystretch{1.2}
+        \if\@param l\begin{tabular}{@{}l l}\fi
+        \if\@param c\begin{tabular}{l l}\fi
+        \if\@param r\begin{tabular}{r r@{}}\fi
+          \if\@professor\@empty\else\textbf{\professortext:}&\@professor\\\fi
+          \if\@firstexaminer\@empty\else\textbf{\firstexaminertext:}&\@firstexaminer\\\fi
+          \if\@secondexaminer\@empty\else\textbf{\secondexaminertext:}&\@secondexaminer\\\fi
+        \end{tabular}
+      }
+%<*article>
+      \ifx\@dedication\@empty\else
+        \vskip 2em
+        {\usekomafont{dedication}{\@dedication \par}}%
+      \fi
+%</article>
+      \par
+    \endgroup
+%<article>    \vskip 2em
+%<report>    \vskip 3em
+%<article>    \ifx\titlepagestyle\@empty\else\thispagestyle{\titlepagestyle}\fi
+    \@thanks\global\let\@thanks\@empty
+%<*report>
+    \vfill\null
+    \if@twoside
+      \@tempswatrue
+      \expandafter\ifnum \@nameuse{scr@v@3.12}>\scr@compatibility\relax
+      \else
+        \ifx\@uppertitleback\@empty\ifx\@lowertitleback\@empty
+          \@tempswafalse
+        \fi\fi
+      \fi
+      \if@tempswa
+        \next@tpage
+        \begin{minipage}[t]{\textwidth}
+          \@uppertitleback
+        \end{minipage}\par
+        \vfill
+        \begin{minipage}[b]{\textwidth}
+          \@lowertitleback
+        \end{minipage}\par
+        \@thanks\global\let\@thanks\@empty
+      \fi
+    \else
+      \ifx\@uppertitleback\@empty\else
+        \ClassWarning{\KOMAClassName}{%
+          non empty \string\uppertitleback\space ignored
+          by \string\maketitle\MessageBreak
+          in `twoside=false' mode%
+        }
+      \fi
+      \ifx\@lowertitleback\@empty\else
+        \ClassWarning{\KOMAClassName}{%
+          non empty \string\lowertitleback\space ignored
+          by \string\maketitle\MessageBreak
+          in `twoside=false' mode%
+        }
+      \fi
+    \fi
+    \ifx\@dedication\@empty
+    \else
+      \next@tdpage\null\vfill
+      {\centering\usekomafont{dedication}{\@dedication \par}}%
+      \vskip \z@ \@plus3fill
+      \@thanks\global\let\@thanks\@empty
+      \cleardoubleemptypage
+    \fi
+    \ifx\titlepage@restore\relax\else\clearpage\titlepage@restore\fi
+%</report>
+%<article>  \endgroup
+%<report>  \end{titlepage}
+  \setcounter{footnote}{0}
+  \expandafter\ifnum \csname scr@v@3.12\endcsname>\scr@compatibility\relax
+    \let\thanks\relax
+    \let\maketitle\relax
+    \let\@maketitle\relax
+    \global\let\@thanks\@empty
+    \global\let\@author\@empty
+    \global\let\@date\@empty
+    \global\let\@title\@empty
+    \global\let\@subtitle\@empty
+    \global\let\@extratitle\@empty
+    \global\let\@frontispiece\@empty
+    \global\let\@titlehead\@empty
+    \global\let\@subject\@empty
+    \global\let\@publishers\@empty
+    \global\let\@uppertitleback\@empty
+    \global\let\@lowertitleback\@empty
+    \global\let\@dedication\@empty
+    \global\let\@matrikelnr\@empty
+    \global\let\@prof\@empty
+    \global\let\author\relax
+    \global\let\title\relax
+    \global\let\extratitle\relax
+    \global\let\titlehead\relax
+    \global\let\subject\relax
+    \global\let\publishers\relax
+    \global\let\uppertitleback\relax
+    \global\let\lowertitleback\relax
+    \global\let\dedication\relax
+    \global\let\date\relax
+    \global\let\matrikelnr\relax
+    \global\let\professor\relax
+  \fi
+  \global\let\and\relax
+}
+%</article|report>
+%    \end{macrocode}
+%      \end{macro}
+%
+%\iffalse docstrip-guard
+%</article|report|standalone>
+%\fi
+%
+%\Finale
+\endinput
