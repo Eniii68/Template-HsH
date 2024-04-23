@@ -2,3 +2,5 @@
 *.synctex.gz
 *.synctex(busy)
 *.log
+
+/*.pdf
