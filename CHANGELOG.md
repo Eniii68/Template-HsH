@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 
 ## [Current]
 
+## [3.0]
+
+### Breaking
+
+- `config.tex` was renamed to `HsH-classes.cfg`
+
+### Fixed
+
+- no longer leaking `\makeatletter` into userspace
+
+### Changed
+
+- document-option `todos` is now a simple-switch, which means it can be disabled using `todos=off|false` instead of having to remove the option
+- use git large-file-storage by default
+- lots of behind the seance scenes
+
+### Added
+
+- detailed documentation in `src/HsH-classes.pdf`
+- document-option `parskip` to configure inter-paragraph skip-sizes
+- document-option `lineheight` to define the spacing between lines
+
 ## [2.2]
 
 ### Fixed
