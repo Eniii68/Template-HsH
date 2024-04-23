@@ -1,111 +1,71 @@
-\documentclass[todos,f1]{HsH-report}
+\documentclass[todos=off]{HsH-report}
 
-\usepackage{color}
 \usepackage{lipsum}
-\usepackage{siunitx}
-\usepackage{biblatex}
-\usepackage{soul}
-\addbibresource{bib/localBibliography.bib}
+% \usepackage{showframe}
 
 %% documents personal data:
 \author{
 	Max Mustermann,
 	Mira Musterfrau
 }
-\matrikelnr{
-	1234567,
-	9876543
-}
 \titlehead{titlehead}
 \subject{Subject}
-\title[short title]{long and elaborate title that just goes on and on witout stopping}
+\title{long and elaborate title that just goes on and on without stopping}
 \subtitle{Subtitle}
 \date{\today}
-\professor{Professor}
-\keywords{test, baum}
+\keywords{test, wow}
+
+\defcaptionname{german,ngerman}\abstractname{Abstract}
 
 
 \begin{document}
+	\frontmatter
+	\maketitle
 
-\pagenumbering{Roman}
-\maketitle
-\declarationAuthorship
+	\declarationofauthorship
 
-\begin{abstract}
-	\lipsum[5-8]
-\end{abstract}
+	\begin{abstract}
+		\lipsum[3-5]
+	\end{abstract}
 
-\tableofcontents
+	\tableofcontents
+	\mainmatter
 
-\cleardoublepage % unbedingt erforderlich bei Doppelseitigem layout vor neuer Seitennummerierung!
-\pagenumbering{arabic} % Seitennummerierung normale zahlen
+	\chapter{test}
+		\includeHsHlogohere
 
-\chapter{very precice chapterheading with a bounch of important information}
-	\label{chap: one}
-	{\color{red}test} und stuff
-	\begin{figure}
-		\centering
-		\includegraphics[width=.6\textwidth]{img/lorem-ipsum.jpg}
-		\caption{test}
-	\end{figure}
+		Hällo\todo{drop the Ä?} "Welt", ist daß nicht schön? $3.1$ oder $3,2$
 
-	title test: \ifx\@shorttitle\@empty\@title\else\@shorttitle\fi
+		\begin{equation}
+			A_1 = \sum_{i=0}^{10} B_i + \abs{\frac{x}{2}}
+		\end{equation}
 
-	noch ein test \normalsubscripts$R_t$ \upsubscripts$R_t$
+		\begin{itemize}
+			\item Hello World
+			\item test
+			\begin{itemize}
+				\item Hello World
+				\item test
+				\begin{itemize}
+					\item Hello World
+					\item test
+					\begin{itemize}
+						\item Hello World
+						\item test
+					\end{itemize}
+				\end{itemize}
+			\end{itemize}
+		\end{itemize}
 
-	mit einheit: $R=200\,\mohm+ \SI{0.34567453}{\volt\per\metre}$
-	\cite{laboranleitung:physik}
-	\vspace{2cm}\\
-	eine zahl: $3,5+3.5$\footnote[1]{hello}\\
+	\section{superlong and elaborat title that will spand multiple lines, as it is just to big}
+		\lipsum[12-13]
+		\smallskip
 
-	Tiny: {\tiny hello} \todo{test} Small: {\small hello}
+		\lipsum[12-13]
 
-	\makeatletter
-	\newcommand{\test}[1][l]{
-		{
-			\def\t{#1}
-			\if\t l left
-			\else
-				right
-			\fi
-		}
-	}
-	\test; \test[right] \todo{super long todo that mus be going over multiple lines}
+		\todo[inline]{add another paragraph?}
 
-	\lipsum[5-6]
+		\lipsum[12-13]
 
-	\pagebreak
-	\begin{figure}
-		\centering
-		\includegraphics[width=0.6\textwidth, page=2]{plt/examplePlot.pdf}
-		\caption{a nice plot }
-	\end{figure}
 
-	test text\todo{why this?}
-
-	\begin{figure}
-		\centering
-		\includegraphics{crc/exampleCircuit.pdf}
-		\caption{a circuit diagramm}
-	\end{figure}
-
-	\makeatletter
-
-	\begin{figure}
-		\graphicspath{{svg/}} % double curly brackets needet for unknown reason
-		\input{svg/exampleSVG.pdf_tex}
-		\caption{made via inkscape}
-	\end{figure}
-
-	\begin{table}
-		\caption{hello}
-		\begin{tabular}{c|c}
-			test & hello \\\hline\hline
-			1 & 2 \\
-			\multicolumn{2}{|c|}{temp}
-		\end{tabular}
-	\end{table}
-
-\printbibliography
-\listoffigures
 \end{document}

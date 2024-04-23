@@ -3,8 +3,8 @@
 # generall settings:
 $pdf_mode = 1; # use pdflatex
 
-push @final_output_exts, 'ins', 'cls', 'cfg';
-push @generated_exts, 'hd';
+push @generated_exts, 'hd', 'ins', 'cfg';
+push @final_output_exts, 'ins', 'cfg';
 
 
 $makeindex = 'makeindex -s gind.ist %S';

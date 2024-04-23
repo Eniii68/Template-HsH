@@ -15,93 +15,225 @@
 %% 
 %% http://www.latex-project.org/lppl.txt
 %% 
-\typeout{Adapted from KOMA script for use in Hochschule Hannover <2023-08-12> Jan Wille}
-\NeedsTeXFormat{LaTeX2e}
-\newcommand{\HsHClassName}{HsH-standalone}
-\ProvidesClass{\HsHClassName}[2023/08/12 v2.1 HsH-Class based on KOMA]
-
-%% commands for HsH-logo
-\newcommand{\HsHlogoPath}{HSH-Logo.pdf}
-\newcommand{\HsHlogoPage}{1}
-\newcommand{\includeHsHlogohere}[1][5cm]{
-  \IfFileExists{\HsHlogoPath}{}{
-    \ClassError{\HsHClassName}{HsH-Logo.pdf not found!}{
-      The HsH Logo is necasary for the titlepage! Try putting it next to your source file or use \HsHlogoPath to define the file location
+\NeedsTeXFormat{LaTeX2e}[2022-06-01]
+\ProvidesClass{HsH-standalone}
+    [2024-04-23 3.00 HsH-class based on KOMA]
+\let\HsHClassName\@currname
+\def\HsHClassName@ParrentClass{%
+  standalone%
+}
+\RequirePackage{scrbase}
+\RequirePackage{setspace}
+\DefineFamily{HsH}
+\DefineFamilyMember{HsH}
+\newcommand{\HsH@Options@PassToParrent}[1]{%
+  \ClassInfoNoLine{\HsHClassName}{passing option to parrent class: #1}%
+  \PassOptionsToClass{#1}{\HsHClassName@ParrentClass}%
+}
+\newcommand{\HsH@Options@DeclareAlias}[3][HsH]{%
+  \DeclareOption{#2}{\FamilyExecuteOptions{#1}{#3}}%
+}
+\DefineFamilyKey{HsH}{fontfamily}{
+  \begingroup
+    \FamilySetNumerical{HsH}{parskip}{@tmp}{%
+      {sans}{0}, {sans-serif}{0},%
+      {roman}{1}, {serif}{1},%
+    }{#1}
+    \ifx\FamilyKeyState\FamilyKeyStateProcessed
+      \aftergroup\FamilyKeyStateProcessed
+      \ifcase\@tmp% 0
+        \endgroup
+        \renewcommand{\familydefault}{\sfdefault}
+        \if@atdocument\AfterKOMAoptions{\selectfont}\fi
+      \or% 1
+        \endgroup
+        \renewcommand{\familydefault}{\rmdefault}
+        \if@atdocument\AfterKOMAoptions{\selectfont}\fi
+      \else% should never be
+        \endgroup
+      \fi
+    \else
+      \endgroup
+      \FamilyKeyStateUnknownValue
+    \fi
+}
+\HsH@Options@DeclareAlias{sans}{fontfamily=sans}
+\HsH@Options@DeclareAlias{roman}{fontfamily=roman}
+\def\HsH@opt@language{nil}
+\FamilyStringKey{HsH}{language}{\HsH@opt@language}
+\HsH@Options@DeclareAlias{english}{language=english}
+\HsH@Options@DeclareAlias{german}{language=ngerman}
+\HsH@Options@DeclareAlias{ngerman}{language=ngerman}
+\def\HsH@opt@faculty{1}
+\FamilyNumericalKey{HsH}{faculty}{HsH@opt@faculty}{%
+  {none}{1}, {false}{1},%
+  {f1}{2}, {1}{2},%
+  {f2}{3}, {2}{3},%
+  {f3}{4}, {3}{4},%
+  {f4}{5}, {4}{5},%
+  {f5}{6}, {5}{6},%
+}
+\HsH@Options@DeclareAlias{f1}{faculty=f1}
+\HsH@Options@DeclareAlias{f2}{faculty=f2}
+\HsH@Options@DeclareAlias{f3}{faculty=f3}
+\HsH@Options@DeclareAlias{f4}{faculty=f4}
+\HsH@Options@DeclareAlias{f5}{faculty=f5}
+\FamilyBoolKey{HsH}{todos}{@todos}
+\DefineFamilyKey{HsH}{fontsize}{%
+  \ClassInfoNoLine{\HsHClassName}{The `fontsize' option is only a mock, its has not effect}
+  \FamilyKeyStateProcessed
+}
+\DefineFamilyKey{HsH}{@else@}{
+  \HsH@Options@PassToParrent{#1}
+  \FamilyKeyStateProcessed
+}
+\DeclareOption*{
+  \HsH@Options@PassToParrent{\CurrentOption}
+}
+\FamilyExecuteOptions{HsH}{%
+  fontfamily=sans-serif,
+  faculty=none,
+  margin=0.25cm,
+  multi=tikzpicture,
+  multi=circuitikz,
+}
+\FamilyProcessOptions{HsH}\relax
+\LoadClass{\HsHClassName@ParrentClass}
+\RequirePackage[T1]{fontenc}
+\RequirePackage{type1ec}
+\RequirePackage[main=\HsH@opt@language]{babel}
+\RequirePackage[autostyle=true]{csquotes}
+\MakeOuterQuote{"}
+\iflanguage{ngerman}{\RequirePackage{ziffer}}{}%
+\RequirePackage[hidelinks]{hyperref} % must load before `bookmarks'
+\RequirePackage{bookmark}
+\AtBeginDocument{
+  \hypersetup{
+    pdfinfo={
+      Title={\@title},
+      Author={\@author},
+      Subject={\@subject},
+      Keywords={\@keywords}
     }
   }
-  \includegraphics[width=#1,page=\HsHlogoPage]{\HsHlogoPath}
 }
-\newif\if@german%
-
-%% document options -------------------------------------------------------------------------------
-\DeclareOption{german}{
-  \@germantrue
-}
-\DeclareOption{ngerman}{
-  \@germantrue
-}
-\DeclareOption{english}{
-  \@germanfalse
-}
-\DeclareOption{f1}{
-  \renewcommand{\HsHlogoPage}{2}
-}
-\DeclareOption{f2}{
-  \renewcommand{\HsHlogoPage}{3}
-}
-\DeclareOption{f3}{
-  \renewcommand{\HsHlogoPage}{4}
-}
-\DeclareOption{f4}{
-  \renewcommand{\HsHlogoPage}{5}
-}
-\DeclareOption{f5}{
-  \renewcommand{\HsHlogoPage}{6}
-}
-\DeclareOption{sans}{
-  \renewcommand{\familydefault}{\sfdefault}
-}
-\DeclareOption{roman}{
-  \renewcommand{\familydefault}{\rmdefault}
-}
-%% defere all other options to the base class
-\DeclareOption*{\expandafter\PassOptionsToClass\expandafter{\CurrentOption}{standalone}}
-\ExecuteOptions{margin=0.25cm,fontsize=11pt,a4paper,ngerman,sans} % default options
-\ProcessOptions\relax
-%% Load KOMA class
-\LoadClass[multi=tikzpicture,multi=circuitikz]{standalone}
-
-%% package loading and config ---------------------------------------------------------------------
-\PassOptionsToPackage{utf8}{inputenc}
-\RequirePackage{inputenc}
-\PassOptionsToPackage{T1}{fontenc}
-\RequirePackage{fontenc}
-\RequirePackage{lmodern}
+\if@todos
+  \PassOptionsToPackage{
+    textsize=small,
+    figwidth=.6\textwidth
+  }{todonotes}
+  \RequirePackage{todonotes}
+\else
+  \newcommand{\listoftodos}[1]{}
+  \newcommand{\todo}[2][]{}
+  \newcommand{\missingfigure}[2][]{}
+\fi
+\RequirePackage[hypcap=true]{caption}
 \RequirePackage{graphicx}
-\RequirePackage{amsmath}
-%% options for not loaded packages ----------------------------------------------------------------
+\RequirePackage{amsmath,amssymb,amsfonts}
+\RequirePackage[svgnames]{xcolor}
+\RequirePackage{scrhack}
 \PassOptionsToPackage{free-standing-units}{siunitx}
 \PassOptionsToPackage{european,EFvoltages,straightvoltages,betterproportions}{circuitikz}
-
-%% typesetting indexes upright or standart
-\def\subinrm#1{\sb{\mathrm{#1}}}
-{\catcode`\_=13 \global\let_=\subinrm}
-\newcommand\upsubscripts{\catcode`\_=12 }
-\newcommand\normalsubscripts{\catcode`\_=8 }
-\upsubscripts
-
-%% load config at beginning of document
 \AtBeginDocument{
   \makeatletter
   \InputIfFileExists{HsH-classes.cfg}{
-    \ClassInfo{\HsHClassName}{HsH-classes.cfg was found. Using it...}
+    \ClassInfo{\HsHClassName}{Local config file HsH-classes.cfg used.}
   }{
-    \ClassInfo{\HsHClassName}{no HsH-classes.cfg!! I hope you configered it yourself.}
+    \ClassInfo{\HsHClassName}{No HsH-classes.cfg!! I hope you configered it yourself.}
   }
-  %% provide some usefull commands:
-  \providecommand{\abs}[1]{\ensuremath{\left\vert#1\right\vert}}
   \makeatother
 }
+\newcommand{\HsHlogoPath}{HSH-Logo.pdf}
+\newcommand{\HsHlogoPage}{\HsH@opt@faculty}
+\newcommand{\includeHsHlogohere}[1][5cm]{
+  \IfFileExists{\HsHlogoPath}{
+    \includegraphics[width=#1,page=\HsHlogoPage]{\HsHlogoPath}
+  }{
+    \ClassError{\HsHClassName}{\HsHlogoPath\space not found!}{
+      The HsH Logo is necasary for the titlepage! Try putting it next to your source file or use \HsHlogoPath to define the file location
+    }
+  }
+}
+\RequirePackage{pgffor}
+\newcommand{\declarationofauthorship}[1][b]{
+  \if#1b
+    \vspace*{\fill}
+    \hrule
+  \else\if#1t
+    \vspace*{2em}
+  \else
+    \ClassError{\HsHClassName}{Wrong Parameter for `\declarationofauthorship'}{
+      `\string\declarationofauthorship' only accepts `t' and `b' as parameters.
+    }
+  \fi\fi
+  \vskip 3em
+  {\centering\bfseries\usekomafont{section}{\decofauthname}\par}
+  \vskip 3em
+  \decofauthtext\par
+  \begingroup
+    \renewcommand{\thanks}{\sbox0}
+    \raggedleft
+    \foreach \tmp@ in \@author {
+      \if\tmp@\empty\else
+        \hskip 1em \parbox{4cm}{
+          \vskip 4em
+          \hrule\vskip 4pt
+          \raggedleft\footnotesize\tmp@
+        }%
+      \fi
+    }\par
+  \endgroup
+}
+\newif\ifsingleauthor
+\AtBeginDocument{
+  \begingroup
+    \newcount\count@
+    \count@=\z@
+    \@for\tmp@:=\@author\do{\advance\count@\@ne}
+    \ifnum\count@>\@ne\global\singleauthorfalse\else\global\singleauthortrue\fi
+  \endgroup
+}
+\newcommand{\decofauthname}{Declaration of Authorship}
+\newcaptionname{english}\decofauthname{Declaration of Authorship}
+\newcaptionname{german,ngerman}\decofauthname{Selbstst\"andigkeitserkl\"arung}
+\newcommand{\decofauthtext}{Language not supported!}
+\newcaptionname{english}\decofauthtext{%
+  \ifsingleauthor{I}\else{We}\fi\space hereby certify that the work \ifsingleauthor{I}\else{we}\fi\space
+  \ifsingleauthor am\else are\fi\space submitting is entirely of \ifsingleauthor{my}\else{our}\fi own
+  making except where otherwise indicated. \ifsingleauthor{I}\else{We}\fi\space
+  \ifsingleauthor{am}\else{are}\fi\space aware of regulations concerning plagiarism, including
+  disciplinary actions that may result from it. Any use of the works of any other author, in any form,
+  is properly acknowledged at their point of use.
+}
+\newcaptionname{german,ngerman}\decofauthtext{%
+  Hiermit best{\"a}tige\ifsingleauthor\else{n}\fi\space \ifsingleauthor ich\else wir\fi, dass die
+  folgende Arbeit eigenst{\"a}ndig von \ifsingleauthor{mir}\else{uns}\fi\space allein erstellt und
+  unter Ber{\"u}cksichtigung der zur Verf{\"u}gung gestellten Aufgabenstellung sowie dem Arbeitsmaterial
+  unter Angabe aller verwendeten Quellen erarbeitet wurde. Die Regelungen und Konsequenzen eines
+  Plagiats, inklusive disziplinarischer Ma{\ss}nahmen, sind \ifsingleauthor{mir}\else{uns}\fi\space
+  bewusst. Insbesondere wurden alle Zitate und gedanklichen {\"U}bernahmenals solche kenntlich gemacht.
+}
+\def\declarationAuthorship{%
+  \ClassWarning{\HsHClassName}{%
+    Command \string\declarationAuthorship\space is deprecate.\MessageBreak
+    Replace it with \string\declarationofauthorship.
+  }%
+  \declarationofauthorship%
+}
+\newcommand{\abs}[1]{\ensuremath{\left\vert#1\right\vert}}
+\def\@subinrm#1{\sb{\mathrm{#1}}}
+{\catcode`\_=13 \global\let_=\@subinrm}
+\newcommand\upsubscripts{\catcode`\_=12}
+\newcommand\normalsubscripts{\catcode`\_=8}
+\RequirePackage{lmodern}
+\renewcommand{\labelitemi}{\raisebox{.3ex}{\scalebox{0.7}{$\bullet$}}}
+\renewcommand{\labelitemii}{\raisebox{.3ex}{\scalebox{0.7}{$\circ$}}}
+\renewcommand{\labelitemiii}{\raisebox{.1ex}{-}}
+\renewcommand{\labelitemiv}{\raisebox{-.1ex}{\scalebox{1.3}{$\cdot$}}}
+\upsubscripts
+\raggedbottom
+\let\layercontentsmeasure\relax
 \endinput
 %%
 %% End of file `HsH-standalone.cls'.
