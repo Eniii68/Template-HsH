@@ -6,31 +6,26 @@
 %%
 %% HsH-classes.dtx  (with options: `article')
 %% 
-%% This is a generated file.
+%% Copyright (C) 2024 by Jan Wille <mail@janiwlle.de>
 %% 
-%% Copyright (C) 2021 by Jan Wille <mail@janwille.de>
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License (LPPL), either
+%% version 1.3c of this license or (at your option) any later
+%% version.  The latest version of this license is in the file:
 %% 
-%% This file may be distributed and/or modified under the conditions of
-%% the LaTeX Project Public License, either version 1.3 of this license
-%% or (at your option) any later version.  The latest version of this
-%% license is in:
-%% 
-%%    http://www.latex-project.org/lppl.txt
-%% 
-%% and version 1.3 or later is part of all distributions of LaTeX version
-%% 2021/01/01 or later.
+%% http://www.latex-project.org/lppl.txt
 %% 
 \typeout{Adapted from KOMA script for use in Hochschule Hannover <2023-08-12> Jan Wille}
 \NeedsTeXFormat{LaTeX2e}
-\newcommand{\myClassName}{HsH-article}
-\ProvidesClass{\myClassName}[2023/08/12 v2.1 HsH-Class based on KOMA]
+\newcommand{\HsHClassName}{HsH-article}
+\ProvidesClass{\HsHClassName}[2023/08/12 v2.1 HsH-Class based on KOMA]
 
 %% commands for HsH-logo
 \newcommand{\HsHlogoPath}{HSH-Logo.pdf}
 \newcommand{\HsHlogoPage}{1}
 \newcommand{\includeHsHlogohere}[1][5cm]{
   \IfFileExists{\HsHlogoPath}{}{
-    \ClassError{\myClassName}{HsH-Logo.pdf not found!}{
+    \ClassError{\HsHClassName}{HsH-Logo.pdf not found!}{
       The HsH Logo is necasary for the titlepage! Try putting it next to your source file or use \HsHlogoPath to define the file location
     }
   }
@@ -238,10 +233,10 @@
   \@ifpackageloaded{subfigure}{
     \newcommand{\subfigureautorefname}{\figureautorefname}
   }{}
-  \InputIfFileExists{config.tex}{
-    \ClassInfo{\myClassName}{config.tex was found. Using it...}
+  \InputIfFileExists{HsH-classes.cfg}{
+    \ClassInfo{\HsHClassName}{HsH-classes.cfg was found. Using it...}
   }{
-    \ClassInfo{\myClassName}{no config.tex!! I hope you configered it yourself.}
+    \ClassInfo{\HsHClassName}{no HsH-classes.cfg!! I hope you configered it yourself.}
   }
   %% provide some usefull commands:
   \providecommand{\abs}[1]{\ensuremath{\left\vert#1\right\vert}}
@@ -334,7 +329,7 @@
   \begingroup
     \let\@param#1
     \ifx\@param\@empty
-      \ClassError{\myClassName}{\maketitle\space with empty option}{
+      \ClassError{\HsHClassName}{\maketitle\space with empty option}{
         \maketitle[] has been called with an empty parameter, this doesn't work. Use \maketitle instead.
       }
     \fi
