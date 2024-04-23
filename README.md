@@ -23,29 +23,47 @@ some additional commands. You can find the full documentation of all features in
 [src/HsH-classes.pdf](src/HsH-classes.pdf), but here is a short description of the
 different classes:
 
-### `HsH-article`
+<dl>
+  <dt><code>HsH-article</code></dt>
+  <dd>
+    Based on the `scrartcl` this class is designed for quick and compact documents. It does
+    not have chapters and therefore never breaks to a new page on its own. This class is
+    useful for writing lab-protocols and alike.
+  </dd>
 
-Based on the `scrartcl` this class is designed for quick and compact documents. It does
-not have chapters and therefore never breaks to a new page on its own. This class is
-useful for writing lab-protocols and alike.
+  <dt><code>HsH-report</code></dt>
+  <dd>
+    This is probably the most useful class. It is based on the `scrreprt` and can be used
+    for a wide variety of documents, beginning with lab-reports and ending at complete
+    thesis. The line between article and report is somewhat blurry, so use as you see fit.
+  </dd>
 
-### `HsH-report`
+  <dt><code>HsH-book</code></dt>
+  <dd>
+    // ToDo has no been required up to this point
+  </dd>
 
-This is probably the most useful class. It is based on the `scrreprt` and can be used
-for a wide variety of documents, beginning with lab-reports and ending at complete
-thesis. The line between article and report is somewhat blurry, so use as you see fit.
+  <dt><code>HsH-beamer</code></dt>
+  <dd>
+    // ToDo may be interesting, but also not requried up to now
+  </dd>
 
-### `HsH-book`
-
-// ToDo
-
-### `HsH-standalone`
-
-A helper class based on the normal `standalone` class. It is designed only for creating
-images as separate documents to keep things organized and compiler times low. It is
-useful for creating graphs, circuit diagrams or other kind of complex sub documents.
+  <dt><code>HsH-standalone</code></dt>
+  <dd>
+    A helper class based on the normal `standalone` class. It is designed only for creating
+    images as separate documents to keep things organized and compiler times low. It is
+    useful for creating graphs, circuit diagrams or other kind of complex sub documents.
+  </dd>
+</dl>
 
 # Quick start guide
+
+## I have now Idea how to start, show me
+
+To get you started, there is a working example Project on the example branch that has
+loads of tips. Check it out
+[Online](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/tree/example) or
+locally using `git checkout example`.
 
 ## Recommended software
 
@@ -106,13 +124,6 @@ git push
 > **Note** giving you Project name as the default branch name is optional, and you could
 > keep the default name of `master`, but as the template also has a `master` branch it is
 > less confusing if you choose a different name.
-
-## I have now Idea how to start, show me
-
-To get you started, there is a working example Project on the example branch that has
-loads of tips. Check it out
-[Online](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/tree/example) or
-locally using `git checkout example`.
 
 ## Compiling
 
