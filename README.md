@@ -26,14 +26,14 @@ different classes:
 <dl>
   <dt><code>HsH-article</code></dt>
   <dd>
-    Based on the `scrartcl` this class is designed for quick and compact documents. It does
+    Based on the <code>scrartcl</code> this class is designed for quick and compact documents. It does
     not have chapters and therefore never breaks to a new page on its own. This class is
     useful for writing lab-protocols and alike.
   </dd>
 
   <dt><code>HsH-report</code></dt>
   <dd>
-    This is probably the most useful class. It is based on the `scrreprt` and can be used
+    This is probably the most useful class. It is based on the <code>scrreprt</code> and can be used
     for a wide variety of documents, beginning with lab-reports and ending at complete
     thesis. The line between article and report is somewhat blurry, so use as you see fit.
   </dd>
@@ -50,7 +50,7 @@ different classes:
 
   <dt><code>HsH-standalone</code></dt>
   <dd>
-    A helper class based on the normal `standalone` class. It is designed only for creating
+    A helper class based on the normal <code>standalone</code> class. It is designed only for creating
     images as separate documents to keep things organized and compiler times low. It is
     useful for creating graphs, circuit diagrams or other kind of complex sub documents.
   </dd>
@@ -102,17 +102,11 @@ your system.
 > platform
 
 ```shell
-# create project folder
-mkdir [Project]
-cd [Project]
-# set up local git repo with template
-git init -b [Project]
-git lfs install
-git remote add upstream https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh.git
-git fetch upstream
-git pull upstream master
+# set up local git repo from template
+git clone -o upstream https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh.git [Project]
+git branch -M [Project] # optional if you want to seperate your branch from origin/master
 git remote add origin [Project_URL]
-git push --set-upstream origin [Project]
+git push --set-upstream origin
 # optionally do some cleanup (linux syntax, adjust when needed)
 rm CHANGELOG.md LICENSE
 mv project.tex [Project].tex
