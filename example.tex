@@ -1,0 +1,158 @@
+%---------------------- the documentclass -----------------------------------------------------------------------------------------------------------%
+% using this command you confige the "look and feel" of your document.
+% you can pass different options to configure common usecases
+\documentclass[
+        faculty=1,
+        paper=a4,
+        fontsize=11pt,
+        fontfamily=sans-serif,
+        language=english,
+        parskip=half+,
+        linespacing=single,
+        twoside=true,
+        todos=off,
+        draft=false,
+    ]{HsH-report}
+
+%---------------------- the preamble ----------------------------------------------------------------------------------------------------------------%
+% everything between `\documentclass' and `\begin{document}' is called the preamble. Here you configure all settings for your document.
+% The `\documentclass' command is actually part of that configuration. Lets see what you could do here:
+
+\usepackage{soul}
+\usepackage{lipsum}
+
+% ----- document information -----
+% In your preamble you also list your documents information and metadata. These will be used on the title-page as well
+% as being available throughout the document. Additionally, these documentclasses set up the resulting PDF file with
+% the appropriate Metadata.
+% You can just delete any of this commands or leave them empty if you don't need it for a project.
+% See the following examples and what they create in the PDF file:
+\author{
+    Max Mustermann,
+    Mira Musterfrau
+} % the author and matrikelnr commands could also be on a single line, this is just more readable
+\matrikelnr{
+    1234567,
+    9876543
+}
+\titlehead{Found on GitLab}
+\subject{Example Project}
+\title{How to write in Latex}
+\subtitle{A helpful guide to get started and to show some common use cases}
+\date{\st{01.01.2020}\\\today}
+\professor{your Professor}
+\keywords{some, informative, keywords}
+
+
+%---------------------- beginning of document -------------------------------------------------------------------------------------------------------%
+% Now that you are all set, let's begin with the actual content of the document.
+% Don't forget the corresponding `\end{document}'!
+\begin{document}
+
+% for longer documents it is custom to have different numbering until the first page of actuall content.
+% For that use this command to switch to Roman pagenumbers and turn off chapternumbers:
+\frontmatter
+
+% While you can of course create your own title-page, either with latex or externally, the easiest way is to use the build in command.
+% These classes redefine it to include the HsH-logo (depending on the chosen faculty) and to use the additional data provided in the preamble.
+% You can also use the optional argument to change the title-pages alignment to l,c or r:
+\maketitle[c]
+
+% this command is provided by these documentclasses. It creates a standard Text at the bottom of the page and a line to sign on for every author.
+% You are not restricted to this exact position and can use it where ever you want in your document, if you prefer it at the back, but it there.
+\declarationofauthorship
+
+% # abstract
+% sometimes you are required to also create an abstract. Use this environment for that.
+% It will create a new page and a heading for you as well as indenting the whole text block a little.
+% if you have provided keywords, they will also be put at the end of the abstract.
+\begin{abstract}
+    \lipsum[5-6]
+\end{abstract}
+
+% This command will create the table of contents (TOC).
+% Keep in mind, that LaTeX can only now about things it has already read. For everything that follows, it relies on temporary files which are created
+% on the fly. So the complete TOC will only be rendered after at leas two LaTeX runs.
+\tableofcontents
+
+% the following command is the counterpiece of the `\frontmatter' command.
+% It resets pagenumbers so that the next chapter is the first with actuall content.
+\mainmatter
+
+
+% now we can begin with the actuall relevant content. So let's beginn by creating the first chapter:
+\chapter{What is LaTeX} \label{chap: latex}
+    So you decided to get stated with LaTeX. Great! So let's talk a bit about the basic concept and differences it comes with.
+
+    \medskip
+    Up to this point you probably used a Word Processor like MS Word. The kind of workflow you know from there is often referred to as \emph{What you
+    see is what you get}. You see the exact final layout as you type it, press some colourful buttons to insert stuff and if it doesn't want to do
+    something you need, you're screwed.
+
+    LaTeX on the other hand falls into the category of \emph{What you see is what you mean}, which describes all forms of markup languages. This means
+    you create your LaTeX document as a simple plain text file without any from of formatting and mix in a bunch of commands telling what you mean.
+    For example: "This is supposed to be a chapter heading", "make this bold" or "insert an image here". This source file will than be passed to a
+    document processor (the LaTeX program), which will, depending on its settings, create the document for you. The advantage is, that you can use the
+    same markup with all sorts of formattings and target file types.
+
+    This is why working with LaTeX will require some getting used to and you will find yourself wanting to compile every five seconds to see the
+    document update. Try to restrain yourself and concentrate on writing. You will find yourself working much faster.
+
+    \section{Following this document}
+        To see how the LaTeX source code and the resulting PDF correspond, I recommend you open this documents source code and PDF file next to each
+        other and scroll through them simultaneously.
+
+        If you already have a working LaTeX setup, most editors support \emph{SyncTex}, which allows you to jump between source code and PDF file and
+        vice versa. You have to compile yourself, which will create a file called \verb|example.synctex.gz| in your project directory. Now you
+        can \verb|<CTRL>+Click| in the PDF and the corresponding line of source code will be highlighted.
+
+        The shortcut to jump from the source code into the PDF will depend on your Editor, but for VS Code its
+        \verb|right Click|→\verb|SyncTex from cursor| or \verb|CTRL+ALT+J|.
+
+    \section{Requirements to use LaTeX}
+        As LaTeX files are just plain text file, you can edit them with any text editor (even windows notepad works, but that's just terrible).
+        However, I would strongly recommend a more suitable editor. I use \href{https://code.visualstudio.com/}{Visual Studio Code} (which is a multi
+        porpoise text editor that support all major programming languages) but you could also use something like
+        \href{https://www.xm1math.net/texmaker/}{Texmaker}, which is an editor specifically for LaTeX. There is also the online editor
+        \href{https://www.overleaf.com/}{Overfleaf}, which saves you the trouble of setting up your own LaTeX installation and provides everything you
+        need in the cloud.
+
+        \pagebreak\medskip
+        As I have already mention above, you also need the LaTeX program. It comes bundled with packages and other additional software inside a
+        Tex-distribution. There are two major ones, Texlive and MiKTeX. I recommend MiKTeX, but it essentially doesn't matter which one you choose.
+
+        Once you have the distribution installed, test it by running \verb|pdflatex --version| in any terminal windows and it should return you
+        some information about the installed version and setup.
+
+    \section{Running LaTeX}
+        To create a PDF file from your LaTeX source code, you can always navigate to the project folder in a terminal window and run
+        \verb|pdflatex filename.tex|. However, if you have a decent editor installed, it will provide you with a button and do this for you.
+
+        With these project files you also received a makefile, which demonstrates how to compile this example file successfully from the terminal. The
+        README file also has some tips and information for you.
+
+        If you use VS Code, this project also contains settings for LaTeX and recommended extensions. If you open the folder for the first time you
+        will be asked if you want to install them and should than be able to compile this file.
+
+    \section{LaTeX commands}
+        Now lets look at the LaTeX command. Every one will begin with a \textbackslash\space followed by a letters only command name, like this:
+        \verb|\command|. Most commands also accept input, which is put after it into curly brackets: \verb|\command{argument||. They can
+        accept multiple arguments either in multiple sets of curly brackets or as a comma separated list, depending on the command.
+
+        Some commands also accept optional arguments. These are passed inside square brackets between the command name and the curly brackets, like
+        this: \verb|\command[optional]{argument||.
+
+    \section{Getting more information}
+        So what can you do if you get stuck or just want more information. The simple answer is: Google is your friend. Most questions have already
+        been answered. For example on \href{https://tex.stackexchange.com/}{Tex Strackexchange}. Also, Overleaf has a great
+        \href{https://www.overleaf.com/learn}{section for learning LaTex}.
+
+        An of course you can always check the documentation, which you can find on \href{https://ctan.org/}{CTAN}.
+
+
+
+\noindent\begin{minipage}{\textwidth} % prevent automatic pagebreaks
+    \listoffigures
+    \listoftables
+\end{minipage}
+\end{document}
