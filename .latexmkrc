@@ -32,7 +32,6 @@ sub makeglossaries {
 add_cus_dep( 'svg', 'pdf', 0, 'runInkscape' );
 sub runInkscape {
 	my @args = ( "$_[0].svg", "--export-area-page", "--export-filename", "$_[0].pdf" );
-	print @args;
 	return system "inkscape", @args;
 }
 

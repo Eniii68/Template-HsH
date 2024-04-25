@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Current]
 
+### Fixed
+
+- removed debug print from `latexmk` inkscape recipy
+
 ## [3.0]
 
 ### Breaking
