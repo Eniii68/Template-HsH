@@ -6,14 +6,14 @@ $aux_dir = '.aux/'; # use and auxilary folder for temp files
 $pdf_mode = 1; # use pdflatex
 $bibtex_use = 2; # use biber
 
-push @generated_exts, "run.xml"; # biber creates this file
+push @std_small_cleanup_files, "run.xml"; # biber creates this file
 push @generated_exts, "lol"; # the listings package creates this file
 
 # put the ./src subfolder on searchpath
 ensure_path( 'TEXINPUTS', './src//' );
 
 # enable synctex
-set_tex_cmds( '-synctex=1 -interaction=nonstopmode %O %S' );
+push @extra_pdflatex_options, '-synctex=1';
 
 # create glossaries:
 add_cus_dep( 'acn', 'acr', 0, 'makeglossaries' );
@@ -25,14 +25,13 @@ sub makeglossaries {
 	my ($base_name, $path) = fileparse( $_[0] );
 	my @args = ( "-q", "-d", $path, $base_name );
 	if ($silent) { unshift @args, "-q"; }
-	return system "makeglossaries", "-d", $path, $base_name;
+	return system "makeglossaries", @args;
 }
 
 # simple svg dependencies via InkScape
 add_cus_dep( 'svg', 'pdf', 0, 'runInkscape' );
 sub runInkscape {
 	my @args = ( "$_[0].svg", "--export-area-page", "--export-filename", "$_[0].pdf" );
-	print @args;
 	return system "inkscape", @args;
 }
 
