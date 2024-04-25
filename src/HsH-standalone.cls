@@ -17,7 +17,7 @@
 %% 
 \NeedsTeXFormat{LaTeX2e}[2022-06-01]
 \ProvidesClass{HsH-standalone}
-    [2024-04-25 3.01 HsH-class based on KOMA]
+  [2024-04-25 3.01 HsH-class based on KOMA]
 \let\HsHClassName\@currname
 \def\HsHClassName@ParrentClass{%
   standalone%
@@ -35,27 +35,27 @@
 }
 \DefineFamilyKey{HsH}{fontfamily}{
   \begingroup
-    \FamilySetNumerical{HsH}{parskip}{@tmp}{%
-      {sans}{0}, {sans-serif}{0},%
-      {roman}{1}, {serif}{1},%
-    }{#1}
-    \ifx\FamilyKeyState\FamilyKeyStateProcessed
-      \aftergroup\FamilyKeyStateProcessed
-      \ifcase\@tmp% 0
-        \endgroup
-        \renewcommand{\familydefault}{\sfdefault}
-        \if@atdocument\AfterKOMAoptions{\selectfont}\fi
-      \or% 1
-        \endgroup
-        \renewcommand{\familydefault}{\rmdefault}
-        \if@atdocument\AfterKOMAoptions{\selectfont}\fi
-      \else% should never be
-        \endgroup
-      \fi
-    \else
+  \FamilySetNumerical{HsH}{parskip}{@tmp}{%
+    {sans}{0}, {sans-serif}{0},%
+    {roman}{1}, {serif}{1},%
+  }{#1}
+  \ifx\FamilyKeyState\FamilyKeyStateProcessed
+    \aftergroup\FamilyKeyStateProcessed
+    \ifcase\@tmp% 0
       \endgroup
-      \FamilyKeyStateUnknownValue
+      \renewcommand{\familydefault}{\sfdefault}
+      \if@atdocument\AfterKOMAoptions{\selectfont}\fi
+    \or% 1
+      \endgroup
+      \renewcommand{\familydefault}{\rmdefault}
+      \if@atdocument\AfterKOMAoptions{\selectfont}\fi
+    \else% should never be
+      \endgroup
     \fi
+  \else
+    \endgroup
+    \FamilyKeyStateUnknownValue
+  \fi
 }
 \HsH@Options@DeclareAlias{sans}{fontfamily=sans}
 \HsH@Options@DeclareAlias{roman}{fontfamily=roman}

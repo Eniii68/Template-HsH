@@ -17,7 +17,7 @@
 %% 
 \NeedsTeXFormat{LaTeX2e}[2022-06-01]
 \ProvidesClass{HsH-report}
-    [2024-04-25 3.01 HsH-class based on KOMA]
+  [2024-04-25 3.01 HsH-class based on KOMA]
 \let\HsHClassName\@currname
 \def\HsHClassName@ParrentClass{%
   scrreprt%
@@ -35,56 +35,56 @@
 }
 \DefineFamilyKey{HsH}{fontfamily}{
   \begingroup
-    \FamilySetNumerical{HsH}{parskip}{@tmp}{%
-      {sans}{0}, {sans-serif}{0},%
-      {roman}{1}, {serif}{1},%
-    }{#1}
-    \ifx\FamilyKeyState\FamilyKeyStateProcessed
-      \aftergroup\FamilyKeyStateProcessed
-      \ifcase\@tmp% 0
-        \endgroup
-        \renewcommand{\familydefault}{\sfdefault}
-        \if@atdocument\AfterKOMAoptions{\selectfont}\fi
-      \or% 1
-        \endgroup
-        \renewcommand{\familydefault}{\rmdefault}
-        \if@atdocument\AfterKOMAoptions{\selectfont}\fi
-      \else% should never be
-        \endgroup
-      \fi
-    \else
+  \FamilySetNumerical{HsH}{parskip}{@tmp}{%
+    {sans}{0}, {sans-serif}{0},%
+    {roman}{1}, {serif}{1},%
+  }{#1}
+  \ifx\FamilyKeyState\FamilyKeyStateProcessed
+    \aftergroup\FamilyKeyStateProcessed
+    \ifcase\@tmp% 0
       \endgroup
-      \FamilyKeyStateUnknownValue
+      \renewcommand{\familydefault}{\sfdefault}
+      \if@atdocument\AfterKOMAoptions{\selectfont}\fi
+    \or% 1
+      \endgroup
+      \renewcommand{\familydefault}{\rmdefault}
+      \if@atdocument\AfterKOMAoptions{\selectfont}\fi
+    \else% should never be
+      \endgroup
     \fi
+  \else
+    \endgroup
+    \FamilyKeyStateUnknownValue
+  \fi
 }
 \HsH@Options@DeclareAlias{sans}{fontfamily=sans}
 \HsH@Options@DeclareAlias{roman}{fontfamily=roman}
 \DefineFamilyKey{HsH}{linespacing}{
   \begingroup
-    \FamilySetNumerical{HsH}{linespacing}{@tempa}{%
-      {single}{0},%
-      {onehalf}{1},%
-      {double}{2},%
-    }{#1}
-    \ifx\FamilyKeyState\FamilyKeyStateProcessed
-      \aftergroup\FamilyKeyStateProcessed
-      \ifcase\@tempa% 0
-        \endgroup
-        \if@atdocument\singlespacing\else\AtEndOfClass{\singlespacing}\fi
-      \or% 1
-        \endgroup
-        \if@atdocument\onehalfspacing\else\AtEndOfClass{\onehalfspacing\AfterTOCHead{\singlespacing}}\fi
-      \or% 2
-        \endgroup
-        \if@atdocument\doublespacing\else\AtEndOfClass{\doublespacing\AfterTOCHead{\singlespacing}}\fi
-
-      \else% should never be
-        \endgroup
-      \fi
-    \else
+  \FamilySetNumerical{HsH}{linespacing}{@tempa}{%
+    {single}{0},%
+    {onehalf}{1},%
+    {double}{2},%
+  }{#1}
+  \ifx\FamilyKeyState\FamilyKeyStateProcessed
+    \aftergroup\FamilyKeyStateProcessed
+    \ifcase\@tempa% 0
       \endgroup
-      \FamilyKeyStateUnknownValue
+      \if@atdocument\singlespacing\else\AtEndOfClass{\singlespacing}\fi
+    \or% 1
+      \endgroup
+      \if@atdocument\onehalfspacing\else\AtEndOfClass{\onehalfspacing\AfterTOCHead{\singlespacing}}\fi
+    \or% 2
+      \endgroup
+      \if@atdocument\doublespacing\else\AtEndOfClass{\doublespacing\AfterTOCHead{\singlespacing}}\fi
+
+    \else% should never be
+      \endgroup
     \fi
+  \else
+    \endgroup
+    \FamilyKeyStateUnknownValue
+  \fi
 }
 \HsH@Options@DeclareAlias{singlespacing}{linespacing=single}
 \HsH@Options@DeclareAlias{onehalfspacing}{linespacing=onehalf}
@@ -426,6 +426,7 @@
 \newtoks\@tabtoks
 \newcommand\addtabtoks[1]{\global\@tabtoks\expandafter{\the\@tabtoks#1}}
 \newcommand\eaddtabtoks[1]{\edef\mytmp{#1}\expandafter\addtabtoks\expandafter{\mytmp}}
+%%%\newcommand*\resettabtoks{\global\@tabtoks{}}
 \newcommand*\printtabtoks{\the\@tabtoks}
 \addtokomafont{publishers}{\normalsize}
 \g@addto@macro\titlepage{\singlespacing}
