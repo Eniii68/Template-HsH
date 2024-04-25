@@ -17,7 +17,7 @@
 %% 
 \NeedsTeXFormat{LaTeX2e}[2022-06-01]
 \ProvidesClass{HsH-standalone}
-    [2024-04-23 3.00 HsH-class based on KOMA]
+    [2024-04-25 3.01 HsH-class based on KOMA]
 \let\HsHClassName\@currname
 \def\HsHClassName@ParrentClass{%
   standalone%
@@ -135,7 +135,7 @@
 \RequirePackage{scrhack}
 \AtBeginDocument{
   \makeatletter
-  \@ifpackageloaded{biblatex}{
+  \@ifpackageloaded{listings}{
     \RequirePackage{lstautogobble}\lstset{autogobble=true}
     \iflanguage{ngerman}{
       \lstset{literate={Ö}{{\"O}}1{Ä}{{\"A}}1{Ü}{{\"U}}1{ß}{{\ss}}1{ü}{{\"u}}1{ä}{{\"a}}1{ö}{{\"o}}1}
