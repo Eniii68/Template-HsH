@@ -2,8 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
-
 ## [Current]
+
+## [3.1]
 
 ### Fixed
 
