@@ -15,6 +15,9 @@ All notable changes to this project will be documented in this file.
 - option `abstract`
   - `abstract=keywords|nokeywords` to enable/disable the display of keywords after the abstract
   - `abstract=totoc|notoc` to add the abstract to the TOC
+- extenx KOMA option `toc`
+  - `toc=totoc|notoc` to add toc to itself
+  - `toc=abstrct|noabstract` as alias for `abstract=totoc` and `abstract=notoc`
 
 ## [3.0]
 

@@ -263,6 +263,16 @@ http://www.latex-project.org/lppl.txt
 %     \item[notoc] The abstract will \emph{not} be listed in the table of contentes.
 %   \end{options}
 %
+%   \DescribeOption{toc}
+%   The \opt{toc=\meta{opt}} option configures what is listed in the table of contents.
+%   \begin{options}
+%     \item[totoc] The table of contentes will list itself.
+%     \item[notoc] The table of contentes will \emph{not} list itself.
+%     \item[abstract] The abstract will be listed in the table of contentes.
+%     \item[noabstract] The abstract will \emph{not} be listed in the table of contentes.
+%     \item[\dots] see \href{http://mirrors.ctan.org/macros/latex/contrib/koma-script/doc/scrguide-en.pdf#table.3.5}{\KOMAScript{} manual, Table 3.5} for more options
+%   \end{options}
+%
 %   \paragraph{Often relevant \KOMAScript\ options}
 %   The following options are implemented by the parrent classes and only listed here
 %   for completness. For more detils, see \href{http://mirrors.ctan.org/macros/latex/contrib/koma-script/doc/scrguide-en.pdf?page=239#chapter.3}{its manual}.
@@ -685,6 +695,43 @@ http://www.latex-project.org/lppl.txt
     \fi
   \else
     \endgroup
+  \fi
+}
+%    \end{macrocode}
+%   \end{option}
+%
+%   \begin{option}{toc}
+%     The \opt{toc} option is a \KOMAScript options we just extend. Options for the abstract and toc are added.
+%    \begin{macrocode}
+\DefineFamilyKey{HsH}{toc}{%
+  \begingroup
+  \FamilySetNumerical{HsH}{toc}{@tempa}{%
+    {totoc}{0},{toc}{0},%
+    {notoc}{1},{nottotoc}{1},%
+    {abstract}{2},%
+    {noabstract}{3},%
+  }{#1}
+  \ifx\FamilyKeyState\FamilyKeyStateProcessed
+    \aftergroup\FamilyKeyStateProcessed
+    \ifcase\@tempa% 0
+      \endgroup
+      \AtEndOfClass{\setuptoc{toc}{totoc}}
+    \or% 1
+      \endgroup
+      \AtEndOfClass{\unsettoc{toc}{totoc}}
+    \or% 2
+      \endgroup
+      \FamilyExecuteOptions{HsH}{abstract=totoc}
+    \or% 3
+      \endgroup
+      \FamilyExecuteOptions{HsH}{abstract=nottotoc}
+    \else% should never be
+      \endgroup
+    \fi
+  \else
+    \endgroup
+    \HsH@Options@PassToParrent{toc=#1}
+    \FamilyKeyStateProcessed
   \fi
 }
 %    \end{macrocode}
@@ -1334,7 +1381,6 @@ http://www.latex-project.org/lppl.txt
 %    \end{macrocode}
 %
 %   \subsubsection{Page layout}
-%
 %    \begin{macrocode}
 %<*!standalone>
 \areaset[current]{0.75\paperwidth}{0.8\paperheight}

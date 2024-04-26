@@ -153,6 +153,37 @@
     \endgroup
   \fi
 }
+\DefineFamilyKey{HsH}{toc}{%
+  \begingroup
+  \FamilySetNumerical{HsH}{toc}{@tempa}{%
+    {totoc}{0},{toc}{0},%
+    {notoc}{1},{nottotoc}{1},%
+    {abstract}{2},%
+    {noabstract}{3},%
+  }{#1}
+  \ifx\FamilyKeyState\FamilyKeyStateProcessed
+    \aftergroup\FamilyKeyStateProcessed
+    \ifcase\@tempa% 0
+      \endgroup
+      \AtEndOfClass{\setuptoc{toc}{totoc}}
+    \or% 1
+      \endgroup
+      \AtEndOfClass{\unsettoc{toc}{totoc}}
+    \or% 2
+      \endgroup
+      \FamilyExecuteOptions{HsH}{abstract=totoc}
+    \or% 3
+      \endgroup
+      \FamilyExecuteOptions{HsH}{abstract=nottotoc}
+    \else% should never be
+      \endgroup
+    \fi
+  \else
+    \endgroup
+    \HsH@Options@PassToParrent{toc=#1}
+    \FamilyKeyStateProcessed
+  \fi
+}
 \DefineFamilyKey{HsH}{twoside}[semi]{%
   \HsH@Options@PassToParrent{twoside=#1,BCOR=1cm}
   \FamilyKeyStateProcessed
