@@ -7,7 +7,14 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+- implement the `abstract` enviroment to behave as pre v3
 - removed debug print from `latexmk` inkscape recipy
+
+### Added
+
+- option `abstract`
+  - `abstract=keywords|nokeywords` to enable/disable the display of keywords after the abstract
+  - `abstract=totoc|notoc` to add the abstract to the TOC
 
 ## [3.0]
 

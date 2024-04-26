@@ -74,7 +74,7 @@ http://www.latex-project.org/lppl.txt
 %<report>\ProvidesClass{HsH-report}
 %<standalone>\ProvidesClass{HsH-standalone}
 %<*article|report|standalone>
-  [2024-04-25 3.01 HsH-class based on KOMA]
+  [2024-04-26 3.01 HsH-class based on KOMA]
 %</article|report|standalone>
 %<*driver> ^^A ---------- documentation driver -----------------------------------------
 \documentclass{ltxdoc}
@@ -253,6 +253,16 @@ http://www.latex-project.org/lppl.txt
 %   message. The emssage should tell you what value you need, but you can pass any
 %   valid length.
 %
+%   \DescribeOption{abstract}
+%   The \opt{abstract=\meta{opt}} option allows you to configure different behaviors of the abstract.
+%   The availabel options are described below:
+%   \begin{options}
+%     \item[keywords] Print the \cmd{\keywords} after the abstract.
+%     \item[nokeywords] Do \emph{not} print the \cmd{\keywords} after the abstract.
+%     \item[totoc] The abstract will be listed in the table of contentes.
+%     \item[notoc] The abstract will \emph{not} be listed in the table of contentes.
+%   \end{options}
+%
 %   \paragraph{Often relevant \KOMAScript\ options}
 %   The following options are implemented by the parrent classes and only listed here
 %   for completness. For more detils, see \href{http://mirrors.ctan.org/macros/latex/contrib/koma-script/doc/scrguide-en.pdf?page=239#chapter.3}{its manual}.
@@ -272,10 +282,9 @@ http://www.latex-project.org/lppl.txt
 %   the inner edge.
 %
 %   \DescribeOption{BCOR}
-%   The \opt{BCOR=}\meta{dim} option allows you to define a custom binding-correction.
+%   The \opt{BCOR=\meta{dim}} option allows you to define a custom binding-correction.
 %   Any valid length can be put here, but to large of a value will shrink the outer
 %   margin to a not-desirable level.
-%
 %
 % \subsection{Standalone specific options}
 %   The \cls{standalone} utillity class has some special options which are documented
@@ -640,6 +649,47 @@ http://www.latex-project.org/lppl.txt
 %    \end{macrocode}
 %   \end{option}
 %
+%   \begin{option}{abstract}
+%     The \opt{abstract} option sets multiple different switches and configureations.
+%     We first define the needed macros:
+%    \begin{macrocode}
+\newif\if@HsH@option@abstract@show@keywords
+\def\HsH@abstract@chap{\addchap*}
+%    \end{macrocode}
+%     Now the actuall option can be defiend to handle all the cases.
+%    \begin{macrocode}
+\DefineFamilyKey{HsH}{abstract}{%
+  \begingroup
+  \FamilySetNumerical{HsH}{abstract}{@tempa}{%
+    {keywords}{0},%
+    {nokeywords}{1},%
+    {totoc}{2},{toc}{2},%
+    {notoc}{3},{nottotoc}{3},%
+  }{#1}
+  \ifx\FamilyKeyState\FamilyKeyStateProcessed
+    \aftergroup\FamilyKeyStateProcessed
+    \ifcase\@tempa% 0
+      \endgroup
+      \@HsH@option@abstract@show@keywordstrue
+    \or% 1
+      \endgroup
+      \@HsH@option@abstract@show@keywordsfalse
+    \or% 2
+      \endgroup
+      \def\HsH@abstract@chap{\addchap}
+    \or% 3
+      \endgroup
+      \def\HsH@abstract@chap{\addchap*}
+    \else% should never be
+      \endgroup
+    \fi
+  \else
+    \endgroup
+  \fi
+}
+%    \end{macrocode}
+%   \end{option}
+%
 %   For the \opt{twoside} option we only redefine the default, everyting else is
 %   handled by the parrent class.
 %    \begin{macrocode}
@@ -769,6 +819,7 @@ http://www.latex-project.org/lppl.txt
 %<*article|report>
   toc=listof,
   toc=bibliography,
+  abstract=keywords,
 %</article|report>
   faculty=none,
 %<*standalone>
@@ -1296,7 +1347,8 @@ http://www.latex-project.org/lppl.txt
 %
 %   \subsubsection{Styling \LaTeX{} default constucts}
 %
-%     \paragraph{Floats}\vspace*{-1\baselineskip}
+%     \vspace{-1\baselineskip}
+%     \paragraph{Floats}\vspace{-1\baselineskip}
 %    \begin{macrocode}
 %<*!standalone>
 %    \end{macrocode}
@@ -1343,6 +1395,25 @@ http://www.latex-project.org/lppl.txt
 \renewcommand{\labelitemii}{\raisebox{.3ex}{\scalebox{0.7}{$\circ$}}}
 \renewcommand{\labelitemiii}{\raisebox{.1ex}{-}}
 \renewcommand{\labelitemiv}{\raisebox{-.1ex}{\scalebox{1.3}{$\cdot$}}}
+%    \end{macrocode}
+%
+%     \paragraph{Abstract}
+%     We define some custom behavior for the abstract.
+%    \begin{macrocode}
+\defcaptionname{german,ngerman}\abstractname{Abstract}
+\newcaptionname{english}\keywordsname{Keywords}
+\newcaptionname{german,ngerman}\keywordsname{Schl{\"u}sselw{\"o}rter}
+\renewenvironment{abstract}{
+  \quotation
+  \setparsizes{\z@}{\z@}{.25\linewidth \@plus 1fil}\selectfont
+  \HsH@abstract@chap{\abstractname}
+}{%
+  \ifx\@keywords\@empty\else\if@HsH@option@abstract@show@keywords
+    \par\bigskip
+    \noindent\textbf{\keywordsname}\hskip 2em\@keywords
+  \fi\fi\par
+  \endquotation
+}
 %    \end{macrocode}
 %
 %     \paragraph{Misc}

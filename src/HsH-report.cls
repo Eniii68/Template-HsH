@@ -17,7 +17,7 @@
 %% 
 \NeedsTeXFormat{LaTeX2e}[2022-06-01]
 \ProvidesClass{HsH-report}
-  [2024-04-25 3.01 HsH-class based on KOMA]
+  [2024-04-26 3.01 HsH-class based on KOMA]
 \let\HsHClassName\@currname
 \def\HsHClassName@ParrentClass{%
   scrreprt%
@@ -122,6 +122,37 @@
 \AtEndOfClass{%
   \headheight=\HsH@opt@headheight%
 }
+\newif\if@HsH@option@abstract@show@keywords
+\def\HsH@abstract@chap{\addchap*}
+\DefineFamilyKey{HsH}{abstract}{%
+  \begingroup
+  \FamilySetNumerical{HsH}{abstract}{@tempa}{%
+    {keywords}{0},%
+    {nokeywords}{1},%
+    {totoc}{2},{toc}{2},%
+    {notoc}{3},{nottotoc}{3},%
+  }{#1}
+  \ifx\FamilyKeyState\FamilyKeyStateProcessed
+    \aftergroup\FamilyKeyStateProcessed
+    \ifcase\@tempa% 0
+      \endgroup
+      \@HsH@option@abstract@show@keywordstrue
+    \or% 1
+      \endgroup
+      \@HsH@option@abstract@show@keywordsfalse
+    \or% 2
+      \endgroup
+      \def\HsH@abstract@chap{\addchap}
+    \or% 3
+      \endgroup
+      \def\HsH@abstract@chap{\addchap*}
+    \else% should never be
+      \endgroup
+    \fi
+  \else
+    \endgroup
+  \fi
+}
 \DefineFamilyKey{HsH}{twoside}[semi]{%
   \HsH@Options@PassToParrent{twoside=#1,BCOR=1cm}
   \FamilyKeyStateProcessed
@@ -162,6 +193,7 @@
   headheight=2.15\baselineskip,
   toc=listof,
   toc=bibliography,
+  abstract=keywords,
   faculty=none,
 }
 \FamilyProcessOptions{HsH}\relax
@@ -374,6 +406,20 @@
 \renewcommand{\labelitemii}{\raisebox{.3ex}{\scalebox{0.7}{$\circ$}}}
 \renewcommand{\labelitemiii}{\raisebox{.1ex}{-}}
 \renewcommand{\labelitemiv}{\raisebox{-.1ex}{\scalebox{1.3}{$\cdot$}}}
+\defcaptionname{german,ngerman}\abstractname{Abstract}
+\newcaptionname{english}\keywordsname{Keywords}
+\newcaptionname{german,ngerman}\keywordsname{Schl{\"u}sselw{\"o}rter}
+\renewenvironment{abstract}{
+  \quotation
+  \setparsizes{\z@}{\z@}{.25\linewidth \@plus 1fil}\selectfont
+  \HsH@abstract@chap{\abstractname}
+}{%
+  \ifx\@keywords\@empty\else\if@HsH@option@abstract@show@keywords
+    \par\bigskip
+    \noindent\textbf{\keywordsname}\hskip 2em\@keywords
+  \fi\fi\par
+  \endquotation
+}
 \upsubscripts
 \raggedbottom
 \let\layercontentsmeasure\relax
@@ -621,7 +667,7 @@
     \global\let\@lowertitleback\@empty
     \global\let\@dedication\@empty
     \global\let\@matrikelnr\@empty
-    \global\let\@prof\@empty
+    \global\let\@professor\@empty
     \global\let\author\relax
     \global\let\title\relax
     \global\let\extratitle\relax
