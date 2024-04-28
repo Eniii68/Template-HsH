@@ -53,6 +53,14 @@
 \keywords{some, informative, keywords}
 
 
+% ----- document seperation -----
+% If you split your document into seperate files using `\include',
+% you can temporarily exclude not required files to save compiletime
+% LATeX will still remember chapter-numbers, page-numbers and alike
+% from the last run (but only if the temp files are still around)
+% comment this in to use it:
+%\includeonly{chap/startingAdocument}
+
 %---------------------- beginning of document -------------------------------------------------------------------------------------------------------%
 % Now that you are all set, let's begin with the actual content of the document.
 % Don't forget the corresponding `\end{document}'!
@@ -94,10 +102,17 @@
     \mainmatter
 
     % now we can begin with the actuall relevant content
-    % you chould just putt all commands and content herer,
-    % but for larger documents it makes sens to split each chapter into a seperate file.
+    % you could just put all commands and content here,
+    % but for larger documents it makes sense to split each chapter into a seperate file.
+    % NOTE: you can use the \includeonly{} in the preamble to temporarily only work on a
+    % small subset of the document.
+    %
     % We include this files here:
     \include{chap/whatsLaTeX}
+	\include{chap/startingAdocument}
+    % ATTENTION: you can NOT nest multiple `\inlcude' commands into each other.
+    % You can use `\input' inside included files though
+
 
     % print list of figures and tables
     \listoffigures
