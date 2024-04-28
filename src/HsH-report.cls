@@ -17,7 +17,7 @@
 %% 
 \NeedsTeXFormat{LaTeX2e}[2022-06-01]
 \ProvidesClass{HsH-report}
-    [2024-04-23 3.00 HsH-class based on KOMA]
+  [2024-04-26 3.01 HsH-class based on KOMA]
 \let\HsHClassName\@currname
 \def\HsHClassName@ParrentClass{%
   scrreprt%
@@ -35,56 +35,56 @@
 }
 \DefineFamilyKey{HsH}{fontfamily}{
   \begingroup
-    \FamilySetNumerical{HsH}{parskip}{@tmp}{%
-      {sans}{0}, {sans-serif}{0},%
-      {roman}{1}, {serif}{1},%
-    }{#1}
-    \ifx\FamilyKeyState\FamilyKeyStateProcessed
-      \aftergroup\FamilyKeyStateProcessed
-      \ifcase\@tmp% 0
-        \endgroup
-        \renewcommand{\familydefault}{\sfdefault}
-        \if@atdocument\AfterKOMAoptions{\selectfont}\fi
-      \or% 1
-        \endgroup
-        \renewcommand{\familydefault}{\rmdefault}
-        \if@atdocument\AfterKOMAoptions{\selectfont}\fi
-      \else% should never be
-        \endgroup
-      \fi
-    \else
+  \FamilySetNumerical{HsH}{parskip}{@tmp}{%
+    {sans}{0}, {sans-serif}{0},%
+    {roman}{1}, {serif}{1},%
+  }{#1}
+  \ifx\FamilyKeyState\FamilyKeyStateProcessed
+    \aftergroup\FamilyKeyStateProcessed
+    \ifcase\@tmp% 0
       \endgroup
-      \FamilyKeyStateUnknownValue
+      \renewcommand{\familydefault}{\sfdefault}
+      \if@atdocument\AfterKOMAoptions{\selectfont}\fi
+    \or% 1
+      \endgroup
+      \renewcommand{\familydefault}{\rmdefault}
+      \if@atdocument\AfterKOMAoptions{\selectfont}\fi
+    \else% should never be
+      \endgroup
     \fi
+  \else
+    \endgroup
+    \FamilyKeyStateUnknownValue
+  \fi
 }
 \HsH@Options@DeclareAlias{sans}{fontfamily=sans}
 \HsH@Options@DeclareAlias{roman}{fontfamily=roman}
 \DefineFamilyKey{HsH}{linespacing}{
   \begingroup
-    \FamilySetNumerical{HsH}{linespacing}{@tempa}{%
-      {single}{0},%
-      {onehalf}{1},%
-      {double}{2},%
-    }{#1}
-    \ifx\FamilyKeyState\FamilyKeyStateProcessed
-      \aftergroup\FamilyKeyStateProcessed
-      \ifcase\@tempa% 0
-        \endgroup
-        \if@atdocument\singlespacing\else\AtEndOfClass{\singlespacing}\fi
-      \or% 1
-        \endgroup
-        \if@atdocument\onehalfspacing\else\AtEndOfClass{\onehalfspacing\AfterTOCHead{\singlespacing}}\fi
-      \or% 2
-        \endgroup
-        \if@atdocument\doublespacing\else\AtEndOfClass{\doublespacing\AfterTOCHead{\singlespacing}}\fi
-
-      \else% should never be
-        \endgroup
-      \fi
-    \else
+  \FamilySetNumerical{HsH}{linespacing}{@tempa}{%
+    {single}{0},%
+    {onehalf}{1},%
+    {double}{2},%
+  }{#1}
+  \ifx\FamilyKeyState\FamilyKeyStateProcessed
+    \aftergroup\FamilyKeyStateProcessed
+    \ifcase\@tempa% 0
       \endgroup
-      \FamilyKeyStateUnknownValue
+      \if@atdocument\singlespacing\else\AtEndOfClass{\singlespacing}\fi
+    \or% 1
+      \endgroup
+      \if@atdocument\onehalfspacing\else\AtEndOfClass{\onehalfspacing\AfterTOCHead{\singlespacing}}\fi
+    \or% 2
+      \endgroup
+      \if@atdocument\doublespacing\else\AtEndOfClass{\doublespacing\AfterTOCHead{\singlespacing}}\fi
+
+    \else% should never be
+      \endgroup
     \fi
+  \else
+    \endgroup
+    \FamilyKeyStateUnknownValue
+  \fi
 }
 \HsH@Options@DeclareAlias{singlespacing}{linespacing=single}
 \HsH@Options@DeclareAlias{onehalfspacing}{linespacing=onehalf}
@@ -122,6 +122,68 @@
 \AtEndOfClass{%
   \headheight=\HsH@opt@headheight%
 }
+\newif\if@HsH@option@abstract@show@keywords
+\def\HsH@abstract@chap{\addchap*}
+\DefineFamilyKey{HsH}{abstract}{%
+  \begingroup
+  \FamilySetNumerical{HsH}{abstract}{@tempa}{%
+    {keywords}{0},%
+    {nokeywords}{1},%
+    {totoc}{2},{toc}{2},%
+    {notoc}{3},{nottotoc}{3},%
+  }{#1}
+  \ifx\FamilyKeyState\FamilyKeyStateProcessed
+    \aftergroup\FamilyKeyStateProcessed
+    \ifcase\@tempa% 0
+      \endgroup
+      \@HsH@option@abstract@show@keywordstrue
+    \or% 1
+      \endgroup
+      \@HsH@option@abstract@show@keywordsfalse
+    \or% 2
+      \endgroup
+      \def\HsH@abstract@chap{\addchap}
+    \or% 3
+      \endgroup
+      \def\HsH@abstract@chap{\addchap*}
+    \else% should never be
+      \endgroup
+    \fi
+  \else
+    \endgroup
+  \fi
+}
+\DefineFamilyKey{HsH}{toc}{%
+  \begingroup
+  \FamilySetNumerical{HsH}{toc}{@tempa}{%
+    {totoc}{0},{toc}{0},%
+    {notoc}{1},{nottotoc}{1},%
+    {abstract}{2},%
+    {noabstract}{3},%
+  }{#1}
+  \ifx\FamilyKeyState\FamilyKeyStateProcessed
+    \aftergroup\FamilyKeyStateProcessed
+    \ifcase\@tempa% 0
+      \endgroup
+      \AtEndOfClass{\setuptoc{toc}{totoc}}
+    \or% 1
+      \endgroup
+      \AtEndOfClass{\unsettoc{toc}{totoc}}
+    \or% 2
+      \endgroup
+      \FamilyExecuteOptions{HsH}{abstract=totoc}
+    \or% 3
+      \endgroup
+      \FamilyExecuteOptions{HsH}{abstract=nottotoc}
+    \else% should never be
+      \endgroup
+    \fi
+  \else
+    \endgroup
+    \HsH@Options@PassToParrent{toc=#1}
+    \FamilyKeyStateProcessed
+  \fi
+}
 \DefineFamilyKey{HsH}{twoside}[semi]{%
   \HsH@Options@PassToParrent{twoside=#1,BCOR=1cm}
   \FamilyKeyStateProcessed
@@ -133,12 +195,12 @@
 \HsH@Options@DeclareAlias{ngerman}{language=ngerman}
 \def\HsH@opt@faculty{1}
 \FamilyNumericalKey{HsH}{faculty}{HsH@opt@faculty}{%
-  {none}{1}, {false}{1},%
-  {f1}{2}, {1}{2},%
-  {f2}{3}, {2}{3},%
-  {f3}{4}, {3}{4},%
-  {f4}{5}, {4}{5},%
-  {f5}{6}, {5}{6},%
+  {0}{1}, {none}{1}, {false}{1}, {off}{1}%
+  {1}{2}, {f1}{2},%
+  {2}{3}, {f2}{3},%
+  {3}{4}, {f3}{4},%
+  {4}{5}, {f4}{5},%
+  {5}{6}, {f5}{6},%
 }
 \HsH@Options@DeclareAlias{f1}{faculty=f1}
 \HsH@Options@DeclareAlias{f2}{faculty=f2}
@@ -162,6 +224,7 @@
   headheight=2.15\baselineskip,
   toc=listof,
   toc=bibliography,
+  abstract=keywords,
   faculty=none,
 }
 \FamilyProcessOptions{HsH}\relax
@@ -220,7 +283,7 @@
 \RequirePackage{scrhack}
 \AtBeginDocument{
   \makeatletter
-  \@ifpackageloaded{biblatex}{
+  \@ifpackageloaded{listings}{
     \RequirePackage{lstautogobble}\lstset{autogobble=true}
     \iflanguage{ngerman}{
       \lstset{literate={Ö}{{\"O}}1{Ä}{{\"A}}1{Ü}{{\"U}}1{ß}{{\ss}}1{ü}{{\"u}}1{ä}{{\"a}}1{ö}{{\"o}}1}
@@ -374,6 +437,20 @@
 \renewcommand{\labelitemii}{\raisebox{.3ex}{\scalebox{0.7}{$\circ$}}}
 \renewcommand{\labelitemiii}{\raisebox{.1ex}{-}}
 \renewcommand{\labelitemiv}{\raisebox{-.1ex}{\scalebox{1.3}{$\cdot$}}}
+\defcaptionname{german,ngerman}\abstractname{Abstract}
+\newcaptionname{english}\keywordsname{Keywords}
+\newcaptionname{german,ngerman}\keywordsname{Schl{\"u}sselw{\"o}rter}
+\renewenvironment{abstract}{
+  \quotation
+  \setparsizes{\z@}{\z@}{.25\linewidth \@plus 1fil}\selectfont
+  \HsH@abstract@chap{\abstractname}
+}{%
+  \ifx\@keywords\@empty\else\if@HsH@option@abstract@show@keywords
+    \par\bigskip
+    \noindent\textbf{\keywordsname}\hskip 2em\@keywords
+  \fi\fi\par
+  \endquotation
+}
 \upsubscripts
 \raggedbottom
 \let\layercontentsmeasure\relax
@@ -426,6 +503,7 @@
 \newtoks\@tabtoks
 \newcommand\addtabtoks[1]{\global\@tabtoks\expandafter{\the\@tabtoks#1}}
 \newcommand\eaddtabtoks[1]{\edef\mytmp{#1}\expandafter\addtabtoks\expandafter{\mytmp}}
+%%%\newcommand*\resettabtoks{\global\@tabtoks{}}
 \newcommand*\printtabtoks{\the\@tabtoks}
 \addtokomafont{publishers}{\normalsize}
 \g@addto@macro\titlepage{\singlespacing}
@@ -620,7 +698,7 @@
     \global\let\@lowertitleback\@empty
     \global\let\@dedication\@empty
     \global\let\@matrikelnr\@empty
-    \global\let\@prof\@empty
+    \global\let\@professor\@empty
     \global\let\author\relax
     \global\let\title\relax
     \global\let\extratitle\relax
