@@ -20,11 +20,11 @@
         other and scroll through them simultaneously.
 
         If you already have a working LaTeX setup, most editors support \emph{SyncTex}, which allows you to jump between source code and PDF file and
-        vice versa. You have to compile yourself, which will create a file called \verb|example.synctex.gz| in your project directory. Now you
-        can \verb|<CTRL>+Click| in the PDF and the corresponding line of source code will be highlighted.
+        vice versa. You have to compile yourself, which will create a file called |example.synctex.gz| in your project directory. Now you
+        can |<CTRL>+Click| in the PDF and the corresponding line of source code will be highlighted.
 
-        The shortcut to jump from the source code into the PDF will depend on your Editor, but for VS Code its
-        \verb|right Click|→\verb|SyncTex from cursor| or \verb|CTRL+ALT+J|.
+        The shortcut to jump from the source code into the PDF will depend on your Editor, but for VS\;Code its
+        |right Click|→|SyncTex from cursor| or |CTRL+ALT+J|.
 
     \section{Requirements to use LaTeX}
         As LaTeX files are just plain text file, you can edit them with any text editor (even windows notepad works, but that's just terrible).
@@ -38,12 +38,12 @@
         As I have already mention above, you also need the LaTeX program. It comes bundled with packages and other additional software inside a
         Tex-distribution. There are two major ones, Texlive and MiKTeX. I recommend MiKTeX, but it essentially doesn't matter which one you choose.
 
-        Once you have the distribution installed, test it by running \verb|pdflatex --version| in any terminal windows and it should return you
+        Once you have the distribution installed, test it by running |pdflatex --version| in any terminal windows and it should return you
         some information about the installed version and setup.
 
     \section{Running LaTeX}
         To create a PDF file from your LaTeX source code, you can always navigate to the project folder in a terminal window and run
-        \verb|pdflatex filename.tex|. However, if you have a decent editor installed, it will provide you with a button and do this for you.
+        |pdflatex filename.tex|. However, if you have a decent editor installed, it will provide you with a button and do this for you.
 
         With these project files you also received a makefile, which demonstrates how to compile this example file successfully from the terminal. The
         README file also has some tips and information for you.
@@ -52,12 +52,12 @@
         will be asked if you want to install them and should than be able to compile this file.
 
     \section{LaTeX commands}
-        Now lets look at the LaTeX command. Every one will begin with a \textbackslash\space followed by a letters only command name, like this:
-        \verb|\command|. Most commands also accept input, which is put after it into curly brackets: \verb|\command{argument||. They can
+        Now lets look at the LaTeX command. Every one will begin with a |\| followed by a letters only command name, like this:
+        |\command|. Most commands also accept input, which is put after it into curly brackets: |\command{argument}|. They can
         accept multiple arguments either in multiple sets of curly brackets or as a comma separated list, depending on the command.
 
         Some commands also accept optional arguments. These are passed inside square brackets between the command name and the curly brackets, like
-        this: \verb|\command[optional]{argument||.
+        this: |\command[optional]{argument}|.
 
     \section{Getting more information}
         So what can you do if you get stuck or just want more information. The simple answer is: Google is your friend. Most questions have already

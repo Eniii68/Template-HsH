@@ -23,11 +23,12 @@
 % ----- package loading -----
 % first thing you do is declare all the packages you need for your document
 % you can also pass options to this packages to configure their behavior
+\usepackage{listings}  % for pretty-printing code snippets
 \usepackage{soul}  % for strickesthough text
 \usepackage{lipsum}  % for dummy text
 
 % for some packages you also call some commands to configure them or your document
-
+\lstMakeShortInline[language={[LaTeX]TeX}]|
 
 % ----- document information -----
 % In your preamble you also list your documents information and metadata. These will be used on the titlepage as well
@@ -74,8 +75,16 @@
     % It will create a new page and a heading for you as well as indenting the whole text block a little.
     % if you have provided keywords, they will also be put at the end of the abstract.
     \begin{abstract}
-        \lipsum[5-6]
-    \end{abstract}
+		If you need an abstract for your document, you can write it wherever you see fit by using the |\begin{abstract}...\end{abstract}|
+		environment, like demonstrated here. It acts as an unnumbered chapter. You can choose if you want it in the TOC using the
+		|abstract=totoc| and |abstract=nottotoc| options of the documentclass.
+
+		If you prefere your abstract to be on a clean page, you can use |\thispagestyle{plain}| to get only a page number or |\thispagestyle{empty}|
+		to get nor header or footer.
+
+		If you use the |\keywords{list, of, keywords}| command in your preamble, the given keywords will also be printed here. You may use
+		|abstract=nokeywords| as a documentclass option to disable this.
+	\end{abstract}
 
     % this command will create the table of contents (TOC).
     \tableofcontents
