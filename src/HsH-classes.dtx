@@ -138,6 +138,7 @@ http://www.latex-project.org/lppl.txt
 %^^A ---------- change log -------------------------------------------------------------
 %\changes{v1.00}{2021-11-09}{Initial Version. Official first release}
 %\changes{v2.00}{2023-08-08}{This version changes the default build-system to \texttt{latexmk}}
+%\changes{v3.00}{2024-04-24}{Refactor for classoptions and other basic improvments}
 %
 %
 %^^A ---------- document body ----------------------------------------------------------
@@ -660,6 +661,8 @@ http://www.latex-project.org/lppl.txt
 %   \end{option}
 %
 %   \begin{option}{abstract}
+%     \changes{v3.01}{2024-04-26}{Added option}
+%
 %     The \opt{abstract} option sets multiple different switches and configureations.
 %     We first define the needed macros:
 %    \begin{macrocode}
@@ -701,6 +704,8 @@ http://www.latex-project.org/lppl.txt
 %   \end{option}
 %
 %   \begin{option}{toc}
+%     \changes{v3.01}{2024-04-26}{Added options (extends \KOMAScript)}
+%
 %     The \opt{toc} option is a \KOMAScript options we just extend. Options for the abstract and toc are added.
 %    \begin{macrocode}
 \DefineFamilyKey{HsH}{toc}{%
