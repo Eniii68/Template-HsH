@@ -41,9 +41,9 @@ http://www.latex-project.org/lppl.txt
 
 \usedir{tex/latex/HsH-classes}
 \generate{
-  \file{HsH-article.cls}{\from{\jobname.dtx}{article}}
-  \file{HsH-report.cls}{\from{\jobname.dtx}{report}}
-  \file{HsH-standalone.cls}{\from{\jobname.dtx}{standalone}}
+  \file{HsH-article.cls}{\from{\jobname.dtx}{article,localisation}}
+  \file{HsH-report.cls}{\from{\jobname.dtx}{report,localisation}}
+  \file{HsH-standalone.cls}{\from{\jobname.dtx}{standalone,localisation}}
 }
 %</install>
 %<install>\endbatchfile
@@ -1211,24 +1211,6 @@ http://www.latex-project.org/lppl.txt
 %    \end{macrocode}
 %     \end{macro}
 %
-%     \begin{macro}{\professorname,\firstexaminername,\secondexaminername}
-%       \changes{v3.02}{2024-05-02}{change the suffix to 'name', which is more inline with general \LaTeX{}}
-%
-%       For the three previous macros, we also need descriptive text to print on the titlepage.
-%       The commands storing that text are defined here:
-%    \begin{macrocode}
-\newcommand{\professorname}{Professor}
-\newcommand{\firstexaminername}{First examiner}
-\newcommand{\secondexaminername}{Second examiner}
-\newcaptionname{english}\professorname{Professor}
-\newcaptionname{english}\firstexaminername{First examiner}
-\newcaptionname{english}\secondexaminername{Second examiner}
-\newcaptionname{german,ngerman}\professorname{Professor(in)/Lehrbeauftragte(r)}
-\newcaptionname{german,ngerman}\firstexaminername{Erstpr{\"u}fer(in)}
-\newcaptionname{german,ngerman}\secondexaminername{Zweitpr{\"u}fer(in)}
-%    \end{macrocode}
-%     \end{macro}
-%
 %     \begin{macro}{\keywords,\@keywords}
 %       The macro-group defines and holds keywords which describe the document. They
 %       are used when printing the abstract as well as in the PDF's meta-data.
@@ -1317,31 +1299,6 @@ http://www.latex-project.org/lppl.txt
 }
 %    \end{macrocode}
 %     \end{macro}
-%
-%     define the localised texts
-%    \begin{macrocode}
-\newcommand{\decofauthname}{Declaration of Authorship}
-\newcaptionname{english}\decofauthname{Declaration of Authorship}
-\newcaptionname{german,ngerman}\decofauthname{Selbstst\"andigkeitserkl\"arung}
-%
-\newcommand{\decofauthtext}{Language not supported!}
-\newcaptionname{english}\decofauthtext{%
-  \ifsingleauthor{I}\else{We}\fi\space hereby certify that the work \ifsingleauthor{I}\else{we}\fi\space
-  \ifsingleauthor am\else are\fi\space submitting is entirely of \ifsingleauthor{my}\else{our}\fi own
-  making except where otherwise indicated. \ifsingleauthor{I}\else{We}\fi\space
-  \ifsingleauthor{am}\else{are}\fi\space aware of regulations concerning plagiarism, including
-  disciplinary actions that may result from it. Any use of the works of any other author, in any form,
-  is properly acknowledged at their point of use.
-}
-\newcaptionname{german,ngerman}\decofauthtext{%
-  Hiermit best{\"a}tige\ifsingleauthor\else{n}\fi\space \ifsingleauthor ich\else wir\fi, dass die
-  folgende Arbeit eigenst{\"a}ndig von \ifsingleauthor{mir}\else{uns}\fi\space allein erstellt und
-  unter Ber{\"u}cksichtigung der zur Verf{\"u}gung gestellten Aufgabenstellung sowie dem Arbeitsmaterial
-  unter Angabe aller verwendeten Quellen erarbeitet wurde. Die Regelungen und Konsequenzen eines
-  Plagiats, inklusive disziplinarischer Ma{\ss}nahmen, sind \ifsingleauthor{mir}\else{uns}\fi\space
-  bewusst. Insbesondere wurden alle Zitate und gedanklichen {\"U}bernahmenals solche kenntlich gemacht.
-}
-%    \end{macrocode}
 %
 %     \begin{macro}{\declarationAuthorship}
 %       \changes{v2.01}{2023-08-11}{Deprecate \cmd{\declarationAuthorship}, as it got replaced by \cmd{\declarationofauthorship}}
@@ -1471,9 +1428,6 @@ http://www.latex-project.org/lppl.txt
 %     \paragraph{Abstract}
 %     We define some custom behavior for the abstract.
 %    \begin{macrocode}
-\defcaptionname{german,ngerman}\abstractname{Abstract}
-\newcaptionname{english}\keywordsname{Keywords}
-\newcaptionname{german,ngerman}\keywordsname{Schl{\"u}sselw{\"o}rter}
 \renewenvironment{abstract}{
   \quotation
   \setparsizes{\z@}{\z@}{.25\linewidth \@plus 1fil}\selectfont
@@ -1849,6 +1803,72 @@ http://www.latex-project.org/lppl.txt
 %
 %\iffalse docstrip-guard
 %</article|report|standalone>
+%\fi
+%
+%  \subsection{Localisation}
+%    The following section contains language specific definitons of text used by the classes.
+%\iffalse docstrip-guard
+%<*localisation>
+%\fi
+%
+%     \begin{macro}{\professorname,\firstexaminername,\secondexaminername}
+%       Define the commands content for the different supported languages.
+%    \begin{macrocode}
+\newcaptionname{english}\professorname{Professor}
+\newcaptionname{german,ngerman}\professorname{Professor(in)/Lehrbeauftragte(r)}
+\newcaptionname{english}\firstexaminername{First examiner}
+\newcaptionname{german,ngerman}\firstexaminername{Erstpr{\"u}fer(in)}
+\newcaptionname{english}\secondexaminername{Second examiner}
+\newcaptionname{german,ngerman}\secondexaminername{Zweitpr{\"u}fer(in)}
+%    \end{macrocode}
+%     \end{macro}
+%
+%     \begin{macro}{\decofauthname}
+%       Define the german translations for the command.
+%    \begin{macrocode}
+\newcaptionname{english}\decofauthname{Declaration of Authorship}
+\newcaptionname{german,ngerman}\decofauthname{Selbstst{\"a}ndigkeitserkl{\"a}rung}
+%    \end{macrocode}
+%     \end{macro}
+%
+%     \begin{macro}{\decofauthtext}
+%       Define the german translations for the command.
+%    \begin{macrocode}
+\newcaptionname{english}\decofauthtext{%
+  \ifsingleauthor{I}\else{We}\fi\space hereby certify that the work
+  \ifsingleauthor{I}\else{we}\fi\space \ifsingleauthor am\else are\fi
+  submitting is entirely of \ifsingleauthor{my}\else{our}\fi own making
+  except where otherwise indicated. \ifsingleauthor{I}\else{We}\fi
+  \ifsingleauthor{am}\else{are}\fi\space aware of regulations concerning
+  plagiarism, including disciplinary actions that may result from it. Any
+  use of the works of any other author, in any form, is properly
+  acknowledged at their point of use.
+}
+\newcaptionname{german,ngerman}\decofauthtext{%
+  Hiermit best{\"a}tige\ifsingleauthor\else{n}\fi
+  \ifsingleauthor{ich}\else{wir}\fi, dass die folgende Arbeit eigenst{\"a}ndig
+  von \ifsingleauthor{mir}\else{uns}\fi\space allein erstellt und unter
+  Ber{\"u}cksichtigung der zur Verf{\"u}gung gestellten Aufgabenstellung sowie
+  dem Arbeitsmaterial unter Angabe aller verwendeten Quellen erarbeitet wurde.
+  Die Regelungen und Konsequenzen eines Plagiats, inklusive disziplinarischer
+  Ma{\ss}nahmen, sind \ifsingleauthor{mir}\else{uns}\fi\space bewusst.
+  Insbesondere wurden alle Zitate und gedanklichen {\"U}bernahmen als
+  solche kenntlich gemacht.
+}
+%    \end{macrocode}
+%     \end{macro}
+%
+%     \begin{macro}{\keywordsname}
+%       Define the german translations for the command.
+%    \begin{macrocode}
+\newcaptionname{english}\keywordsname{Keywords}
+\newcaptionname{german,ngerman}\keywordsname{Schl{\"u}sselw{\"o}rter}
+%    \end{macrocode}
+%     \end{macro}
+%
+%
+%\iffalse docstrip-guard
+%</localisation>
 %\fi
 %
 %     \Finale

@@ -4,7 +4,7 @@
 %%
 %% The original source files were:
 %%
-%% HsH-classes.dtx  (with options: `report')
+%% HsH-classes.dtx  (with options: `report,localisation')
 %% 
 %% Copyright (C) 2024 by Jan Wille <mail@janiwlle.de>
 %% 
@@ -339,15 +339,6 @@
 \def\@firstexaminer{\@empty}
 \newcommand{\secondexaminer}[1]{\gdef\@secondexaminer{#1}}
 \def\@secondexaminer{\@empty}
-\newcommand{\professorname}{Professor}
-\newcommand{\firstexaminername}{First examiner}
-\newcommand{\secondexaminername}{Second examiner}
-\newcaptionname{english}\professorname{Professor}
-\newcaptionname{english}\firstexaminername{First examiner}
-\newcaptionname{english}\secondexaminername{Second examiner}
-\newcaptionname{german,ngerman}\professorname{Professor(in)/Lehrbeauftragte(r)}
-\newcaptionname{german,ngerman}\firstexaminername{Erstpr{\"u}fer(in)}
-\newcaptionname{german,ngerman}\secondexaminername{Zweitpr{\"u}fer(in)}
 \newcommand{\keywords}[1]{\gdef\@keywords{#1}}
 \def\@keywords{\@empty}
 \RequirePackage{pgffor}
@@ -389,26 +380,6 @@
     \ifnum\count@>\@ne\global\singleauthorfalse\else\global\singleauthortrue\fi
   \endgroup
 }
-\newcommand{\decofauthname}{Declaration of Authorship}
-\newcaptionname{english}\decofauthname{Declaration of Authorship}
-\newcaptionname{german,ngerman}\decofauthname{Selbstst\"andigkeitserkl\"arung}
-\newcommand{\decofauthtext}{Language not supported!}
-\newcaptionname{english}\decofauthtext{%
-  \ifsingleauthor{I}\else{We}\fi\space hereby certify that the work \ifsingleauthor{I}\else{we}\fi\space
-  \ifsingleauthor am\else are\fi\space submitting is entirely of \ifsingleauthor{my}\else{our}\fi own
-  making except where otherwise indicated. \ifsingleauthor{I}\else{We}\fi\space
-  \ifsingleauthor{am}\else{are}\fi\space aware of regulations concerning plagiarism, including
-  disciplinary actions that may result from it. Any use of the works of any other author, in any form,
-  is properly acknowledged at their point of use.
-}
-\newcaptionname{german,ngerman}\decofauthtext{%
-  Hiermit best{\"a}tige\ifsingleauthor\else{n}\fi\space \ifsingleauthor ich\else wir\fi, dass die
-  folgende Arbeit eigenst{\"a}ndig von \ifsingleauthor{mir}\else{uns}\fi\space allein erstellt und
-  unter Ber{\"u}cksichtigung der zur Verf{\"u}gung gestellten Aufgabenstellung sowie dem Arbeitsmaterial
-  unter Angabe aller verwendeten Quellen erarbeitet wurde. Die Regelungen und Konsequenzen eines
-  Plagiats, inklusive disziplinarischer Ma{\ss}nahmen, sind \ifsingleauthor{mir}\else{uns}\fi\space
-  bewusst. Insbesondere wurden alle Zitate und gedanklichen {\"U}bernahmenals solche kenntlich gemacht.
-}
 \def\declarationAuthorship{%
   \ClassWarning{\HsHClassName}{%
     Command \string\declarationAuthorship\space is deprecate.\MessageBreak
@@ -446,9 +417,6 @@
 \renewcommand{\labelitemii}{\raisebox{.3ex}{\scalebox{0.7}{$\circ$}}}
 \renewcommand{\labelitemiii}{\raisebox{.1ex}{-}}
 \renewcommand{\labelitemiv}{\raisebox{-.1ex}{\scalebox{1.3}{$\cdot$}}}
-\defcaptionname{german,ngerman}\abstractname{Abstract}
-\newcaptionname{english}\keywordsname{Keywords}
-\newcaptionname{german,ngerman}\keywordsname{Schl{\"u}sselw{\"o}rter}
 \renewenvironment{abstract}{
   \quotation
   \setparsizes{\z@}{\z@}{.25\linewidth \@plus 1fil}\selectfont
@@ -714,6 +682,37 @@
   \fi
   \global\let\and\relax
 }
+\newcaptionname{english}\professorname{Professor}
+\newcaptionname{german,ngerman}\professorname{Professor(in)/Lehrbeauftragte(r)}
+\newcaptionname{english}\firstexaminername{First examiner}
+\newcaptionname{german,ngerman}\firstexaminername{Erstpr{\"u}fer(in)}
+\newcaptionname{english}\secondexaminername{Second examiner}
+\newcaptionname{german,ngerman}\secondexaminername{Zweitpr{\"u}fer(in)}
+\newcaptionname{english}\decofauthname{Declaration of Authorship}
+\newcaptionname{german,ngerman}\decofauthname{Selbstst{\"a}ndigkeitserkl{\"a}rung}
+\newcaptionname{english}\decofauthtext{%
+  \ifsingleauthor{I}\else{We}\fi\space hereby certify that the work
+  \ifsingleauthor{I}\else{we}\fi\space \ifsingleauthor am\else are\fi
+  submitting is entirely of \ifsingleauthor{my}\else{our}\fi own making
+  except where otherwise indicated. \ifsingleauthor{I}\else{We}\fi
+  \ifsingleauthor{am}\else{are}\fi\space aware of regulations concerning
+  plagiarism, including disciplinary actions that may result from it. Any
+  use of the works of any other author, in any form, is properly
+  acknowledged at their point of use.
+}
+\newcaptionname{german,ngerman}\decofauthtext{%
+  Hiermit best{\"a}tige\ifsingleauthor\else{n}\fi
+  \ifsingleauthor{ich}\else{wir}\fi, dass die folgende Arbeit eigenst{\"a}ndig
+  von \ifsingleauthor{mir}\else{uns}\fi\space allein erstellt und unter
+  Ber{\"u}cksichtigung der zur Verf{\"u}gung gestellten Aufgabenstellung sowie
+  dem Arbeitsmaterial unter Angabe aller verwendeten Quellen erarbeitet wurde.
+  Die Regelungen und Konsequenzen eines Plagiats, inklusive disziplinarischer
+  Ma{\ss}nahmen, sind \ifsingleauthor{mir}\else{uns}\fi\space bewusst.
+  Insbesondere wurden alle Zitate und gedanklichen {\"U}bernahmen als
+  solche kenntlich gemacht.
+}
+\newcaptionname{english}\keywordsname{Keywords}
+\newcaptionname{german,ngerman}\keywordsname{Schl{\"u}sselw{\"o}rter}
 \endinput
 %%
 %% End of file `HsH-report.cls'.
