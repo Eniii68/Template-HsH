@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.2]
+
+### Fixed
+
+- missing comma caused \opt{1} to not work (#18)
+
+### Changed
+
+- moved all localization commands into one place
+
 ## [3.1]
 
 ### Fixed

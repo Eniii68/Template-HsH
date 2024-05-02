@@ -4,7 +4,7 @@
 %%
 %% The original source files were:
 %%
-%% HsH-classes.dtx  (with options: `report')
+%% HsH-classes.dtx  (with options: `report,localisation')
 %% 
 %% Copyright (C) 2024 by Jan Wille <mail@janiwlle.de>
 %% 
@@ -195,7 +195,7 @@
 \HsH@Options@DeclareAlias{ngerman}{language=ngerman}
 \def\HsH@opt@faculty{1}
 \FamilyNumericalKey{HsH}{faculty}{HsH@opt@faculty}{%
-  {0}{1}, {none}{1}, {false}{1}, {off}{1}%
+  {0}{1}, {none}{1}, {false}{1}, {off}{1},%
   {1}{2}, {f1}{2},%
   {2}{3}, {f2}{3},%
   {3}{4}, {f3}{4},%
@@ -380,26 +380,6 @@
     \ifnum\count@>\@ne\global\singleauthorfalse\else\global\singleauthortrue\fi
   \endgroup
 }
-\newcommand{\decofauthname}{Declaration of Authorship}
-\newcaptionname{english}\decofauthname{Declaration of Authorship}
-\newcaptionname{german,ngerman}\decofauthname{Selbstst\"andigkeitserkl\"arung}
-\newcommand{\decofauthtext}{Language not supported!}
-\newcaptionname{english}\decofauthtext{%
-  \ifsingleauthor{I}\else{We}\fi\space hereby certify that the work \ifsingleauthor{I}\else{we}\fi\space
-  \ifsingleauthor am\else are\fi\space submitting is entirely of \ifsingleauthor{my}\else{our}\fi own
-  making except where otherwise indicated. \ifsingleauthor{I}\else{We}\fi\space
-  \ifsingleauthor{am}\else{are}\fi\space aware of regulations concerning plagiarism, including
-  disciplinary actions that may result from it. Any use of the works of any other author, in any form,
-  is properly acknowledged at their point of use.
-}
-\newcaptionname{german,ngerman}\decofauthtext{%
-  Hiermit best{\"a}tige\ifsingleauthor\else{n}\fi\space \ifsingleauthor ich\else wir\fi, dass die
-  folgende Arbeit eigenst{\"a}ndig von \ifsingleauthor{mir}\else{uns}\fi\space allein erstellt und
-  unter Ber{\"u}cksichtigung der zur Verf{\"u}gung gestellten Aufgabenstellung sowie dem Arbeitsmaterial
-  unter Angabe aller verwendeten Quellen erarbeitet wurde. Die Regelungen und Konsequenzen eines
-  Plagiats, inklusive disziplinarischer Ma{\ss}nahmen, sind \ifsingleauthor{mir}\else{uns}\fi\space
-  bewusst. Insbesondere wurden alle Zitate und gedanklichen {\"U}bernahmenals solche kenntlich gemacht.
-}
 \def\declarationAuthorship{%
   \ClassWarning{\HsHClassName}{%
     Command \string\declarationAuthorship\space is deprecate.\MessageBreak
@@ -437,9 +417,6 @@
 \renewcommand{\labelitemii}{\raisebox{.3ex}{\scalebox{0.7}{$\circ$}}}
 \renewcommand{\labelitemiii}{\raisebox{.1ex}{-}}
 \renewcommand{\labelitemiv}{\raisebox{-.1ex}{\scalebox{1.3}{$\cdot$}}}
-\defcaptionname{german,ngerman}\abstractname{Abstract}
-\newcaptionname{english}\keywordsname{Keywords}
-\newcaptionname{german,ngerman}\keywordsname{Schl{\"u}sselw{\"o}rter}
 \renewenvironment{abstract}{
   \quotation
   \setparsizes{\z@}{\z@}{.25\linewidth \@plus 1fil}\selectfont
@@ -491,15 +468,6 @@
 \pagestyle{HsHheadings}
 \automark{chapter}
 \renewcommand*{\chapterpagestyle}{HsHheadings}
-\newcommand{\professortext}{Professor}
-\newcommand{\firstexaminertext}{First examiner}
-\newcommand{\secondexaminertext}{Second examiner}
-\newcaptionname{english}\professortext{Professor}
-\newcaptionname{english}\firstexaminertext{First examiner}
-\newcaptionname{english}\secondexaminertext{Second examiner}
-\newcaptionname{german,ngerman}\professortext{Professor(in)/Lehrbeauftragte(r)}
-\newcaptionname{german,ngerman}\firstexaminertext{Erstpr{\"u}fer(in)}
-\newcaptionname{german,ngerman}\secondexaminertext{Zweitpr{\"u}fer(in)}
 \newtoks\@tabtoks
 \newcommand\addtabtoks[1]{\global\@tabtoks\expandafter{\the\@tabtoks#1}}
 \newcommand\eaddtabtoks[1]{\edef\mytmp{#1}\expandafter\addtabtoks\expandafter{\mytmp}}
@@ -624,9 +592,9 @@
         \if\@param l\begin{tabular}{@{}l l}\fi
         \if\@param c\begin{tabular}{l l}\fi
         \if\@param r\begin{tabular}{r r@{}}\fi
-          \if\@professor\@empty\else\textbf{\professortext:}&\@professor\\\fi
-          \if\@firstexaminer\@empty\else\textbf{\firstexaminertext:}&\@firstexaminer\\\fi
-          \if\@secondexaminer\@empty\else\textbf{\secondexaminertext:}&\@secondexaminer\\\fi
+          \if\@professor\@empty\else\textbf{\professorname:}&\@professor\\\fi
+          \if\@firstexaminer\@empty\else\textbf{\firstexaminername:}&\@firstexaminer\\\fi
+          \if\@secondexaminer\@empty\else\textbf{\secondexaminername:}&\@secondexaminer\\\fi
         \end{tabular}
       }
       \par
@@ -714,6 +682,37 @@
   \fi
   \global\let\and\relax
 }
+\newcaptionname{english}\professorname{Professor}
+\newcaptionname{german,ngerman}\professorname{Professor(in)/Lehrbeauftragte(r)}
+\newcaptionname{english}\firstexaminername{First examiner}
+\newcaptionname{german,ngerman}\firstexaminername{Erstpr{\"u}fer(in)}
+\newcaptionname{english}\secondexaminername{Second examiner}
+\newcaptionname{german,ngerman}\secondexaminername{Zweitpr{\"u}fer(in)}
+\newcaptionname{english}\decofauthname{Declaration of Authorship}
+\newcaptionname{german,ngerman}\decofauthname{Selbstst{\"a}ndigkeitserkl{\"a}rung}
+\newcaptionname{english}\decofauthtext{%
+  \ifsingleauthor{I}\else{We}\fi\space hereby certify that the work
+  \ifsingleauthor{I}\else{we}\fi\space \ifsingleauthor am\else are\fi
+  submitting is entirely of \ifsingleauthor{my}\else{our}\fi own making
+  except where otherwise indicated. \ifsingleauthor{I}\else{We}\fi
+  \ifsingleauthor{am}\else{are}\fi\space aware of regulations concerning
+  plagiarism, including disciplinary actions that may result from it. Any
+  use of the works of any other author, in any form, is properly
+  acknowledged at their point of use.
+}
+\newcaptionname{german,ngerman}\decofauthtext{%
+  Hiermit best{\"a}tige\ifsingleauthor\else{n}\fi
+  \ifsingleauthor{ich}\else{wir}\fi, dass die folgende Arbeit eigenst{\"a}ndig
+  von \ifsingleauthor{mir}\else{uns}\fi\space allein erstellt und unter
+  Ber{\"u}cksichtigung der zur Verf{\"u}gung gestellten Aufgabenstellung sowie
+  dem Arbeitsmaterial unter Angabe aller verwendeten Quellen erarbeitet wurde.
+  Die Regelungen und Konsequenzen eines Plagiats, inklusive disziplinarischer
+  Ma{\ss}nahmen, sind \ifsingleauthor{mir}\else{uns}\fi\space bewusst.
+  Insbesondere wurden alle Zitate und gedanklichen {\"U}bernahmen als
+  solche kenntlich gemacht.
+}
+\newcaptionname{english}\keywordsname{Keywords}
+\newcaptionname{german,ngerman}\keywordsname{Schl{\"u}sselw{\"o}rter}
 \endinput
 %%
 %% End of file `HsH-report.cls'.
