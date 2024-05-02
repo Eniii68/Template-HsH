@@ -66,7 +66,7 @@
 \HsH@Options@DeclareAlias{ngerman}{language=ngerman}
 \def\HsH@opt@faculty{1}
 \FamilyNumericalKey{HsH}{faculty}{HsH@opt@faculty}{%
-  {0}{1}, {none}{1}, {false}{1}, {off}{1}%
+  {0}{1}, {none}{1}, {false}{1}, {off}{1},%
   {1}{2}, {f1}{2},%
   {2}{3}, {f2}{3},%
   {3}{4}, {f3}{4},%
