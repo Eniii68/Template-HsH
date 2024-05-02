@@ -115,7 +115,6 @@ http://www.latex-project.org/lppl.txt
 \setlength\marginparsep{2\labelsep}
 %
 \EnableCrossrefs
-\RecordChanges
 %
 \GetFileInfo{\jobname.dtx}
 \title{
@@ -134,11 +133,6 @@ http://www.latex-project.org/lppl.txt
 \end{document}
 %</driver>
 %\fi
-%
-%^^A ---------- change log -------------------------------------------------------------
-%\changes{v1.00}{2021-11-09}{Initial Version. Official first release}
-%\changes{v2.00}{2023-08-08}{This version changes the default build-system to \texttt{latexmk}}
-%\changes{v3.00}{2024-04-24}{Refactor for classoptions and other basic improvments}
 %
 %
 %^^A ---------- document body ----------------------------------------------------------
@@ -661,8 +655,6 @@ http://www.latex-project.org/lppl.txt
 %   \end{option}
 %
 %   \begin{option}{abstract}
-%     \changes{v3.01}{2024-04-26}{Added option}
-%
 %     The \opt{abstract} option sets multiple different switches and configureations.
 %     We first define the needed macros:
 %    \begin{macrocode}
@@ -704,8 +696,6 @@ http://www.latex-project.org/lppl.txt
 %   \end{option}
 %
 %   \begin{option}{toc}
-%     \changes{v3.01}{2024-04-26}{Added options (extends \KOMAScript)}
-%
 %     The \opt{toc} option is a \KOMAScript options we just extend. Options for the abstract and toc are added.
 %    \begin{macrocode}
 \DefineFamilyKey{HsH}{toc}{%
@@ -792,8 +782,6 @@ http://www.latex-project.org/lppl.txt
 %   \end{macro}
 %
 %   \begin{option}{faculty}
-%     \changes{v3.02}{2024-04-29}{missing comma caused \opt{1} to not work}
-%
 %     The \opt{faculty} options is once again a \emph{Numerical} option, mapping the five
 %     faculties and storeing the selected one in |\HsH@opt@faculty|.
 %    \begin{macrocode}
@@ -907,11 +895,9 @@ http://www.latex-project.org/lppl.txt
 %     \pkg{inputenc} package is no longer requried. Should the user still use a old
 %     setup or use a different encoding, he is responsible for loading \pkg{inputenc}
 %     himself.
-%     \changes{v3.00}{2024-02-03}{removed the \pkg{inputenc} package, as utf8 is now default}
 %
 %     The font-encoding for the pdf file is also set up to allow for the full european
 %     characterset.
-%     \changes{v3.00}{2024-02-03}{added \pkg{type1ec} package to get better font-scaling} ^^A see https://tex.stackexchange.com/questions/208304
 %    \begin{macrocode}
 \RequirePackage[T1]{fontenc}
 \RequirePackage{type1ec}
@@ -1301,7 +1287,6 @@ http://www.latex-project.org/lppl.txt
 %     \end{macro}
 %
 %     \begin{macro}{\declarationAuthorship}
-%       \changes{v2.01}{2023-08-11}{Deprecate \cmd{\declarationAuthorship}, as it got replaced by \cmd{\declarationofauthorship}}
 %    \begin{macrocode}
 \def\declarationAuthorship{%
   \ClassWarning{\HsHClassName}{%
