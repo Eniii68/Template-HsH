@@ -339,6 +339,15 @@
 \def\@firstexaminer{\@empty}
 \newcommand{\secondexaminer}[1]{\gdef\@secondexaminer{#1}}
 \def\@secondexaminer{\@empty}
+\newcommand{\professorname}{Professor}
+\newcommand{\firstexaminername}{First examiner}
+\newcommand{\secondexaminername}{Second examiner}
+\newcaptionname{english}\professorname{Professor}
+\newcaptionname{english}\firstexaminername{First examiner}
+\newcaptionname{english}\secondexaminername{Second examiner}
+\newcaptionname{german,ngerman}\professorname{Professor(in)/Lehrbeauftragte(r)}
+\newcaptionname{german,ngerman}\firstexaminername{Erstpr{\"u}fer(in)}
+\newcaptionname{german,ngerman}\secondexaminername{Zweitpr{\"u}fer(in)}
 \newcommand{\keywords}[1]{\gdef\@keywords{#1}}
 \def\@keywords{\@empty}
 \RequirePackage{pgffor}
@@ -491,15 +500,6 @@
 \pagestyle{HsHheadings}
 \automark{chapter}
 \renewcommand*{\chapterpagestyle}{HsHheadings}
-\newcommand{\professortext}{Professor}
-\newcommand{\firstexaminertext}{First examiner}
-\newcommand{\secondexaminertext}{Second examiner}
-\newcaptionname{english}\professortext{Professor}
-\newcaptionname{english}\firstexaminertext{First examiner}
-\newcaptionname{english}\secondexaminertext{Second examiner}
-\newcaptionname{german,ngerman}\professortext{Professor(in)/Lehrbeauftragte(r)}
-\newcaptionname{german,ngerman}\firstexaminertext{Erstpr{\"u}fer(in)}
-\newcaptionname{german,ngerman}\secondexaminertext{Zweitpr{\"u}fer(in)}
 \newtoks\@tabtoks
 \newcommand\addtabtoks[1]{\global\@tabtoks\expandafter{\the\@tabtoks#1}}
 \newcommand\eaddtabtoks[1]{\edef\mytmp{#1}\expandafter\addtabtoks\expandafter{\mytmp}}
@@ -624,9 +624,9 @@
         \if\@param l\begin{tabular}{@{}l l}\fi
         \if\@param c\begin{tabular}{l l}\fi
         \if\@param r\begin{tabular}{r r@{}}\fi
-          \if\@professor\@empty\else\textbf{\professortext:}&\@professor\\\fi
-          \if\@firstexaminer\@empty\else\textbf{\firstexaminertext:}&\@firstexaminer\\\fi
-          \if\@secondexaminer\@empty\else\textbf{\secondexaminertext:}&\@secondexaminer\\\fi
+          \if\@professor\@empty\else\textbf{\professorname:}&\@professor\\\fi
+          \if\@firstexaminer\@empty\else\textbf{\firstexaminername:}&\@firstexaminer\\\fi
+          \if\@secondexaminer\@empty\else\textbf{\secondexaminername:}&\@secondexaminer\\\fi
         \end{tabular}
       }
       \par
