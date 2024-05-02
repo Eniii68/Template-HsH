@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Current]
 
+## [3.2]
+
 ### Fixed
 
 - missing comma caused \opt{1} to not work (#18)
