@@ -4,3 +4,7 @@
 *.log
 
 /*.pdf
+
+# files that are usually excluded but here we want them:
+!example.pdf
+!.vscode/*.json

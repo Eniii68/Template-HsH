@@ -1,0 +1,123 @@
+{
+	"ltex.enabled": true,
+	"ltex.language": "en-GB",
+	"ltex.additionalRules.motherTongue": "de-DE",
+	"[latex]": {
+		"rewrap.autoWrap.enabled": true,
+		"editor.rulers": [
+			100
+		],
+		"rewrap.wrappingColumn": 100,
+	},
+	"latex-workshop.linting.run": "onType",
+	"latex-workshop.latex.autoBuild.run": "onSave",
+	"latex-workshop.showContextMenu": true,
+	"latex-workshop.latex.outDir": "%DIR%",
+	"latex-workshop.latex.recipes": [
+		{
+			"name": "latexmk",
+			"tools": [
+				"latexmk"
+			]
+		},
+		{
+			"name": "pdflatex",
+			"tools": [
+				"pdflatex"
+			]
+		},
+		{
+			"name": "biber",
+			"tools": [
+				"biber"
+			]
+		},
+		{
+			"name": "pdflatex ➞ biber ➞ 2× pdflatex",
+			"tools": [
+				"pdflatex",
+				"biber",
+				"pdflatex",
+				"pdflatex"
+			]
+		},
+		{
+			"name": "Optimize PDF",
+			"tools": [
+				"gs opt printer"
+			]
+		}
+	],
+	"latex-workshop.latex.tools": [
+		{
+			"name": "latexmk",
+			"command": "latexmk",
+			"args": [
+				"-pdf",
+				"-interaction=nonstopmode",
+				"-synctex=1",
+				"-auxdir=%OUTDIR%/.aux",
+				"-outdir=%OUTDIR%",
+				"%DOC_EXT%"
+			],
+			"env": {
+				"TEXINPUTS": "%WORKSPACE_FOLDER%/src/"
+			}
+		},
+		{
+			"name": "pdflatex",
+			"command": "pdflatex",
+			"args": [
+				"-synctex=1",
+				"-interaction=nonstopmode",
+				"-file-line-error",
+				"-aux-directory=%OUTDIR%/.aux",
+				"-output-directory=%OUTDIR%",
+				"%DOC_EXT%"
+			],
+			"env": {
+				"TEXINPUTS": "%WORKSPACE_FOLDER%/src/"
+			}
+		},
+		{
+			"name": "biber",
+			"command": "biber",
+			"args": [
+				"-output-directory=%OUTDIR%/.aux",
+				"%DOCFILE%"
+			]
+		},
+		{
+			"name": "bibtex",
+			"command": "bibtex",
+			"args": [
+				"-include-directory=.aux",
+				"%OUTDIR%/.aux/%DOCFILE%"
+			]
+		},
+		{
+			"name": "gs opt printer",
+			"command": "mgs",
+			"args": [
+				"-sDEVICE=pdfwrite",
+				"-dPrinted=false",
+				"-dPDFSETTINGS=/printer",
+				"-o",
+				"%OUTDIR%/%DOCFILE%_optimized.pdf",
+				"%OUTDIR%/%DOCFILE%.pdf"
+			]
+		},
+		{
+			"name": "gs opt extrem",
+			"command": "mgs",
+			"args": [
+				"-sDEVICE=pdfwrite",
+				"-dPrinted=false",
+				"-dPDFSETTINGS=/ebook",
+				"-o",
+				"%OUTDIR%/%DOCFILE%_optimized.pdf",
+				"%OUTDIR%/%DOCFILE%.pdf"
+			]
+		}
+	],
+}
