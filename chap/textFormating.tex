@@ -1,116 +1,116 @@
 \chapter{Formatting text} \label{:chap formating}
-	To begin I want to show you the basics of how to get text onto the page and structure it. You can also see how I created this exact text as an
-	example.
+    To begin I want to show you the basics of how to get text onto the page and structure it. You can also see how I created this exact text as an
+    example.
 
-	\section{Texts and paragraphs} \label{sec: text and par}
-		Writing text for a LaTeX document is very easy. You just put the text in. LaTeX doesn't care about line breaks or whitespace, so its up to
-		your preferences how the source code looks. You could just write the whole document as one super long line, but it makes sense to break it up
-		and keep it readable. One common way is to put every sentence on a new line. Alternatively lots of editors can break lines for you after you
-		reach a certain width (that's how this source code is formatted).
+    \section{Texts and paragraphs} \label{sec: text and par}
+        Writing text for a LaTeX document is very easy. You just put the text in. LaTeX doesn't care about line breaks or whitespace, so its up to
+        your preferences how the source code looks. You could just write the whole document as one super long line, but it makes sense to break it up
+        and keep it readable. One common way is to put every sentence on a new line. Alternatively lots of editors can break lines for you after you
+        reach a certain width (that's how this source code is formatted).
 
-		LaTeX will automatically space and break your text to optimal use the available space while still looking good. You can however assist it when
-		it struggles. Putting hyphens (-) into a word tells LaTeX to break it there. If it's a word you use a lot, you can use
-		|\hyphenation{very-long-word}| in your preamble to tell LaTeX how to split it everywhere.
+        LaTeX will automatically space and break your text to optimal use the available space while still looking good. You can however assist it when
+        it struggles. Putting hyphens (-) into a word tells LaTeX to break it there. If it's a word you use a lot, you can use
+        |\hyphenation{very-long-word}| in your preamble to tell LaTeX how to split it everywhere.
 
-		Lots of examples will tell you that |\\| is a line break. While this is correct you shouldn't use it to break your text block and
-		start a new line. A block of text is a paragraph and should be ended with the |\par| command. For ease of use LaTeX will
-		automatically use this command if you leave a blank line. (see this source code)
+        Lots of examples will tell you that |\\| is a line break. While this is correct you shouldn't use it to break your text block and
+        start a new line. A block of text is a paragraph and should be ended with the |\par| command. For ease of use LaTeX will
+        automatically use this command if you leave a blank line. (see this source code)
 
-		If you want to further separate paragraphs visually (when you finish a train of thought for example) you can use the commands
-		|\smallskip|, |\medskip| and |\bigskip|
+        If you want to further separate paragraphs visually (when you finish a train of thought for example) you can use the commands
+        |\smallskip|, |\medskip| and |\bigskip|
 
-	\section{Headings} \label{sec: headings}
-		The exact commands available will vary depending on you your documentclass, but they will always be a single command that excepts any text
-		inside curly brackets, for example |\section{text}|. The different commands form a hierarchy you can nest into each other, keeping
-		track of its parent element. That means you don't have to worry about any formatting or numbering, LaTeX will handle that for you.
+    \section{Headings} \label{sec: headings}
+        The exact commands available will vary depending on you your documentclass, but they will always be a single command that excepts any text
+        inside curly brackets, for example |\section{text}|. The different commands form a hierarchy you can nest into each other, keeping
+        track of its parent element. That means you don't have to worry about any formatting or numbering, LaTeX will handle that for you.
 
-		When using an \emph{article} documentclass, the commands available are |\section{}|, |\subsection{}| and
-		|\subsubsection{}|. Should you need more nesting levels, you are usually overcomplicating things, but you could additionally use the
-		|\paragraph{}| command, which gives you a slightly bigger, bold first word for your paragraph.
+        When using an \emph{article} documentclass, the commands available are |\section{}|, |\subsection{}| and
+        |\subsubsection{}|. Should you need more nesting levels, you are usually overcomplicating things, but you could additionally use the
+        |\paragraph{}| command, which gives you a slightly bigger, bold first word for your paragraph.
 
-		The \emph{report} documentclass adds the additional command |\chapter{}| as the highest heading level. You can still use the previous
-		three commands for the nested headings. A chapter automatically starts on a new page, so it should be at leas two pages long. You also get the
-		command |\part{}|, which creates a separate page for the part's title. These should only be used in very long documents.
+        The \emph{report} documentclass adds the additional command |\chapter{}| as the highest heading level. You can still use the previous
+        three commands for the nested headings. A chapter automatically starts on a new page, so it should be at leas two pages long. You also get the
+        command |\part{}|, which creates a separate page for the part's title. These should only be used in very long documents.
 
-	\section{Text spacing} \label{sec: spacing}
-		By default, these classes add no spacing between paragraph, but sometimes you want to visually enforce a breakpoint in your argumentation. For
-		that you can add some space in between to paragraph by using one of the commands |\bigskip|, |\medskip| or
-		|\smallskip|. How much space you want depends on your tase, but you should keep it consistent. Here is an example:
+    \section{Text spacing} \label{sec: spacing}
+        By default, these classes add no spacing between paragraph, but sometimes you want to visually enforce a breakpoint in your argumentation. For
+        that you can add some space in between to paragraph by using one of the commands |\bigskip|, |\medskip| or
+        |\smallskip|. How much space you want depends on your tase, but you should keep it consistent. Here is an example:
 
-		\bigskip
-		This text has a big space before it,
+        \bigskip
+        This text has a big space before it,
 
-		\medskip
-		Here I used just some medium spacing
+        \medskip
+        Here I used just some medium spacing
 
-		\smallskip
-		and this is a small space.
+        \smallskip
+        and this is a small space.
 
-	\section{Breaking pages} \label{sec: pagebreak}
-		Sometimes you will find yourself in situations, where you don't like where LaTeX splits your text to the next page. So first, take some
-		advice: Don't worry about it for now. Your text will probably change a few times before its final. Just leave it.
+    \section{Breaking pages} \label{sec: pagebreak}
+        Sometimes you will find yourself in situations, where you don't like where LaTeX splits your text to the next page. So first, take some
+        advice: Don't worry about it for now. Your text will probably change a few times before its final. Just leave it.
 
-		If you are at the final stage, you can do a beautifying pass. Now you can use |\pagebreak| to tell LaTeX about better places to
-		break the text.
+        If you are at the final stage, you can do a beautifying pass. Now you can use |\pagebreak| to tell LaTeX about better places to
+        break the text.
 
-		Should you still not be happy (this happens especially with multiple images/tables in close proximity) you most likely have to little text and
-		should redesign your document. But if you absolutely want to print it that way, you can use |\clearpage| to force all
-		figures/tables to be put onto the page and then start a new page.
+        Should you still not be happy (this happens especially with multiple images/tables in close proximity) you most likely have to little text and
+        should redesign your document. But if you absolutely want to print it that way, you can use |\clearpage| to force all
+        figures/tables to be put onto the page and then start a new page.
 
-		\medskip
-		You might also need just a little more space only a page to just fit one more sentences. For that you can use the command
-		|\enlargethispage{N\baselineskip}| with $N$ being the number of lines you need. Use this sparingly however, as the bottom margin is
-		there for a reason and you shouldn't intrude on the footer too much.
+        \medskip
+        You might also need just a little more space only a page to just fit one more sentences. For that you can use the command
+        |\enlargethispage{N\baselineskip}| with $N$ being the number of lines you need. Use this sparingly however, as the bottom margin is
+        there for a reason and you shouldn't intrude on the footer too much.
 
 
-	\section{Text styling} \label{sec: styling}
-		When writing text, you will need to \emph{emphasize} certain parts of the text. The easiest way is to use the |\emph{}| command
-		around you text. You can also nest it \emph{to \emph{emphasize} even more}.
+    \section{Text styling} \label{sec: styling}
+        When writing text, you will need to \emph{emphasize} certain parts of the text. The easiest way is to use the |\emph{}| command
+        around you text. You can also nest it \emph{to \emph{emphasize} even more}.
 
-		If you want to change to a specific font-type, you can do that like this:
+        If you want to change to a specific font-type, you can do that like this:
 
-		\smallskip
-		\begin{tabular}{l l}
-			|\underline{text}| & \underline{Underlined} \\
-			|\textbf{text}| & \textbf{Bold Font} \\
-			|\textii{text}| & \textit{Italic Font} \\
-			|\textrm{text}| & \textrm{Roman Font} \\
-			|\texttt{text}| & \texttt{Typewriter Font} \\
-			|\textsc{text}| & \texttt{Small Caps Font} \\
-		\end{tabular}
+        \smallskip
+        \begin{tabular}{l l}
+            |\underline{text}| & \underline{Underlined} \\
+            |\textbf{text}| & \textbf{Bold Font} \\
+            |\textii{text}| & \textit{Italic Font} \\
+            |\textrm{text}| & \textrm{Roman Font} \\
+            |\texttt{text}| & \texttt{Typewriter Font} \\
+            |\textsc{text}| & \texttt{Small Caps Font} \\
+        \end{tabular}
 
-		\medskip
-		You might also want to change your text colour, which is what the {color} package is for. It provides the
-		|textcolor{colour}{text}| command, \textcolor{red}{which allows you} \textcolor{blue}{to change your text colour}.
+        \medskip
+        You might also want to change your text colour, which is what the {color} package is for. It provides the
+        |textcolor{colour}{text}| command, \textcolor{red}{which allows you} \textcolor{blue}{to change your text colour}.
 
-		\section{Special characters} \label{sec: special-charaters}
-			\subsection{LaTeX command characters}
-				As in most programming languages, some characters are used for LaTeXes commands and can't be used in text directly. Here is a table
-				explaining them all:
+        \section{Special characters} \label{sec: special-charaters}
+            \subsection{LaTeX command characters}
+                As in most programming languages, some characters are used for LaTeXes commands and can't be used in text directly. Here is a table
+                explaining them all:
 
-				\smallskip
-				\begin{tabular}{l l l}
-					\emph{character} & \emph{special meaning} & \emph{how to get character} \\
-					\textbackslash & beginning of a command & |\textbackslash| \\
-					\{ and \} & denote a code block & |\{| and |\}|\\
-					\% & beginning of a comment & |\%| \\
-					\# & macro parameter character & |\#| \\
-					\$ & beginning/end of math mode & |\$| \\
-					\textasciitilde & non-breaking space & |\textasciitilde| \\
-					\emph{only inside math mode:} \\
-					$\_$ & subscript & |\_| \\
-					\textasciicircum & superscript & |\textasciicircum| \\
-				\end{tabular}
+                \smallskip
+                \begin{tabular}{l l l}
+                    \emph{character} & \emph{special meaning} & \emph{how to get character} \\
+                    \textbackslash & beginning of a command & |\textbackslash| \\
+                    \{ and \} & denote a code block & |\{| and |\}|\\
+                    \% & beginning of a comment & |\%| \\
+                    \# & macro parameter character & |\#| \\
+                    \$ & beginning/end of math mode & |\$| \\
+                    \textasciitilde & non-breaking space & |\textasciitilde| \\
+                    \emph{only inside math mode:} \\
+                    $\_$ & subscript & |\_| \\
+                    \textasciicircum & superscript & |\textasciicircum| \\
+                \end{tabular}
 
-			\subsection{Invisible characters}
-				To properly typeset your text you may need a number of special characters under specific circumstances:
+            \subsection{Invisible characters}
+                To properly typeset your text you may need a number of special characters under specific circumstances:
 
-				\smallskip
-				\begin{tabular}{l l l}
-					\emph{explanation} & \emph{command} & \emph{example} \\
-					non-breaking space & |~| & Max~Mustermann (Names shouldn't be broken) \\
-					3/4 non-breaking space & |\;| & 10\;000 (separate thousands)\\
-					medium non-breaking space & |\:| & z.\:B. (abbreviations) \\
-					1/2 non-breaking space & |\,| & 1\,V (number + unit) \\
-					normal space & |\space| & in case some command eats up all your space \\
-				\end{tabular}
+                \smallskip
+                \begin{tabular}{l l l}
+                    \emph{explanation} & \emph{command} & \emph{example} \\
+                    non-breaking space & |~| & Max~Mustermann (Names shouldn't be broken) \\
+                    3/4 non-breaking space & |\;| & 10\;000 (separate thousands)\\
+                    medium non-breaking space & |\:| & z.\:B. (abbreviations) \\
+                    1/2 non-breaking space & |\,| & 1\,V (number + unit) \\
+                    normal space & |\space| & in case some command eats up all your space \\
+                \end{tabular}
