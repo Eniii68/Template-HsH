@@ -156,6 +156,15 @@ Before you go to town, check out what others already published in
 [the snippets section](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/snippets).
 This will be a good starting point or maybe even already be what you want.
 
+### How can I increase the left margin for printing?
+
+What you are trying to mmodify is called the "bindin correction". The option for that is `BCOR`.
+You can set it to any size know to LaTeX and the margin will be increased accordingly,
+always on the left side for `oneside` documents and alternating for `twoside` documents.
+
+> **Note** the textarea is not reduced, only moved. So a very large value for `BCOR` will
+> move the content off the page.
+
 ### Italic vs. upright Index? (changing subscript)
 
 The classes by default set all sub scripts upright ("steil" in German), because this is
