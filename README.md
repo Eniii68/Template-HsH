@@ -104,6 +104,7 @@ your system.
 ```shell
 # set up local git repo from template
 git clone -o upstream https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh.git [Project]
+cd [Project]
 git branch -M [Project] # optional if you want to seperate your branch from origin/master
 git remote add origin [Project_URL]
 git push --set-upstream origin
@@ -115,7 +116,7 @@ git commit --all -m "initalise for [Project]"
 git push
 ```
 
-> **Note** giving you Project name as the default branch name is optional, and you could
+> **Note** giving you `[Project]` name as the default branch name is optional, and you could
 > keep the default name of `master`, but as the template also has a `master` branch it is
 > less confusing if you choose a different name.
 
