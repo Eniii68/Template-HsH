@@ -1,10 +1,12 @@
+# LaTeX Template for Hochschule Hannover (mostly Fakulty I)
+
 [![GitLab badge](https://img.shields.io/badge/-GitLab-blue?logo=gitlab&labelColor=gray)](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh)
 [![LaTeX badge](https://img.shields.io/badge/-LaTeX-informational?logo=latex&labelColor=gray)](https://www.latex-project.org/)
 [![HsH badge](https://img.shields.io/static/v1?logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBmaWxsPSIjZmZmIiBkPSJtMTMuNDUzIDBjLTAuNzQ2NTYgMC0xLjM4MjkgMC42MzY0Mi0xLjM4MjkgMS4zOTQ2djM0LjE0NmMwIDAuNzQ2NTYgMC42MzYzIDEuNDAwNCAxLjM4MjkgMS40MDA0aDIuNjg1NmMwLjc0NjU2IDAgMS4zODQ4LTAuNjQwOCAxLjM4NDgtMS40MDA0di0xNS4xNTFoMTIuOTQydjE1LjE1MWMwIDAuNzQ2NTYgMC42MzYzIDEuNDAwNCAxLjM4MjkgMS40MDA0aDIuNjg1NmMwLjc0NjU2IDAgMS4zODI5LTAuNjQwOCAxLjM4MjktMS40MDA0di0zNC4xNDZjMC0wLjc0NjU2LTAuNjM2My0xLjM5NDYtMS4zODI5LTEuMzk0NmgtMi42ODU2Yy0wLjc0NjU2IDAtMS4zODI5IDAuNjM2NDItMS4zODI5IDEuMzk0NnYxMy44MjVoLTEyLjk0MnYtMTMuODI1YzAtMC43NTgxNi0wLjYzODI3LTEuMzk0Ni0xLjM4NDgtMS4zOTQ2em0wIDQyLjQ1M2MtMC43NDY1NiAwLjAxNTEyLTEuMzgyOSAwLjY2NTYtMS4zODI5IDEuNDEyMnYyLjcyNDdjMCAwLjc2MTU2IDAuNjM2MyAxLjQxMDIgMS4zODI5IDEuNDEwMmgyMS4wOTVjMC43NDY1NiAwIDEuMzgyOS0wLjY0ODY2IDEuMzgyOS0xLjQxMDJ2LTIuNzI0N2MwLTAuNzYxNTYtMC42MzYzLTEuNDEyMi0xLjM4MjktMS40MTIyeiIvPjwvc3ZnPg%3D%3D&label=&labelColor=gray&message=Hochschule+Hannover&color=blue)](https://hs-hannover.de/)
 <br>
 [![version badge](https://img.shields.io/gitlab/v/release/987?gitlab_url=https%3A%2F%2Flab.it.hs-hannover.de)](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/releases)
 
-# What this is
+## What this is
 
 This is a template designed to ease the workflow when writing documents for the
 Hochschule Hannover. It is intended to be used in all sophisticated works, from
@@ -14,12 +16,14 @@ the `HsH-` prefix as well as support files. These classes extend the well known
 KOMA-Script classes and customize them with specific configurations, presets and provide
 commonly needed features.
 
-# The different classes
+## Documentation
 
 This project provides a set of additional classes designed for use in the Hochschule
 Hannover, Germany. They extend the well-known
 [KOMA-Script classes](https://ctan.org/pkg/koma-script) by adding styling and providing
-some additional commands. You can find the full documentation of all features in
+some additional commands.
+
+You can find the full documentation of all features in
 [src/HsH-classes.pdf](src/HsH-classes.pdf), but here is a short description of the
 different classes:
 
@@ -56,16 +60,16 @@ different classes:
   </dd>
 </dl>
 
-# Quick start guide
+## Quick start guide
 
-## I have now Idea how to start, show me
+### I have now Idea how to start, show me 🔍
 
 To get you started, there is a working example Project on the example branch that has
 loads of tips. Check it out
 [Online](https://lab.it.hs-hannover.de/qxx-tul-u1/latex-template-hsh/-/tree/example) or
 locally using `git checkout example`.
 
-## Recommended software
+### Recommended software
 
 As a Tex-Distribution, [MiKTeX is recommended](https://miktex.org/), TexLive should also
 work, but I don't use it much. You will also need `perl` to run `latexmk` and other
@@ -83,7 +87,7 @@ winget install "MiKTeX.MiKTeX" "StrawberryPerl.StrawberryPerl" "Git.Git" "Micros
 code --install-extension "James-Yu.latex-workshop"
 ```
 
-## Using the project as a template
+### Using the project as a template
 
 The projects also provides a recommendation for a subfolder structure to keep things
 organized. If you don't want to use git and just want to get started in LaTeX,
@@ -120,7 +124,7 @@ git push
 > keep the default name of `master`, but as the template also has a `master` branch it is
 > less confusing if you choose a different name.
 
-## Compiling
+### Compiling
 
 The Project comes with setting for `latexmk`, so you should be able to instantly compile
 using it.
@@ -134,7 +138,7 @@ latexmk
 > configured correctly, but might be relevant if you choose a different build system
 > ([see below](#adding-src-to-path)).
 
-# Common additions and expansions (Snippets)
+## Common additions and expansions (Snippets)
 
 Sadly most Profs have widely different expectations when it comes to styling of written
 works. So you might find yourself having to change some settings. For some cases this
@@ -145,7 +149,7 @@ of the project.
 Also, if you create your own set of additions that are useful for other, feel free to
 contact me and I will give you access right, so you can upload it there.
 
-# Frequently Asked Questions
+## Frequently Asked Questions
 
 ### How can I create my own title page
 
