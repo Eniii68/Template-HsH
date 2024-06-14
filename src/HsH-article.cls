@@ -551,9 +551,11 @@
           \foreach \x [count=\i,evaluate=\i as \y using {{\@matrikelnr,}[\i-1]}] in \@author {\eaddtabtoks{\x & \y\protect\\}}
           \usekomafont{author}{
             \def\arraystretch{1.2}
-            \if\@param l\begin{tabular}{@{}l l}\printtabtoks\end{tabular}\fi
-            \if\@param c\begin{tabular}{l l}\printtabtoks\end{tabular}\fi
-            \if\@param r\begin{tabular}{r r@{}}\printtabtoks\end{tabular}\fi
+            \if\@param l\begin{tabular}{@{}l l}\fi
+            \if\@param c\begin{tabular}{l l}\fi
+            \if\@param r\begin{tabular}{r r@{}}\fi
+              \printtabtoks
+            \end{tabular}
           }%
         \fi
       \fi}
