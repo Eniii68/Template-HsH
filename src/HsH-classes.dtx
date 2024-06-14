@@ -1160,12 +1160,6 @@ http://www.latex-project.org/lppl.txt
 %     how the user can define the differnt datafields.
 %     \smallskip
 %
-%     First the |\@author| macro is set to |\@empty|, this makes it easyer to handle it
-%     later.
-%    \begin{macrocode}
-\let\@author\@empty
-%    \end{macrocode}
-%
 %     \begin{macro}{\title}
 %       We redefine the |\title| command to take a optional argument. This is stored in
 %       the additional |\@shorttitle| macro.
@@ -1185,11 +1179,33 @@ http://www.latex-project.org/lppl.txt
 %    \end{macrocode}
 %     \end{macro}
 %
+%     \begin{macro}{\gdef@with@and@as@comma}
+%       First we define a helpermacro that will fill a given macro while treating the
+%       |\and| command as a comma. This is needed for |\author| and |\matrikelnr| where
+%       we later treat them as comma-seperated lists when the titlepage gets constructed.
+%    \begin{macrocode}
+\def\gdef@with@and@as@comma#1#2{{\def\and{,}\xdef#1{#2}}}
+%    \end{macrocode}
+%     \end{macro}
+%
+%     \begin{macro}{\author}
+%       We redefine the |\author| command so that it sets |\@author|, but allowing for both
+%       comma and |\and| to be used as a seperator.
+%    \begin{macrocode}
+\renewcommand{\author}[1]{\gdef@with@and@as@comma\@author{#1}}
+%    \end{macrocode}
+%     The |\@author| macro is also set to |\@empty|, this makes it easier to handle it
+%     later.
+%    \begin{macrocode}
+\let\@author\@empty
+%    \end{macrocode}
+%     \end{macro}
+%
 %     \begin{macro}{\matrikelnr,\@matrikelnr}
 %       These macros set and store the matrikel-number (or set of numbers), which will
 %       be printed on the titlepage.
 %    \begin{macrocode}
-\newcommand{\matrikelnr}[1]{\gdef\@matrikelnr{#1}}
+\newcommand{\matrikelnr}[1]{\gdef@with@and@as@comma\@matrikelnr{#1}}
 \def\@matrikelnr{\@empty}
 %    \end{macrocode}
 %     \end{macro}

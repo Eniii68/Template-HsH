@@ -12,6 +12,10 @@ All notable changes to this project will be documented in this file.
   Here is a regex to fix existing code: `(?<=\\ifsingleauthor)(\{.*?\})\\else(\{.*?\})\\fi(\\space)?`
   which you can replace with `$1$2`.
 
+### Added
+
+- Using the `\and` command inside `\author` or `\matrikelnr` now works as expected (#21)
+
 ## [3.2]
 
 ### Fixed

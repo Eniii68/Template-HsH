@@ -325,13 +325,15 @@
     }
   }
 }
-\let\@author\@empty
 \renewcommand{\title}[2][]{
   \gdef\@title{#2}
   \gdef\@shorttitle{#1}
 }
 \def\@shorttitle{\@empty}
-\newcommand{\matrikelnr}[1]{\gdef\@matrikelnr{#1}}
+\def\gdef@with@and@as@comma#1#2{{\def\and{,}\xdef#1{#2}}}
+\renewcommand{\author}[1]{\gdef@with@and@as@comma\@author{#1}}
+\let\@author\@empty
+\newcommand{\matrikelnr}[1]{\gdef@with@and@as@comma\@matrikelnr{#1}}
 \def\@matrikelnr{\@empty}
 \newcommand{\professor}[1]{\gdef\@professor{#1}}
 \def\@professor{\@empty}
