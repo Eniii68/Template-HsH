@@ -17,7 +17,7 @@
 %% 
 \NeedsTeXFormat{LaTeX2e}[2022-06-01]
 \ProvidesClass{HsH-report}
-  [2024-04-26 3.01 HsH-class based on KOMA]
+  [2024-06-14 3.03.pre0 HsH-class based on KOMA]
 \let\HsHClassName\@currname
 \def\HsHClassName@ParrentClass{%
   scrreprt%
@@ -371,15 +371,16 @@
     }\par
   \endgroup
 }
-\newif\ifsingleauthor
+\newif\if@singleauthor
 \AtBeginDocument{
   \begingroup
     \newcount\count@
     \count@=\z@
     \@for\tmp@:=\@author\do{\advance\count@\@ne}
-    \ifnum\count@>\@ne\global\singleauthorfalse\else\global\singleauthortrue\fi
+    \ifnum\count@>\@ne\global\@singleauthorfalse\else\global\@singleauthortrue\fi
   \endgroup
 }
+\newcommand{\ifsingleauthor}[2]{\if@singleauthor#1\else#2\fi}
 \def\declarationAuthorship{%
   \ClassWarning{\HsHClassName}{%
     Command \string\declarationAuthorship\space is deprecate.\MessageBreak
@@ -691,25 +692,23 @@
 \newcaptionname{english}\decofauthname{Declaration of Authorship}
 \newcaptionname{german,ngerman}\decofauthname{Selbstst{\"a}ndigkeitserkl{\"a}rung}
 \newcaptionname{english}\decofauthtext{%
-  \ifsingleauthor{I}\else{We}\fi\space hereby certify that the work
-  \ifsingleauthor{I}\else{we}\fi\space \ifsingleauthor am\else are\fi
-  submitting is entirely of \ifsingleauthor{my}\else{our}\fi own making
-  except where otherwise indicated. \ifsingleauthor{I}\else{We}\fi
-  \ifsingleauthor{am}\else{are}\fi\space aware of regulations concerning
-  plagiarism, including disciplinary actions that may result from it. Any
-  use of the works of any other author, in any form, is properly
-  acknowledged at their point of use.
+  \ifsingleauthor{I}{We} hereby certify that the work \ifsingleauthor{I}{we}
+  \ifsingleauthor{am}{are} submitting is entirely of \ifsingleauthor{my}{our}
+  own making except where otherwise indicated. \ifsingleauthor{I}{We}
+  \ifsingleauthor{am}{are} aware of regulations concerning plagiarism,
+  including disciplinary actions that may result from it. Any use of the
+  works of any other author, in any form, is properly acknowledged at
+  their point of use.
 }
 \newcaptionname{german,ngerman}\decofauthtext{%
-  Hiermit best{\"a}tige\ifsingleauthor\else{n}\fi
-  \ifsingleauthor{ich}\else{wir}\fi, dass die folgende Arbeit eigenst{\"a}ndig
-  von \ifsingleauthor{mir}\else{uns}\fi\space allein erstellt und unter
-  Ber{\"u}cksichtigung der zur Verf{\"u}gung gestellten Aufgabenstellung sowie
-  dem Arbeitsmaterial unter Angabe aller verwendeten Quellen erarbeitet wurde.
-  Die Regelungen und Konsequenzen eines Plagiats, inklusive disziplinarischer
-  Ma{\ss}nahmen, sind \ifsingleauthor{mir}\else{uns}\fi\space bewusst.
-  Insbesondere wurden alle Zitate und gedanklichen {\"U}bernahmen als
-  solche kenntlich gemacht.
+  Hiermit best{\"a}tige\ifsingleauthor{}{n} \ifsingleauthor{ich}{wir},
+  dass die folgende Arbeit eigenst{\"a}ndig von \ifsingleauthor{mir}{uns}
+  allein erstellt und unter Ber{\"u}cksichtigung der zur Verf{\"u}gung
+  gestellten Aufgabenstellung sowie dem Arbeitsmaterial unter Angabe aller
+  verwendeten Quellen erarbeitet wurde. Die Regelungen und Konsequenzen
+  eines Plagiats, inklusive disziplinarischer Ma{\ss}nahmen, sind
+  \ifsingleauthor{mir}{uns} bewusst. Insbesondere wurden alle Zitate und
+  gedanklichen {\"U}bernahmen als solche kenntlich gemacht.
 }
 \newcaptionname{english}\keywordsname{Keywords}
 \newcaptionname{german,ngerman}\keywordsname{Schl{\"u}sselw{\"o}rter}

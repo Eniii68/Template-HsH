@@ -74,7 +74,7 @@ http://www.latex-project.org/lppl.txt
 %<report>\ProvidesClass{HsH-report}
 %<standalone>\ProvidesClass{HsH-standalone}
 %<*article|report|standalone>
-  [2024-05-02 3.02 HsH-class based on KOMA]
+  [2024-06-14 3.03.pre0 HsH-class based on KOMA]
 %</article|report|standalone>
 %<*driver> ^^A ---------- documentation driver -----------------------------------------
 \documentclass{ltxdoc}
@@ -395,6 +395,16 @@ http://www.latex-project.org/lppl.txt
 %   |\maketitle|\oarg{align}. You can pass \opt{l\OR c\OR r} to get \emph{left},
 %   \emph{center} or \emph{right} alignment.
 %
+% \subsection{Micalanious commands}
+%   The following commands are mostly for internal use, but are parte of the interface
+%   and might be usefull in some cases.
+%   \medskip
+%
+%   \DescribeMacro{\ifsingleauthor}
+%   This allows you to check if |\author| holds one or multiple entries. Using this
+%   allows the user to display differernt things for these cases, for example switch
+%   words to pural, like this:
+%   |\ifsingleauthor{one}{multiple} person\ifsingleauthor{}{s}|
 %
 %\section{Package laoding}
 % The classes load some packges for internal use as well as loading and configuring
@@ -1269,20 +1279,28 @@ http://www.latex-project.org/lppl.txt
 %    \end{macrocode}
 %     \end{macro}
 %
-%     \begin{macro}{\ifsingleauthor}
+%     \begin{macro}{\if@singleauthor}
 %       To ensure |\decofauthtext| is preperly spelled for one or multiple authors, we
 %       define a conditional that holds this information. Additionally we check the
 %       number of authors |\AtBeginDocument| and store it.
 %    \begin{macrocode}
-\newif\ifsingleauthor
+\newif\if@singleauthor
 \AtBeginDocument{
   \begingroup
     \newcount\count@
     \count@=\z@
     \@for\tmp@:=\@author\do{\advance\count@\@ne}
-    \ifnum\count@>\@ne\global\singleauthorfalse\else\global\singleauthortrue\fi
+    \ifnum\count@>\@ne\global\@singleauthorfalse\else\global\@singleauthortrue\fi
   \endgroup
 }
+%    \end{macrocode}
+%     \end{macro}
+%
+%     \begin{macro}{\ifsingleauthor}
+%       A macro to simply act on this condition is also provided. It will be used in
+%       text-definitions later on.
+%    \begin{macrocode}
+\newcommand{\ifsingleauthor}[2]{\if@singleauthor#1\else#2\fi}
 %    \end{macrocode}
 %     \end{macro}
 %
@@ -1820,25 +1838,23 @@ http://www.latex-project.org/lppl.txt
 %       Define the german translations for the command.
 %    \begin{macrocode}
 \newcaptionname{english}\decofauthtext{%
-  \ifsingleauthor{I}\else{We}\fi\space hereby certify that the work
-  \ifsingleauthor{I}\else{we}\fi\space \ifsingleauthor am\else are\fi
-  submitting is entirely of \ifsingleauthor{my}\else{our}\fi own making
-  except where otherwise indicated. \ifsingleauthor{I}\else{We}\fi
-  \ifsingleauthor{am}\else{are}\fi\space aware of regulations concerning
-  plagiarism, including disciplinary actions that may result from it. Any
-  use of the works of any other author, in any form, is properly
-  acknowledged at their point of use.
+  \ifsingleauthor{I}{We} hereby certify that the work \ifsingleauthor{I}{we}
+  \ifsingleauthor{am}{are} submitting is entirely of \ifsingleauthor{my}{our}
+  own making except where otherwise indicated. \ifsingleauthor{I}{We}
+  \ifsingleauthor{am}{are} aware of regulations concerning plagiarism,
+  including disciplinary actions that may result from it. Any use of the
+  works of any other author, in any form, is properly acknowledged at
+  their point of use.
 }
 \newcaptionname{german,ngerman}\decofauthtext{%
-  Hiermit best{\"a}tige\ifsingleauthor\else{n}\fi
-  \ifsingleauthor{ich}\else{wir}\fi, dass die folgende Arbeit eigenst{\"a}ndig
-  von \ifsingleauthor{mir}\else{uns}\fi\space allein erstellt und unter
-  Ber{\"u}cksichtigung der zur Verf{\"u}gung gestellten Aufgabenstellung sowie
-  dem Arbeitsmaterial unter Angabe aller verwendeten Quellen erarbeitet wurde.
-  Die Regelungen und Konsequenzen eines Plagiats, inklusive disziplinarischer
-  Ma{\ss}nahmen, sind \ifsingleauthor{mir}\else{uns}\fi\space bewusst.
-  Insbesondere wurden alle Zitate und gedanklichen {\"U}bernahmen als
-  solche kenntlich gemacht.
+  Hiermit best{\"a}tige\ifsingleauthor{}{n} \ifsingleauthor{ich}{wir},
+  dass die folgende Arbeit eigenst{\"a}ndig von \ifsingleauthor{mir}{uns}
+  allein erstellt und unter Ber{\"u}cksichtigung der zur Verf{\"u}gung
+  gestellten Aufgabenstellung sowie dem Arbeitsmaterial unter Angabe aller
+  verwendeten Quellen erarbeitet wurde. Die Regelungen und Konsequenzen
+  eines Plagiats, inklusive disziplinarischer Ma{\ss}nahmen, sind
+  \ifsingleauthor{mir}{uns} bewusst. Insbesondere wurden alle Zitate und
+  gedanklichen {\"U}bernahmen als solche kenntlich gemacht.
 }
 %    \end{macrocode}
 %     \end{macro}

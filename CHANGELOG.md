@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 ## [Current]
 
+### Breaking
+
+- Changed `\ifsingleauthor` to directly accept two arguments: `\ifsingleauthor{true}{false}`
+  This makes usage much easyser and ensures that spaces will not be gobbled up.
+
+  Here is a regex to fix existing code: `(?<=\\ifsingleauthor)(\{.*?\})\\else(\{.*?\})\\fi(\\space)?`
+  which you can replace with `$1$2`.
+
 ## [3.2]
 
 ### Fixed
