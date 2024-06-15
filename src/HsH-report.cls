@@ -17,7 +17,7 @@
 %% 
 \NeedsTeXFormat{LaTeX2e}[2022-06-01]
 \ProvidesClass{HsH-report}
-  [2024-06-14 3.03.pre0 HsH-class based on KOMA]
+  [2024-06-15 3.03.pre1 HsH-class based on KOMA]
 \let\HsHClassName\@currname
 \def\HsHClassName@ParrentClass{%
   scrreprt%
@@ -477,6 +477,14 @@
 \pagestyle{HsHheadings}
 \automark{chapter}
 \renewcommand*{\chapterpagestyle}{HsHheadings}
+\renewcommand\maketitle[1][l]{
+  \if#1l\@maketitle{#1}\else%
+  \if#1c\@maketitle{#1}\else%
+  \if#1r\@maketitle{#1}\else%
+    \ClassWarning{\HsHClassName}{unkown option for \maketitle}
+    \thispagestyle{empty}\null\clearpage
+  \fi\fi\fi
+}
 \newtoks\@tabtoks
 \newcommand\addtabtoks[1]{\global\@tabtoks\expandafter{\the\@tabtoks#1}}
 \newcommand\eaddtabtoks[1]{\edef\mytmp{#1}\expandafter\addtabtoks\expandafter{\mytmp}}
@@ -484,7 +492,7 @@
 \newcommand*\printtabtoks{\the\@tabtoks}
 \addtokomafont{publishers}{\normalsize}
 \g@addto@macro\titlepage{\singlespacing}
-\renewcommand\maketitle[1][l]{
+\renewcommand*\@maketitle[1]{
   \expandafter\ifnum \csname scr@v@3.12\endcsname>\scr@compatibility\relax
   \else
     \def\and{%
@@ -494,13 +502,6 @@
     }
   \fi
   \begin{titlepage}
-    \let\@param#1
-    \ifx\@param\@empty
-      \ClassError{\myClassName}{\maketitle\space with empty option}{
-        \maketitle[] has been called (with an empty parameter), this doesn't work.
-        Use \maketitle instead.
-      }
-    \fi
     \if@titlepageiscoverpage
       \edef\titlepage@restore{
         \noexpand\endgroup
@@ -563,8 +564,8 @@
     \null
     \vfill
     \begingroup
-      \if\@param c\centering\fi
-      \if\@param r\raggedleft\fi
+      \if#1c\centering\fi
+      \if#1r\raggedleft\fi
       \ifx\@subject\@empty\else
         {\usekomafont{subject}{\@subject\par}}
         \vskip 3em
@@ -576,8 +577,8 @@
       {\ifx\@matrikelnr\@empty
         \if\@author\@empty\else\usekomafont{author}{
           \parbox{\dimexpr\linewidth}{
-            \if\@param c\centering\fi
-            \if\@param r\raggedleft\fi
+            \if#1c\centering\fi
+            \if#1r\raggedleft\fi
             \@author
           }
         }\fi
@@ -587,9 +588,9 @@
           \foreach \x [count=\i,evaluate=\i as \y using {{\@matrikelnr,}[\i-1]}] in \@author {\eaddtabtoks{\x & \y\protect\\}}
           \usekomafont{author}{
             \def\arraystretch{1.2}
-            \if\@param l\begin{tabular}{@{}l l}\fi
-            \if\@param c\begin{tabular}{l l}\fi
-            \if\@param r\begin{tabular}{r r@{}}\fi
+            \if#1l\begin{tabular}{@{}l l}\fi
+            \if#1c\begin{tabular}{l l}\fi
+            \if#1r\begin{tabular}{r r@{}}\fi
               \printtabtoks
             \end{tabular}
           }%
@@ -600,9 +601,9 @@
       \vskip \z@ \@plus3fill
       \usekomafont{publishers}{
         \def\arraystretch{1.2}
-        \if\@param l\begin{tabular}{@{}l l}\fi
-        \if\@param c\begin{tabular}{l l}\fi
-        \if\@param r\begin{tabular}{r r@{}}\fi
+        \if#1l\begin{tabular}{@{}l l}\fi
+        \if#1c\begin{tabular}{l l}\fi
+        \if#1r\begin{tabular}{r r@{}}\fi
           \if\@professor\@empty\else\textbf{\professorname:}&\@professor\\\fi
           \if\@firstexaminer\@empty\else\textbf{\firstexaminername:}&\@firstexaminer\\\fi
           \if\@secondexaminer\@empty\else\textbf{\secondexaminername:}&\@secondexaminer\\\fi
