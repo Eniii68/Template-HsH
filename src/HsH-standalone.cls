@@ -221,17 +221,6 @@
 \renewcommand{\labelitemii}{\raisebox{.3ex}{\scalebox{0.7}{$\circ$}}}
 \renewcommand{\labelitemiii}{\raisebox{.1ex}{-}}
 \renewcommand{\labelitemiv}{\raisebox{-.1ex}{\scalebox{1.3}{$\cdot$}}}
-\renewenvironment{abstract}{
-  \quotation
-  \setparsizes{\z@}{\z@}{.25\linewidth \@plus 1fil}\selectfont
-  \HsH@abstract@chap{\abstractname}
-}{%
-  \ifx\@keywords\@empty\else\if@HsH@option@abstract@show@keywords
-    \par\bigskip
-    \noindent\textbf{\keywordsname}\hskip 2em\@keywords
-  \fi\fi\par
-  \endquotation
-}
 \upsubscripts
 \raggedbottom
 \let\layercontentsmeasure\relax

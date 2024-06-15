@@ -123,7 +123,9 @@
   \headheight=\HsH@opt@headheight%
 }
 \newif\if@HsH@option@abstract@show@keywords
-\def\HsH@abstract@chap{\addchap*}
+\def\HsH@abstract@heading{%
+  \addsec*%
+}
 \DefineFamilyKey{HsH}{abstract}{%
   \begingroup
   \FamilySetNumerical{HsH}{abstract}{@tempa}{%
@@ -142,10 +144,14 @@
       \@HsH@option@abstract@show@keywordsfalse
     \or% 2
       \endgroup
-      \def\HsH@abstract@chap{\addchap}
+      \def\HsH@abstract@heading{%
+        \addsec%
+      }
     \or% 3
       \endgroup
-      \def\HsH@abstract@chap{\addchap*}
+      \def\HsH@abstract@heading{%
+        \addsec*%
+      }
     \else% should never be
       \endgroup
     \fi
@@ -410,7 +416,7 @@
 \renewenvironment{abstract}{
   \quotation
   \setparsizes{\z@}{\z@}{.25\linewidth \@plus 1fil}\selectfont
-  \HsH@abstract@chap{\abstractname}
+  \HsH@abstract@heading{\abstractname}
 }{%
   \ifx\@keywords\@empty\else\if@HsH@option@abstract@show@keywords
     \par\bigskip

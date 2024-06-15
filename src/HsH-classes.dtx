@@ -669,7 +669,10 @@ http://www.latex-project.org/lppl.txt
 %     We first define the needed macros:
 %    \begin{macrocode}
 \newif\if@HsH@option@abstract@show@keywords
-\def\HsH@abstract@chap{\addchap*}
+\def\HsH@abstract@heading{%
+%<article>  \addsec*%
+%<report>  \addchap*%
+}
 %    \end{macrocode}
 %     Now the actuall option can be defiend to handle all the cases.
 %    \begin{macrocode}
@@ -691,10 +694,16 @@ http://www.latex-project.org/lppl.txt
       \@HsH@option@abstract@show@keywordsfalse
     \or% 2
       \endgroup
-      \def\HsH@abstract@chap{\addchap}
+      \def\HsH@abstract@heading{%
+%<article>        \addsec%
+%<report>        \addchap%
+      }
     \or% 3
       \endgroup
-      \def\HsH@abstract@chap{\addchap*}
+      \def\HsH@abstract@heading{%
+%<article>        \addsec*%
+%<report>        \addchap*%
+      }
     \else% should never be
       \endgroup
     \fi
@@ -1447,10 +1456,11 @@ http://www.latex-project.org/lppl.txt
 %     \paragraph{Abstract}
 %     We define some custom behavior for the abstract.
 %    \begin{macrocode}
+%<*!standalone>
 \renewenvironment{abstract}{
   \quotation
   \setparsizes{\z@}{\z@}{.25\linewidth \@plus 1fil}\selectfont
-  \HsH@abstract@chap{\abstractname}
+  \HsH@abstract@heading{\abstractname}
 }{%
   \ifx\@keywords\@empty\else\if@HsH@option@abstract@show@keywords
     \par\bigskip
@@ -1458,6 +1468,7 @@ http://www.latex-project.org/lppl.txt
   \fi\fi\par
   \endquotation
 }
+%</!standalone>
 %    \end{macrocode}
 %
 %     \paragraph{Misc}
