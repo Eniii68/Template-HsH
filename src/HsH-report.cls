@@ -17,7 +17,7 @@
 %% 
 \NeedsTeXFormat{LaTeX2e}[2022-06-01]
 \ProvidesClass{HsH-report}
-  [2024-04-26 3.01 HsH-class based on KOMA]
+  [2024-06-15 3.03.pre1 HsH-class based on KOMA]
 \let\HsHClassName\@currname
 \def\HsHClassName@ParrentClass{%
   scrreprt%
@@ -123,7 +123,9 @@
   \headheight=\HsH@opt@headheight%
 }
 \newif\if@HsH@option@abstract@show@keywords
-\def\HsH@abstract@chap{\addchap*}
+\def\HsH@abstract@heading{%
+  \addchap*%
+}
 \DefineFamilyKey{HsH}{abstract}{%
   \begingroup
   \FamilySetNumerical{HsH}{abstract}{@tempa}{%
@@ -142,10 +144,14 @@
       \@HsH@option@abstract@show@keywordsfalse
     \or% 2
       \endgroup
-      \def\HsH@abstract@chap{\addchap}
+      \def\HsH@abstract@heading{%
+        \addchap%
+      }
     \or% 3
       \endgroup
-      \def\HsH@abstract@chap{\addchap*}
+      \def\HsH@abstract@heading{%
+        \addchap*%
+      }
     \else% should never be
       \endgroup
     \fi
@@ -325,13 +331,15 @@
     }
   }
 }
-\let\@author\@empty
 \renewcommand{\title}[2][]{
   \gdef\@title{#2}
   \gdef\@shorttitle{#1}
 }
 \def\@shorttitle{\@empty}
-\newcommand{\matrikelnr}[1]{\gdef\@matrikelnr{#1}}
+\def\gdef@with@and@as@comma#1#2{{\def\and{,}\xdef#1{#2}}}
+\renewcommand{\author}[1]{\gdef@with@and@as@comma\@author{#1}}
+\let\@author\@empty
+\newcommand{\matrikelnr}[1]{\gdef@with@and@as@comma\@matrikelnr{#1}}
 \def\@matrikelnr{\@empty}
 \newcommand{\professor}[1]{\gdef\@professor{#1}}
 \def\@professor{\@empty}
@@ -371,15 +379,16 @@
     }\par
   \endgroup
 }
-\newif\ifsingleauthor
+\newif\if@singleauthor
 \AtBeginDocument{
   \begingroup
     \newcount\count@
     \count@=\z@
     \@for\tmp@:=\@author\do{\advance\count@\@ne}
-    \ifnum\count@>\@ne\global\singleauthorfalse\else\global\singleauthortrue\fi
+    \ifnum\count@>\@ne\global\@singleauthorfalse\else\global\@singleauthortrue\fi
   \endgroup
 }
+\newcommand{\ifsingleauthor}[2]{\if@singleauthor#1\else#2\fi}
 \def\declarationAuthorship{%
   \ClassWarning{\HsHClassName}{%
     Command \string\declarationAuthorship\space is deprecate.\MessageBreak
@@ -420,7 +429,7 @@
 \renewenvironment{abstract}{
   \quotation
   \setparsizes{\z@}{\z@}{.25\linewidth \@plus 1fil}\selectfont
-  \HsH@abstract@chap{\abstractname}
+  \HsH@abstract@heading{\abstractname}
 }{%
   \ifx\@keywords\@empty\else\if@HsH@option@abstract@show@keywords
     \par\bigskip
@@ -468,6 +477,14 @@
 \pagestyle{HsHheadings}
 \automark{chapter}
 \renewcommand*{\chapterpagestyle}{HsHheadings}
+\renewcommand\maketitle[1][l]{
+  \if#1l\@maketitle{#1}\else%
+  \if#1c\@maketitle{#1}\else%
+  \if#1r\@maketitle{#1}\else%
+    \ClassWarning{\HsHClassName}{unkown option for \maketitle}
+    \thispagestyle{empty}\null\clearpage
+  \fi\fi\fi
+}
 \newtoks\@tabtoks
 \newcommand\addtabtoks[1]{\global\@tabtoks\expandafter{\the\@tabtoks#1}}
 \newcommand\eaddtabtoks[1]{\edef\mytmp{#1}\expandafter\addtabtoks\expandafter{\mytmp}}
@@ -475,7 +492,7 @@
 \newcommand*\printtabtoks{\the\@tabtoks}
 \addtokomafont{publishers}{\normalsize}
 \g@addto@macro\titlepage{\singlespacing}
-\renewcommand\maketitle[1][l]{
+\renewcommand*\@maketitle[1]{
   \expandafter\ifnum \csname scr@v@3.12\endcsname>\scr@compatibility\relax
   \else
     \def\and{%
@@ -485,13 +502,6 @@
     }
   \fi
   \begin{titlepage}
-    \let\@param#1
-    \ifx\@param\@empty
-      \ClassError{\myClassName}{\maketitle\space with empty option}{
-        \maketitle[] has been called (with an empty parameter), this doesn't work.
-        Use \maketitle instead.
-      }
-    \fi
     \if@titlepageiscoverpage
       \edef\titlepage@restore{
         \noexpand\endgroup
@@ -554,8 +564,8 @@
     \null
     \vfill
     \begingroup
-      \if\@param c\centering\fi
-      \if\@param r\raggedleft\fi
+      \if#1c\centering\fi
+      \if#1r\raggedleft\fi
       \ifx\@subject\@empty\else
         {\usekomafont{subject}{\@subject\par}}
         \vskip 3em
@@ -567,8 +577,8 @@
       {\ifx\@matrikelnr\@empty
         \if\@author\@empty\else\usekomafont{author}{
           \parbox{\dimexpr\linewidth}{
-            \if\@param c\centering\fi
-            \if\@param r\raggedleft\fi
+            \if#1c\centering\fi
+            \if#1r\raggedleft\fi
             \@author
           }
         }\fi
@@ -578,9 +588,11 @@
           \foreach \x [count=\i,evaluate=\i as \y using {{\@matrikelnr,}[\i-1]}] in \@author {\eaddtabtoks{\x & \y\protect\\}}
           \usekomafont{author}{
             \def\arraystretch{1.2}
-            \if\@param l\begin{tabular}{@{}l l}\printtabtoks\end{tabular}\fi
-            \if\@param c\begin{tabular}{l l}\printtabtoks\end{tabular}\fi
-            \if\@param r\begin{tabular}{r r@{}}\printtabtoks\end{tabular}\fi
+            \if#1l\begin{tabular}{@{}l l}\fi
+            \if#1c\begin{tabular}{l l}\fi
+            \if#1r\begin{tabular}{r r@{}}\fi
+              \printtabtoks
+            \end{tabular}
           }%
         \fi
       \fi}
@@ -589,9 +601,9 @@
       \vskip \z@ \@plus3fill
       \usekomafont{publishers}{
         \def\arraystretch{1.2}
-        \if\@param l\begin{tabular}{@{}l l}\fi
-        \if\@param c\begin{tabular}{l l}\fi
-        \if\@param r\begin{tabular}{r r@{}}\fi
+        \if#1l\begin{tabular}{@{}l l}\fi
+        \if#1c\begin{tabular}{l l}\fi
+        \if#1r\begin{tabular}{r r@{}}\fi
           \if\@professor\@empty\else\textbf{\professorname:}&\@professor\\\fi
           \if\@firstexaminer\@empty\else\textbf{\firstexaminername:}&\@firstexaminer\\\fi
           \if\@secondexaminer\@empty\else\textbf{\secondexaminername:}&\@secondexaminer\\\fi
@@ -691,25 +703,23 @@
 \newcaptionname{english}\decofauthname{Declaration of Authorship}
 \newcaptionname{german,ngerman}\decofauthname{Selbstst{\"a}ndigkeitserkl{\"a}rung}
 \newcaptionname{english}\decofauthtext{%
-  \ifsingleauthor{I}\else{We}\fi\space hereby certify that the work
-  \ifsingleauthor{I}\else{we}\fi\space \ifsingleauthor am\else are\fi
-  submitting is entirely of \ifsingleauthor{my}\else{our}\fi own making
-  except where otherwise indicated. \ifsingleauthor{I}\else{We}\fi
-  \ifsingleauthor{am}\else{are}\fi\space aware of regulations concerning
-  plagiarism, including disciplinary actions that may result from it. Any
-  use of the works of any other author, in any form, is properly
-  acknowledged at their point of use.
+  \ifsingleauthor{I}{We} hereby certify that the work \ifsingleauthor{I}{we}
+  \ifsingleauthor{am}{are} submitting is entirely of \ifsingleauthor{my}{our}
+  own making except where otherwise indicated. \ifsingleauthor{I}{We}
+  \ifsingleauthor{am}{are} aware of regulations concerning plagiarism,
+  including disciplinary actions that may result from it. Any use of the
+  works of any other author, in any form, is properly acknowledged at
+  their point of use.
 }
 \newcaptionname{german,ngerman}\decofauthtext{%
-  Hiermit best{\"a}tige\ifsingleauthor\else{n}\fi
-  \ifsingleauthor{ich}\else{wir}\fi, dass die folgende Arbeit eigenst{\"a}ndig
-  von \ifsingleauthor{mir}\else{uns}\fi\space allein erstellt und unter
-  Ber{\"u}cksichtigung der zur Verf{\"u}gung gestellten Aufgabenstellung sowie
-  dem Arbeitsmaterial unter Angabe aller verwendeten Quellen erarbeitet wurde.
-  Die Regelungen und Konsequenzen eines Plagiats, inklusive disziplinarischer
-  Ma{\ss}nahmen, sind \ifsingleauthor{mir}\else{uns}\fi\space bewusst.
-  Insbesondere wurden alle Zitate und gedanklichen {\"U}bernahmen als
-  solche kenntlich gemacht.
+  Hiermit best{\"a}tige\ifsingleauthor{}{n} \ifsingleauthor{ich}{wir},
+  dass die folgende Arbeit eigenst{\"a}ndig von \ifsingleauthor{mir}{uns}
+  allein erstellt und unter Ber{\"u}cksichtigung der zur Verf{\"u}gung
+  gestellten Aufgabenstellung sowie dem Arbeitsmaterial unter Angabe aller
+  verwendeten Quellen erarbeitet wurde. Die Regelungen und Konsequenzen
+  eines Plagiats, inklusive disziplinarischer Ma{\ss}nahmen, sind
+  \ifsingleauthor{mir}{uns} bewusst. Insbesondere wurden alle Zitate und
+  gedanklichen {\"U}bernahmen als solche kenntlich gemacht.
 }
 \newcaptionname{english}\keywordsname{Keywords}
 \newcaptionname{german,ngerman}\keywordsname{Schl{\"u}sselw{\"o}rter}
