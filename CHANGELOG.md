@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Current]
+
+### Breaking
+
+- Changed `\ifsingleauthor` to directly accept two arguments: `\ifsingleauthor{true}{false}`
+  This makes usage much easyser and ensures that spaces will not be gobbled up.
+
+  Here is a regex to fix existing code: `(?<=\\ifsingleauthor)(\{.*?\})\\else(\{.*?\})\\fi(\\space)?`
+  which you can replace with `$1$2`.
+
+### Fixed
+
+- `abstract` not working for `hsh-article`
+
+### Added
+
+- Using the `\and` command inside `\author` or `\matrikelnr` now works as expected (#21)
+
+## [3.2]
+
+### Fixed
+
+- missing comma caused \opt{1} to not work (#18)
+
+### Changed
+
+- moved all localization commands into one place
+
 ## [3.1]
 
 ### Fixed

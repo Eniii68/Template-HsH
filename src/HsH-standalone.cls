@@ -4,7 +4,7 @@
 %%
 %% The original source files were:
 %%
-%% HsH-classes.dtx  (with options: `standalone')
+%% HsH-classes.dtx  (with options: `standalone,localisation')
 %% 
 %% Copyright (C) 2024 by Jan Wille <mail@janiwlle.de>
 %% 
@@ -17,7 +17,7 @@
 %% 
 \NeedsTeXFormat{LaTeX2e}[2022-06-01]
 \ProvidesClass{HsH-standalone}
-  [2024-04-26 3.01 HsH-class based on KOMA]
+  [2024-06-15 3.03.pre1 HsH-class based on KOMA]
 \let\HsHClassName\@currname
 \def\HsHClassName@ParrentClass{%
   standalone%
@@ -66,7 +66,7 @@
 \HsH@Options@DeclareAlias{ngerman}{language=ngerman}
 \def\HsH@opt@faculty{1}
 \FamilyNumericalKey{HsH}{faculty}{HsH@opt@faculty}{%
-  {0}{1}, {none}{1}, {false}{1}, {off}{1}%
+  {0}{1}, {none}{1}, {false}{1}, {off}{1},%
   {1}{2}, {f1}{2},%
   {2}{3}, {f2}{3},%
   {3}{4}, {f3}{4},%
@@ -194,35 +194,16 @@
     }\par
   \endgroup
 }
-\newif\ifsingleauthor
+\newif\if@singleauthor
 \AtBeginDocument{
   \begingroup
     \newcount\count@
     \count@=\z@
     \@for\tmp@:=\@author\do{\advance\count@\@ne}
-    \ifnum\count@>\@ne\global\singleauthorfalse\else\global\singleauthortrue\fi
+    \ifnum\count@>\@ne\global\@singleauthorfalse\else\global\@singleauthortrue\fi
   \endgroup
 }
-\newcommand{\decofauthname}{Declaration of Authorship}
-\newcaptionname{english}\decofauthname{Declaration of Authorship}
-\newcaptionname{german,ngerman}\decofauthname{Selbstst\"andigkeitserkl\"arung}
-\newcommand{\decofauthtext}{Language not supported!}
-\newcaptionname{english}\decofauthtext{%
-  \ifsingleauthor{I}\else{We}\fi\space hereby certify that the work \ifsingleauthor{I}\else{we}\fi\space
-  \ifsingleauthor am\else are\fi\space submitting is entirely of \ifsingleauthor{my}\else{our}\fi own
-  making except where otherwise indicated. \ifsingleauthor{I}\else{We}\fi\space
-  \ifsingleauthor{am}\else{are}\fi\space aware of regulations concerning plagiarism, including
-  disciplinary actions that may result from it. Any use of the works of any other author, in any form,
-  is properly acknowledged at their point of use.
-}
-\newcaptionname{german,ngerman}\decofauthtext{%
-  Hiermit best{\"a}tige\ifsingleauthor\else{n}\fi\space \ifsingleauthor ich\else wir\fi, dass die
-  folgende Arbeit eigenst{\"a}ndig von \ifsingleauthor{mir}\else{uns}\fi\space allein erstellt und
-  unter Ber{\"u}cksichtigung der zur Verf{\"u}gung gestellten Aufgabenstellung sowie dem Arbeitsmaterial
-  unter Angabe aller verwendeten Quellen erarbeitet wurde. Die Regelungen und Konsequenzen eines
-  Plagiats, inklusive disziplinarischer Ma{\ss}nahmen, sind \ifsingleauthor{mir}\else{uns}\fi\space
-  bewusst. Insbesondere wurden alle Zitate und gedanklichen {\"U}bernahmenals solche kenntlich gemacht.
-}
+\newcommand{\ifsingleauthor}[2]{\if@singleauthor#1\else#2\fi}
 \def\declarationAuthorship{%
   \ClassWarning{\HsHClassName}{%
     Command \string\declarationAuthorship\space is deprecate.\MessageBreak
@@ -240,23 +221,38 @@
 \renewcommand{\labelitemii}{\raisebox{.3ex}{\scalebox{0.7}{$\circ$}}}
 \renewcommand{\labelitemiii}{\raisebox{.1ex}{-}}
 \renewcommand{\labelitemiv}{\raisebox{-.1ex}{\scalebox{1.3}{$\cdot$}}}
-\defcaptionname{german,ngerman}\abstractname{Abstract}
-\newcaptionname{english}\keywordsname{Keywords}
-\newcaptionname{german,ngerman}\keywordsname{Schl{\"u}sselw{\"o}rter}
-\renewenvironment{abstract}{
-  \quotation
-  \setparsizes{\z@}{\z@}{.25\linewidth \@plus 1fil}\selectfont
-  \HsH@abstract@chap{\abstractname}
-}{%
-  \ifx\@keywords\@empty\else\if@HsH@option@abstract@show@keywords
-    \par\bigskip
-    \noindent\textbf{\keywordsname}\hskip 2em\@keywords
-  \fi\fi\par
-  \endquotation
-}
 \upsubscripts
 \raggedbottom
 \let\layercontentsmeasure\relax
+\newcaptionname{english}\professorname{Professor}
+\newcaptionname{german,ngerman}\professorname{Professor(in)/Lehrbeauftragte(r)}
+\newcaptionname{english}\firstexaminername{First examiner}
+\newcaptionname{german,ngerman}\firstexaminername{Erstpr{\"u}fer(in)}
+\newcaptionname{english}\secondexaminername{Second examiner}
+\newcaptionname{german,ngerman}\secondexaminername{Zweitpr{\"u}fer(in)}
+\newcaptionname{english}\decofauthname{Declaration of Authorship}
+\newcaptionname{german,ngerman}\decofauthname{Selbstst{\"a}ndigkeitserkl{\"a}rung}
+\newcaptionname{english}\decofauthtext{%
+  \ifsingleauthor{I}{We} hereby certify that the work \ifsingleauthor{I}{we}
+  \ifsingleauthor{am}{are} submitting is entirely of \ifsingleauthor{my}{our}
+  own making except where otherwise indicated. \ifsingleauthor{I}{We}
+  \ifsingleauthor{am}{are} aware of regulations concerning plagiarism,
+  including disciplinary actions that may result from it. Any use of the
+  works of any other author, in any form, is properly acknowledged at
+  their point of use.
+}
+\newcaptionname{german,ngerman}\decofauthtext{%
+  Hiermit best{\"a}tige\ifsingleauthor{}{n} \ifsingleauthor{ich}{wir},
+  dass die folgende Arbeit eigenst{\"a}ndig von \ifsingleauthor{mir}{uns}
+  allein erstellt und unter Ber{\"u}cksichtigung der zur Verf{\"u}gung
+  gestellten Aufgabenstellung sowie dem Arbeitsmaterial unter Angabe aller
+  verwendeten Quellen erarbeitet wurde. Die Regelungen und Konsequenzen
+  eines Plagiats, inklusive disziplinarischer Ma{\ss}nahmen, sind
+  \ifsingleauthor{mir}{uns} bewusst. Insbesondere wurden alle Zitate und
+  gedanklichen {\"U}bernahmen als solche kenntlich gemacht.
+}
+\newcaptionname{english}\keywordsname{Keywords}
+\newcaptionname{german,ngerman}\keywordsname{Schl{\"u}sselw{\"o}rter}
 \endinput
 %%
 %% End of file `HsH-standalone.cls'.

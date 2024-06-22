@@ -4,7 +4,7 @@
 %%
 %% The original source files were:
 %%
-%% HsH-classes.dtx  (with options: `article')
+%% HsH-classes.dtx  (with options: `article,localisation')
 %% 
 %% Copyright (C) 2024 by Jan Wille <mail@janiwlle.de>
 %% 
@@ -17,7 +17,7 @@
 %% 
 \NeedsTeXFormat{LaTeX2e}[2022-06-01]
 \ProvidesClass{HsH-article}
-  [2024-04-26 3.01 HsH-class based on KOMA]
+  [2024-06-15 3.03.pre1 HsH-class based on KOMA]
 \let\HsHClassName\@currname
 \def\HsHClassName@ParrentClass{%
   scrartcl%
@@ -123,7 +123,9 @@
   \headheight=\HsH@opt@headheight%
 }
 \newif\if@HsH@option@abstract@show@keywords
-\def\HsH@abstract@chap{\addchap*}
+\def\HsH@abstract@heading{%
+  \addsec*%
+}
 \DefineFamilyKey{HsH}{abstract}{%
   \begingroup
   \FamilySetNumerical{HsH}{abstract}{@tempa}{%
@@ -142,10 +144,14 @@
       \@HsH@option@abstract@show@keywordsfalse
     \or% 2
       \endgroup
-      \def\HsH@abstract@chap{\addchap}
+      \def\HsH@abstract@heading{%
+        \addsec%
+      }
     \or% 3
       \endgroup
-      \def\HsH@abstract@chap{\addchap*}
+      \def\HsH@abstract@heading{%
+        \addsec*%
+      }
     \else% should never be
       \endgroup
     \fi
@@ -195,7 +201,7 @@
 \HsH@Options@DeclareAlias{ngerman}{language=ngerman}
 \def\HsH@opt@faculty{1}
 \FamilyNumericalKey{HsH}{faculty}{HsH@opt@faculty}{%
-  {0}{1}, {none}{1}, {false}{1}, {off}{1}%
+  {0}{1}, {none}{1}, {false}{1}, {off}{1},%
   {1}{2}, {f1}{2},%
   {2}{3}, {f2}{3},%
   {3}{4}, {f3}{4},%
@@ -312,13 +318,15 @@
     }
   }
 }
-\let\@author\@empty
 \renewcommand{\title}[2][]{
   \gdef\@title{#2}
   \gdef\@shorttitle{#1}
 }
 \def\@shorttitle{\@empty}
-\newcommand{\matrikelnr}[1]{\gdef\@matrikelnr{#1}}
+\def\gdef@with@and@as@comma#1#2{{\def\and{,}\xdef#1{#2}}}
+\renewcommand{\author}[1]{\gdef@with@and@as@comma\@author{#1}}
+\let\@author\@empty
+\newcommand{\matrikelnr}[1]{\gdef@with@and@as@comma\@matrikelnr{#1}}
 \def\@matrikelnr{\@empty}
 \newcommand{\professor}[1]{\gdef\@professor{#1}}
 \def\@professor{\@empty}
@@ -358,35 +366,16 @@
     }\par
   \endgroup
 }
-\newif\ifsingleauthor
+\newif\if@singleauthor
 \AtBeginDocument{
   \begingroup
     \newcount\count@
     \count@=\z@
     \@for\tmp@:=\@author\do{\advance\count@\@ne}
-    \ifnum\count@>\@ne\global\singleauthorfalse\else\global\singleauthortrue\fi
+    \ifnum\count@>\@ne\global\@singleauthorfalse\else\global\@singleauthortrue\fi
   \endgroup
 }
-\newcommand{\decofauthname}{Declaration of Authorship}
-\newcaptionname{english}\decofauthname{Declaration of Authorship}
-\newcaptionname{german,ngerman}\decofauthname{Selbstst\"andigkeitserkl\"arung}
-\newcommand{\decofauthtext}{Language not supported!}
-\newcaptionname{english}\decofauthtext{%
-  \ifsingleauthor{I}\else{We}\fi\space hereby certify that the work \ifsingleauthor{I}\else{we}\fi\space
-  \ifsingleauthor am\else are\fi\space submitting is entirely of \ifsingleauthor{my}\else{our}\fi own
-  making except where otherwise indicated. \ifsingleauthor{I}\else{We}\fi\space
-  \ifsingleauthor{am}\else{are}\fi\space aware of regulations concerning plagiarism, including
-  disciplinary actions that may result from it. Any use of the works of any other author, in any form,
-  is properly acknowledged at their point of use.
-}
-\newcaptionname{german,ngerman}\decofauthtext{%
-  Hiermit best{\"a}tige\ifsingleauthor\else{n}\fi\space \ifsingleauthor ich\else wir\fi, dass die
-  folgende Arbeit eigenst{\"a}ndig von \ifsingleauthor{mir}\else{uns}\fi\space allein erstellt und
-  unter Ber{\"u}cksichtigung der zur Verf{\"u}gung gestellten Aufgabenstellung sowie dem Arbeitsmaterial
-  unter Angabe aller verwendeten Quellen erarbeitet wurde. Die Regelungen und Konsequenzen eines
-  Plagiats, inklusive disziplinarischer Ma{\ss}nahmen, sind \ifsingleauthor{mir}\else{uns}\fi\space
-  bewusst. Insbesondere wurden alle Zitate und gedanklichen {\"U}bernahmenals solche kenntlich gemacht.
-}
+\newcommand{\ifsingleauthor}[2]{\if@singleauthor#1\else#2\fi}
 \def\declarationAuthorship{%
   \ClassWarning{\HsHClassName}{%
     Command \string\declarationAuthorship\space is deprecate.\MessageBreak
@@ -424,13 +413,10 @@
 \renewcommand{\labelitemii}{\raisebox{.3ex}{\scalebox{0.7}{$\circ$}}}
 \renewcommand{\labelitemiii}{\raisebox{.1ex}{-}}
 \renewcommand{\labelitemiv}{\raisebox{-.1ex}{\scalebox{1.3}{$\cdot$}}}
-\defcaptionname{german,ngerman}\abstractname{Abstract}
-\newcaptionname{english}\keywordsname{Keywords}
-\newcaptionname{german,ngerman}\keywordsname{Schl{\"u}sselw{\"o}rter}
 \renewenvironment{abstract}{
   \quotation
   \setparsizes{\z@}{\z@}{.25\linewidth \@plus 1fil}\selectfont
-  \HsH@abstract@chap{\abstractname}
+  \HsH@abstract@heading{\abstractname}
 }{%
   \ifx\@keywords\@empty\else\if@HsH@option@abstract@show@keywords
     \par\bigskip
@@ -477,15 +463,14 @@
 \ofoot*{\pagemark}
 \pagestyle{HsHheadings}
 \automark{section}
-\newcommand{\professortext}{Professor}
-\newcommand{\firstexaminertext}{First examiner}
-\newcommand{\secondexaminertext}{Second examiner}
-\newcaptionname{english}\professortext{Professor}
-\newcaptionname{english}\firstexaminertext{First examiner}
-\newcaptionname{english}\secondexaminertext{Second examiner}
-\newcaptionname{german,ngerman}\professortext{Professor(in)/Lehrbeauftragte(r)}
-\newcaptionname{german,ngerman}\firstexaminertext{Erstpr{\"u}fer(in)}
-\newcaptionname{german,ngerman}\secondexaminertext{Zweitpr{\"u}fer(in)}
+\renewcommand\maketitle[1][c]{
+  \if#1l\@maketitle{#1}\else%
+  \if#1c\@maketitle{#1}\else%
+  \if#1r\@maketitle{#1}\else%
+    \ClassWarning{\HsHClassName}{unkown option for \maketitle}
+    \thispagestyle{empty}\null\clearpage
+  \fi\fi\fi
+}
 \newtoks\@tabtoks
 \newcommand\addtabtoks[1]{\global\@tabtoks\expandafter{\the\@tabtoks#1}}
 \newcommand\eaddtabtoks[1]{\edef\mytmp{#1}\expandafter\addtabtoks\expandafter{\mytmp}}
@@ -493,7 +478,7 @@
 \newcommand*\printtabtoks{\the\@tabtoks}
 \addtokomafont{publishers}{\normalsize}
 \g@addto@macro\titlepage{\singlespacing}
-\renewcommand\maketitle[1][c]{
+\renewcommand*\@maketitle[1]{
   \expandafter\ifnum \csname scr@v@3.12\endcsname>\scr@compatibility\relax
   \else
     \def\and{%
@@ -518,13 +503,6 @@
     }
   \fi
   \begingroup
-    \let\@param#1
-    \ifx\@param\@empty
-      \ClassError{\myClassName}{\maketitle\space with empty option}{
-        \maketitle[] has been called (with an empty parameter), this doesn't work.
-        Use \maketitle instead.
-      }
-    \fi
     \let\titlepage@restore\relax
     \renewcommand*\thefootnote{\@fnsymbol\c@footnote}%
     \let\@oldmakefnmark\@makefnmark
@@ -556,8 +534,8 @@
     \null
     \vskip 2em
     \begingroup
-      \if\@param c\centering\fi
-      \if\@param r\raggedleft\fi
+      \if#1c\centering\fi
+      \if#1r\raggedleft\fi
       \ifx\@subject\@empty\else
         {\usekomafont{subject}{\@subject\par}}
         \vskip 1.5em
@@ -569,8 +547,8 @@
       {\ifx\@matrikelnr\@empty
         \if\@author\@empty\else\usekomafont{author}{
           \parbox{\dimexpr\linewidth}{
-            \if\@param c\centering\fi
-            \if\@param r\raggedleft\fi
+            \if#1c\centering\fi
+            \if#1r\raggedleft\fi
             \@author
           }
         }\fi
@@ -580,9 +558,11 @@
           \foreach \x [count=\i,evaluate=\i as \y using {{\@matrikelnr,}[\i-1]}] in \@author {\eaddtabtoks{\x & \y\protect\\}}
           \usekomafont{author}{
             \def\arraystretch{1.2}
-            \if\@param l\begin{tabular}{@{}l l}\printtabtoks\end{tabular}\fi
-            \if\@param c\begin{tabular}{l l}\printtabtoks\end{tabular}\fi
-            \if\@param r\begin{tabular}{r r@{}}\printtabtoks\end{tabular}\fi
+            \if#1l\begin{tabular}{@{}l l}\fi
+            \if#1c\begin{tabular}{l l}\fi
+            \if#1r\begin{tabular}{r r@{}}\fi
+              \printtabtoks
+            \end{tabular}
           }%
         \fi
       \fi}
@@ -591,12 +571,12 @@
       \vskip 1em
       \usekomafont{publishers}{
         \def\arraystretch{1.2}
-        \if\@param l\begin{tabular}{@{}l l}\fi
-        \if\@param c\begin{tabular}{l l}\fi
-        \if\@param r\begin{tabular}{r r@{}}\fi
-          \if\@professor\@empty\else\textbf{\professortext:}&\@professor\\\fi
-          \if\@firstexaminer\@empty\else\textbf{\firstexaminertext:}&\@firstexaminer\\\fi
-          \if\@secondexaminer\@empty\else\textbf{\secondexaminertext:}&\@secondexaminer\\\fi
+        \if#1l\begin{tabular}{@{}l l}\fi
+        \if#1c\begin{tabular}{l l}\fi
+        \if#1r\begin{tabular}{r r@{}}\fi
+          \if\@professor\@empty\else\textbf{\professorname:}&\@professor\\\fi
+          \if\@firstexaminer\@empty\else\textbf{\firstexaminername:}&\@firstexaminer\\\fi
+          \if\@secondexaminer\@empty\else\textbf{\secondexaminername:}&\@secondexaminer\\\fi
         \end{tabular}
       }
       \ifx\@dedication\@empty\else
@@ -644,6 +624,35 @@
   \fi
   \global\let\and\relax
 }
+\newcaptionname{english}\professorname{Professor}
+\newcaptionname{german,ngerman}\professorname{Professor(in)/Lehrbeauftragte(r)}
+\newcaptionname{english}\firstexaminername{First examiner}
+\newcaptionname{german,ngerman}\firstexaminername{Erstpr{\"u}fer(in)}
+\newcaptionname{english}\secondexaminername{Second examiner}
+\newcaptionname{german,ngerman}\secondexaminername{Zweitpr{\"u}fer(in)}
+\newcaptionname{english}\decofauthname{Declaration of Authorship}
+\newcaptionname{german,ngerman}\decofauthname{Selbstst{\"a}ndigkeitserkl{\"a}rung}
+\newcaptionname{english}\decofauthtext{%
+  \ifsingleauthor{I}{We} hereby certify that the work \ifsingleauthor{I}{we}
+  \ifsingleauthor{am}{are} submitting is entirely of \ifsingleauthor{my}{our}
+  own making except where otherwise indicated. \ifsingleauthor{I}{We}
+  \ifsingleauthor{am}{are} aware of regulations concerning plagiarism,
+  including disciplinary actions that may result from it. Any use of the
+  works of any other author, in any form, is properly acknowledged at
+  their point of use.
+}
+\newcaptionname{german,ngerman}\decofauthtext{%
+  Hiermit best{\"a}tige\ifsingleauthor{}{n} \ifsingleauthor{ich}{wir},
+  dass die folgende Arbeit eigenst{\"a}ndig von \ifsingleauthor{mir}{uns}
+  allein erstellt und unter Ber{\"u}cksichtigung der zur Verf{\"u}gung
+  gestellten Aufgabenstellung sowie dem Arbeitsmaterial unter Angabe aller
+  verwendeten Quellen erarbeitet wurde. Die Regelungen und Konsequenzen
+  eines Plagiats, inklusive disziplinarischer Ma{\ss}nahmen, sind
+  \ifsingleauthor{mir}{uns} bewusst. Insbesondere wurden alle Zitate und
+  gedanklichen {\"U}bernahmen als solche kenntlich gemacht.
+}
+\newcaptionname{english}\keywordsname{Keywords}
+\newcaptionname{german,ngerman}\keywordsname{Schl{\"u}sselw{\"o}rter}
 \endinput
 %%
 %% End of file `HsH-article.cls'.
