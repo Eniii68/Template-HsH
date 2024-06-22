@@ -55,6 +55,7 @@
 			"args": [
 				"-pdf",
 				"-interaction=nonstopmode",
+				"-file-line-error",
 				"-synctex=1",
 				"-auxdir=%OUTDIR%/.aux",
 				"-outdir=%OUTDIR%",
@@ -68,9 +69,9 @@
 			"name": "pdflatex",
 			"command": "pdflatex",
 			"args": [
-				"-synctex=1",
 				"-interaction=nonstopmode",
 				"-file-line-error",
+				"-synctex=1",
 				"-aux-directory=%OUTDIR%/.aux",
 				"-output-directory=%OUTDIR%",
 				"%DOC_EXT%"
