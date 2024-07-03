@@ -15,6 +15,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 
 - `abstract` not working for `hsh-article`
+- Spelling errors in HsH-Logo
 
 ### Added
 
