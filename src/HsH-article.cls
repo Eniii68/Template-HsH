@@ -17,7 +17,7 @@
 %% 
 \NeedsTeXFormat{LaTeX2e}[2022-06-01]
 \ProvidesClass{HsH-article}
-  [2024-06-15 3.03.pre1 HsH-class based on KOMA]
+  [2024-07-21 3.03 HsH-class based on KOMA]
 \let\HsHClassName\@currname
 \def\HsHClassName@ParrentClass{%
   scrartcl%
