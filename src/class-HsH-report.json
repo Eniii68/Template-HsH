@@ -1,0 +1,77 @@
+{
+	"includes": {
+		"scrbase": [],
+		"class-scrreprt": [],
+		"setspace": [],
+		"babel": [],
+		"csquotes": [],
+		"hyperref": [],
+		"todonotes": [],
+		"caption": [],
+		"graphicx": [],
+		"amsmath": [],
+		"amssymb": [],
+		"amsfonts": [],
+		"xcolor": [
+			"svgnames"
+		],
+		"scrlayer-scrpage": []
+	},
+	"macros": {
+		"matrikelnr{}": {
+			"snippet": "matrikelnr{${1:your matrikel number}}"
+		},
+		"professor{}": {
+			"snippet": "professor{${1:your professors name}}"
+		},
+		"keywords{}": {
+			"snippet": "keywords{${1}}"
+		},
+		"frontmatter": {
+			"snippet": "frontmatter"
+		},
+		"mainmatter": {
+			"snippet": "mainmatter"
+		},
+		"backmatter": {
+			"snippet": "backmatter"
+		},
+		"title[]{}": {
+			"snippet": "title[${2:short title}]{${1:title}}"
+		},
+		"maketitle[]": {
+			"snippet": "maketitle"
+		}
+	},
+	"envs": {},
+	"options": [
+		"fontfamily=",
+		"sans",
+		"roman",
+		"language=",
+		"english",
+		"german",
+		"faculty=",
+		"f1",
+		"f2",
+		"f3",
+		"f4",
+		"f5",
+		"todos=",
+		"linespacing=",
+		"singlespacing",
+		"onehalfspacing",
+		"doublespacing",
+		"parskip=",
+		"headheight=",
+		"abstract=",
+		"toc=",
+		"fontsize=",
+		"paper=",
+		"a4paper",
+		"a5paper",
+		"twoside",
+		"BCOR="
+	],
+	"keyvals": []
+}

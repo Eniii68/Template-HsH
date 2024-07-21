@@ -169,6 +169,15 @@ always on the left side for `oneside` documents and alternating for `twoside` do
 > **Note** the textarea is not reduced, only moved. So a very large value for `BCOR` will
 > move the content off the page.
 
+### Why doens't VScode automcompletion work?
+
+For the [LaTeX Workshop](https://github.com/James-Yu/LaTeX-Workshop) extention to know about
+the commands and packages provided by the HsH-classes, it needs a spectial file.
+This file is not part of the extention itself but provided by this repo. You need to tell
+your VScode about this by adding the folder containing the file to the
+`latex-workshop.intellisense.package.dirs` list.
+
+
 ### Italic vs. upright Index? (changing subscript)
 
 The classes by default set all sub scripts upright ("steil" in German), because this is
