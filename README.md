@@ -71,7 +71,7 @@ locally using `git checkout example`.
 
 ### Recommended software
 
-As a Tex-Distribution, [MiKTeX is recommended](https://miktex.org/), TexLive should also
+As a tex-distribution, [MiKTeX is recommended](https://miktex.org/), TexLive should also
 work, but I don't use it much. You will also need `perl` to run `latexmk` and other
 useful tools. To edit the `.tex` files, you could use any text editor, but I personally
 like [Visual Studio Code](https://code.visualstudio.com/) the most, which can also be
@@ -120,7 +120,7 @@ git commit --all -m "initalise for [Project]"
 git push
 ```
 
-> **Note** giving you `[Project]` name as the default branch name is optional, and you could
+> **Note** giving your `[Project]` name as the default branch name is optional, and you could
 > keep the default name of `master`, but as the template also has a `master` branch it is
 > less confusing if you choose a different name.
 
